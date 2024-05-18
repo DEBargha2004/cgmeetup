@@ -18,7 +18,7 @@ export default function Navbar ({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        'px-4 py-2 flex justify-between items-center border-b',
+        'px-4 py-2 flex justify-between items-center border-b bg-lightAccent',
         className
       )}
     >
@@ -35,7 +35,7 @@ export default function Navbar ({ className }: { className?: string }) {
         ))}
       </div>
       <div className='w-1/3 relative'>
-        <Input className='w-full pl-8' placeholder='Search' />
+        <Input className='w-full pl-8 h-8' placeholder='Search' />
         <Search
           className='absolute left-2 top-1/2 -translate-y-1/2 
         h-5 w-5'
@@ -44,7 +44,7 @@ export default function Navbar ({ className }: { className?: string }) {
       <div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Avatar className='cursor-pointer'>
+            <Avatar className='cursor-pointer h-8 w-8'>
               <AvatarImage src={user_profile.src} />
               <AvatarFallback>DS</AvatarFallback>
             </Avatar>

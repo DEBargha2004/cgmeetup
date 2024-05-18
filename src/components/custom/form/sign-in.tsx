@@ -24,7 +24,7 @@ export default function SignInForm () {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(handleFormSubmit)}
-        className='flex flex-col justify-start items-stretch gap-4 w-full'
+        className='flex flex-col justify-start items-stretch gap-2 w-full'
       >
         <FormField
           control={form.control}

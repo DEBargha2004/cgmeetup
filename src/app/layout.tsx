@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Open_Sans, Roboto } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/provider/theme-provider'
 import { cn } from '@/lib/utils'
 import { Navbar } from '@/components/custom'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Open_Sans({ subsets: ['cyrillic'] })
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -26,8 +26,8 @@ export default function RootLayout ({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar className='h-[10%]' />
-          <div className='h-[90%]'>{children}</div>
+          <Navbar className='h-[7%]' />
+          <div className='h-[93%]'>{children}</div>
         </ThemeProvider>
       </body>
     </html>
