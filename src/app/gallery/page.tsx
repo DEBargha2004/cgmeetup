@@ -3,6 +3,7 @@ import { Input } from '@/components/ui/input'
 import { Search } from 'lucide-react'
 import projects from '../../../public/data/projects.json'
 import Image from 'next/image'
+import { GalleryImage } from '@/components/custom/gallery'
 
 export default function GalleryPage () {
   return (
@@ -24,17 +25,9 @@ export default function GalleryPage () {
           <Button className='uppercase'>Post Artwork</Button>
         </div>
       </div>
-      <div className='grid grid-cols-8 gap-2'>
+      <div className='grid grid-cols-8 gap-2 px-4'>
         {projects.data.map((project, index) => (
-          <div key={project.id} className='rounded-lg overflow-hidden'>
-            <Image
-              src={project.smaller_square_cover_url}
-              alt={project.title}
-              height={200}
-              width={200}
-              className='w-full h-full object-cover'
-            />
-          </div>
+          <GalleryImage project={project} key={project.id} />
         ))}
       </div>
     </section>
