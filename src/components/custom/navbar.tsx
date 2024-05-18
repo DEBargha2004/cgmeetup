@@ -22,14 +22,14 @@ export default function Navbar ({ className }: { className?: string }) {
         className
       )}
     >
-      <div className='flex justify-between items-center gap-5'>
+      <div className='flex justify-between items-center gap-3'>
         <Link href={'/'}>
           <AppLogo />
         </Link>
         {navItems.map(navItem => (
           <Link href={navItem.href} key={navItem.id}>
             <div
-              className='flex justify-start items-center gap-1 uppercase text-sm p-3 py-2 
+              className='flex justify-start items-center uppercase text-sm p-3 py-2 
             rounded-md hover:bg-darkAccent transition-all'
             >
               {navItem.label}
@@ -37,7 +37,7 @@ export default function Navbar ({ className }: { className?: string }) {
           </Link>
         ))}
       </div>
-      <div className='w-1/3 relative'>
+      <div className='w-3/5 relative'>
         <Input className='w-full pl-8' placeholder='Search' />
         <Search
           className='absolute left-2 top-1/2 -translate-y-1/2 

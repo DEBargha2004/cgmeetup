@@ -48,8 +48,8 @@ export default function GalleryImage ({
       <Image
         src={project.smaller_square_cover_url}
         alt={project.title}
-        height={200}
-        width={200}
+        height={400}
+        width={400}
         className='w-full h-full object-cover'
       />
       <div
@@ -74,7 +74,7 @@ export default function GalleryImage ({
         <div className='flex flex-col justify-start items-start'>
           <h1 className='font-bold line-clamp-1'>{project.title}</h1>
           <div className='flex justify-start items-center gap-2'>
-            <p className='w-1/2 truncate'>{project.user.username}</p>
+            <p className='truncate'>{project.user.username}</p>
             {project.user.is_plus_member ? (
               <p className='bg-primary px-2 py-[2px] rounded-full text-xs'>
                 Pro

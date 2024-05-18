@@ -9,6 +9,11 @@ import landing_image from '../../../public/images/landing-page.png'
 export default function Dashboard () {
   return (
     <div className='w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]'>
+      <div className='flex items-end justify-center col-span-2'>
+        <h1 className='text-[48px] font-bold'>
+          Welcome to the Professional Artist's Community
+        </h1>
+      </div>
       <div className='flex items-center justify-center lg:justify-end py-12'>
         <div className='lg:mx-20 grid w-[350px] gap-6'>
           <div className='grid gap-2 text-center'>
@@ -41,9 +46,6 @@ export default function Dashboard () {
             </div>
             <Button type='submit' className='w-full rounded'>
               Login
-            </Button>
-            <Button variant='outline' className='w-full rounded'>
-              Login with Google
             </Button>
           </div>
           <div className='mt-4 text-center text-sm'>
