@@ -39,10 +39,10 @@ export default function Dashboard () {
               </div>
               <Input id='password' type='password' required />
             </div>
-            <Button type='submit' className='w-full'>
+            <Button type='submit' className='w-full rounded'>
               Login
             </Button>
-            <Button variant='outline' className='w-full'>
+            <Button variant='outline' className='w-full rounded'>
               Login with Google
             </Button>
           </div>

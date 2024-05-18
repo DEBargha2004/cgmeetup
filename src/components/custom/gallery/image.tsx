@@ -75,7 +75,7 @@ export default function GalleryImage ({
           <h1 className='font-bold line-clamp-1'>{project.title}</h1>
           <div className='flex justify-start items-center gap-2'>
             <p className='w-1/2 truncate'>{project.user.username}</p>
-            {!project.user.is_plus_member ? (
+            {project.user.is_plus_member ? (
               <p className='bg-primary px-2 py-[2px] rounded-full text-xs'>
                 Pro
               </p>
