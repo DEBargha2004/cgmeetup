@@ -7,28 +7,28 @@ import Link from 'next/link'
 
 export default function Home () {
   return (
-    <main className='h-full w-[90%] mx-auto grid grid-cols-2 gap-5  pt-10'>
-      <div className='flex justify-end items-start'>
+    <main className='h-[70%] w-[90%] mx-auto grid items-center grid-cols-2 gap-5 pt-10'>
+      <div className='flex justify-end items-center'>
         <Image
           src={landing_page}
           alt='landing_page'
           height={500}
           width={500}
-          className='w-[80%] object-contain'
+          className='w-[50%] min-w-[300px] object-contain'
         />
       </div>
-      <div className='flex justify-start items-start'>
+      <div className='flex justify-start items-start min-h-4/5'>
         <div
-          className='flex flex-col justify-center items-center gap-4
-      h-fit rounded-lg w-[60%] text-center bg-lightAccent border py-5 px-2'
+          className='flex flex-col justify-center items-start gap-12
+      h-fit rounded-lg w-[50%] text-center px-2'
         >
-          <h1 className='text-xl font-semibold mx-auto'>
-            Welcome to the Professional Artist's Community
-          </h1>
           <div
-            className='w-full rounded-md flex flex-col justify-start 
-        items-stretch gap-4 px-3'
+            className='w-full h-fit rounded-lg flex flex-col justify-start 
+        items-stretch gap-4 px-3 py-4 border border-border bg-lightAccent'
           >
+            <h1 className='text-lg font-semibold mx-auto'>
+              Welcome to the Professional Artist's Community
+            </h1>
             <SignInForm />
             <Separator />
             <Link href={'/sign-up'}>
