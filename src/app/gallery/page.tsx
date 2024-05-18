@@ -6,45 +6,28 @@ import { Grid, Minus, Plus, Search } from 'lucide-react'
 import projects from '../../../public/data/projects.json'
 import { GalleryImage } from '@/components/custom/gallery'
 import { cn } from '@/lib/utils'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useClickAway } from '@uidotdev/usehooks'
 
 export default function GalleryPage () {
   const [showGridTab, setShowGridTab] = useState(false)
-  const [imageLimitRows, setImageLimitRows] = useState({
-    lowerLimit: 4,
-    upperLimit: 8,
-    current: 8,
-    changeAmount: 2
+  const [imageScale, setImageScale] = useState<boolean>(false)
+  const gridTabref = useClickAway(() => {
+    setShowGridTab(false)
   })
-  const handleChangeImageCount = (type: 'increase' | 'decrease') => {
-    if (type === 'increase') {
-      if (imageLimitRows.current < imageLimitRows.upperLimit) {
-        setImageLimitRows({
-          ...imageLimitRows,
-          current: imageLimitRows.current + imageLimitRows.changeAmount
-        })
-      }
-    } else if (type === 'decrease') {
-      if (imageLimitRows.current > imageLimitRows.lowerLimit) {
-        setImageLimitRows({
-          ...imageLimitRows,
-          current: imageLimitRows.current - imageLimitRows.changeAmount
-        })
-      }
-    }
-  }
+
   return (
     <section className='py-10'>
       <div className='my-12 flex flex-col justify-between items-center gap-12 text-center'>
         <div className='space-y-4'>
-          <h1 className='text-[52px] font-bold'>
+          <h1 className='text-4xl md:text-[52px] font-bold'>
             Showcase & Discover Creative Work
           </h1>
-          <p className='text-xl'>
+          <p className='text-lg md:text-xl'>
             for Concept Art , Visual Effects , Short Films and more.
           </p>
         </div>
-        <div className='w-2/5 relative'>
+        <div className='w-3/4 md:w-3/5 lg:w-2/5 relative'>
           <Input className='pl-10' placeholder='Search' />
           <Search className='absolute left-2 top-1/2 -translate-y-1/2' />
         </div>
@@ -53,10 +36,12 @@ export default function GalleryPage () {
         </div>
       </div>
       <div
-        className='grid gap-2 px-4 transition-all'
-        style={{
-          gridTemplateColumns: `repeat(${imageLimitRows.current}, 1fr)`
-        }}
+        className="grid gap-2 px-4 transition-all data-[scale='true']:grid-cols-1 
+        data-[scale='false']:grid-cols-2 sm:data-[scale='false']:grid-cols-4 
+        sm:data-[scale='true']:grid-cols-2 md:data-[scale='true']:grid-cols-4 
+        data-[scale='false']:md:grid-cols-6  lg:data-[scale='true']:grid-cols-6
+        lg:data-[scale=false]:grid-cols-8"
+        data-scale={imageScale}
       >
         {projects.data.map((project, index) => (
           <GalleryImage project={project} key={project.id} />
@@ -67,6 +52,8 @@ export default function GalleryPage () {
         shadow-lg cursor-pointer h-14 transition-all duration-300 ${
           showGridTab ? 'w-[132px]' : 'w-14'
         }`)}
+        //@ts-ignore
+        ref={gridTabref}
       >
         <div
           className={cn(
@@ -80,7 +67,7 @@ export default function GalleryPage () {
               'grayscale hover:grayscale-0 transition-all',
               showGridTab ? 'w-7 h-7' : 'w-0 h-0'
             )}
-            onClick={() => handleChangeImageCount('increase')}
+            onClick={() => setImageScale(false)}
           />
           <Grid
             className='h-7 w-7'
@@ -91,7 +78,7 @@ export default function GalleryPage () {
               'grayscale hover:grayscale-0 transition-all',
               showGridTab ? 'w-7 h-7' : 'w-0 h-0'
             )}
-            onClick={() => handleChangeImageCount('decrease')}
+            onClick={() => setImageScale(true)}
           />
         </div>
       </div>
