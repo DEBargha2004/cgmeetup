@@ -80,7 +80,7 @@ export default function GalleryPage () {
               'grayscale hover:grayscale-0 transition-all',
               showGridTab ? 'w-7 h-7' : 'w-0 h-0'
             )}
-            onClick={() => handleChangeImageCount('decrease')}
+            onClick={() => handleChangeImageCount('increase')}
           />
           <Grid
             className='h-7 w-7'
@@ -91,7 +91,7 @@ export default function GalleryPage () {
               'grayscale hover:grayscale-0 transition-all',
               showGridTab ? 'w-7 h-7' : 'w-0 h-0'
             )}
-            onClick={() => handleChangeImageCount('increase')}
+            onClick={() => handleChangeImageCount('decrease')}
           />
         </div>
       </div>
