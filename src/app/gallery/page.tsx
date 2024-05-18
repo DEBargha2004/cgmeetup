@@ -9,7 +9,7 @@ export default function GalleryPage () {
     <section className='py-10'>
       <div className='my-12 flex flex-col justify-between items-center gap-12 text-center'>
         <div className='space-y-4'>
-          <h1 className='text-5xl font-bold'>
+          <h1 className='text-[52px] font-bold'>
             Showcase & Discover Creative Work
           </h1>
           <p className='text-xl'>
@@ -24,7 +24,7 @@ export default function GalleryPage () {
           <Button className='uppercase'>Post Artwork</Button>
         </div>
       </div>
-      <div className='grid grid-cols-6 gap-2'>
+      <div className='grid grid-cols-8 gap-2'>
         {projects.data.map((project, index) => (
           <div key={project.id} className='rounded-lg overflow-hidden'>
             <Image

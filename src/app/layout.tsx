@@ -26,8 +26,8 @@ export default function RootLayout ({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar className='h-[7%]' />
-          <div className='h-[93%]'>{children}</div>
+          <Navbar className='h-[6%] min-h-[50px]' />
+          <div className='h-[94%]'>{children}</div>
         </ThemeProvider>
       </body>
     </html>
