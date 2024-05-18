@@ -24,6 +24,7 @@ import { signInSchema } from '@/schema/sign-in'
 import { SignUpSchemaType } from '@/schema/sign-up'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import DatePicker from '../date-picker'
 
 export default function SignUpForm () {
   const form = useForm<SignUpSchemaType>({
@@ -77,7 +78,20 @@ export default function SignUpForm () {
         />
         <FormField
           control={form.control}
-          name='first_name'
+          name='dob'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Date of Birth</FormLabel>
+              <FormControl>
+                <DatePicker value={field.value} onChange={field.onChange} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name='gender'
           render={({ field }) => (
             <FormItem>
               <FormLabel>Gender</FormLabel>

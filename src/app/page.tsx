@@ -12,6 +12,8 @@ export default function Home () {
         <Image
           src={landing_page}
           alt='landing_page'
+          height={500}
+          width={500}
           className=' w-full object-contain'
         />
       </div>
