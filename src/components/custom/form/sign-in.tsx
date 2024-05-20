@@ -28,7 +28,7 @@ export default function SignInForm () {
       >
         <FormField
           control={form.control}
-          name='email'
+          name='id'
           render={({ field }) => (
             <FormItem className='text-left'>
               <FormLabel>Email</FormLabel>
