@@ -74,7 +74,7 @@ export default function Navbar ({ className }: { className?: string }) {
         </SheetContent>
       </Sheet>
       <div className='flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4'>
-        <form className='w-full sm:w-2/3 ml-auto'>
+        <form className='w-full sm:w-2/3 mr-auto ml-1/10'>
           <div className='relative'>
             <Search className='absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground' />
             <Input

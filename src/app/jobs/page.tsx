@@ -16,7 +16,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 import { Input } from '@/components/ui/input'
 
-import { JobCard, JobCategoryCard } from '@/components/custom'
+import { JobCard, FeaturedJobCard } from '@/components/custom'
 
 const sample_cateories = [
   '2D Programmer',
@@ -62,29 +62,34 @@ export default function Dashboard () {
             <Button className='uppercase'>Post Job</Button>
           </div>
         </div>
-        <div className='grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3'>
-          <Card className='xl:col-span-2 flex flex-col gap-4 h-fit border-none bg-transparent'>
-            <JobCard />
-            <JobCard />
-            <JobCard />
+        <div className='lg:w-[77%] mx-auto grid gap-4 md:gap-8 lg:grid-cols-3 xl:grid-cols-3'>
+          <Card
+            className='xl:col-span-2 col-span-3 flex flex-col gap-4 h-fit 
+          border-none bg-transparent'
+          >
+            <CardContent className='space-y-4 px-0'>
+              <JobCard />
+              <JobCard />
+              <JobCard />
+            </CardContent>
           </Card>
-          <Card className='bg-transparent border-none'>
+          <Card className='bg-transparent border-none col-span-3 xl:col-span-1'>
             <Card className='bg-transparent border-none'>
-              <CardHeader className='pt-0'>
+              <CardHeader className='xl:pt-0 px-0'>
                 <CardTitle>Featured Jobs</CardTitle>
               </CardHeader>
-              <CardContent className='grid gap-8'>
-                <JobCategoryCard />
-                <JobCategoryCard />
-                <JobCategoryCard />
-                <JobCategoryCard />
+              <CardContent className='grid gap-4 px-0'>
+                <FeaturedJobCard />
+                <FeaturedJobCard />
+                <FeaturedJobCard />
+                <FeaturedJobCard />
               </CardContent>
             </Card>
             <Card className='bg-transparent border-none'>
-              <CardHeader>
+              <CardHeader className=''>
                 <CardTitle>Categories</CardTitle>
               </CardHeader>
-              <CardContent className='flex flex-col gap-3'>
+              <CardContent className='flex flex-col gap-4'>
                 {sample_cateories.map(cat => (
                   <Button
                     variant={'outline'}

@@ -18,7 +18,7 @@ export default function GalleryPage () {
 
   return (
     <div className='flex min-h-screen w-full flex-col'>
-      <main className='flex flex-1 flex-col gap-4 py-4 md:gap-8 md:py-8'>
+      <main className='flex flex-1 flex-col gap-4 py-4 md:gap-8 md:py-12'>
         <div className='my-4 flex flex-col justify-between items-center gap-12 text-center'>
           <div className='space-y-4'>
             <h1 className='text-4xl md:text-[52px] font-bold'>
@@ -37,18 +37,18 @@ export default function GalleryPage () {
           </div>
         </div>
         <div
-          className="grid gap-2 px-4 transition-all data-[scale='true']:grid-cols-1 
+          className="grid gap-1 px-1 transition-all data-[scale='true']:grid-cols-1 
         data-[scale='false']:grid-cols-2 sm:data-[scale='false']:grid-cols-4 
         sm:data-[scale='true']:grid-cols-2 md:data-[scale='true']:grid-cols-4 
-        data-[scale='false']:md:grid-cols-6  lg:data-[scale='true']:grid-cols-6
-        lg:data-[scale=false]:grid-cols-8"
+        data-[scale='false']:md:grid-cols-6  lg:data-[scale='true']:grid-cols-5
+        lg:data-[scale=false]:grid-cols-7"
           data-scale={imageScale}
         >
           {projects.data.map((project, index) => (
             <GalleryImage project={project} key={project.id} />
           ))}
         </div>
-        <div
+        {/* <div
           className={cn(`aspect-square rounded-full bg-white fixed bottom-10 left-10 
         shadow-lg cursor-pointer h-14 transition-all duration-300 `)}
           //@ts-ignore
@@ -80,7 +80,7 @@ export default function GalleryPage () {
               onClick={() => setImageScale(true)}
             />
           </div>
-        </div>
+        </div> */}
       </main>
     </div>
   )

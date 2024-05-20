@@ -3,7 +3,7 @@ import { Card } from '../ui/card'
 import { Badge } from '../ui/badge'
 import { MapPin } from 'lucide-react'
 
-export default function JobCategoryCard () {
+export default function FeaturedJobCard () {
   return (
     <Card
       className='bg-lightAccent flex items-stretch justify-between gap-4 w-full
@@ -19,12 +19,12 @@ export default function JobCategoryCard () {
         className='h-[100px] w-[100px] object-cover rounded-lg'
       />
       <div className='h-full w-full flex flex-col justify-between items-start'>
-        <h1 className='text-lg font-semibold'>
+        <h1 className='text-sm font-semibold'>
           3D Character Artist, Avatars Aquent
         </h1>
-        <Badge>
+        <Badge className='text-xs'>
           <MapPin className='mr-2 h-5 w-5' />
-          Los Angeles, USA
+          <span className='text-xs'>Los Angeles, USA</span>
         </Badge>
       </div>
     </Card>

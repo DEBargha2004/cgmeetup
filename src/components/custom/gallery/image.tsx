@@ -41,7 +41,7 @@ export default function GalleryImage ({
     <div
       key={project.id}
       className={cn(
-        'rounded-lg overflow-hidden relative group cursor-pointer @container',
+        'rounded overflow-hidden relative group cursor-pointer @container',
         className
       )}
     >
