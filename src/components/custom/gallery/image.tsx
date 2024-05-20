@@ -41,7 +41,7 @@ export default function GalleryImage ({
     <div
       key={project.id}
       className={cn(
-        'rounded-lg overflow-hidden relative group cursor-pointer',
+        'rounded-lg overflow-hidden relative group cursor-pointer @container',
         className
       )}
     >
@@ -54,7 +54,7 @@ export default function GalleryImage ({
       />
       <div
         className='absolute bottom-0 left-0 w-full h-1/2 translate-y-full 
-        bg-gradient-to-t from-black/70 to-black/0 transition-all duration-300 
+        bg-gradient-to-t from-black/90 to-black/0 transition-all duration-300 
       group-hover:-translate-y-0 delay-300'
       />
       <div
@@ -62,19 +62,23 @@ export default function GalleryImage ({
       group-hover:translate-y-0 transition-all duration-200 delay-300 flex justify-start 
       items-stretch gap-2'
       >
-        <div className='my-auto'>
+        <div className='my-auto shrink-0 '>
           <Image
             src={project.user.medium_avatar_url}
             alt={project.user.username}
             height={50}
             width={50}
-            className='w-10 h-10 rounded-full object-cover '
+            className='@xs:w-10 @xs:h-10 h-6 w-6 rounded-full object-cover '
           />
         </div>
         <div className='flex flex-col justify-start items-start'>
-          <h1 className='font-bold line-clamp-1'>{project.title}</h1>
+          <h1 className='font-bold line-clamp-1 text-sm @2xl:text-md'>
+            {project.title}
+          </h1>
           <div className='flex justify-start items-center gap-2'>
-            <p className='truncate'>{project.user.username}</p>
+            <p className='truncate text-xs @xs:text-md'>
+              {project.user.username}
+            </p>
             {project.user.is_plus_member ? (
               <p className='bg-primary px-2 py-[2px] rounded-full text-xs'>
                 Pro
