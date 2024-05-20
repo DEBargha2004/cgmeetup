@@ -76,7 +76,7 @@ body {
 }
 
 .scroller::-webkit-scrollbar {
-  width: 5px;
+  width: 3px;
 }
 
 .scroller::-webkit-scrollbar-track {

@@ -39,7 +39,7 @@ export default function Navbar ({ className }: { className?: string }) {
           <Link
             key={item.id}
             href={item.href}
-            className='text-muted-foreground transition-colors hover:text-foreground'
+            className='transition-colors text-foreground'
           >
             {item.label}
           </Link>
