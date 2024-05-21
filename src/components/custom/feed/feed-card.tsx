@@ -39,7 +39,7 @@ export default function FeedCard ({
   return (
     <div
       key={project.id}
-      className='rounded border py-2 space-y-2 w-full sm:w-[480px] shrink-0'
+      className='rounded border py-2 space-y-2 w-full sm:w-[90%] shrink-0'
     >
       <header className='px-2 w-full flex gap-3 justify-between items-center'>
         <div className='flex  gap-3 '>

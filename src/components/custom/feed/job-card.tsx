@@ -75,8 +75,8 @@ export function JobCardContainer ({
   return (
     <Carousel className={cn('border rounded p-4', className)}>
       <CarouselContent className='space-x-2 px-4'>{children}</CarouselContent>
-      <CarouselNext className='hidden sm:flex -right-9' />
-      <CarouselPrevious className='hidden sm:flex -left-9' />
+      {/* <CarouselNext className='hidden sm:flex -right-9' />
+      <CarouselPrevious className='hidden sm:flex -left-9' /> */}
     </Carousel>
   )
 }
