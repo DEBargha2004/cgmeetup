@@ -1,3 +1,5 @@
+'use client'
+
 import { cn } from '@/lib/utils'
 import AppLogo from './app-logo'
 import { navItems } from '@/constants/nav-items'
@@ -12,14 +14,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '../ui/dropdown-menu'
-import user_profile from '../../../public/images/userProf.jpg'
-import { profileItems } from '@/constants/user-profile-dropdown'
-import { CircleUser, Menu, Package2, Search } from 'lucide-react'
+import { profileItems, uploadButtonItems } from '@/constants/dropdown-items'
+import { CircleUser, Menu, Package2, Plus, Search } from 'lucide-react'
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
 import { Button } from '../ui/button'
 import React from 'react'
+import { useGlobalAppStore } from '@/store/global-app-store'
 
 export default function Navbar ({ className }: { className?: string }) {
+  const { sidebarState, setSidebarState } = useGlobalAppStore()
   return (
     <header
       className={cn(
@@ -45,7 +48,7 @@ export default function Navbar ({ className }: { className?: string }) {
           </Link>
         ))}
       </nav>
-      <Sheet>
+      <Sheet open={sidebarState} onOpenChange={setSidebarState}>
         <SheetTrigger asChild>
           <Button variant='outline' size='icon' className='shrink-0 md:hidden'>
             <Menu className='h-5 w-5' />
@@ -86,6 +89,28 @@ export default function Navbar ({ className }: { className?: string }) {
         </form>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
+            <Button variant={'success'} className='px-3 h-9'>
+              <Plus className='h-5 w-5 mr-1' /> Upload
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align='end'>
+            {uploadButtonItems.map((item, item_idx) => (
+              <React.Fragment key={item_idx}>
+                {item.type === 'link' ? (
+                  <Link href={item.href}>
+                    <DropdownMenuItem key={item.id} className='cursor-pointer'>
+                      {item.label}
+                    </DropdownMenuItem>
+                  </Link>
+                ) : (
+                  <DropdownMenuSeparator />
+                )}
+              </React.Fragment>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
             <Button variant='secondary' size='icon' className='rounded-full'>
               <CircleUser className='h-5 w-5' />
               <span className='sr-only'>Toggle user menu</span>
@@ -95,9 +120,11 @@ export default function Navbar ({ className }: { className?: string }) {
             {profileItems.map((item, item_idx) => (
               <React.Fragment key={item_idx}>
                 {item.type === 'link' ? (
-                  <DropdownMenuItem key={item.id} className='cursor-pointer'>
-                    {item.label}
-                  </DropdownMenuItem>
+                  <Link href={item.href}>
+                    <DropdownMenuItem key={item.id} className='cursor-pointer'>
+                      {item.label}
+                    </DropdownMenuItem>
+                  </Link>
                 ) : (
                   <DropdownMenuSeparator />
                 )}

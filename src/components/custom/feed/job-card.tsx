@@ -34,7 +34,7 @@ export default function JobCard ({ className }: { className?: string }) {
             <h1 className='text-sm sm:text-lg font-semibold leading-6'>
               Senior 2D Concept Game Artist
             </h1>
-            <EllipsisVertical />
+            <EllipsisVertical className='h-5 w-5 sm:h-fit sm:w-fit' />
           </div>
           <p className='text-xs sm:text-sm'>Ubisoft</p>
           <p className='text-xs sm:text-sm text-muted-foreground'>
@@ -55,9 +55,9 @@ export default function JobCard ({ className }: { className?: string }) {
         </div>
         <div className='space-y-1'>
           <p className='text-primary text-xs sm:text-sm'>USD 5k - 7k</p>
-          <div className='flex gap-2'>
-            <Badge>1-3 Years</Badge>
-            <Badge>Graduation/Diploma</Badge>
+          <div className='flex gap-2 flex-wrap'>
+            <Badge className='text-[10px] sm:text-sm'>1-3 Years</Badge>
+            <Badge className='text-[10px] sm:text-sm'>Graduation/Diploma</Badge>
           </div>
         </div>
       </div>
@@ -75,8 +75,8 @@ export function JobCardContainer ({
   return (
     <Carousel className={cn('border rounded p-4', className)}>
       <CarouselContent className='space-x-2 px-4'>{children}</CarouselContent>
-      {/* <CarouselNext className='hidden sm:flex -right-9' />
-      <CarouselPrevious className='hidden sm:flex -left-9' /> */}
+      <CarouselNext className='hidden sm:flex right-4 bg-darkAccent ' />
+      <CarouselPrevious className='hidden sm:flex left-4 bg-darkAccent ' />
     </Carousel>
   )
 }

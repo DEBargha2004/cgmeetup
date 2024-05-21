@@ -3,7 +3,7 @@ import { Inter, Open_Sans, Roboto } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/provider/theme-provider'
 import { cn } from '@/lib/utils'
-import { Navbar } from '@/components/custom'
+import { Navbar, NavigationHelper } from '@/components/custom'
 
 const inter = Open_Sans({ subsets: ['cyrillic'] })
 
@@ -30,6 +30,7 @@ export default function RootLayout ({
           <div className='h-[calc(100%-64px)] overflow-y-auto scroller'>
             {children}
           </div>
+          <NavigationHelper />
         </ThemeProvider>
       </body>
     </html>

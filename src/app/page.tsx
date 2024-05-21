@@ -45,7 +45,7 @@ export default function Dashboard () {
       <div className='flex items-start justify-center lg:justify-start py-12'>
         <div className='lg:mx-20 grid w-[350px] gap-6'>
           <div className='grid gap-2 text-center'>
-            <h1 className='text-3xl font-bold'>Signin</h1>
+            <h1 className='text-3xl font-semibold'>Signin</h1>
           </div>
           <Form {...form}>
             <form
