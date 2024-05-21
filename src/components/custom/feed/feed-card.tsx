@@ -1,8 +1,8 @@
 'use client'
 
 import Image from 'next/image'
-import projects from '../../public/data/projects.json'
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
+import projects from '../../../../public/data/projects.json'
+import { Avatar, AvatarFallback, AvatarImage } from '../../ui/avatar'
 import {
   Bookmark,
   EllipsisVertical,

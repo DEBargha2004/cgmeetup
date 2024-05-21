@@ -18,7 +18,7 @@ import { Input } from '@/components/ui/input'
 
 import { JobCard, FeaturedJobCard } from '@/components/custom'
 
-const sample_cateories = [
+export const sample_cateories = [
   '2D Programmer',
 
   '2D Sequence Lead',
@@ -86,14 +86,15 @@ export default function Dashboard () {
               </CardContent>
             </Card>
             <Card className='bg-transparent border-none'>
-              <CardHeader className=''>
+              <CardHeader className='px-0'>
                 <CardTitle>Categories</CardTitle>
               </CardHeader>
-              <CardContent className='flex flex-col gap-4'>
+              <CardContent className='grid grid-cols-2 gap-2 px-0'>
                 {sample_cateories.map(cat => (
                   <Button
                     variant={'outline'}
-                    className='w-full rounded bg-transparent hover:bg-lightAccent'
+                    className='w-full rounded bg-transparent hover:bg-lightAccent 
+                     lg:text-sm'
                     key={cat}
                   >
                     {cat}
