@@ -17,28 +17,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 
 import { JobCard, FeaturedJobCard } from '@/components/custom'
-
-export const sample_cateories = [
-  '2D Programmer',
-
-  '2D Sequence Lead',
-
-  '2D Supervisor',
-
-  'Compositor',
-
-  'Lead Compositor',
-
-  'Matte Painter',
-
-  'Motion Graphic Artist',
-
-  'Paint Artist',
-
-  'Roto Artist',
-
-  'Texturing'
-]
+import { sample_cateories } from '@/constants/categories'
 
 export default function Dashboard () {
   return (

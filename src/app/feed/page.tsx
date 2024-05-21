@@ -6,8 +6,8 @@ import {
   CarouselContent,
   CarouselItem
 } from '@/components/ui/carousel'
-import { sample_cateories } from '../jobs/page'
 import { Badge } from '@/components/ui/badge'
+import { sample_cateories } from '@/constants/categories'
 
 export default function FeedPage () {
   return (
