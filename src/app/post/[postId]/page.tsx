@@ -35,7 +35,6 @@ the release of Letraset sheets containing Lorem Ipsum passages, and
 more recently with desktop publishing software like Aldus PageMaker
 including versions of Lorem Ipsum`
 
-  //   const [showFullDescription, setShowFullDescription] = useState(false)
   const project = projects.data[project_idx] || {}
 
   return (
@@ -46,7 +45,7 @@ including versions of Lorem Ipsum`
       >
         <div className='overflow-y-auto h-full snap-mandatory snap-y scroller-hide'>
           {Array.from({ length: 4 }, (_, i) => i).map(item => (
-            <PostImage>
+            <PostImage key={item}>
               <Image
                 src={project.smaller_square_cover_url}
                 alt={project.title}
@@ -162,7 +161,7 @@ including versions of Lorem Ipsum`
           <Separator />
           <CardContent className='pt-6 space-y-6 rounded'>
             {Array.from({ length: 12 }, (_, i) => i).map(item => (
-              <Comment />
+              <Comment key={item} />
             ))}
           </CardContent>
           <div className='w-full sticky bottom-0'>

@@ -23,9 +23,9 @@ export default function SuggestionCard ({
         className='w-full flex justify-between items-start'
         height={80}
         width={80}
-        image='h-14 w-14'
-        heading='text-lg'
-        description=''
+        image='xl:h-14 xl:w-14 w-10 h-10'
+        heading='text-sm xl:text-lg'
+        description='text-xs xl:text-sm'
       >
         <div
           className='w-10 h-10 cursor-pointer flex justify-center 

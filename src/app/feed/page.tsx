@@ -23,9 +23,10 @@ export default function FeedPage () {
   return (
     <main className='h-full flex md:flex-row flex-col-reverse justify-start items-start'>
       <div
-        className='w-full h-fit bottom-0 left-0 md:w-[75px] xl:w-[250px] 
-      z-20 md:h-full border-r border-t px-2 flex flex-row md:flex-col justify-center md:justify-start 
-      items-center md:items-start py-2 md:pt-8 md:overflow-y-auto scroller overflow-x-auto'
+        className='w-full h-fit bottom-0 left-0 md:w-[75px] 6xl:w-[45%] 5xl:w-2/5
+        4xl:w-1/3 xl:w-1/4 lg:w-1/5 z-20 md:h-full border-r border-t px-2 flex flex-row md:flex-col 
+        justify-center md:justify-start items-center md:items-end py-2 md:pt-8 
+        md:overflow-y-auto scroller overflow-x-auto overflow-y-auto'
       >
         {feedNavItems.map((item, item_idx) => (
           <React.Fragment key={item_idx}>
@@ -33,21 +34,21 @@ export default function FeedPage () {
               <div className='py-2' />
             ) : item.type === 'header' ? (
               <div
-                className='hidden xl:flex justify-start items-center rounded p-2 
-              text-xl font-bold shrink-0 w-full'
+                className='hidden lg:flex justify-start items-center rounded p-2 
+              text-xl font-bold shrink-0 w-full max-w-[250px]'
               >
                 <h1>{item.label}</h1>
               </div>
             ) : (
-              <Link href={item.href} className='w-full'>
+              <Link href={item.href} className='w-full max-w-[250px]'>
                 <div
-                  className='flex justify-center lg:gap-2 xl:justify-start items-center rounded hover:bg-lightAccent 
-              p-2 font-semibold shrink-0'
+                  className='flex justify-center lg:gap-2 lg:justify-start items-center rounded 
+                  hover:bg-lightAccent p-2 font-semibold shrink-0'
                 >
                   <MaterialSymbolIcon className=''>
                     {item.icon_name || ''}
                   </MaterialSymbolIcon>
-                  <p className='xl:block hidden'>{item.label}</p>
+                  <p className='lg:block hidden'>{item.label}</p>
                 </div>
               </Link>
             )}
@@ -55,8 +56,8 @@ export default function FeedPage () {
         ))}
       </div>
       <div
-        className='w-full h-[calc(100%-40px)] md:h-full md:w-[calc(100%-75px)] xl:w-[calc(100%-250px)]  overflow-y-auto flex justify-center 
-      items-start lg:gap-[2%] scroller'
+        className='w-full h-[calc(100%-40px)] md:h-full md:w-[calc(100%-75px)] 6xl:w-[55%] 5xl:w-3/5 4xl:w-2/3 
+         xl:w-3/4 lg:w-4/5 overflow-y-auto flex justify-center lg:justify-start items-start lg:gap-[2%] scroller'
       >
         {/* <div className='w-full sm:max-w-[630px] my-4'> */}
         <div className='w-full sm:max-w-[630px] space-y-4 flex flex-col items-center px-2 py-4'>
@@ -104,12 +105,9 @@ export default function FeedPage () {
           className='w-0 lg:w-[35%] max-w-[450px]  h-fit  
          my-12 feed-right-bar space-y-2 overflow-hidden'
         >
-          <SuggestionCard />
-          <SuggestionCard />
-          <SuggestionCard />
-          <SuggestionCard />
-          <SuggestionCard />
-          <SuggestionCard />
+          {Array.from({ length: 5 }, (_, i) => i).map(i => (
+            <SuggestionCard key={i} />
+          ))}
         </div>
       </div>
     </main>
