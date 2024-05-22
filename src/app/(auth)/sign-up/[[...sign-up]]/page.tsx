@@ -5,7 +5,7 @@ export default function SignUpPage () {
   return (
     <div
       className='p-4 w-full flex flex-col justify-start items-stretch gap-4 
-    rounded-lg bg-lightAccent border'
+    rounded-lg  border'
     >
       <SignUpForm />
       <div>

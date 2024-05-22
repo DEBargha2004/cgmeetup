@@ -47,6 +47,18 @@ export const profileItems: ProfileItem[] = [
     label: 'Sign In',
     href: '/sign-in',
     type: 'link'
+  },
+  {
+    type: 'link',
+    id: 'otp',
+    label: 'OTP',
+    href: '/otp'
+  },
+  {
+    type: 'link',
+    id: 'phone-number',
+    label: 'Phone Number',
+    href: '/phone-number'
   }
 ]
 

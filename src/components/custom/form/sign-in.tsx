@@ -31,9 +31,9 @@ export default function SignInForm () {
           name='id'
           render={({ field }) => (
             <FormItem className='text-left'>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>Email / Password</FormLabel>
               <FormControl>
-                <Input type='email' {...field} placeholder='Email' />
+                <Input {...field} placeholder='Email or Phone' />
               </FormControl>
               <FormMessage />
             </FormItem>

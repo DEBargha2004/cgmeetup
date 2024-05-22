@@ -20,15 +20,15 @@ import {
   SelectValue
 } from '@/components/ui/select'
 import { genders } from '@/constants/gender'
-import { signInSchema } from '@/schema/sign-in'
-import { SignUpSchemaType } from '@/schema/sign-up'
+import { SignUpSchemaType, signUpSchema } from '@/schema/sign-up'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import DatePicker from '../date-picker'
+import { experienceLevels } from '@/constants/experience-level'
 
 export default function SignUpForm () {
   const form = useForm<SignUpSchemaType>({
-    resolver: zodResolver(signInSchema)
+    resolver: zodResolver(signUpSchema)
   })
   const handleFormSubmit = async (data: SignUpSchemaType) => {}
   return (
@@ -103,6 +103,32 @@ export default function SignUpForm () {
                   <SelectContent>
                     <SelectGroup>
                       {genders.map(gender => (
+                        <SelectItem key={gender.id} value={gender.value}>
+                          {gender.label}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name='experience_level'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Experience Level</FormLabel>
+              <FormControl>
+                <Select value={field.value} onValueChange={field.onChange}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      {experienceLevels.map(gender => (
                         <SelectItem key={gender.id} value={gender.value}>
                           {gender.label}
                         </SelectItem>
