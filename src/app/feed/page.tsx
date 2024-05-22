@@ -34,7 +34,7 @@ export default function FeedPage () {
               <div className='py-2' />
             ) : item.type === 'header' ? (
               <div
-                className='hidden xl:flex justify-start items-center rounded p-2 
+                className='hidden lg:flex justify-start items-center rounded p-2 
               text-xl font-bold shrink-0 w-full max-w-[250px]'
               >
                 <h1>{item.label}</h1>
@@ -42,7 +42,7 @@ export default function FeedPage () {
             ) : (
               <Link href={item.href} className='w-full max-w-[250px]'>
                 <div
-                  className='flex justify-start lg:gap-2 xl:justify-start items-center rounded 
+                  className='flex justify-center lg:gap-2 lg:justify-start items-center rounded 
                   hover:bg-lightAccent p-2 font-semibold shrink-0'
                 >
                   <MaterialSymbolIcon className=''>
