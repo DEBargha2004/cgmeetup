@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import { Inter, Open_Sans, Roboto } from 'next/font/google'
-import './globals.css'
 import { ThemeProvider } from '@/provider/theme-provider'
 import { cn } from '@/lib/utils'
 import { Navbar, NavigationHelper } from '@/components/custom'
+import './globals.css'
+import './global-icons.css'
 
 const inter = Open_Sans({ subsets: ['cyrillic'] })
 
@@ -19,7 +20,13 @@ export default function RootLayout ({
 }>) {
   return (
     <html lang='en'>
-      <body className={cn(inter.className, 'bg-darkAccent')}>
+      <head>
+        <link
+          href='https://fonts.googleapis.com/icon?family=Material+Icons'
+          rel='stylesheet'
+        ></link>
+      </head>
+      <body className={cn(inter.className, 'bg-background')}>
         <ThemeProvider
           attribute='class'
           defaultTheme='dark'

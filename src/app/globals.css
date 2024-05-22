@@ -6,7 +6,7 @@
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
+    --card: 240 14% 11%;
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
@@ -33,9 +33,9 @@
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    --background: 225 14% 11%;
     --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
+    --card: 240 14% 11%;
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
@@ -89,12 +89,12 @@ body {
   background-clip: content-box;
 }
 
-.scroller-disable::-webkit-scrollbar {
+.scroller-hide::-webkit-scrollbar {
   width: 0px;
   height: 0px;
 }
 
-.scroller-disable::-webkit-scrollbar-track {
+/* .scroller-disable::-webkit-scrollbar-track {
   background-color: transparent;
 }
 
@@ -102,4 +102,4 @@ body {
   background-color: hsl(204 99% 49%);
   border-radius: 20px;
   background-clip: content-box;
-}
+} */

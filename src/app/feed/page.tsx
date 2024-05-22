@@ -16,6 +16,8 @@ import { feedNavItems } from '@/constants/feed-nav'
 import Link from 'next/link'
 import { PlayCircle } from 'lucide-react'
 import React from 'react'
+import { Button } from '@/components/ui/button'
+import { MaterialSymbolIcon } from '@/components/custom'
 
 export default function FeedPage () {
   return (
@@ -39,10 +41,12 @@ export default function FeedPage () {
             ) : (
               <Link href={item.href} className='w-full'>
                 <div
-                  className='flex justify-center xl:justify-start items-center rounded hover:bg-lightAccent 
+                  className='flex justify-center lg:gap-2 xl:justify-start items-center rounded hover:bg-lightAccent 
               p-2 font-semibold shrink-0'
                 >
-                  <PlayCircle className='xl:h-5 xl:w-5 h-7 w-7 xl:mr-2' />
+                  <MaterialSymbolIcon className=''>
+                    {item.icon_name || ''}
+                  </MaterialSymbolIcon>
                   <p className='xl:block hidden'>{item.label}</p>
                 </div>
               </Link>
@@ -52,13 +56,13 @@ export default function FeedPage () {
       </div>
       <div
         className='w-full h-[calc(100%-40px)] md:h-full md:w-[calc(100%-75px)] xl:w-[calc(100%-250px)]  overflow-y-auto flex justify-center 
-      items-start sm:gap-[2%] scroller'
+      items-start lg:gap-[2%] scroller'
       >
         {/* <div className='w-full sm:max-w-[630px] my-4'> */}
         <div className='w-full sm:max-w-[630px] space-y-4 flex flex-col items-center px-2 py-4'>
           <JobCardContainer className='w-full border-none'>
             {Array.from({ length: 9 }, (_, i) => i).map(i => (
-              <JobCard key={i} className='select-none' />
+              <JobCard key={i} className='select-none bg-transparent border' />
             ))}
           </JobCardContainer>
           <Carousel className='w-full rounded p-4'>
@@ -68,15 +72,27 @@ export default function FeedPage () {
                   className='basis-auto flex justify-center'
                   key={category}
                 >
-                  <Badge
+                  <Button
                     variant={'outline'}
                     className='whitespace-nowrap w-full flex justify-center border-primary 
-                   select-none'
+                   select-none bg-transparent hover:bg-inherit'
                   >
                     {category}
-                  </Badge>
+                  </Button>
                 </CarouselItem>
               ))}
+              <CarouselItem className='basis-auto flex justify-center'>
+                <Button
+                  variant={'outline'}
+                  className='whitespace-nowrap w-full flex justify-center border-primary 
+                   select-none bg-transparent'
+                >
+                  <span className='material-symbols-outlined'>
+                    work_history
+                  </span>
+                  <span className='material-symbols-outlined'>add</span>
+                </Button>
+              </CarouselItem>
             </CarouselContent>
           </Carousel>
           {projects.data.map(project => (
@@ -85,8 +101,8 @@ export default function FeedPage () {
         </div>
         {/* </div> */}
         <div
-          className='w-0 lg:w-[30%] max-w-[320px] h-fit  
-        top-12 my-12 feed-right-bar space-y-2 overflow-hidden'
+          className='w-0 lg:w-[35%] max-w-[450px]  h-fit  
+         my-12 feed-right-bar space-y-2 overflow-hidden'
         >
           <SuggestionCard />
           <SuggestionCard />
