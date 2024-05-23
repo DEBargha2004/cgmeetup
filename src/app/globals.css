@@ -93,13 +93,3 @@ body {
   width: 0px;
   height: 0px;
 }
-
-/* .scroller-disable::-webkit-scrollbar-track {
-  background-color: transparent;
-}
-
-.scroller-disable::-webkit-scrollbar-thumb {
-  background-color: hsl(204 99% 49%);
-  border-radius: 20px;
-  background-clip: content-box;
-} */
