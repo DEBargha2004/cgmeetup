@@ -1,21 +1,9 @@
-'use client'
-
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Grid, Minus, Plus, Search } from 'lucide-react'
-import projects from '../../../public/data/projects.json'
-import { GalleryImage } from '@/components/custom/gallery'
-import { cn } from '@/lib/utils'
-import { useEffect, useState } from 'react'
-import { useClickAway } from '@uidotdev/usehooks'
+import { Search } from 'lucide-react'
+import { ImageCollection } from '@/components/custom/gallery'
 
 export default function GalleryPage () {
-  const [showGridTab, setShowGridTab] = useState(false)
-  const [imageScale, setImageScale] = useState<boolean>(false)
-  const gridTabref = useClickAway(() => {
-    setShowGridTab(false)
-  })
-
   return (
     <div className='flex min-h-screen w-full flex-col'>
       <main className='flex flex-1 flex-col gap-4 py-4 md:gap-8 md:py-12'>
@@ -36,18 +24,7 @@ export default function GalleryPage () {
             <Button className='uppercase'>Post Artwork</Button>
           </div>
         </div>
-        <div
-          className="grid gap-1 px-1 transition-all data-[scale='true']:grid-cols-1 
-        data-[scale='false']:grid-cols-2 sm:data-[scale='false']:grid-cols-4 
-        sm:data-[scale='true']:grid-cols-2 md:data-[scale='true']:grid-cols-4 
-        data-[scale='false']:md:grid-cols-6  lg:data-[scale='true']:grid-cols-5
-        lg:data-[scale=false]:grid-cols-7"
-          data-scale={imageScale}
-        >
-          {projects.data.map((project, index) => (
-            <GalleryImage project={project} key={project.id} />
-          ))}
-        </div>
+        <ImageCollection imageScale={false} />
         {/* <div
           className={cn(`aspect-square rounded-full bg-white fixed bottom-10 left-10 
         shadow-lg cursor-pointer h-14 transition-all duration-300 `)}

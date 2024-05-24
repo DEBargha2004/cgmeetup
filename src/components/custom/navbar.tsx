@@ -89,8 +89,12 @@ export default function Navbar ({ className }: { className?: string }) {
         </form>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant={'success'} className='px-3 h-9'>
-              <Plus className='h-5 w-5 mr-1' /> Upload
+            <Button
+              variant={'success'}
+              className='sm:px-3 px-1 sm:h-9 h-7 flex justify-center items-center'
+            >
+              <Plus className='h-5 w-5 mr-1' />{' '}
+              <span className='sm:inline hidden'>Upload</span>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align='end'>
