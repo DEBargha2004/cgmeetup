@@ -1,5 +1,3 @@
-"use client";
-
 import projects from "../../../public/data/projects.json";
 import {
   FeedCard,
@@ -12,16 +10,14 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import { Badge } from "@/components/ui/badge";
 import { sample_cateories } from "@/constants/categories";
 import { feedNavItems } from "@/constants/feed-nav";
 import Link from "next/link";
-import { PlayCircle } from "lucide-react";
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { MaterialSymbolIcon } from "@/components/custom";
-import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import ProgressBar from "@/components/custom/progress-bar";
 
 export default function FeedPage() {
   return (
@@ -65,39 +61,7 @@ export default function FeedPage() {
       >
         {/* <div className='w-full sm:max-w-[630px] my-4'> */}
         <div className="w-full sm:max-w-[630px] lg:w-[60%] space-y-4 flex flex-col items-center px-2 py-4">
-          <div className="w-full rounded bg-blue-500 flex justify-start items-start gap-2 p-4">
-            <div>
-              <CircularProgressbar
-                value={56}
-                text="56%"
-                styles={{
-                  text: {
-                    fill: "white",
-                  },
-                  background: {
-                    backgroundColor: "red",
-                  },
-                  root: {
-                    height: "80px",
-                    width: "80px",
-                  },
-                  path: {
-                    stroke: "white",
-                  },
-                  trail: {
-                    stroke: "#0192F2",
-                  },
-                }}
-              />
-            </div>
-            <div className="space-y-1">
-              <h1 className="text-xl font-bold">Profile Completed!</h1>
-              <p className="font-medium text-sm">
-                A complete profile increases the chances of a recruiter being
-                more interested in recruiting you
-              </p>
-            </div>
-          </div>
+          <ProgressBar value={20} />
           <JobCardContainer className="w-full border-none">
             {Array.from({ length: 9 }, (_, i) => i).map((i) => (
               <JobCard key={i} className="select-none bg-transparent border" />
