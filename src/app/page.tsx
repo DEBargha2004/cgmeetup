@@ -19,7 +19,7 @@ import {
   FormMessage
 } from '@/components/ui/form'
 
-export default function Dashboard () {
+export default function Home () {
   const form = useForm<SignInSchemaType>({
     resolver: zodResolver(signInSchema)
   })

@@ -12,11 +12,11 @@ export default function AboutSectionItemsWrapper ({
 }) {
   return (
     <div
-      className='p-3 rounded-lg bg-accent px-6 flex flex-col justify-between 
+      className='p-3 rounded-lg bg-lightAccent px-6 flex flex-col justify-between 
     items-center gap-4'
     >
       <h1 className='text-2xl font-semibold'>{title}</h1>
-      <Separator className='h-[2px]' />
+      <Separator className='bg-darkAccent opacity-40' />
       <div
         className={cn('text-white opacity-60 font-medium w-full', className)}
       >

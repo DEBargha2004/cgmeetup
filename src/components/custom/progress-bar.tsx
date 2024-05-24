@@ -1,41 +1,49 @@
-"use client";
+'use client'
 
-import { CircularProgressbar } from "react-circular-progressbar";
+import {
+  CircularProgressbar,
+  CircularProgressbarWithChildren
+} from 'react-circular-progressbar'
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
+import { cn } from '@/lib/utils'
+import { getShortendName } from '@/functions'
 
-export default function ProgressBar({ value = 0 }: { value?: number }) {
+export default function ProgressBar ({ value = 0 }: { value?: number }) {
   return (
-    <div className="w-full rounded bg-blue-500 flex justify-start items-start gap-2 p-4">
-      <div>
-        <CircularProgressbar
-          value={value}
-          text={`${value}%`}
-          styles={{
-            text: {
-              fill: "white",
-            },
-            background: {
-              backgroundColor: "red",
-            },
-            root: {
-              height: "80px",
-              width: "80px",
-            },
-            path: {
-              stroke: "white",
-            },
-            trail: {
-              stroke: "blue",
-            },
-          }}
+    <CircularProgressbarWithChildren
+      value={value}
+      // text={`${value}%`}
+      styles={{
+        text: {
+          fill: 'white'
+        },
+        background: {
+          backgroundColor: 'red'
+        },
+        root: {
+          height: '80px',
+          width: '80px'
+        },
+        path: {
+          stroke: 'white'
+        },
+        trail: {
+          stroke: 'blue'
+        }
+      }}
+    >
+      <Avatar className={cn(' h-[66px] w-[66px]')}>
+        <AvatarImage
+          src={
+            'https://cdna.artstation.com/p/users/avatars/000/078/930/large/99d98b9db85095a32a74190b5b4be7d1.jpg?1669152204'
+          }
+          height={100}
+          width={100}
         />
-      </div>
-      <div className="space-y-1">
-        <h1 className="text-xl font-bold">Profile Completed!</h1>
-        <p className="font-medium text-sm">
-          A complete profile increases the chances of a recruiter being more
-          interested in recruiting you
-        </p>
-      </div>
-    </div>
-  );
+        <AvatarFallback className='uppercase'>
+          {getShortendName('Ramaya Vastavaiya')}
+        </AvatarFallback>
+      </Avatar>
+    </CircularProgressbarWithChildren>
+  )
 }
