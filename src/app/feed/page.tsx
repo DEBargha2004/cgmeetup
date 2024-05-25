@@ -3,12 +3,15 @@ import {
   FeedCard,
   JobCard,
   JobCardContainer,
+  ProfileAvatarStatus,
   SuggestionCard
 } from '@/components/custom/feed'
 import {
   Carousel,
   CarouselContent,
-  CarouselItem
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious
 } from '@/components/ui/carousel'
 import { sample_cateories } from '@/constants/categories'
 import { feedNavItems } from '@/constants/feed-nav'
@@ -99,11 +102,25 @@ export default function FeedPage () {
               </CarouselItem>
             </CarouselContent>
           </Carousel>
+          <Carousel className='w-full'>
+            <CarouselContent className='mt-4'>
+              {Array.from({ length: 19 }, (_, i) => i).map(i => (
+                <CarouselItem key={i} className='basis-auto'>
+                  <ProfileAvatarStatus
+                    className='select-none cursor-pointer'
+                    avatar='bg-gradient-to-tr from-orange-600 to-violet-600 p-[2px] h-14 w-14'
+                  />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselNext className='-translate-x-10 bg-transparent' />
+            <CarouselPrevious className='translate-x-10 bg-transparent' />
+          </Carousel>
           {projects.data.map(project => (
             <FeedCard key={project.id} project={project} />
           ))}
         </div>
-        {/* </div> */}
+
         <div
           className='w-0 lg:w-[40%] max-w-[450px] h-fit  
          my-5 feed-right-bar space-y-2 overflow-hidden'
