@@ -66,7 +66,7 @@ export default function ProfilePage () {
               <p className='text-sm'>Following</p>
             </div>
           </div>
-          <div className='flex gap-4 flex-wrap sm:flex-row justify-center'>
+          <div className='flex gap-4  sm:flex-row justify-center'>
             <Button className='border-primary w-[150px]'>Follow</Button>
             <Button variant={'success'} className='border-primary w-[150px]'>
               Message
