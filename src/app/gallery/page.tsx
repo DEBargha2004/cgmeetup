@@ -31,62 +31,29 @@ export default function GalleryPage () {
           </div>
         </div>
         <div className='space-y-3'>
-          <Carousel className='w-[93%] mx-auto'>
+          <Carousel className='w-[calc(100%-75px)] mx-auto'>
             <CarouselContent className=''>
               {sample_cateories.map((cat, index) => (
-                <CarouselItem className='basis-auto'>
+                <CarouselItem className='basis-auto' key={cat}>
                   <Badge className='text-sm bg-lightAccent'>{cat}</Badge>
                 </CarouselItem>
               ))}
               {sample_cateories.map((cat, index) => (
-                <CarouselItem className='basis-auto'>
+                <CarouselItem className='basis-auto' key={cat}>
                   <Badge className='bg-lightAccent'>{cat}</Badge>
                 </CarouselItem>
               ))}
               {sample_cateories.map((cat, index) => (
-                <CarouselItem className='basis-auto'>
+                <CarouselItem className='basis-auto' key={cat}>
                   <Badge className='bg-lightAccent'>{cat}</Badge>
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselNext className='-translate-x-2' />
-            <CarouselPrevious className='translate-x-2' />
+            <CarouselNext className='-translate-x-3' />
+            <CarouselPrevious className='translate-x-3' />
           </Carousel>
           <ImageCollection imageScale={false} />
         </div>
-        {/* <div
-          className={cn(`aspect-square rounded-full bg-white fixed bottom-10 left-10 
-        shadow-lg cursor-pointer h-14 transition-all duration-300 `)}
-          //@ts-ignore
-          ref={gridTabref}
-        >
-          <div
-            className={cn(
-              `w-full h-full flex justify-center items-center
-        text-primary transition-all px-4`,
-              showGridTab ? 'gap-2' : 'gap-0'
-            )}
-          >
-            <Minus
-              className={cn(
-                'grayscale hover:grayscale-0 transition-all',
-                showGridTab ? 'w-7 h-7' : 'w-0 h-0'
-              )}
-              onClick={() => setImageScale(false)}
-            />
-            <Grid
-              className='h-7 w-7'
-              onClick={() => setShowGridTab(prev => !prev)}
-            />
-            <Plus
-              className={cn(
-                'grayscale hover:grayscale-0 transition-all',
-                showGridTab ? 'w-7 h-7' : 'w-0 h-0'
-              )}
-              onClick={() => setImageScale(true)}
-            />
-          </div>
-        </div> */}
       </main>
     </div>
   )
