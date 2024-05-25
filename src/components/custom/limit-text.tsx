@@ -26,10 +26,9 @@ export default function LimitText ({
 
   return (
     <article className={cn('', className)}>
-      {children.slice(0, limit.isLimited ? limit.limitCount : children.length)}
-      &nbsp;
+      {children.slice(0, limit.isLimited ? limit.limitCount : children.length)}{' '}
       <span
-        className='text-primary underline'
+        className='text-primary underline whitespace-nowrap'
         onClick={() =>
           setLimit(prev => ({ ...prev, isLimited: !prev.isLimited }))
         }

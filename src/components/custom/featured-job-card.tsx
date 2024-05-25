@@ -2,12 +2,16 @@ import Image from 'next/image'
 import { Card } from '../ui/card'
 import { Badge } from '../ui/badge'
 import { MapPin } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
-export default function FeaturedJobCard () {
+export default function FeaturedJobCard ({ className }: { className?: string }) {
   return (
     <Card
-      className='bg-lightAccent flex items-stretch justify-between gap-4 w-full
-    p-3'
+      className={cn(
+        `bg-lightAccent flex items-stretch justify-between gap-4 w-full
+      p-3 h-full`,
+        className
+      )}
     >
       <Image
         src={

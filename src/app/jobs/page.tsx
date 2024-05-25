@@ -72,9 +72,15 @@ export default function Dashboard () {
     border-none bg-transparent'
             >
               <CardContent className='space-y-4 px-1'>
-                <JobCard />
-                <JobCard />
-                <JobCard />
+                <Link href={'/jobs/123'} className='inline-block w-full'>
+                  <JobCard />
+                </Link>
+                <Link href={'/jobs/123'} className='inline-block w-full'>
+                  <JobCard />
+                </Link>
+                <Link href={'/jobs/123'} className='inline-block w-full'>
+                  <JobCard />
+                </Link>
               </CardContent>
             </Card>
             <Card className='bg-transparent border-none col-span-3 xl:col-span-1'>
@@ -83,10 +89,27 @@ export default function Dashboard () {
                   <CardTitle>Featured Jobs</CardTitle>
                 </CardHeader>
                 <CardContent className='grid gap-4 px-0'>
-                  <FeaturedJobCard />
-                  <FeaturedJobCard />
-                  <FeaturedJobCard />
-                  <FeaturedJobCard />
+                  <Link href={'/jobs/123'} className='inline-block w-full'>
+                    <FeaturedJobCard />
+                  </Link>
+                  <Link
+                    href={'/jobs/123'}
+                    className='inline-block w-full h-full'
+                  >
+                    <FeaturedJobCard />
+                  </Link>
+                  <Link
+                    href={'/jobs/123'}
+                    className='inline-block w-full h-full'
+                  >
+                    <FeaturedJobCard />
+                  </Link>
+                  <Link
+                    href={'/jobs/123'}
+                    className='inline-block w-full h-full'
+                  >
+                    <FeaturedJobCard />
+                  </Link>
                 </CardContent>
               </Card>
               <Card className='bg-transparent border-none'>
