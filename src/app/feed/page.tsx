@@ -107,7 +107,7 @@ export default function FeedPage () {
               {Array.from({ length: 19 }, (_, i) => i).map(i => (
                 <CarouselItem key={i} className='basis-auto'>
                   <ProfileAvatarStatus
-                    className='select-none cursor-pointer'
+                    className='select-none cursor-pointer '
                     avatar='bg-gradient-to-tr from-orange-600 to-violet-600 p-[2px] h-14 w-14'
                   />
                 </CarouselItem>

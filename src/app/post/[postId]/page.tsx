@@ -2,10 +2,7 @@ import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import projects from '../../../../public/data/projects.json'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
-import { useState } from 'react'
-import { Textarea } from '@/components/ui/textarea'
 import { sample_cateories } from '@/constants/categories'
 import { Badge } from '@/components/ui/badge'
 import {
@@ -14,8 +11,8 @@ import {
   ProfileInfoOverView
 } from '@/components/custom'
 import Link from 'next/link'
-import { Separator } from '@/components/ui/separator'
 import { Input } from '@/components/ui/input'
+import Close from './_components/close'
 
 export default function Post ({
   params: { postId }
@@ -87,9 +84,7 @@ including versions of Lorem Ipsum`
       </div>
       <div className='w-[30%] h-full overflow-y-auto border-l px-4 scroller space-y-3 py-5'>
         <Card className='rounded bg-lightAccent relative'>
-          <Link href={'/feed'} className='absolute right-2 top-0'>
-            <MaterialSymbolIcon className='text-base'>close</MaterialSymbolIcon>
-          </Link>
+          <Close />
           <CardContent id='user-profile' className='space-y-6 pt-6 pb-3'>
             <ProfileInfoOverView
               heading='text-[16px]'

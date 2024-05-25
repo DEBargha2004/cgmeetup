@@ -17,7 +17,7 @@ export default function ProfileAvatarStatus ({
       )}
     >
       <Avatar className={cn('', avatar)}>
-        <div className='p-[2px] bg-darkAccent rounded-full'>
+        <div className='p-[2px] bg-darkAccent rounded-full h-full w-full'>
           <AvatarImage
             src={
               'https://cdna.artstation.com/p/users/avatars/000/078/930/large/99d98b9db85095a32a74190b5b4be7d1.jpg?1669152204'
@@ -26,7 +26,9 @@ export default function ProfileAvatarStatus ({
             height={100}
             width={100}
           />
-          <AvatarFallback>{getShortendName('John Doe')}</AvatarFallback>
+          <AvatarFallback className=''>
+            {getShortendName('John Doe')}
+          </AvatarFallback>
         </div>
       </Avatar>
       <p className='text-xs text-center w-16 truncate'>
