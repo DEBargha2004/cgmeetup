@@ -67,6 +67,20 @@ export default function FeedPage () {
           className='w-full sm:max-w-[630px] lg:w-[60%] space-y-4 flex flex-col items-center 
         px-2 py-4 border-r '
         >
+          <Carousel className='w-full'>
+            <CarouselContent className='mt-4'>
+              {Array.from({ length: 19 }, (_, i) => i).map(i => (
+                <CarouselItem key={i} className='basis-auto'>
+                  <ProfileAvatarStatus
+                    className='select-none cursor-pointer '
+                    avatar='bg-gradient-to-tr from-primary to-white p-[2px] h-14 w-14'
+                  />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselNext className='-translate-x-10 bg-transparent' />
+            <CarouselPrevious className='translate-x-10 bg-transparent' />
+          </Carousel>
           <JobCardContainer className='w-full border-none'>
             {Array.from({ length: 9 }, (_, i) => i).map(i => (
               <JobCard key={i} className='select-none bg-transparent border' />
@@ -102,20 +116,7 @@ export default function FeedPage () {
               </CarouselItem>
             </CarouselContent>
           </Carousel>
-          <Carousel className='w-full'>
-            <CarouselContent className='mt-4'>
-              {Array.from({ length: 19 }, (_, i) => i).map(i => (
-                <CarouselItem key={i} className='basis-auto'>
-                  <ProfileAvatarStatus
-                    className='select-none cursor-pointer '
-                    avatar='bg-gradient-to-tr from-orange-600 to-violet-600 p-[2px] h-14 w-14'
-                  />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselNext className='-translate-x-10 bg-transparent' />
-            <CarouselPrevious className='translate-x-10 bg-transparent' />
-          </Carousel>
+
           {projects.data.map(project => (
             <FeedCard key={project.id} project={project} />
           ))}

@@ -147,7 +147,6 @@ including versions of Lorem Ipsum`
                     bookmark
                   </MaterialSymbolIcon>
                 </div>
-                {/* <span className='font-bold opacity-90'>3</span> */}
               </div>
             </div>
           </div>

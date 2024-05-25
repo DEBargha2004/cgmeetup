@@ -7,6 +7,7 @@ import NavigationHelper from '../navigation-helper'
 import MaterialSymbolIcon from './material-symbol-icon'
 import LimitText from './limit-text'
 import ProfileInfoOverView from './profile-info-overview'
+import Tabs from './tabs'
 
 export {
   AppLogo,
@@ -17,5 +18,6 @@ export {
   NavigationHelper,
   MaterialSymbolIcon,
   LimitText,
-  ProfileInfoOverView
+  ProfileInfoOverView,
+  Tabs
 }

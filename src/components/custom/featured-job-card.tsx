@@ -3,13 +3,20 @@ import { Card } from '../ui/card'
 import { Badge } from '../ui/badge'
 import { MapPin } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import MaterialSymbolIcon from './material-symbol-icon'
 
-export default function FeaturedJobCard ({ className }: { className?: string }) {
+export default function FeaturedJobCard ({
+  className,
+  avatar
+}: {
+  className?: string
+  avatar?: string
+}) {
   return (
     <Card
       className={cn(
         `bg-lightAccent flex items-stretch justify-between gap-4 w-full
-      p-3 h-full`,
+      p-3`,
         className
       )}
     >
@@ -20,15 +27,16 @@ export default function FeaturedJobCard ({ className }: { className?: string }) 
         height={100}
         width={100}
         alt='job-image'
-        className='h-[100px] w-[100px] object-cover rounded-lg'
+        className={cn('h-[100px] w-[100px] object-cover rounded', avatar)}
       />
-      <div className='h-full w-full flex flex-col justify-between items-start'>
+      <div className='h-full w-full flex flex-col justify-between items-start space-y-2'>
         <h1 className='text-sm font-semibold'>
           3D Character Artist, Avatars Aquent
         </h1>
-        <Badge className='text-xs'>
-          <MapPin className='mr-2 h-5 w-5' />
-          <span className='text-xs'>Los Angeles, USA</span>
+        <h2 className='text-xs opacity-70'>Ubisoft Studio</h2>
+        <Badge className='text-xs space-x-1 border-none px-0'>
+          <MaterialSymbolIcon classID='mr-2'>location_on</MaterialSymbolIcon>
+          <span className='text-xs opacity-70'>Los Angeles, USA</span>
         </Badge>
       </div>
     </Card>

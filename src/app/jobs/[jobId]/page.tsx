@@ -1,4 +1,8 @@
-import { LimitText, MaterialSymbolIcon } from '@/components/custom'
+import {
+  FeaturedJobCard,
+  LimitText,
+  MaterialSymbolIcon
+} from '@/components/custom'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -30,15 +34,23 @@ export default function JobPage ({
   params: { jobId: string }
 }) {
   return (
-    <div className='md:w-4/5 mx-auto p-4 space-y-8'>
+    <div className='md:w-[90%] mx-auto p-4 space-y-8'>
       <section className='my-10 flex gap-5'>
-        <Avatar className='h-20 w-20'>
+        <Avatar className='h-20 w-20 rounded'>
           <AvatarImage src='https://cdna.artstation.com/p/users/avatars/000/078/930/large/99d98b9db85095a32a74190b5b4be7d1.jpg?1669152204' />
           <AvatarFallback>HU</AvatarFallback>
         </Avatar>
         <div className='w-full flex flex-col gap-2'>
           <h1 className='text-3xl font-black'>Lead Environment Artist</h1>
-          <p className='text-sm'>Ubisoft</p>
+          <div className='text-sm flex items-center gap-2'>
+            <span>Ubisoft</span>{' '}
+            <Button className='text-sm h-8 px-2 w-fit flex justify-between items-center'>
+              <MaterialSymbolIcon className='mr-2 text-lg'>
+                person_add
+              </MaterialSymbolIcon>
+              Follow
+            </Button>
+          </div>
         </div>
       </section>
       <section>
@@ -51,23 +63,71 @@ export default function JobPage ({
         <div>
           <p className='text-lg text-primary'>Rs 3.5 - 4.5 LPA</p>
         </div>
-        <div className='flex justify-start gap-2 my-4'>
-          <Button variant={'outline'} className='bg-lightAccent'>
-            Full Time
-          </Button>
-          <Button variant={'outline'} className='bg-lightAccent'>
-            Onsite
-          </Button>
+        <div className='flex justify-between gap-2 my-4 w-[calc(100%-400px)]'>
+          <div className='space-x-2'>
+            <Button className='px-7'>Apply</Button>
+            <Button variant={'outline'} className='bg-lightAccent'>
+              Full Time
+            </Button>
+            <Button variant={'outline'} className='bg-lightAccent'>
+              Onsite
+            </Button>
+          </div>
+          <div className='flex justify-end items-center w-fit gap-10 mr-5'>
+            <div className='flex gap-6 items-center'>
+              <div className='flex justify-between items-center gap-2'>
+                <div className='flex justify-center items-center bg-lightAccent h-10 w-10 rounded-full'>
+                  <MaterialSymbolIcon className='text-2xl'>
+                    favorite
+                  </MaterialSymbolIcon>
+                </div>
+                <span className='font-bold opacity-90'>3</span>
+              </div>
+              <div className='flex justify-between items-center gap-2'>
+                <div className='flex justify-center items-center bg-lightAccent h-10 w-10 rounded-full'>
+                  <MaterialSymbolIcon className='text-2xl'>
+                    visibility
+                  </MaterialSymbolIcon>
+                </div>
+                <span className='font-bold opacity-90'>3</span>
+              </div>
+              <div className='flex justify-between items-center gap-2'>
+                <div className='flex justify-center items-center bg-lightAccent h-10 w-10 rounded-full'>
+                  <MaterialSymbolIcon className='text-2xl'>
+                    comment
+                  </MaterialSymbolIcon>
+                </div>
+                <span className='font-bold opacity-90'>3</span>
+              </div>
+            </div>
+            <div className='flex gap-6 items-center'>
+              <div className='flex justify-between items-center gap-2'>
+                <div className='flex justify-center items-center bg-lightAccent h-10 w-10 rounded-full'>
+                  <MaterialSymbolIcon className='text-2xl'>
+                    send
+                  </MaterialSymbolIcon>
+                </div>
+                <span className='font-bold opacity-90'>3</span>
+              </div>
+              <div className='flex justify-between items-center gap-2'>
+                <div className='flex justify-center items-center bg-lightAccent h-10 w-10 rounded-full'>
+                  <MaterialSymbolIcon className='text-2xl'>
+                    bookmark
+                  </MaterialSymbolIcon>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className='space-y-4'>
-        <Card className='' id='job-description'>
-          <CardHeader className='text-xl font-semibold'>
-            Job Description
-          </CardHeader>
-          <CardContent className='text-sm sm:text-base'>
-            <LimitText limitCount={200}>
+      <section className='flex gap-2 md:flex-row flex-col justify-between items-start'>
+        <section className='space-y-4 col-span-3 w-[calc(100%-400px)]'>
+          <Card className='' id='job-description'>
+            <CardHeader className='text-xl font-semibold'>
+              Job Description
+            </CardHeader>
+            <CardContent className='text-sm sm:text-base'>
               We are a diverse team and experienced team of developers driven by
               a passion for our art, united by our core values and inspired by a
               culture of inclusivity to build amazing games that thrill players
@@ -96,45 +156,64 @@ export default function JobPage ({
               tools, techniques, and asset creation pipelines: UE5, Substance
               Designer, Substance Painter, ZBrush, Maya/Blender, Photoshop,
               Jira, Confluence.
-            </LimitText>
-          </CardContent>
-        </Card>
-        <Card className='' id='job-skills'>
-          <CardHeader className='text-xl font-semibold'>
-            Required Skills
-          </CardHeader>
-          <CardContent className='flex flex-wrap gap-2'>
-            {sample_cateories.map(cat => (
-              <Badge key={cat} className='bg-darkAccent whitespace-nowrap'>
-                {cat}
-              </Badge>
-            ))}
-          </CardContent>
-        </Card>
-        <Card className=''>
-          <CardHeader className='text-xl font-semibold'>Job Summary</CardHeader>
-          <CardContent className='grid grid-cols-2 sm:grid-cols-4 gap-4'>
-            {job_summary.map(({ title, value }, index) => (
-              <div key={index} className='space-y-2'>
-                <h1 className='sm:text-base text-sm'>{title}</h1>
-                <p className='text-xs sm:text-sm text-primary'>{value}</p>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
-        <Card className='' id='about'>
-          <CardHeader className='text-xl font-semibold'>About</CardHeader>
-          <CardContent className='text-sm sm:text-base'>
-            Paragraphs are the building blocks of papers. Many students define
-            paragraphs in terms of length: a paragraph is a group of at least
-            five sentences, a paragraph is half a page long, etc. In reality,
-            though, the unity and coherence of ideas among sentences is what
-            constitutes a paragraph.
-          </CardContent>
-        </Card>
-      </section>
-      <section className='flex justify-center md:justify-end'>
-        <Button className='w-4/5 md:w-fit'>Apply</Button>
+            </CardContent>
+          </Card>
+          <Card className='' id='job-skills'>
+            <CardHeader className='text-xl font-semibold'>
+              Required Skills
+            </CardHeader>
+            <CardContent className='flex flex-wrap gap-2'>
+              {sample_cateories.map(cat => (
+                <Badge key={cat} className=' whitespace-nowrap'>
+                  {cat}
+                </Badge>
+              ))}
+            </CardContent>
+          </Card>
+          <Card className=''>
+            <CardHeader className='text-xl font-semibold'>
+              Job Summary
+            </CardHeader>
+            <CardContent className='grid grid-cols-2 sm:grid-cols-4 gap-4'>
+              {job_summary.map(({ title, value }, index) => (
+                <div key={index} className='space-y-2'>
+                  <h1 className='sm:text-base text-sm'>{title}</h1>
+                  <p className='text-xs sm:text-sm text-primary'>{value}</p>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+          <Card className='' id='about'>
+            <CardHeader className='text-xl font-semibold'>About</CardHeader>
+            <CardContent className='text-sm sm:text-base'>
+              Paragraphs are the building blocks of papers. Many students define
+              paragraphs in terms of length: a paragraph is a group of at least
+              five sentences, a paragraph is half a page long, etc. In reality,
+              though, the unity and coherence of ideas among sentences is what
+              constitutes a paragraph.
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>Tags</CardHeader>
+            <CardContent className='flex flex-wrap gap-2'>
+              {sample_cateories.map(cat => (
+                <Badge key={cat} className='whitespace-nowrap'>
+                  {cat}
+                </Badge>
+              ))}
+            </CardContent>
+          </Card>
+        </section>
+        <section className='h-fit w-1/4 min-w-[400px] space-y-2 rounded shrink-0'>
+          <Button variant={'outline'} className='bg-transparent group'>
+            <span className='group-hover:text-primary mr-2'>View All Jobs</span>
+            <MaterialSymbolIcon classID=''>arrow_right_alt</MaterialSymbolIcon>
+          </Button>
+          <FeaturedJobCard avatar='rounded' />
+          <FeaturedJobCard avatar='rounded' />
+          <FeaturedJobCard avatar='rounded' />
+          <FeaturedJobCard avatar='rounded' />
+        </section>
       </section>
     </div>
   )
