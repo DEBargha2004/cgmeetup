@@ -18,8 +18,10 @@ export default function Tabs ({
         <Link key={index} href={tab.href}>
           <div
             className={cn(
-              'px-4 py-2 hover:bg-lightAccent cursor-pointer',
-              pathname === tab.href ? 'border-b-2 border-primary text-lg' : '',
+              'md:px-4 px-2 py-2 hover:bg-lightAccent cursor-pointer whitespace-nowrap md:text-base sm:text-sm text-xs',
+              pathname === tab.href
+                ? 'border-b-2 border-primary md:text-lg sm:text-base text-sm'
+                : '',
               className
             )}
           >

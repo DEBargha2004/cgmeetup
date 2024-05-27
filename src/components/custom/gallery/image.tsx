@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
+import MaterialSymbolIcon from '../material-symbol-icon'
 
 type ArtWork = {
   id: number
@@ -62,17 +63,17 @@ export default function GalleryImage ({
       group-hover:translate-y-0 transition-all duration-200 delay-300 flex justify-start 
       items-stretch gap-2'
       >
-        <div className='my-auto shrink-0 '>
+        <div className='mb-auto shrink-0 '>
           <Image
             src={project.user.medium_avatar_url}
             alt={project.user.username}
             height={50}
             width={50}
-            className='@xs:w-10 @xs:h-10 h-6 w-6 rounded-full object-cover '
+            className='@xs:w-11 @xs:h-11 h-6 w-6 rounded-full object-cover '
           />
         </div>
         <div className='flex flex-col justify-start items-start'>
-          <h1 className='font-bold line-clamp-1 text-sm @2xl:text-md'>
+          <h1 className='font-bold line-clamp-2 text-sm @2xl:text-md'>
             {project.title}
           </h1>
           <div className='flex justify-start items-center gap-2'>
@@ -85,6 +86,22 @@ export default function GalleryImage ({
               </p>
             ) : null}
           </div>
+        </div>
+      </div>
+      <div
+        className='absolute top-0 -translate-y-full right-0 w-full py-2 px-2
+      group-hover:translate-y-0 transition-all duration-200 delay-300 flex justify-end 
+      items-stretch gap-1'
+      >
+        <div className='h-8 w-8 rounded-full flex justify-center items-center bg-darkAccent opacity-60'>
+          <MaterialSymbolIcon className='text-sm'>
+            photo_library
+          </MaterialSymbolIcon>
+        </div>
+        <div className='h-8 w-8 rounded-full flex justify-center items-center bg-darkAccent opacity-60'>
+          <MaterialSymbolIcon className='text-sm'>
+            play_circle
+          </MaterialSymbolIcon>
         </div>
       </div>
     </div>

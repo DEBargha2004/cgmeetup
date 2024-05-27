@@ -16,6 +16,13 @@ import Link from 'next/link'
 import { Input } from '@/components/ui/input'
 import Close from './_components/close'
 import { useState } from 'react'
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbList,
+  BreadcrumbSeparator
+} from '@/components/ui/breadcrumb'
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 
 export default function Post ({
   params: { postId }
@@ -48,9 +55,16 @@ including versions of Lorem Ipsum`
     >
       <Close className='lg:hidden block z-20 top-4 right-4' />
       <div
-        className='w-full lg:w-[70%] md:h-[calc(100vh-64px)] h-[calc(100vh/2)] flex justify-center items-center 
+        className='w-full lg:w-[70%] md:h-[calc(100vh-64px)] h-[calc(100vh/2)] flex flex-col justify-start items-center 
              relative bg-darkAccent'
       >
+        <Breadcrumb className='w-full p-3 px-6'>
+          <BreadcrumbList>
+            <BreadcrumbItem>Gallery</BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>MonstercarId</BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
         <div className='overflow-y-auto h-full snap-mandatory snap-y scroller-hide'>
           {Array.from({ length: 4 }, (_, i) => i).map(item => (
             <PostImage key={item}>
@@ -93,63 +107,30 @@ including versions of Lorem Ipsum`
           </div>
         </Link>
       </div>
-      <div className='w-full lg:w-[30%] h-full overflow-y-auto border-l px-4 scroller space-y-3 py-5'>
+      <div className='w-full lg:w-[30%] h-full overflow-y-auto px-4 scroller space-y-3 py-2'>
         <Card className='rounded bg-lightAccent relative'>
-          <Close className='lg:block hidden' />
-          <CardContent id='user-profile' className='space-y-6 pt-6 pb-3'>
+          <div className='flex justify-end gap-2 items-center absolute top-0 right-0 w-full pt-[6px]'>
+            <MaterialSymbolIcon className='opacity-100 hover:text-primary text-[20px] cursor-pointer'>
+              more_vert
+            </MaterialSymbolIcon>
+            <Close className='lg:block lg:relative hidden text-[20px] opacity-100 hover:text-primary' />
+          </div>
+          <CardContent id='user-profile' className='space-y-6 pt-7 pb-3 pr-8'>
             <ProfileInfoOverView
               heading='text-[14px] xl:text-[16px]'
               description='text-[11px] xl:text-[12px] text-white opacity-70'
+              className='pr-5 items-center'
+              image='w-14 h-14 xl:w-14 xl:h-14'
+              textContainer='justify-start gap-1'
             >
-              <Button className='xl:text-sm text-xs xl:h-10 h-8 px-3 xl:px-2'>
-                Follow
+              <Button className='xl:text-sm text-xs xl:h-8 xl:w-8 h-8 px-3 rounded-full'>
+                <MaterialSymbolIcon>person_add</MaterialSymbolIcon>
               </Button>
             </ProfileInfoOverView>
           </CardContent>
           <CardContent id='post-info' className='space-y-2 pt-0'>
             <h1 className='text-xl font-bold'>{project.title}</h1>
-            <article className={cn('')}>
-              {description.slice(
-                0,
-                limit.isLimited ? limit.limitCount : description.length
-              )}{' '}
-              {!limit.isLimited && (
-                <>
-                  <Card className='bg-lightAccent border-none'>
-                    <CardHeader className='px-0'>
-                      <strong>Tags</strong>
-                    </CardHeader>
-                    <CardContent className='flex gap-2 flex-wrap px-0'>
-                      {sample_cateories.map(cat => (
-                        <Badge key={cat} className=' border-primary'>
-                          {cat}
-                        </Badge>
-                      ))}
-                    </CardContent>
-                  </Card>
-                  <Card className='bg-lightAccent border-none'>
-                    <CardHeader className='px-0'>
-                      <strong>Category</strong>
-                    </CardHeader>
-                    <CardContent className='flex gap-2 flex-wrap px-0'>
-                      {sample_cateories.map(cat => (
-                        <Badge key={cat} className=' border-primary'>
-                          {cat}
-                        </Badge>
-                      ))}
-                    </CardContent>
-                  </Card>
-                </>
-              )}
-              <span
-                className='text-primary underline whitespace-nowrap'
-                onClick={() =>
-                  setLimit(prev => ({ ...prev, isLimited: !prev.isLimited }))
-                }
-              >
-                {limit.isLimited ? 'showMore' : 'showLess'}
-              </span>
-            </article>
+            <LimitText className='text-sm'>{description}</LimitText>
             <i className='text-muted-foreground text-xs'>Posted 6 hours ago</i>
           </CardContent>
         </Card>
@@ -159,9 +140,9 @@ including versions of Lorem Ipsum`
               <div className='flex justify-between items-center gap-2'>
                 <div
                   className='flex justify-center items-center bg-lightAccent h-8 w-8 
-                2xl:h-10 2xl:w-10 rounded-full'
+                2xl:h-9 2xl:w-9 rounded-full'
                 >
-                  <MaterialSymbolIcon className='2xl:text-2xl text-base'>
+                  <MaterialSymbolIcon className='2xl:text-[20px] text-base'>
                     favorite
                   </MaterialSymbolIcon>
                 </div>
@@ -170,9 +151,9 @@ including versions of Lorem Ipsum`
               <div className='flex justify-between items-center gap-2'>
                 <div
                   className='flex justify-center items-center bg-lightAccent h-8 w-8 
-                2xl:h-10 2xl:w-10 rounded-full'
+                2xl:h-9 2xl:w-9 rounded-full'
                 >
-                  <MaterialSymbolIcon className='2xl:text-2xl text-base'>
+                  <MaterialSymbolIcon className='2xl:text-[20px] text-base'>
                     visibility
                   </MaterialSymbolIcon>
                 </div>
@@ -181,9 +162,9 @@ including versions of Lorem Ipsum`
               <div className='flex justify-between items-center gap-2'>
                 <div
                   className='flex justify-center items-center bg-lightAccent h-8 w-8 
-                2xl:h-10 2xl:w-10 rounded-full'
+                2xl:h-9 2xl:w-9 rounded-full'
                 >
-                  <MaterialSymbolIcon className='2xl:text-2xl text-base'>
+                  <MaterialSymbolIcon className='2xl:text-[20px] text-base'>
                     comment
                   </MaterialSymbolIcon>
                 </div>
@@ -194,20 +175,25 @@ including versions of Lorem Ipsum`
               <div className='flex justify-between items-center gap-2'>
                 <div
                   className='flex justify-center items-center bg-lightAccent h-8 w-8 
-                2xl:h-10 2xl:w-10 rounded-full'
+                2xl:h-9 2xl:w-9 rounded-full'
                 >
-                  <MaterialSymbolIcon className='2xl:text-2xl text-base'>
-                    send
-                  </MaterialSymbolIcon>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <MaterialSymbolIcon className='2xl:text-[20px] text-base cursor-pointer'>
+                        share
+                      </MaterialSymbolIcon>
+                    </DialogTrigger>
+                    <DialogContent className='bg-lightAccent'></DialogContent>
+                  </Dialog>
                 </div>
                 <span className='font-bold opacity-90'>3</span>
               </div>
               <div className='flex justify-between items-center gap-2'>
                 <div
                   className='flex justify-center items-center bg-lightAccent h-8 w-8 
-                2xl:h-10 2xl:w-10 rounded-full'
+                2xl:h-9 2xl:w-9 rounded-full'
                 >
-                  <MaterialSymbolIcon className='2xl:text-2xl text-base'>
+                  <MaterialSymbolIcon className='2xl:text-[20px] text-base'>
                     bookmark
                   </MaterialSymbolIcon>
                 </div>
@@ -222,10 +208,12 @@ including versions of Lorem Ipsum`
           <CardHeader className=' bg-lightAccent z-10 py-2 font-semibold border-b'>
             Comments (2)
           </CardHeader>
-          <CardContent className='pt-6 space-y-6 rounded h-[calc(100vh-64px-100px)] scroller overflow-y-auto'>
-            {Array.from({ length: 12 }, (_, i) => i).map(item => (
-              <Comment key={item} />
-            ))}
+          <CardContent className='rounded h-[calc(39vh)] pb-0 pl-4 pr-[5px]'>
+            <div className='pt-6 space-y-6 scroller overflow-y-auto h-full bg-darkAccent'>
+              {Array.from({ length: 12 }, (_, i) => i).map(item => (
+                <Comment key={item} />
+              ))}
+            </div>
           </CardContent>
           <div className='w-full'>
             <form className='relative'>
@@ -234,7 +222,7 @@ including versions of Lorem Ipsum`
                 placeholder='Post a comment...'
               />
               <MaterialSymbolIcon className='absolute top-1/2 -translate-y-1/2 left-3 text-2xl'>
-                face
+                emoji_emotions
               </MaterialSymbolIcon>
               <span className='absolute top-1/2 -translate-y-1/2 right-3 text-primary'>
                 POST
@@ -243,19 +231,31 @@ including versions of Lorem Ipsum`
           </div>
         </Card>
 
-        {/* <Card className='bg-lightAccent'>
-          <CardHeader>
-            <strong>Tags</strong>
-          </CardHeader>
-          <CardContent className='flex gap-2 flex-wrap'>
+        <Card className='bg-lightAccent'>
+          {/* <CardHeader className='inline-block'>
+            <strong>Category</strong>
+          </CardHeader> */}
+          <CardContent className='flex gap-2 flex-wrap pt-6'>
+            <strong className='opacity-70'>Category :</strong>
             {sample_cateories.map(cat => (
-              <Badge key={cat} className=' border-primary'>
+              <Badge key={cat} className=' border opacity-70'>
+                {cat}
+              </Badge>
+            ))}
+          </CardContent>
+          {/* <CardHeader>
+            <strong>Tags</strong>
+          </CardHeader> */}
+          <CardContent className='flex gap-2 flex-wrap'>
+            <strong className='opacity-70'>Tags :</strong>
+            {sample_cateories.map(cat => (
+              <Badge key={cat} className='border opacity-70'>
                 {cat}
               </Badge>
             ))}
           </CardContent>
         </Card>
-        <Card className='bg-lightAccent'>
+        {/* <Card className='bg-lightAccent'>
           <CardHeader>
             <strong>Category</strong>
           </CardHeader>
@@ -311,6 +311,11 @@ function Comment () {
         description='text-[11px] xl:text-[12px] text-white opacity-70'
       />
       <p className='w-[calc(100%-50px)] ml-auto font-semibold'>Lorem ipsum</p>
+      <div className='flex justify-start items-center gap-2 w-[calc(100%-50px)] ml-auto'>
+        <MaterialSymbolIcon className='text-sm'>favorite</MaterialSymbolIcon>
+        <i className='text-xs opacity-60'>34 hours ago</i>
+        <p className='text-sm opacity-90'>Reply</p>
+      </div>
     </div>
   )
 }

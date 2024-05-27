@@ -24,7 +24,7 @@ export default function ProfileInfoOverView ({
 }) {
   return (
     <div className={cn('flex justify-between items-start w-full', className)}>
-      <div className={cn('flex  gap-3 w-full')}>
+      <div className={cn('flex gap-3 w-full')}>
         <Avatar
           className={cn('border-2 border-white h-full aspect-square', image)}
         >
@@ -54,7 +54,7 @@ export default function ProfileInfoOverView ({
               description
             )}
           >
-            Some Random description about user
+            VFX artist
           </p>
         </div>
       </div>

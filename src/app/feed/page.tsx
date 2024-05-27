@@ -123,7 +123,7 @@ export default function FeedPage () {
         </div>
 
         <div
-          className='w-0 lg:w-[40%] max-w-[450px] h-fit  
+          className='w-0 lg:w-[40%] max-w-[370px] h-fit  
          my-5 feed-right-bar space-y-2 overflow-hidden'
         >
           <div className='w-full rounded bg-blue-500 flex justify-start items-start gap-2 p-4'>

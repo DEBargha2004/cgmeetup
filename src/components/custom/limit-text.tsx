@@ -8,7 +8,11 @@ export default function LimitText ({
   className,
   limitCount = 80,
   defaultLimited = true,
-  toggllerLabel = { showMore: 'Show More', showLess: 'Show Less' }
+  toggllerLabel = {
+    showMore: 'Show More',
+    showLess: 'Show Less',
+    className: ''
+  }
 }: {
   children: string
   className?: string
@@ -17,6 +21,7 @@ export default function LimitText ({
   toggllerLabel?: {
     showMore: string
     showLess: string
+    className?: string
   }
 }) {
   const [limit, setLimit] = useState({
@@ -33,7 +38,10 @@ export default function LimitText ({
           setLimit(prev => ({ ...prev, isLimited: !prev.isLimited }))
         }
       >
-        {limit.isLimited ? toggllerLabel.showMore : toggllerLabel.showLess}
+        <span className={cn('', toggllerLabel.className)}>
+          {' '}
+          {limit.isLimited ? toggllerLabel.showMore : toggllerLabel.showLess}
+        </span>
       </span>
     </article>
   )

@@ -20,6 +20,7 @@ import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
 import { Button } from '../ui/button'
 import React from 'react'
 import { useGlobalAppStore } from '@/store/global-app-store'
+import MaterialSymbolIcon from './material-symbol-icon'
 
 export default function Navbar ({ className }: { className?: string }) {
   const { sidebarState, setSidebarState } = useGlobalAppStore()
@@ -93,7 +94,9 @@ export default function Navbar ({ className }: { className?: string }) {
               variant={'success'}
               className='sm:px-3 px-1 sm:h-9 h-7 flex justify-center items-center'
             >
-              <Plus className='h-5 w-5 mr-1' />{' '}
+              <MaterialSymbolIcon className='mr-1 opacity-100'>
+                upload_2
+              </MaterialSymbolIcon>
               <span className='sm:inline hidden'>Upload</span>
             </Button>
           </DropdownMenuTrigger>
@@ -113,11 +116,15 @@ export default function Navbar ({ className }: { className?: string }) {
             ))}
           </DropdownMenuContent>
         </DropdownMenu>
+        <MaterialSymbolIcon>notifications_none</MaterialSymbolIcon>
+        <MaterialSymbolIcon>chat</MaterialSymbolIcon>
+        <MaterialSymbolIcon>add_shopping_cart</MaterialSymbolIcon>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant='secondary' size='icon' className='rounded-full'>
-              <CircleUser className='h-5 w-5' />
-              <span className='sr-only'>Toggle user menu</span>
+              <MaterialSymbolIcon className='text-[40px]'>
+                account_circle
+              </MaterialSymbolIcon>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align='end'>

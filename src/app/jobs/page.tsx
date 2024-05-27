@@ -38,8 +38,8 @@ const roboto = Roboto({ subsets: ['cyrillic'], weight: '700' })
 export default function Dashboard () {
   return (
     <div className='flex min-h-screen w-full flex-col'>
-      <main className='flex flex-1 flex-col py-4 md:gap-5 md:py-12'>
-        <div className='my-6 mb-0 flex flex-col justify-between items-center gap-12 text-center'>
+      <main className='flex flex-1 flex-col py-4 md:gap-0 md:py-12'>
+        <div className='my-6 mb-4 flex flex-col justify-between items-center gap-12 text-center'>
           <div className='space-y-4'>
             <h1
               className={cn(
@@ -65,7 +65,10 @@ export default function Dashboard () {
                   <span>Filter</span>
                 </div>
               </SheetTrigger>
-              <SheetContent side={'right'}></SheetContent>
+              <SheetContent
+                side={'right'}
+                className='bg-lightAccent'
+              ></SheetContent>
             </Sheet>
           </div>
           <div>
@@ -76,7 +79,7 @@ export default function Dashboard () {
           </div>
           <div
             className={cn(
-              'w-full flex justify-start items-center gap-2 px-3',
+              'w-full flex justify-start items-center gap-0 pl-3',
               roboto.className
             )}
           >
