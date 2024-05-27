@@ -124,12 +124,12 @@ export default function Dashboard () {
             </Card>
             <Card className='bg-transparent border-none col-span-3 xl:col-span-1'>
               <Card className='bg-transparent border-none'>
-                <CardHeader className='xl:pt-0 px-0 pb-3'>
+                <CardHeader className='xl:pt-0 px-1 pb-3'>
                   <CardTitle className='text-lg font-bold'>
                     Featured Jobs
                   </CardTitle>
                 </CardHeader>
-                <CardContent className='grid gap-4 px-0'>
+                <CardContent className='grid gap-4 px-1'>
                   <Link href={'/jobs/123'} className='inline-block w-full'>
                     <FeaturedJobCard />
                   </Link>
@@ -145,10 +145,10 @@ export default function Dashboard () {
                 </CardContent>
               </Card>
               <Card className='bg-transparent border-none'>
-                <CardHeader className='px-0'>
+                <CardHeader className='px-1'>
                   <CardTitle>Categories</CardTitle>
                 </CardHeader>
-                <CardContent className='grid grid-cols-2 gap-2 px-0'>
+                <CardContent className='grid grid-cols-2 gap-2 px-1'>
                   {sample_cateories.map(cat => (
                     <Button
                       variant={'outline'}

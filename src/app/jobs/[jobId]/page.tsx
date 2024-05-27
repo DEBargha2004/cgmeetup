@@ -63,8 +63,11 @@ export default function JobPage ({
         <div>
           <p className='text-lg text-primary'>Rs 3.5 - 4.5 LPA</p>
         </div>
-        <div className='flex justify-between gap-2 my-4 w-[calc(100%-400px)]'>
-          <div className='space-x-2'>
+        <div
+          className='flex flex-col xl:flex-row justify-between lg:items-start items-center 
+          gap-y-5 xl:gap-2 my-4 w-full lg:w-[calc(100%-400px)]'
+        >
+          <div className='flex justify-between items-center gap-2'>
             <Button className='px-7'>Apply</Button>
             <Button variant={'outline'} className='bg-lightAccent'>
               Full Time
@@ -73,8 +76,8 @@ export default function JobPage ({
               Onsite
             </Button>
           </div>
-          <div className='flex justify-end items-center w-fit gap-10 mr-5'>
-            <div className='flex gap-6 items-center'>
+          <div className='flex justify-end items-center w-fit xl:gap-5 gap-3 mr-5'>
+            <div className='flex gap-3 xl:gap-6 items-center'>
               <div className='flex justify-between items-center gap-2'>
                 <div className='flex justify-center items-center bg-lightAccent h-10 w-10 rounded-full'>
                   <MaterialSymbolIcon className='text-2xl'>
@@ -121,8 +124,8 @@ export default function JobPage ({
         </div>
       </section>
 
-      <section className='flex gap-2 md:flex-row flex-col justify-between items-start'>
-        <section className='space-y-4 col-span-3 w-[calc(100%-400px)]'>
+      <section className='flex gap-2 lg:flex-row flex-col justify-between items-start'>
+        <section className='space-y-4 col-span-3 w-full lg:w-[calc(100%-400px)]'>
           <Card className='' id='job-description'>
             <CardHeader className='text-xl font-semibold'>
               Job Description
@@ -204,7 +207,7 @@ export default function JobPage ({
             </CardContent>
           </Card>
         </section>
-        <section className='h-fit w-1/4 min-w-[400px] space-y-2 rounded shrink-0'>
+        <section className='h-fit w-full lg:w-1/4 lg:min-w-[400px] space-y-2 rounded shrink-0'>
           <Button variant={'outline'} className='bg-transparent group'>
             <span className='group-hover:text-primary mr-2'>View All Jobs</span>
             <MaterialSymbolIcon classID=''>arrow_right_alt</MaterialSymbolIcon>
