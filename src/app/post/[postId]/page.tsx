@@ -1,3 +1,5 @@
+'use client'
+
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import projects from '../../../../public/data/projects.json'
@@ -13,12 +15,17 @@ import {
 import Link from 'next/link'
 import { Input } from '@/components/ui/input'
 import Close from './_components/close'
+import { useState } from 'react'
 
 export default function Post ({
   params: { postId }
 }: {
   params: { postId: string }
 }) {
+  const [limit, setLimit] = useState({
+    isLimited: true,
+    limitCount: 200
+  })
   const project_idx = projects.data.findIndex(
     project => project.id === Number(postId)
   )
@@ -95,16 +102,54 @@ including versions of Lorem Ipsum`
               description='text-[11px] xl:text-[12px] text-white opacity-70'
             >
               <Button className='xl:text-sm text-xs xl:h-10 h-8 px-3 xl:px-2'>
-                {/* <MaterialSymbolIcon className='mr-2'>
-                  person_add
-                </MaterialSymbolIcon>{' '} */}
                 Follow
               </Button>
             </ProfileInfoOverView>
           </CardContent>
           <CardContent id='post-info' className='space-y-2 pt-0'>
             <h1 className='text-xl font-bold'>{project.title}</h1>
-            <LimitText className='text-[14px]'>{description}</LimitText>
+            <article className={cn('')}>
+              {description.slice(
+                0,
+                limit.isLimited ? limit.limitCount : description.length
+              )}{' '}
+              {!limit.isLimited && (
+                <>
+                  <Card className='bg-lightAccent border-none'>
+                    <CardHeader className='px-0'>
+                      <strong>Tags</strong>
+                    </CardHeader>
+                    <CardContent className='flex gap-2 flex-wrap px-0'>
+                      {sample_cateories.map(cat => (
+                        <Badge key={cat} className=' border-primary'>
+                          {cat}
+                        </Badge>
+                      ))}
+                    </CardContent>
+                  </Card>
+                  <Card className='bg-lightAccent border-none'>
+                    <CardHeader className='px-0'>
+                      <strong>Category</strong>
+                    </CardHeader>
+                    <CardContent className='flex gap-2 flex-wrap px-0'>
+                      {sample_cateories.map(cat => (
+                        <Badge key={cat} className=' border-primary'>
+                          {cat}
+                        </Badge>
+                      ))}
+                    </CardContent>
+                  </Card>
+                </>
+              )}
+              <span
+                className='text-primary underline whitespace-nowrap'
+                onClick={() =>
+                  setLimit(prev => ({ ...prev, isLimited: !prev.isLimited }))
+                }
+              >
+                {limit.isLimited ? 'showMore' : 'showLess'}
+              </span>
+            </article>
             <i className='text-muted-foreground text-xs'>Posted 6 hours ago</i>
           </CardContent>
         </Card>
@@ -198,7 +243,7 @@ including versions of Lorem Ipsum`
           </div>
         </Card>
 
-        <Card className='bg-lightAccent'>
+        {/* <Card className='bg-lightAccent'>
           <CardHeader>
             <strong>Tags</strong>
           </CardHeader>
@@ -221,7 +266,7 @@ including versions of Lorem Ipsum`
               </Badge>
             ))}
           </CardContent>
-        </Card>
+        </Card> */}
         <Card id='more-work' className='bg-lightAccent'>
           <CardHeader className='flex flex-row justify-start items-center gap-2'>
             More by <strong>Guillaume</strong>
