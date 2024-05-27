@@ -177,7 +177,7 @@ including versions of Lorem Ipsum`
           <CardHeader className=' bg-lightAccent z-10 py-2 font-semibold border-b'>
             Comments (2)
           </CardHeader>
-          <CardContent className='pt-6 space-y-6 rounded h-[calc(100vh-64px)] scroller overflow-y-auto'>
+          <CardContent className='pt-6 space-y-6 rounded h-[calc(100vh-64px-100px)] scroller overflow-y-auto'>
             {Array.from({ length: 12 }, (_, i) => i).map(item => (
               <Comment key={item} />
             ))}
