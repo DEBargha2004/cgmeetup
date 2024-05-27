@@ -35,9 +35,13 @@ including versions of Lorem Ipsum`
   const project = projects.data[project_idx] || {}
 
   return (
-    <main className='lg:h-full h-auto overflow-y-auto scroller max-w-[100vw] flex lg:flex-row flex-col justify-between items-start'>
+    <main
+      className='lg:h-full h-auto overflow-y-auto scroller max-w-[100vw] flex lg:flex-row 
+    flex-col justify-between items-start relative'
+    >
+      <Close className='lg:hidden block z-20 top-4 right-4' />
       <div
-        className='w-full lg:w-[70%] md:h-screen h-[calc(100vh/2)] flex justify-center items-center 
+        className='w-full lg:w-[70%] md:h-[calc(100vh-64px)] h-[calc(100vh/2)] flex justify-center items-center 
              relative bg-darkAccent'
       >
         <div className='overflow-y-auto h-full snap-mandatory snap-y scroller-hide'>
@@ -82,9 +86,9 @@ including versions of Lorem Ipsum`
           </div>
         </Link>
       </div>
-      <div className='w-full lg:w-[30%] lg:h-full overflow-y-auto border-l px-4 scroller space-y-3 py-5'>
+      <div className='w-full lg:w-[30%] h-full overflow-y-auto border-l px-4 scroller space-y-3 py-5'>
         <Card className='rounded bg-lightAccent relative'>
-          <Close />
+          <Close className='lg:block hidden' />
           <CardContent id='user-profile' className='space-y-6 pt-6 pb-3'>
             <ProfileInfoOverView
               heading='text-[14px] xl:text-[16px]'
@@ -173,7 +177,7 @@ including versions of Lorem Ipsum`
           <CardHeader className=' bg-lightAccent z-10 py-2 font-semibold border-b'>
             Comments (2)
           </CardHeader>
-          <CardContent className='pt-6 space-y-6 rounded h-[500px] scroller overflow-y-auto'>
+          <CardContent className='pt-6 space-y-6 rounded h-[calc(100vh-64px)] scroller overflow-y-auto'>
             {Array.from({ length: 12 }, (_, i) => i).map(item => (
               <Comment key={item} />
             ))}
