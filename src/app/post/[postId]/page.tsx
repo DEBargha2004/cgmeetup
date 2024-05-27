@@ -35,9 +35,9 @@ including versions of Lorem Ipsum`
   const project = projects.data[project_idx] || {}
 
   return (
-    <main className='h-full max-w-[100vw] flex justify-between items-start'>
+    <main className='lg:h-full h-auto overflow-y-auto scroller max-w-[100vw] flex lg:flex-row flex-col justify-between items-start'>
       <div
-        className='w-[70%] h-full flex justify-center items-center 
+        className='w-full lg:w-[70%] md:h-screen h-[calc(100vh/2)] flex justify-center items-center 
              relative bg-darkAccent'
       >
         <div className='overflow-y-auto h-full snap-mandatory snap-y scroller-hide'>
@@ -48,7 +48,7 @@ including versions of Lorem Ipsum`
                 alt={project.title}
                 height={800}
                 width={800}
-                className='h-full w-auto shrink-0'
+                className='h-full w-auto shrink-0 object-contain'
               />
             </PostImage>
           ))}
@@ -82,15 +82,15 @@ including versions of Lorem Ipsum`
           </div>
         </Link>
       </div>
-      <div className='w-[30%] h-full overflow-y-auto border-l px-4 scroller space-y-3 py-5'>
+      <div className='w-full lg:w-[30%] lg:h-full overflow-y-auto border-l px-4 scroller space-y-3 py-5'>
         <Card className='rounded bg-lightAccent relative'>
           <Close />
           <CardContent id='user-profile' className='space-y-6 pt-6 pb-3'>
             <ProfileInfoOverView
-              heading='text-[16px]'
-              description='text-[12px] text-white opacity-70'
+              heading='text-[14px] xl:text-[16px]'
+              description='text-[11px] xl:text-[12px] text-white opacity-70'
             >
-              <Button>
+              <Button className='xl:text-sm text-xs xl:h-10 h-8 px-3 xl:px-2'>
                 {/* <MaterialSymbolIcon className='mr-2'>
                   person_add
                 </MaterialSymbolIcon>{' '} */}
@@ -104,46 +104,61 @@ including versions of Lorem Ipsum`
             <i className='text-muted-foreground text-xs'>Posted 6 hours ago</i>
           </CardContent>
         </Card>
-        <div className='flex justify-between items-center px-2'>
-          <div className='flex justify-between items-center w-full'>
-            <div className='flex gap-6 items-center'>
+        <div className='flex justify-between items-center '>
+          <div className='flex justify-between 2xl:gap-6 gap-3 items-center w-full'>
+            <div className='flex 2xl:gap-6 gap-3 items-center'>
               <div className='flex justify-between items-center gap-2'>
-                <div className='flex justify-center items-center bg-lightAccent h-10 w-10 rounded-full'>
-                  <MaterialSymbolIcon className='text-2xl'>
+                <div
+                  className='flex justify-center items-center bg-lightAccent h-8 w-8 
+                2xl:h-10 2xl:w-10 rounded-full'
+                >
+                  <MaterialSymbolIcon className='2xl:text-2xl text-base'>
                     favorite
                   </MaterialSymbolIcon>
                 </div>
                 <span className='font-bold opacity-90'>3</span>
               </div>
               <div className='flex justify-between items-center gap-2'>
-                <div className='flex justify-center items-center bg-lightAccent h-10 w-10 rounded-full'>
-                  <MaterialSymbolIcon className='text-2xl'>
+                <div
+                  className='flex justify-center items-center bg-lightAccent h-8 w-8 
+                2xl:h-10 2xl:w-10 rounded-full'
+                >
+                  <MaterialSymbolIcon className='2xl:text-2xl text-base'>
                     visibility
                   </MaterialSymbolIcon>
                 </div>
                 <span className='font-bold opacity-90'>3</span>
               </div>
               <div className='flex justify-between items-center gap-2'>
-                <div className='flex justify-center items-center bg-lightAccent h-10 w-10 rounded-full'>
-                  <MaterialSymbolIcon className='text-2xl'>
+                <div
+                  className='flex justify-center items-center bg-lightAccent h-8 w-8 
+                2xl:h-10 2xl:w-10 rounded-full'
+                >
+                  <MaterialSymbolIcon className='2xl:text-2xl text-base'>
                     comment
                   </MaterialSymbolIcon>
                 </div>
                 <span className='font-bold opacity-90'>3</span>
               </div>
             </div>
-            <div className='flex gap-6 items-center'>
+            <div className='flex 2xl:gap-6 gap-3 items-center'>
               <div className='flex justify-between items-center gap-2'>
-                <div className='flex justify-center items-center bg-lightAccent h-10 w-10 rounded-full'>
-                  <MaterialSymbolIcon className='text-2xl'>
+                <div
+                  className='flex justify-center items-center bg-lightAccent h-8 w-8 
+                2xl:h-10 2xl:w-10 rounded-full'
+                >
+                  <MaterialSymbolIcon className='2xl:text-2xl text-base'>
                     send
                   </MaterialSymbolIcon>
                 </div>
                 <span className='font-bold opacity-90'>3</span>
               </div>
               <div className='flex justify-between items-center gap-2'>
-                <div className='flex justify-center items-center bg-lightAccent h-10 w-10 rounded-full'>
-                  <MaterialSymbolIcon className='text-2xl'>
+                <div
+                  className='flex justify-center items-center bg-lightAccent h-8 w-8 
+                2xl:h-10 2xl:w-10 rounded-full'
+                >
+                  <MaterialSymbolIcon className='2xl:text-2xl text-base'>
                     bookmark
                   </MaterialSymbolIcon>
                 </div>
@@ -151,11 +166,14 @@ including versions of Lorem Ipsum`
             </div>
           </div>
         </div>
-        <Card id='comments' className='space-y-2 border'>
+        <Card
+          id='comments'
+          className='space-y-2 border bg-darkAccent rounded-lg'
+        >
           <CardHeader className=' bg-lightAccent z-10 py-2 font-semibold border-b'>
             Comments (2)
           </CardHeader>
-          <CardContent className='pt-6 space-y-6 rounded h-[500px] scroller overflow-y-auto bg-darkAccent'>
+          <CardContent className='pt-6 space-y-6 rounded h-[500px] scroller overflow-y-auto'>
             {Array.from({ length: 12 }, (_, i) => i).map(item => (
               <Comment key={item} />
             ))}
@@ -240,8 +258,8 @@ function Comment () {
   return (
     <div className='flex flex-col justify-start items-start gap-2'>
       <ProfileInfoOverView
-        heading='text-white opacity-60 text-[16px]'
-        description='text-white opacity-60 text-[12px]'
+        heading='text-[14px] xl:text-[16px] opacity-70'
+        description='text-[11px] xl:text-[12px] text-white opacity-70'
       />
       <p className='w-[calc(100%-50px)] ml-auto font-semibold'>Lorem ipsum</p>
     </div>
