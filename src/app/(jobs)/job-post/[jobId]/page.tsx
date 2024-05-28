@@ -68,7 +68,9 @@ export default function JobPage ({
           <div className='text-sm flex items-center gap-2'>
             <span>Ubisoft</span>{' '}
             <Button className='xl:text-sm text-xs w-8 h-8 rounded-full'>
-              <MaterialSymbolIcon>person_add</MaterialSymbolIcon>
+              <MaterialSymbolIcon className='opacity-100'>
+                person_add
+              </MaterialSymbolIcon>
             </Button>
           </div>
         </div>
@@ -85,45 +87,48 @@ export default function JobPage ({
         </div>
         <div
           className='flex flex-col xl:flex-row justify-between lg:items-start items-center 
-          gap-y-5 xl:gap-2 my-4 w-full lg:w-[calc(100%-400px)]'
+          gap-y-5 xl:gap-2 my-4 w-full lg:w-full'
         >
-          <div className='flex justify-between items-center gap-2'>
-            <Button className='px-7'>
-              <MaterialSymbolIcon className='mr-2'>work</MaterialSymbolIcon>
-              Apply
-            </Button>
-            <Button variant={'outline'} className='bg-lightAccent'>
-              Full Time
-            </Button>
-            <Button variant={'outline'} className='bg-lightAccent'>
-              Onsite
-            </Button>
-          </div>
-          <div className='flex justify-end items-center w-fit xl:gap-5 gap-3 mr-5'>
-            <div className='flex gap-3 xl:gap-6 items-center'>
-              <div className='flex justify-between items-center gap-2'>
-                <div
-                  className='flex justify-center items-center bg-lightAccent h-8 w-8 
+          <div className='flex justify-between items-center w-full'>
+            <div className='flex justify-between items-center gap-2'>
+              <Button className='px-7'>
+                <MaterialSymbolIcon className='mr-2 opacity-100'>
+                  work
+                </MaterialSymbolIcon>
+                Apply
+              </Button>
+              <Button variant={'outline'} className='bg-lightAccent'>
+                Full Time
+              </Button>
+              <Button variant={'outline'} className='bg-lightAccent'>
+                Onsite
+              </Button>
+            </div>
+            <div className='flex justify-end items-center w-fit xl:gap-5 gap-3 mr-5'>
+              <div className='flex gap-3 xl:gap-6 items-center'>
+                <div className='flex justify-between items-center gap-2'>
+                  <div
+                    className='flex justify-center items-center bg-lightAccent h-8 w-8 
                 2xl:h-9 2xl:w-9 rounded-full'
-                >
-                  <MaterialSymbolIcon className='2xl:text-[20px] text-base'>
-                    favorite
-                  </MaterialSymbolIcon>
+                  >
+                    <MaterialSymbolIcon className='2xl:text-[20px] text-base'>
+                      favorite
+                    </MaterialSymbolIcon>
+                  </div>
+                  <span className='font-bold opacity-90'>3</span>
                 </div>
-                <span className='font-bold opacity-90'>3</span>
-              </div>
-              <div className='flex justify-between items-center gap-2'>
-                <div
-                  className='flex justify-center items-center bg-lightAccent h-8 w-8 
+                <div className='flex justify-between items-center gap-2'>
+                  <div
+                    className='flex justify-center items-center bg-lightAccent h-8 w-8 
                 2xl:h-9 2xl:w-9 rounded-full'
-                >
-                  <MaterialSymbolIcon className='2xl:text-[20px] text-base'>
-                    visibility
-                  </MaterialSymbolIcon>
+                  >
+                    <MaterialSymbolIcon className='2xl:text-[20px] text-base'>
+                      visibility
+                    </MaterialSymbolIcon>
+                  </div>
+                  <span className='font-bold opacity-90'>3</span>
                 </div>
-                <span className='font-bold opacity-90'>3</span>
-              </div>
-              {/* <div className='flex justify-between items-center gap-2'>
+                {/* <div className='flex justify-between items-center gap-2'>
                 <div
                   className='flex justify-center items-center bg-lightAccent h-8 w-8 
                 2xl:h-9 2xl:w-9 rounded-full'
@@ -134,31 +139,33 @@ export default function JobPage ({
                 </div>
                 <span className='font-bold opacity-90'>3</span>
               </div> */}
-            </div>
-            <div className='flex gap-6 items-center'>
-              <div className='flex justify-between items-center gap-2'>
-                <div
-                  className='flex justify-center items-center bg-lightAccent h-8 w-8 
-                2xl:h-9 2xl:w-9 rounded-full'
-                >
-                  <MaterialSymbolIcon className='2xl:text-[20px] text-base'>
-                    share
-                  </MaterialSymbolIcon>
-                </div>
-                <span className='font-bold opacity-90'>3</span>
               </div>
-              <div className='flex justify-between items-center gap-2'>
-                <div
-                  className='flex justify-center items-center bg-lightAccent h-8 w-8 
+              <div className='flex gap-6 items-center'>
+                <div className='flex justify-between items-center gap-2'>
+                  <div
+                    className='flex justify-center items-center bg-lightAccent h-8 w-8 
                 2xl:h-9 2xl:w-9 rounded-full'
-                >
-                  <MaterialSymbolIcon className='2xl:text-[20px] text-base'>
-                    bookmark
-                  </MaterialSymbolIcon>
+                  >
+                    <MaterialSymbolIcon className='2xl:text-[20px] text-base'>
+                      share
+                    </MaterialSymbolIcon>
+                  </div>
+                  <span className='font-bold opacity-90'>3</span>
+                </div>
+                <div className='flex justify-between items-center gap-2'>
+                  <div
+                    className='flex justify-center items-center bg-lightAccent h-8 w-8 
+                2xl:h-9 2xl:w-9 rounded-full'
+                  >
+                    <MaterialSymbolIcon className='2xl:text-[20px] text-base'>
+                      bookmark
+                    </MaterialSymbolIcon>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          <div className='h-fit w-full lg:w-1/4 lg:min-w-[400px] space-y-2 rounded shrink-0'></div>
         </div>
       </section>
 
@@ -231,7 +238,7 @@ export default function JobPage ({
           <Card className='' id='about'>
             <CardHeader className='text-xl font-semibold text-primary pb-3'>
               <div className='flex items-center gap-4'>
-                <p>Ubisoft</p>
+                <p className='text-white hover:text-primary'>Ubisoft</p>
                 <Button variant={'outline'} className='bg-transparent group'>
                   <span className='group-hover:text-primary mr-2'>
                     View All Jobs

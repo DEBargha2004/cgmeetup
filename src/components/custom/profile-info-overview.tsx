@@ -11,7 +11,9 @@ export default function ProfileInfoOverView ({
   image,
   description,
   heading,
-  textContainer
+  textContainer,
+  descriptionValue,
+  titleValue
 }: {
   children?: React.ReactNode
   className?: string
@@ -21,6 +23,8 @@ export default function ProfileInfoOverView ({
   heading?: string
   description?: string
   textContainer?: string
+  titleValue?: string
+  descriptionValue?: string
 }) {
   return (
     <div className={cn('flex justify-between items-start w-full', className)}>
@@ -46,7 +50,7 @@ export default function ProfileInfoOverView ({
           )}
         >
           <h1 className={cn('text-sm font-semibold ', heading)}>
-            {'Ramaya Vastavaiya'}
+            {titleValue || 'Ramaya Vastavaiya'}
           </h1>
           <p
             className={cn(
@@ -54,7 +58,7 @@ export default function ProfileInfoOverView ({
               description
             )}
           >
-            VFX artist
+            {descriptionValue || 'VFX artist'}
           </p>
         </div>
       </div>

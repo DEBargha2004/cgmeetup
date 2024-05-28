@@ -9,8 +9,10 @@ import { cn } from '@/lib/utils'
 
 export default function SuggestionCard ({
   className,
+  title,
+  description,
   ...props
-}: {} & HTMLProps<HTMLDivElement>) {
+}: { title?: string; description?: string } & HTMLProps<HTMLDivElement>) {
   return (
     <Card
       className={cn(
@@ -26,12 +28,16 @@ export default function SuggestionCard ({
         image=' w-10 h-10'
         heading='text-sm xl:text-lg'
         description='text-xs xl:text-sm'
+        titleValue={title}
+        descriptionValue={description}
       >
         <div
           className='w-10 h-10 cursor-pointer flex justify-center 
-        items-center rounded-full hover:bg-darkAccent'
+        items-center rounded-full bg-darkAccent shrink-0'
         >
-          <MaterialSymbolIcon>person_add</MaterialSymbolIcon>
+          <MaterialSymbolIcon className='text-primary'>
+            person_add
+          </MaterialSymbolIcon>
         </div>
       </ProfileInfoOverView>
       <div className='grid grid-cols-3 gap-1 w-[85%] ml-auto'>

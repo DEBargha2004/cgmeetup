@@ -51,7 +51,7 @@ export default function GalleryImage ({
         alt={project.title}
         height={400}
         width={400}
-        className='w-full h-full object-cover'
+        className='w-full aspect-square object-cover'
       />
       <div
         className='absolute bottom-0 left-0 w-full h-1/2 translate-y-full 

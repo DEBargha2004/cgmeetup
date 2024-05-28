@@ -132,10 +132,10 @@ export default function FeedPage () {
             </div>
             <div className='space-y-1'>
               <div className='text-xl font-bold flex justify-between items-center'>
-                <h1>20% Profile Completed!</h1>
+                <h1 className='text-lg'>20% Profile Completed!</h1>
                 <div className='flex items-center justify-center text-green-800'>
                   <MaterialSymbolIcon className=''>edit</MaterialSymbolIcon>
-                  <span className='text-sm '>Edit Profile</span>
+                  <span className='text-sm '>Edit</span>
                 </div>
               </div>
               <p className='font-medium text-sm'>

@@ -25,14 +25,14 @@ export default function ProgressBar ({ value = 0 }: { value?: number }) {
           width: '80px'
         },
         path: {
-          stroke: 'white'
+          stroke: '#2196f3'
         },
         trail: {
-          stroke: 'blue'
+          stroke: 'white'
         }
       }}
     >
-      <Avatar className={cn(' h-[66px] w-[66px]')}>
+      <Avatar className={cn('h-[66px] w-[66px]')}>
         <AvatarImage
           src={
             'https://cdna.artstation.com/p/users/avatars/000/078/930/large/99d98b9db85095a32a74190b5b4be7d1.jpg?1669152204'

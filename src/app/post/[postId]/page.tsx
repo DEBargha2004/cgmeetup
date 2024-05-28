@@ -1,5 +1,3 @@
-'use client'
-
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import projects from '../../../../public/data/projects.json'
@@ -15,7 +13,6 @@ import {
 import Link from 'next/link'
 import { Input } from '@/components/ui/input'
 import Close from './_components/close'
-import { useState } from 'react'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -23,16 +20,13 @@ import {
   BreadcrumbSeparator
 } from '@/components/ui/breadcrumb'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
+import vertical from '../../../../public/images/dog-vertical.webp'
 
 export default function Post ({
   params: { postId }
 }: {
   params: { postId: string }
 }) {
-  const [limit, setLimit] = useState({
-    isLimited: true,
-    limitCount: 200
-  })
   const project_idx = projects.data.findIndex(
     project => project.id === Number(postId)
   )
@@ -69,11 +63,11 @@ including versions of Lorem Ipsum`
           {Array.from({ length: 4 }, (_, i) => i).map(item => (
             <PostImage key={item}>
               <Image
-                src={project.smaller_square_cover_url}
+                src={vertical}
                 alt={project.title}
                 height={800}
                 width={800}
-                className='h-full w-auto shrink-0 object-contain'
+                className='h-full shrink-0 object-contain'
               />
             </PostImage>
           ))}
