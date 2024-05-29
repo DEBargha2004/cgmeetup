@@ -8,6 +8,7 @@ import MaterialSymbolIcon from './material-symbol-icon'
 import LimitText from './limit-text'
 import ProfileInfoOverView from './profile-info-overview'
 import Tabs from './tabs'
+import EmojiPickerElement from './emoji-picker'
 
 export {
   AppLogo,
@@ -19,5 +20,6 @@ export {
   MaterialSymbolIcon,
   LimitText,
   ProfileInfoOverView,
-  Tabs
+  Tabs,
+  EmojiPickerElement
 }

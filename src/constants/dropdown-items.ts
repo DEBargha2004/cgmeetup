@@ -33,6 +33,12 @@ export const profileItems: ProfileItem[] = [
     href: '/feed'
   },
   {
+    type: 'link',
+    id: 'chat',
+    label: 'Chat',
+    href: '/chat'
+  },
+  {
     type: 'separator'
   },
   {

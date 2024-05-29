@@ -31,7 +31,7 @@ import { cn } from '@/lib/utils'
 import { TabItem } from '@/types/tab'
 import { Search } from 'lucide-react'
 import { Roboto } from 'next/font/google'
-import { HTMLProps, useState } from 'react'
+import { HTMLProps, useEffect, useState } from 'react'
 
 const tabList: TabItem[] = [
   { label: 'Jobs', href: '/jobs', icon: 'work' },
@@ -54,6 +54,7 @@ const roboto = Roboto({ subsets: ['cyrillic'], weight: '700' })
 
 export default function Layout ({ children }: { children: React.ReactNode }) {
   const [selectedSoftwares, setSelectedSoftwares] = useState<string[]>([])
+
   return (
     <div className='flex min-h-screen w-full flex-col'>
       <main className='flex flex-1 flex-col py-4 md:gap-0 md:py-12'>
@@ -191,7 +192,10 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
                     <AccordionContent className='space-y-4 p-2'>
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                          <div className='p-2 flex justify-between items-center w-full border rounded h-10 bg-darkAccent'>
+                          <div
+                            className='p-2 flex justify-between items-center w-full border rounded 
+                          h-10 bg-darkAccent'
+                          >
                             <span>Software</span>
                             <MaterialSymbolIcon className=''>
                               keyboard_arrow_down
@@ -200,7 +204,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent
                           className='max-h-[300px] overflow-y-auto scroller h-[200px] 
-                        w-[319px] space-y-1'
+                        w-full space-y-1'
                         >
                           {tags.map(item => (
                             <DropdownMenuItem
