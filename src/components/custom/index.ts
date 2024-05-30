@@ -9,6 +9,7 @@ import LimitText from './limit-text'
 import ProfileInfoOverView from './profile-info-overview'
 import Tabs from './tabs'
 import EmojiPickerElement from './emoji-picker'
+import MaterialSymbolIconOutlined from './material-symbol-icon-outlined'
 
 export {
   AppLogo,
@@ -21,5 +22,6 @@ export {
   LimitText,
   ProfileInfoOverView,
   Tabs,
-  EmojiPickerElement
+  EmojiPickerElement,
+  MaterialSymbolIconOutlined
 }

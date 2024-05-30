@@ -10,3 +10,22 @@ export const sample_cateories = [
   'Roto Artist',
   'Texturing'
 ]
+
+export const gallery_post_categories: { value: string; label: string }[] = [
+  {
+    value: 'clothing',
+    label: 'Clothing'
+  },
+  {
+    value: 'shoes',
+    label: 'Shoes'
+  },
+  {
+    value: 'accessories',
+    label: 'Accessories'
+  },
+  {
+    value: 'electronics',
+    label: 'Electronics'
+  }
+]
