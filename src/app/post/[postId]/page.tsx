@@ -104,7 +104,10 @@ including versions of Lorem Ipsum`
       <div className='w-full lg:w-[30%] h-full overflow-y-auto px-4 scroller space-y-3 py-2'>
         <Card className='rounded bg-lightAccent relative'>
           <div className='flex justify-end gap-2 items-center absolute top-0 right-0 w-full pt-[6px]'>
-            <MaterialSymbolIcon className='opacity-100 hover:text-primary text-[20px] cursor-pointer'>
+            <MaterialSymbolIcon
+              variant='filled'
+              className='opacity-100 hover:text-primary text-[20px] cursor-pointer'
+            >
               more_vert
             </MaterialSymbolIcon>
             <Close className='lg:block lg:relative hidden text-[20px] opacity-100 hover:text-primary' />
@@ -136,7 +139,10 @@ including versions of Lorem Ipsum`
                   className='flex justify-center items-center bg-lightAccent h-8 w-8 
                 2xl:h-9 2xl:w-9 rounded-full'
                 >
-                  <MaterialSymbolIcon className='2xl:text-[20px] text-base'>
+                  <MaterialSymbolIcon
+                    variant='filled'
+                    className='2xl:text-[20px] text-base'
+                  >
                     favorite
                   </MaterialSymbolIcon>
                 </div>
@@ -147,7 +153,10 @@ including versions of Lorem Ipsum`
                   className='flex justify-center items-center bg-lightAccent h-8 w-8 
                 2xl:h-9 2xl:w-9 rounded-full'
                 >
-                  <MaterialSymbolIcon className='2xl:text-[20px] text-base'>
+                  <MaterialSymbolIcon
+                    variant='filled'
+                    className='2xl:text-[20px] text-base'
+                  >
                     visibility
                   </MaterialSymbolIcon>
                 </div>
@@ -158,7 +167,10 @@ including versions of Lorem Ipsum`
                   className='flex justify-center items-center bg-lightAccent h-8 w-8 
                 2xl:h-9 2xl:w-9 rounded-full'
                 >
-                  <MaterialSymbolIcon className='2xl:text-[20px] text-base'>
+                  <MaterialSymbolIcon
+                    variant='filled'
+                    className='2xl:text-[20px] text-base'
+                  >
                     comment
                   </MaterialSymbolIcon>
                 </div>
@@ -173,7 +185,10 @@ including versions of Lorem Ipsum`
                 >
                   <Dialog>
                     <DialogTrigger asChild>
-                      <MaterialSymbolIcon className='2xl:text-[20px] text-base cursor-pointer'>
+                      <MaterialSymbolIcon
+                        variant='filled'
+                        className='2xl:text-[20px] text-base cursor-pointer'
+                      >
                         share
                       </MaterialSymbolIcon>
                     </DialogTrigger>
@@ -187,7 +202,10 @@ including versions of Lorem Ipsum`
                   className='flex justify-center items-center bg-lightAccent h-8 w-8 
                 2xl:h-9 2xl:w-9 rounded-full'
                 >
-                  <MaterialSymbolIcon className='2xl:text-[20px] text-base'>
+                  <MaterialSymbolIcon
+                    variant='filled'
+                    className='2xl:text-[20px] text-base'
+                  >
                     bookmark
                   </MaterialSymbolIcon>
                 </div>
@@ -215,7 +233,10 @@ including versions of Lorem Ipsum`
                 className='h-12 pl-10 pr-16 text-opacity-70'
                 placeholder='Post a comment...'
               />
-              <MaterialSymbolIcon className='absolute top-1/2 -translate-y-1/2 left-3 text-2xl'>
+              <MaterialSymbolIcon
+                variant='filled'
+                className='absolute top-1/2 -translate-y-1/2 left-3 text-2xl'
+              >
                 emoji_emotions
               </MaterialSymbolIcon>
               <span className='absolute top-1/2 -translate-y-1/2 right-3 text-primary'>

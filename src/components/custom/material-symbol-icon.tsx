@@ -7,6 +7,7 @@ export default function MaterialSymbolIcon ({
   ...props
 }: {
   children: string
+  variant?: 'outlined' | 'filled'
 } & HTMLProps<HTMLSpanElement>) {
   return (
     <span

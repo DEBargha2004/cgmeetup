@@ -209,7 +209,10 @@ export default function Gallery () {
                                 size='icon'
                                 variant='ghost'
                               >
-                                <MaterialSymbolIcon className='opacity-100'>
+                                <MaterialSymbolIcon
+                                  variant='filled'
+                                  className='opacity-100'
+                                >
                                   more_vert
                                 </MaterialSymbolIcon>
                               </Button>

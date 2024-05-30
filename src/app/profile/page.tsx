@@ -45,8 +45,8 @@ export default function ProfilePage () {
         <div className='flex flex-col justify-between items-center gap-[6px]'>
           <p className='text-sm  opacity-60'>3D Animator</p>
           <p className='flex justify-center items-end opacity-60 text-sm'>
-            <MaterialSymbolIcon>location_on</MaterialSymbolIcon>&nbsp;
-            Florida,USA
+            <MaterialSymbolIcon>location_on</MaterialSymbolIcon>
+            &nbsp; Florida,USA
           </p>
         </div>
         <div className='flex flex-col justify-between items-center gap-5 w-1/5 min-w-[250px]'>
@@ -79,13 +79,16 @@ export default function ProfilePage () {
           <div className='mx-auto w-full py-0'>
             <TabsList className='w-full bg-lightAccent'>
               <TabsTrigger value='posts' className='flex justify-between gap-1'>
-                <MaterialSymbolIcon>panorama</MaterialSymbolIcon>Posts
+                <MaterialSymbolIcon>panorama</MaterialSymbolIcon>
+                Posts
               </TabsTrigger>
               <TabsTrigger value='jobs' className='flex justify-between gap-1'>
-                <MaterialSymbolIcon>work</MaterialSymbolIcon>Jobs
+                <MaterialSymbolIcon>work</MaterialSymbolIcon>
+                Jobs
               </TabsTrigger>
               <TabsTrigger value='about' className='flex justify-between gap-1'>
-                <MaterialSymbolIcon>person</MaterialSymbolIcon>About
+                <MaterialSymbolIcon>person</MaterialSymbolIcon>
+                About
               </TabsTrigger>
             </TabsList>
           </div>
@@ -205,16 +208,20 @@ export default function ProfilePage () {
                 className='opacity-100 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 p-4 w-full '
               >
                 <p className='flex justify-center items-center gap-1 cursor-pointer w-full shrink-0'>
-                  Twitter<MaterialSymbolIcon>open_in_new</MaterialSymbolIcon>
+                  Twitter
+                  <MaterialSymbolIcon>open_in_new</MaterialSymbolIcon>
                 </p>
                 <p className='flex justify-center items-center gap-1 cursor-pointer w-full shrink-0'>
-                  Instagram<MaterialSymbolIcon>open_in_new</MaterialSymbolIcon>
+                  Instagram
+                  <MaterialSymbolIcon>open_in_new</MaterialSymbolIcon>
                 </p>
                 <p className='flex justify-center items-center gap-1 cursor-pointer w-full shrink-0'>
-                  Youtube<MaterialSymbolIcon>open_in_new</MaterialSymbolIcon>
+                  Youtube
+                  <MaterialSymbolIcon>open_in_new</MaterialSymbolIcon>
                 </p>
                 <p className='flex justify-center items-center gap-1 cursor-pointer w-full shrink-0'>
-                  Website<MaterialSymbolIcon>open_in_new</MaterialSymbolIcon>
+                  Website
+                  <MaterialSymbolIcon>open_in_new</MaterialSymbolIcon>
                 </p>
               </AboutSectionItemsWrapper>
               <AboutSectionItemsWrapper

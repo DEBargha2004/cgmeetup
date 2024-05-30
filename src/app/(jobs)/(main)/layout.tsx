@@ -247,6 +247,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
                           >
                             <span>{item}</span>
                             <MaterialSymbolIcon
+                              variant='filled'
                               className='text-sm cursor-pointer'
                               onClick={() => {
                                 setSelectedSoftwares(prev => {

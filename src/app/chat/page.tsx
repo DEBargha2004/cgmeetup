@@ -122,7 +122,10 @@ export default function ChatPage () {
         </div>
         <div className='relative w-full'>
           <Input className='pl-10' placeholder='Search..' />
-          <MaterialSymbolIcon className='absolute top-1/2 -translate-y-1/2 left-3'>
+          <MaterialSymbolIcon
+            variant='filled'
+            className='absolute top-1/2 -translate-y-1/2 left-3'
+          >
             search
           </MaterialSymbolIcon>
         </div>
@@ -208,6 +211,7 @@ export default function ChatPage () {
                 more_vert
               </MaterialSymbolIcon>
               <MaterialSymbolIcon
+                variant='filled'
                 className='opacity-100 cursor-pointer sm:hidden'
                 onClick={e => {
                   e.stopPropagation()
@@ -301,6 +305,7 @@ export default function ChatPage () {
           <div className='flex justify-between items-center'>
             <h1 className='text-xl font-semibold'>Profile</h1>
             <MaterialSymbolIcon
+              variant='filled'
               className='opacity-100 cursor-pointer'
               onClick={() => setShowInfo(false)}
             >
@@ -333,6 +338,7 @@ export default function ChatPage () {
                 className='w-[35%] flex justify-center gap-2 items-center'
               >
                 <MaterialSymbolIcon
+                  variant='filled'
                   className={cn(
                     'opacity-100',
                     true ? 'text-primary' : 'text-white'

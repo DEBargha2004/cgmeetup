@@ -94,7 +94,10 @@ export default function Navbar ({ className }: { className?: string }) {
               variant={'success'}
               className='sm:px-3 sm:h-9 h-7 flex justify-center items-center'
             >
-              <MaterialSymbolIcon className='sm:mr-1 opacity-100'>
+              <MaterialSymbolIcon
+                variant='filled'
+                className='sm:mr-1 opacity-100'
+              >
                 upload_2
               </MaterialSymbolIcon>
               <span className='sm:inline hidden'>Upload</span>

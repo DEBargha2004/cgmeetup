@@ -31,10 +31,7 @@ import {
   SelectValue
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
-import {
-  MaterialSymbolIcon,
-  MaterialSymbolIconOutlined
-} from '@/components/custom'
+import { MaterialSymbolIcon } from '@/components/custom'
 import { Switch } from '@/components/ui/switch'
 import { gallery_post_categories } from '@/constants/categories'
 import { useEffect, useState } from 'react'
@@ -261,9 +258,9 @@ export default function Dashboard () {
                 )}
                 <p className='text-center text-sm flex justify-center items-end gap-1'>
                   <span className='text-primary '>
-                    <MaterialSymbolIconOutlined className=' text-xl relative top-[6px]'>
+                    <MaterialSymbolIcon className=' text-xl relative top-[6px]'>
                       4k
-                    </MaterialSymbolIconOutlined>
+                    </MaterialSymbolIcon>
                     Upgrade your account
                   </span>{' '}
                   to upload images and videos in 4K

@@ -30,6 +30,7 @@ const PostImage = forwardRef<
         </div>
         <div>
           <MaterialSymbolIcon
+            variant='filled'
             className=' text-red-500 opacity-100 cursor-pointer'
             onClick={() => onDelete(image.id)}
           >

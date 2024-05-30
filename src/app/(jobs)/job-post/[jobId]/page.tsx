@@ -50,10 +50,16 @@ export default function JobPage ({
           </BreadcrumbList>
         </Breadcrumb>
         <div className='flex justify-end gap-2 items-center w-full'>
-          <MaterialSymbolIcon className='opacity-100 hover:text-primary text-[20px] cursor-pointer'>
+          <MaterialSymbolIcon
+            variant='filled'
+            className='opacity-100 hover:text-primary text-[20px] cursor-pointer'
+          >
             more_vert
           </MaterialSymbolIcon>
-          <MaterialSymbolIcon className='opacity-100 hover:text-primary text-[20px] cursor-pointer'>
+          <MaterialSymbolIcon
+            variant='filled'
+            className='opacity-100 hover:text-primary text-[20px] cursor-pointer'
+          >
             close
           </MaterialSymbolIcon>
         </div>
@@ -77,7 +83,10 @@ export default function JobPage ({
       </section>
       <section className=''>
         <div className='flex gap-2 items-center '>
-          <MaterialSymbolIcon className='text-lg text-white opacity-100'>
+          <MaterialSymbolIcon
+            variant='filled'
+            className='text-lg text-white opacity-100'
+          >
             location_on
           </MaterialSymbolIcon>
           <span className='text-lg'>Los Angeles, Singapore</span>
@@ -92,7 +101,10 @@ export default function JobPage ({
           <div className='flex justify-between items-center w-full'>
             <div className='flex justify-between items-center gap-2'>
               <Button className='px-7'>
-                <MaterialSymbolIcon className='mr-2 opacity-100'>
+                <MaterialSymbolIcon
+                  variant='filled'
+                  className='mr-2 opacity-100'
+                >
                   work
                 </MaterialSymbolIcon>
                 Apply
@@ -111,7 +123,10 @@ export default function JobPage ({
                     className='flex justify-center items-center bg-lightAccent h-8 w-8 
                 2xl:h-9 2xl:w-9 rounded-full'
                   >
-                    <MaterialSymbolIcon className='2xl:text-[20px] text-base'>
+                    <MaterialSymbolIcon
+                      variant='filled'
+                      className='2xl:text-[20px] text-base'
+                    >
                       favorite
                     </MaterialSymbolIcon>
                   </div>
@@ -122,7 +137,10 @@ export default function JobPage ({
                     className='flex justify-center items-center bg-lightAccent h-8 w-8 
                 2xl:h-9 2xl:w-9 rounded-full'
                   >
-                    <MaterialSymbolIcon className='2xl:text-[20px] text-base'>
+                    <MaterialSymbolIcon
+                      variant='filled'
+                      className='2xl:text-[20px] text-base'
+                    >
                       visibility
                     </MaterialSymbolIcon>
                   </div>
@@ -146,7 +164,10 @@ export default function JobPage ({
                     className='flex justify-center items-center bg-lightAccent h-8 w-8 
                 2xl:h-9 2xl:w-9 rounded-full'
                   >
-                    <MaterialSymbolIcon className='2xl:text-[20px] text-base'>
+                    <MaterialSymbolIcon
+                      variant='filled'
+                      className='2xl:text-[20px] text-base'
+                    >
                       share
                     </MaterialSymbolIcon>
                   </div>
@@ -157,7 +178,10 @@ export default function JobPage ({
                     className='flex justify-center items-center bg-lightAccent h-8 w-8 
                 2xl:h-9 2xl:w-9 rounded-full'
                   >
-                    <MaterialSymbolIcon className='2xl:text-[20px] text-base'>
+                    <MaterialSymbolIcon
+                      variant='filled'
+                      className='2xl:text-[20px] text-base'
+                    >
                       bookmark
                     </MaterialSymbolIcon>
                   </div>
