@@ -34,7 +34,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { MaterialSymbolIcon } from '@/components/custom'
 import { Switch } from '@/components/ui/switch'
 import { gallery_post_categories } from '@/constants/categories'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -45,6 +45,7 @@ import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import PostImage from './_components/post-image'
 import { useDropzone } from 'react-dropzone'
+import UploadType from './_components/upload-type'
 
 const upload_types: { icon: string; title: string; description: string }[] = [
   {
@@ -78,6 +79,9 @@ export default function Dashboard () {
 
   const mainFeedDropzone = useDropzone()
   const thumbnailDropzone = useDropzone()
+
+  const thumbnailRef = useRef<HTMLInputElement>(null)
+  const mainUploaderRef = useRef<HTMLInputElement>(null)
 
   const handleImageChange = (files: File[] | null) => {
     if (files) {
@@ -127,6 +131,11 @@ export default function Dashboard () {
           caption: '',
           custom: true
         })
+        console.log(thumbnailRef.current)
+        if (thumbnailRef.current) {
+          console.log(thumbnailRef.current)
+          thumbnailRef.current.value = ''
+        }
       }
     }
   }
@@ -195,19 +204,22 @@ export default function Dashboard () {
                 >
                   <CardContent className='flex flex-col justify-between items-center gap-1 p-0'>
                     <div className='grid grid-cols-2 w-full border-b'>
-                      {upload_types.map((t, t_idx) => (
-                        <div
-                          className='flex flex-col items-center justify-start gap-1 cursor-pointer p-4
-                      hover:bg-lightAccent w-full mx-auto rounded border-r last:border-none'
-                          key={t_idx}
-                        >
-                          <MaterialSymbolIcon className='text-3xl text-primary opacity-100'>
-                            {t.icon}
-                          </MaterialSymbolIcon>
-                          <h1 className='text-lg'>{t.title}</h1>
-                          <p className='text-xs opacity-70'>{t.description}</p>
-                        </div>
-                      ))}
+                      <UploadType
+                        // icon='photo_library'
+                        // title='Images'
+                        // supportedTypes='JPG, PNG, GIF'
+                        {...mainFeedDropzone.getRootProps({
+                          icon: 'photo_library',
+                          title: 'Images',
+                          supportedTypes: 'JPG, PNG, GIF'
+                        })}
+                      />
+
+                      <UploadType
+                        title='Video'
+                        supportedTypes='Youtube, Vimeo'
+                        icon='slow_motion_video'
+                      />
                     </div>
                     <div
                       className='w-full h-[200px] flex flex-col justify-center items-center gap-3 dropzone'
@@ -222,19 +234,20 @@ export default function Dashboard () {
                         accept='image/*'
                         // @ts-ignore
                         onChange={e => handleImageChange(e.target.files)}
-                        // {...mainFeedDropzone.getInputProps()}
+                        ref={mainUploaderRef}
+                        {...mainFeedDropzone.getInputProps()}
                       />
-                      <Label htmlFor='image-post-button'>
-                        <Badge
-                          variant='outline'
-                          className='cursor-pointer hover:bg-lightAccent/70'
-                        >
-                          <MaterialSymbolIcon className='mr-2'>
-                            upload_2
-                          </MaterialSymbolIcon>
-                          <span>Upload Media files</span>
-                        </Badge>
-                      </Label>
+
+                      <Badge
+                        variant='outline'
+                        className='cursor-pointer hover:bg-lightAccent/70'
+                      >
+                        <MaterialSymbolIcon className='mr-2'>
+                          upload_2
+                        </MaterialSymbolIcon>
+                        <span>Upload Media files</span>
+                      </Badge>
+
                       <p className='text-sm opacity-70'>
                         or drag and drop here
                       </p>
@@ -243,7 +256,7 @@ export default function Dashboard () {
                 </Card>
                 {images.length > 0 && (
                   <Card>
-                    <CardContent className='grid grid-cols-3 gap-2 p-1 bg-darkAccent'>
+                    <CardContent className='grid sm:grid-cols-3 grid-cols-2 gap-2 p-1 bg-darkAccent'>
                       {images.map((image, image_idx) => (
                         <PostImage
                           key={image.id}
@@ -529,7 +542,10 @@ export default function Dashboard () {
                 </Card>
               </div>
               <div className='grid auto-rows-max items-start gap-4 lg:gap-8'>
-                <Card x-chunk='dashboard-07-chunk-3' className='w-[60%]'>
+                <Card
+                  x-chunk='dashboard-07-chunk-3'
+                  className='xl:w-[60%] lg:w-4/5'
+                >
                   <CardHeader>
                     <CardTitle>Post Options</CardTitle>
                   </CardHeader>
@@ -575,7 +591,7 @@ export default function Dashboard () {
                 </Card>
                 <Card
                   x-chunk='dashboard-07-chunk-5'
-                  className='p-4 space-y-3 w-[60%]'
+                  className='p-4 space-y-3 xl:w-[60%] lg:w-4/5'
                 >
                   <CardHeader
                     className='p-0
@@ -588,16 +604,17 @@ export default function Dashboard () {
                       hidden
                       type='file'
                       id='thumbnail'
+                      ref={thumbnailRef}
                       onChange={e =>
                         // @ts-ignore
                         handleCustomThumbnailChange(e.target.files)
                       }
                       accept='image/*'
-                      {...thumbnailDropzone.getInputProps({})}
+                      {...thumbnailDropzone.getInputProps()}
                     />
                     <div
                       className='w-full aspect-square border-2 border-dashed'
-                      {...thumbnailDropzone.getRootProps({})}
+                      {...thumbnailDropzone.getRootProps()}
                     >
                       {thumbnail ? (
                         <div className='h-full w-full flex justify-center items-center'>
@@ -610,14 +627,12 @@ export default function Dashboard () {
                           />
                         </div>
                       ) : (
-                        <label htmlFor='thumbnail'>
-                          <div className='h-full w-full flex flex-col justify-center items-center'>
-                            <MaterialSymbolIcon>image</MaterialSymbolIcon>
-                            <p className='text-sm text-white opacity-70'>
-                              Upload or drag & drop image
-                            </p>
-                          </div>
-                        </label>
+                        <div className='h-full w-full flex flex-col justify-center items-center'>
+                          <MaterialSymbolIcon>image</MaterialSymbolIcon>
+                          <p className='text-sm text-white opacity-70 text-center'>
+                            Upload or drag & drop image
+                          </p>
+                        </div>
                       )}
                     </div>
                     <div className=' w-full flex justify-center items-center gap-3'>
@@ -632,30 +647,32 @@ export default function Dashboard () {
                           <span>Crop</span>
                         </Badge>
                       )}
-                      <label htmlFor='thumbnail'>
-                        <Badge
-                          variant={'outline'}
-                          className='cursor-pointer hover:bg-darkAccent/80'
-                        >
-                          <MaterialSymbolIcon className='mr-2 text-primary opacity-100'>
-                            upload_2
-                          </MaterialSymbolIcon>
-                          <span>Upload</span>
-                        </Badge>
-                      </label>
+
+                      <Badge
+                        variant={'outline'}
+                        className='cursor-pointer hover:bg-darkAccent/80'
+                        {...thumbnailDropzone.getRootProps()}
+                      >
+                        <MaterialSymbolIcon className='mr-2 text-primary opacity-100'>
+                          upload_2
+                        </MaterialSymbolIcon>
+                        <span>Upload</span>
+                      </Badge>
                     </div>
                     {thumbnail?.custom && (
                       <div className='flex justify-center items-center'>
                         <Button
                           variant={'destructive'}
                           className=''
-                          onClick={() =>
+                          onClick={() => {
+                            if (thumbnailDropzone.inputRef.current)
+                              thumbnailDropzone.inputRef.current.value = ''
                             setThumbnail(
                               images.length
                                 ? { ...images[0], custom: false }
                                 : null
                             )
-                          }
+                          }}
                         >
                           <MaterialSymbolIcon className='mr-2'>
                             delete
@@ -667,12 +684,6 @@ export default function Dashboard () {
                   </CardContent>
                 </Card>
               </div>
-            </div>
-            <div className='flex items-center justify-center gap-2 md:hidden'>
-              <Button variant='outline' size='sm'>
-                Discard
-              </Button>
-              <Button size='sm'>Save Product</Button>
             </div>
           </div>
         </main>
