@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import {
@@ -54,13 +56,36 @@ import {
   TableRow
 } from '@/components/ui/table'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger
+} from '@/components/ui/tooltip'
+import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { MaterialSymbolIcon } from '@/components/custom'
+import { useState } from 'react'
+
+type FieldType = { label: string; value: string }
+
+const filter: FieldType[] = [
+  { label: 'Latest', value: 'latest' },
+  { label: 'Popular', value: 'popular' },
+  { label: 'Oldest', value: 'oldest' }
+]
+
+const info_options: (FieldType & { icon: string })[] = [
+  { label: 'Edit', value: 'edit', icon: 'edit' },
+  { label: 'View', value: 'view', icon: 'visibility' },
+  { label: 'Delete', value: 'delete', icon: 'delete' }
+]
 
 export default function Gallery () {
+  const [selectedFilter, setSelectedFilter] = useState(filter[0].value)
   return (
     <div className='flex h-full w-full flex-col'>
       <div className='flex flex-col sm:gap-4 sm:py-4 '>
-        <header className='sticky top-0 z-30 flex md:h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6'>
+        <header className=' z-30 flex md:h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6'>
           <Breadcrumb className='hidden md:flex'>
             <BreadcrumbList>
               <BreadcrumbItem>
@@ -71,12 +96,8 @@ export default function Gallery () {
               <BreadcrumbSeparator />
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href='#'>Jobs</Link>
+                  <Link href='#'>Job Posts</Link>
                 </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbPage>All Jobs</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
@@ -84,24 +105,31 @@ export default function Gallery () {
         <main className='grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8'>
           <Tabs defaultValue='all'>
             <div className='flex items-center gap-2'>
-              <TabsList className='bg-lightAccent'>
+              <TabsList className='bg-card'>
                 <TabsTrigger value='all'>All</TabsTrigger>
                 <TabsTrigger value='active'>Public</TabsTrigger>
+                <TabsTrigger value='active'>Private</TabsTrigger>
                 <TabsTrigger value='draft'>Draft</TabsTrigger>
               </TabsList>
-              <Button size='sm' className='h-8 gap-1'>
-                <PlusCircle className='h-3.5 w-3.5' />
-                <span className='sr-only sm:not-sr-only sm:whitespace-nowrap'>
-                  Add Job
-                </span>
-              </Button>
+              <Link href={'/dashboard/jobs/create'}>
+                <Button
+                  size='sm'
+                  variant={'success'}
+                  className='h-8 gap-1 rounded-sm'
+                >
+                  <PlusCircle className='h-3.5 w-3.5' />
+                  <span className='sr-only sm:not-sr-only sm:whitespace-nowrap'>
+                    Add Job
+                  </span>
+                </Button>
+              </Link>
               <div className='ml-auto flex items-center gap-2'>
                 <div className='relative ml-auto flex-1 md:grow-0'>
                   <Search className='absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground' />
                   <Input
                     type='search'
                     placeholder='Search...'
-                    className='w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px] h-8'
+                    className='w-full rounded-lg pl-8 md:w-[200px] lg:w-[336px] h-8'
                   />
                 </div>
                 <DropdownMenu>
@@ -113,24 +141,27 @@ export default function Gallery () {
                       </span>
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align='end'>
+                  <DropdownMenuContent align='end' className='bg-darkAccent'>
                     <DropdownMenuLabel>Filter by</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuCheckboxItem checked>
-                      Active
-                    </DropdownMenuCheckboxItem>
-                    <DropdownMenuCheckboxItem>Draft</DropdownMenuCheckboxItem>
-                    <DropdownMenuCheckboxItem>
-                      Archived
-                    </DropdownMenuCheckboxItem>
+                    {filter.map(item => (
+                      <DropdownMenuCheckboxItem
+                        key={item.value}
+                        onClick={() => setSelectedFilter(item.value)}
+                        checked={selectedFilter === item.value}
+                        className=''
+                      >
+                        {item.label}
+                      </DropdownMenuCheckboxItem>
+                    ))}
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
             </div>
             <TabsContent value='all'>
-              <Card x-chunk='dashboard-06-chunk-0'>
-                <CardHeader>
-                  <CardTitle>Job Posts</CardTitle>
+              <Card x-chunk='dashboard-06-chunk-0' className='bg-card'>
+                <CardHeader className='pb-2'>
+                  <CardTitle className='text-xl'>Job Posts</CardTitle>
                   <CardDescription>
                     Manage your posts and view their performance.
                   </CardDescription>
@@ -159,9 +190,9 @@ export default function Gallery () {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      <TableRow>
+                      <TableRow className='hover:bg-darkAccent'>
                         <TableCell className='hidden sm:table-cell  '>
-                          <div className='lg:h-[150px] lg:w-[150px] w-[100px] h-[100px]'>
+                          <div className='lg:h-[150px] lg:w-[150px] h-[100px] w-[100px]'>
                             <Image
                               src='https://cdnb.artstation.com/p/assets/images/images/000/424/193/smaller_square/glenn-melenhorst-car0001.jpg?1443927098'
                               height={150}
@@ -179,7 +210,7 @@ export default function Gallery () {
                         </TableCell>
                         <TableCell className='hidden md:table-cell'>
                           <div className='flex lg:flex-row flex-col justify-start items-center gap-3'>
-                            <div className='flex  justify-center items-center gap-1'>
+                            <div className='flex justify-center items-center gap-1'>
                               <MaterialSymbolIcon>favorite</MaterialSymbolIcon>
                               <span>2</span>
                             </div>
@@ -198,7 +229,7 @@ export default function Gallery () {
                         <TableCell className='hidden md:table-cell '>
                           Artwork, Shortfilm,
                         </TableCell>
-                        <TableCell className='hidden md:table-cell '>
+                        <TableCell className='hidden md:table-cell'>
                           2023-07-12 10:42 AM
                         </TableCell>
                         <TableCell>
@@ -218,9 +249,14 @@ export default function Gallery () {
                               </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align='end'>
-                              <DropdownMenuItem>Edit</DropdownMenuItem>
-                              <DropdownMenuItem>View</DropdownMenuItem>
-                              <DropdownMenuItem>Delete</DropdownMenuItem>
+                              {info_options.map(item => (
+                                <DropdownMenuItem key={item.value}>
+                                  <MaterialSymbolIcon className='mr-2'>
+                                    {item.icon}
+                                  </MaterialSymbolIcon>
+                                  {item.label}
+                                </DropdownMenuItem>
+                              ))}
                             </DropdownMenuContent>
                           </DropdownMenu>
                         </TableCell>

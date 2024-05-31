@@ -14,7 +14,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
     <main className='flex md:flex-row flex-col-reverse justify-start items-start h-full'>
       <div
         className='lg:w-[160px] md:w-fit w-full h-fit md:h-full flex md:flex-col flex-row 
-      justify-start items-start border-r p-1 gap-1'
+      justify-start items-start border-r p-1 gap-1 z-50 bg-card'
       >
         {dashboardSidebar.map((item, item_idx) => (
           <React.Fragment key={item_idx}>

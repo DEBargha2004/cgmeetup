@@ -36,6 +36,7 @@ export const dashboardSidebar: SidebarItem[] = [
     label: 'Jobs',
     id: 'jobs',
     href: '/dashboard/jobs',
-    icon_name: 'work'
+    icon_name: 'work',
+    catch_routes: ['/dashboard/jobs', '/dashboard/jobs/create']
   }
 ]

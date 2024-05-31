@@ -34,7 +34,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { MaterialSymbolIcon } from '@/components/custom'
 import { Switch } from '@/components/ui/switch'
 import { gallery_post_categories } from '@/constants/categories'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -46,6 +46,14 @@ import Image from 'next/image'
 import PostImage from './_components/post-image'
 import { useDropzone } from 'react-dropzone'
 import UploadType from './_components/upload-type'
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTrigger
+} from '@/components/ui/dialog'
+import { FieldType } from '@/types/field-type'
 
 const upload_types: { icon: string; title: string; description: string }[] = [
   {
@@ -60,12 +68,23 @@ const upload_types: { icon: string; title: string; description: string }[] = [
   }
 ]
 
-const visibilityOptions = ['Public', 'Private']
+const visibilityOptions: FieldType[] = [
+  {
+    label: 'Public',
+    value: 'public'
+  },
+  {
+    label: 'Private',
+    value: 'private'
+  }
+]
 
 export default function Dashboard () {
   const [selectedCategory, setSelectedCategory] = useState<string[]>([])
   const [selectedSoftware, setSelectedSoftware] = useState<string[]>([])
-  const [selectedVisibility, setSelectedVisibility] = useState<string>()
+  const [selectedVisibility, setSelectedVisibility] = useState(
+    visibilityOptions[0]
+  )
   const [images, setImages] = useState<
     { id: string; url: string; type: string; caption: string }[]
   >([])
@@ -76,6 +95,12 @@ export default function Dashboard () {
     caption: string
     custom: boolean
   } | null>()
+
+  const videoDomains = ['youtube.com/watch?v=', 'vimeo.com']
+  const [videoUrl, setVideoUrl] = useState('')
+  const showFrame = useMemo(() => {
+    return videoDomains.some(domain => videoUrl.includes(domain))
+  }, [videoUrl])
 
   const mainFeedDropzone = useDropzone()
   const thumbnailDropzone = useDropzone()
@@ -163,7 +188,7 @@ export default function Dashboard () {
     <div className='flex h-full w-full flex-col'>
       <div className='flex flex-col sm:gap-4 sm:py-4'>
         <header
-          className='sticky top-0 flex z-40 lg:h-14 items-center gap-4 border-b px-4 sm:h-auto 
+          className=' flex z-40 lg:h-14 items-center gap-4 border-b px-4 sm:h-auto 
         sm:border-0 sm:bg-darkAccent sm:px-6'
         >
           <Breadcrumb className='hidden md:flex'>
@@ -195,6 +220,9 @@ export default function Dashboard () {
               <Badge variant='outline' className='ml-auto sm:ml-0'>
                 Draft
               </Badge>
+              <Badge variant='outline' className='ml-auto sm:ml-0'>
+                {selectedVisibility.label}
+              </Badge>
             </div>
             <div className='grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8'>
               <div className='grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8'>
@@ -215,11 +243,46 @@ export default function Dashboard () {
                         })}
                       />
 
-                      <UploadType
-                        title='Video'
-                        supportedTypes='Youtube, Vimeo'
-                        icon='slow_motion_video'
-                      />
+                      <Dialog onOpenChange={() => setVideoUrl('')}>
+                        <DialogTrigger asChild>
+                          <UploadType
+                            title='Video'
+                            supportedTypes='Youtube, Vimeo'
+                            icon='slow_motion_video'
+                          />
+                        </DialogTrigger>
+                        <DialogContent className='p-0 space-y-0 bg-darkAccent max-w-[600px]'>
+                          <DialogHeader className='p-4 text-xl bg-lightAccent'>
+                            Video
+                          </DialogHeader>
+                          <div className='px-4 py-2 space-y-4'>
+                            <div className='space-y-2'>
+                              <p>Paste a YouTube or Vimeo video URL here</p>
+                              <Input
+                                value={videoUrl}
+                                onChange={e => setVideoUrl(e.target.value)}
+                                placeholder='Example: https://www.youtube.com/watch?v=doPV-Shqm7k'
+                                className='placeholder:text-gray-500'
+                              />
+                            </div>
+                            {showFrame && (
+                              <iframe
+                                src={videoUrl}
+                                className='w-full aspect-video'
+                              />
+                            )}
+                            {showFrame && (
+                              <div className='space-y-2'>
+                                <p>Caption/Title</p>
+                                <Input />
+                              </div>
+                            )}
+                          </div>
+                          <DialogFooter className='p-4 pt-0'>
+                            <Button className='h-8'>Save</Button>
+                          </DialogFooter>
+                        </DialogContent>
+                      </Dialog>
                     </div>
                     <div
                       className='w-full h-[200px] flex flex-col justify-center items-center gap-3 dropzone'
@@ -278,12 +341,12 @@ export default function Dashboard () {
                   </span>{' '}
                   to upload images and videos in 4K
                 </p>
-                <Card x-chunk='dashboard-07-chunk-0'>
-                  <CardHeader>
-                    <CardTitle>Product Details</CardTitle>
-                    <CardDescription>
+                <Card x-chunk='dashboard-07-chunk-0' className='bg-card'>
+                  <CardHeader className='pb-3'>
+                    <CardTitle className='text-xl'>Post Details</CardTitle>
+                    {/* <CardDescription>
                       Lipsum dolor sit amet, consectetur adipiscing elit
-                    </CardDescription>
+                    </CardDescription> */}
                   </CardHeader>
                   <CardContent>
                     <div className='grid gap-6'>
@@ -295,7 +358,7 @@ export default function Dashboard () {
                         <Label htmlFor='description'>Description</Label>
                         <Textarea id='description' className='min-h-32' />
                       </div>
-                      <div className='flex justify-center items-center gap-2'>
+                      {/* <div className='flex justify-center items-center gap-2'>
                         <Button variant={'outline'} className='border-primary'>
                           <MaterialSymbolIcon className='sm:mr-2'>
                             image
@@ -308,16 +371,16 @@ export default function Dashboard () {
                           </MaterialSymbolIcon>
                           <span>Video Link</span>
                         </Button>
-                      </div>
+                      </div> */}
                     </div>
                   </CardContent>
                 </Card>
 
-                <Card x-chunk='dashboard-07-chunk-2'>
-                  <CardHeader>
-                    <CardTitle>Category</CardTitle>
+                <Card x-chunk='dashboard-07-chunk-2' className='bg-card'>
+                  <CardHeader className='pb-3'>
+                    <CardTitle className='text-xl'>Category</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className=''>
                     <div className='grid gap-6'>
                       <div className='grid gap-3'>
                         {/* <Label htmlFor='category'>Category</Label> */}
@@ -409,18 +472,12 @@ export default function Dashboard () {
                           ))}
                         </div>
                       </div>
-                      {/* <div className='grid gap-3'>
-                        <Label htmlFor='subcategory'>
-                          Subcategory (optional)
-                        </Label>
-                        <Switch />
-                      </div> */}
                     </div>
                   </CardContent>
                 </Card>
-                <Card x-chunk='dashboard-07-chunk-2'>
-                  <CardHeader>
-                    <CardTitle>Software Used</CardTitle>
+                <Card x-chunk='dashboard-07-chunk-2' className='bg-card'>
+                  <CardHeader className='pb-3'>
+                    <CardTitle className='text-xl'>Software Used</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className='grid gap-6'>
@@ -523,9 +580,9 @@ export default function Dashboard () {
                     </div>
                   </CardContent>
                 </Card>
-                <Card x-chunk='dashboard-07-chunk-1'>
-                  <CardHeader>
-                    <CardTitle>Other</CardTitle>
+                <Card x-chunk='dashboard-07-chunk-1' className='bg-card'>
+                  <CardHeader className='pb-3'>
+                    <CardTitle className='text-xl'>Other</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className='flex justify-start items-start gap-10'>
@@ -544,25 +601,29 @@ export default function Dashboard () {
               <div className='grid auto-rows-max items-start gap-4 lg:gap-8'>
                 <Card
                   x-chunk='dashboard-07-chunk-3'
-                  className='xl:w-[60%] lg:w-4/5'
+                  className='xl:w-[60%] lg:w-4/5 bg-card'
                 >
-                  <CardHeader>
-                    <CardTitle>Post Options</CardTitle>
+                  <CardHeader className='pb-3'>
+                    <CardTitle className='text-xl'>Post Options</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className='grid gap-6'>
                       <div className='grid gap-3'>
-                        <Label htmlFor='status'>
+                        {/* <Label htmlFor='status'>
                           <span className='opacity-70'>Status :</span>{' '}
                           <span>Draft</span>
                         </Label>
                         <Label htmlFor='status'>
                           <span className='opacity-70'>Visibility :</span>{' '}
                           <span>{selectedVisibility}</span>
-                        </Label>
+                        </Label> */}
                         <Select
-                          value={selectedVisibility}
-                          onValueChange={setSelectedVisibility}
+                          value={selectedVisibility.value}
+                          onValueChange={e => {
+                            setSelectedVisibility(
+                              visibilityOptions.find(v => v.value === e)!
+                            )
+                          }}
                         >
                           <SelectTrigger id='status' aria-label='Select status'>
                             <SelectValue placeholder='Select status' />
@@ -571,10 +632,10 @@ export default function Dashboard () {
                             {visibilityOptions.map((item, index) => (
                               <SelectItem
                                 key={index}
-                                value={item}
+                                value={item.value}
                                 className='cursor-pointer hover:bg-darkAccent/80'
                               >
-                                {item}
+                                {item.label}
                               </SelectItem>
                             ))}
                           </SelectContent>
@@ -591,13 +652,13 @@ export default function Dashboard () {
                 </Card>
                 <Card
                   x-chunk='dashboard-07-chunk-5'
-                  className='p-4 space-y-3 xl:w-[60%] lg:w-4/5'
+                  className='p-4 space-y-3 xl:w-[60%] lg:w-4/5 bg-card'
                 >
                   <CardHeader
                     className='p-0
                   '
                   >
-                    <CardTitle>Thumbnail</CardTitle>
+                    <CardTitle className='text-xl'>Thumbnail</CardTitle>
                   </CardHeader>
                   <CardContent className='space-y-2 px-0 pb-0'>
                     <input
@@ -613,7 +674,7 @@ export default function Dashboard () {
                       {...thumbnailDropzone.getInputProps()}
                     />
                     <div
-                      className='w-full aspect-square border-2 border-dashed'
+                      className='w-full aspect-square border-2 border-dashed bg-darkAccent'
                       {...thumbnailDropzone.getRootProps()}
                     >
                       {thumbnail ? (
@@ -681,6 +742,23 @@ export default function Dashboard () {
                         </Button>
                       </div>
                     )}
+                  </CardContent>
+                </Card>
+                <Card className='p-4 space-y-3 xl:w-[60%] lg:w-4/5 bg-card'>
+                  <CardHeader className='px-0 pb-2 pt-0'>
+                    <CardTitle className='text-xl'>Delete</CardTitle>
+                  </CardHeader>
+                  <CardContent className='px-0'>
+                    <Button
+                      variant={'destructive'}
+                      className='w-full'
+                      type='button'
+                    >
+                      <MaterialSymbolIcon className='mr-2'>
+                        delete
+                      </MaterialSymbolIcon>
+                      Delete Post
+                    </Button>
                   </CardContent>
                 </Card>
               </div>
