@@ -737,6 +737,7 @@ export default function Dashboard () {
                           alt='company-logo'
                           height={300}
                           width={300}
+                          className='w-full aspect-square object-cover'
                         />
                       </div>
                     </CardContent>
