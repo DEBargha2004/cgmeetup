@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils'
 import projects from '../../../../public/data/projects.json'
 import GalleryImage from './image'
+import Link from 'next/link'
 
 export default function ImageCollection ({
   imageScale = false,
@@ -22,7 +23,9 @@ export default function ImageCollection ({
       data-scale={imageScale}
     >
       {projects.data.map((project, index) => (
-        <GalleryImage project={project} key={project.id} />
+        <Link href={`/gallery/post/${project.id}`} key={index}>
+          <GalleryImage project={project} key={project.id} />
+        </Link>
       ))}
     </div>
   )

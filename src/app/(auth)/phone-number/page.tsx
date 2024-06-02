@@ -1,32 +1,17 @@
-import { Button } from '@/components/ui/button'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu'
-import { Input } from '@/components/ui/input'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger
-} from '@/components/ui/popover'
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from '@/components/ui/select'
+'use client'
+
+import { PhoneInput } from '@/components/ui/phone-input'
+import { useState } from 'react'
+import { Country } from 'react-phone-number-input'
 
 export default function PhoneNumber () {
+  const [phoneNumber, setPhoneNumber] = useState('')
   return (
     <div
       className='p-4 w-full flex flex-col justify-start items-stretch gap-4 
   rounded-lg border'
     >
-      <div className='relative'>
+      {/* <div className='relative'>
         <Input className='py-2 pl-20 h-14 rounded' />
         <DropdownMenu>
           <DropdownMenuTrigger
@@ -44,7 +29,13 @@ export default function PhoneNumber () {
             ))}
           </DropdownMenuContent>
         </DropdownMenu>
-      </div>
+      </div> */}
+      <PhoneInput
+        value={phoneNumber}
+        onChange={setPhoneNumber}
+        international
+        defaultCountry='IN'
+      />
     </div>
   )
 }

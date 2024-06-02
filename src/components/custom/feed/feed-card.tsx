@@ -68,7 +68,7 @@ export default function FeedCard ({
         </ProfileInfoOverView>
       </header>
       <div className='w-full'>
-        <Link href={`/post/${project.id}`}>
+        <Link href={`/gallery/post/${project.id}`}>
           <Image
             src={project.smaller_square_cover_url}
             alt={project.title}

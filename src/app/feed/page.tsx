@@ -118,7 +118,7 @@ export default function FeedPage () {
           </Carousel>
 
           {projects.data.map(project => (
-            <FeedCard key={project.id} project={project} />
+            <FeedCard project={project} key={project.id} />
           ))}
         </div>
 

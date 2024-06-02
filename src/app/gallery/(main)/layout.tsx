@@ -9,7 +9,7 @@ import { Roboto } from 'next/font/google'
 const tabList: TabItem[] = [
   {
     label: 'Community',
-    href: '/gallery/community',
+    href: '/gallery',
     icon: 'language'
   },
   {

@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
-import projects from '../../../../public/data/projects.json'
+import projects from '../../../../../public/data/projects.json'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { sample_cateories } from '@/constants/categories'
@@ -20,7 +20,7 @@ import {
   BreadcrumbSeparator
 } from '@/components/ui/breadcrumb'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
-import vertical from '../../../../public/images/dog-vertical.webp'
+import vertical from '../../../../../public/images/dog-vertical.webp'
 
 export default function Post ({
   params: { postId }

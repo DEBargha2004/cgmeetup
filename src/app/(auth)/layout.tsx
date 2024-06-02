@@ -5,8 +5,8 @@ export default function AuthLayout ({
 }) {
   return (
     <div
-      className='h-full flex justify-center items-center py-10 sm:w-4/5 
-    md:w-3/5 lg:w-1/2 xl:w-2/5 mx-auto'
+      className='h-full flex justify-center items-center sm:w-4/5 px-2 
+    sm:px-0 max-w-sm mx-auto my-10'
     >
       {children}
     </div>

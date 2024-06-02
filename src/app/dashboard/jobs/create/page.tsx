@@ -33,7 +33,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { MaterialSymbolIcon } from '@/components/custom'
 import { Switch } from '@/components/ui/switch'
 import { gallery_post_categories } from '@/constants/categories'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -126,12 +126,17 @@ export default function Dashboard () {
 
   const handleFormSubmit = async (e: JobPostSchemaType) => {}
 
+  const upperLimit = parseInt(form.watch('salary.upper_limit') || '0')
   const lowerLimit = parseInt(form.watch('salary.lower_limit') || '0')
+
+  const upperLimits = useMemo(() => {
+    return Array.from({ length: 200 }).map((_, i) => lowerLimit + i + 1)
+  }, [lowerLimit])
 
   useEffect(() => {
     const handleResize = (e: ResizeObserverEntry[]) => {
       for (const entry of e) {
-        setSalaryPopoverWidth(entry.contentBoxSize[0].inlineSize)
+        setSalaryPopoverWidth(entry.contentBoxSize[0].inlineSize + 26)
       }
     }
 
@@ -477,12 +482,12 @@ export default function Dashboard () {
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <div className='flex justify-start items-start gap-5 w-full'>
+                      <div className='grid grid-cols-3 gap-5 w-full'>
                         <FormField
                           control={form.control}
                           name='experience_level'
                           render={({ field }) => (
-                            <FormItem className='w-1/3 '>
+                            <FormItem className='w-full '>
                               <FormLabel></FormLabel>
                               <FormControl>
                                 <Select
@@ -512,7 +517,7 @@ export default function Dashboard () {
                           control={form.control}
                           name='education'
                           render={({ field }) => (
-                            <FormItem className='w-1/3 '>
+                            <FormItem className='w-full'>
                               <FormLabel></FormLabel>
                               <FormControl>
                                 <Select
@@ -541,19 +546,25 @@ export default function Dashboard () {
                         <Popover>
                           <PopoverTrigger asChild>
                             <div
-                              className='w-1/3 h-10 rounded bg-darkAccent mt-1 border px-3 py-2 
+                              className='w-full h-10 rounded bg-darkAccent mt-1 border px-3 py-2 
                             flex justify-between items-center cursor-pointer'
                               ref={salaryTriggerRef}
                             >
-                              <span></span>
+                              <span className='text-sm'>
+                                {form.watch('salary.currency')}&nbsp;
+                                {lowerLimit ? `${lowerLimit} LPA -` : null}
+                                &nbsp;
+                                {upperLimit ? `${upperLimit} LPA` : null}
+                              </span>
                               <MaterialSymbolIcon className='select-none'>
                                 keyboard_arrow_down
                               </MaterialSymbolIcon>
                             </div>
                           </PopoverTrigger>
                           <PopoverContent
-                            className='bg-darkAccent z-40'
+                            className='bg-darkAccent z-40 min-w-[250px]'
                             style={{ width: salaryPopoverWidth }}
+                            // align='end'
                           >
                             <div className='grid grid-cols-2 gap-2'>
                               <FormField
@@ -592,7 +603,10 @@ export default function Dashboard () {
                                   <FormItem>
                                     <FormLabel>Lower Limit</FormLabel>
                                     <FormControl>
-                                      <Select value={field.value}>
+                                      <Select
+                                        value={field.value}
+                                        onValueChange={field.onChange}
+                                      >
                                         <SelectTrigger>
                                           <SelectValue />
                                         </SelectTrigger>
@@ -624,16 +638,24 @@ export default function Dashboard () {
                                   <FormItem>
                                     <FormLabel>Upper Limit</FormLabel>
                                     <FormControl>
-                                      <Select value={field.value}>
+                                      <Select
+                                        value={field.value}
+                                        onValueChange={field.onChange}
+                                      >
                                         <SelectTrigger>
                                           <SelectValue />
                                         </SelectTrigger>
                                         <SelectContent>
-                                          <SelectItem
-                                            value={lowerLimit.toString()}
-                                          >
-                                            {lowerLimit}
-                                          </SelectItem>
+                                          {upperLimits.map(i => (
+                                            <SelectItem
+                                              value={i.toString()}
+                                              key={i}
+                                            >
+                                              {`${form.watch(
+                                                'salary.currency'
+                                              )} ${i} ${'LPA'}`}
+                                            </SelectItem>
+                                          ))}
                                         </SelectContent>
                                       </Select>
                                     </FormControl>
@@ -724,10 +746,7 @@ export default function Dashboard () {
                     x-chunk='dashboard-07-chunk-5'
                     className='p-4 space-y-3 xl:w-[60%] lg:w-4/5 bg-card'
                   >
-                    <CardHeader
-                      className='p-0
-                  '
-                    >
+                    <CardHeader className='p-0'>
                       <CardTitle className='text-xl'>Logo</CardTitle>
                     </CardHeader>
                     <CardContent className='space-y-2 px-0 pb-0'>

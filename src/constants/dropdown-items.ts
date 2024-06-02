@@ -15,9 +15,9 @@ export const profileItems: ProfileItem[] = [
     type: 'link'
   },
   {
-    id: 'account',
-    label: 'Account',
-    href: '/account',
+    id: 'pages',
+    label: 'Pages',
+    href: '/pages',
     type: 'link'
   },
   {
@@ -65,6 +65,12 @@ export const profileItems: ProfileItem[] = [
     id: 'phone-number',
     label: 'Phone Number',
     href: '/phone-number'
+  },
+  {
+    type: 'link',
+    id: 'password',
+    label: 'Password',
+    href: '/password'
   }
 ]
 
