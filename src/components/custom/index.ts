@@ -9,6 +9,10 @@ import LimitText from './limit-text'
 import ProfileInfoOverView from './profile-info-overview'
 import Tabs from './tabs'
 import EmojiPickerElement from './emoji-picker'
+import {
+  NotificationCardProfileView,
+  NotificationCardOtherView
+} from './notification-card'
 
 export {
   AppLogo,
@@ -21,5 +25,7 @@ export {
   LimitText,
   ProfileInfoOverView,
   Tabs,
-  EmojiPickerElement
+  EmojiPickerElement,
+  NotificationCardProfileView,
+  NotificationCardOtherView
 }

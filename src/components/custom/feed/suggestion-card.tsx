@@ -25,11 +25,12 @@ export default function SuggestionCard ({
         className='w-full flex justify-between items-start'
         height={80}
         width={80}
-        image=' w-10 h-10'
+        image='w-20 h-20'
         heading='text-sm xl:text-lg'
         description='text-xs xl:text-sm'
         titleValue={title}
         descriptionValue={description}
+        textContainer='justify-start gap-3'
       >
         <div
           className='w-10 h-10 cursor-pointer flex justify-center 
@@ -40,17 +41,17 @@ export default function SuggestionCard ({
           </MaterialSymbolIcon>
         </div>
       </ProfileInfoOverView>
-      <div className='grid grid-cols-3 gap-1 w-[85%] ml-auto'>
+      <div className=' ml-[92px] grid grid-cols-3 gap-1 w-[calc(100%-92px)]'>
         {Array.from({ length: 3 }).map((_, i) => (
           <Image
             key={i}
             src={
-              'https://cdna.artstation.com/p/assets/images/images/011/495/326/20181028174133/smaller_square/filippo-ubertino-driverzero1.jpg?1540766493'
+              'https://cdnb.artstation.com/p/assets/images/images/000/424/193/smaller_square/glenn-melenhorst-car0001.jpg?1443927098'
             }
             alt='job-image'
             height={100}
             width={100}
-            className='rounded w-full object-cover'
+            className=' object-cover w-full'
           />
         ))}
       </div>

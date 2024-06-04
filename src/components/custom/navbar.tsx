@@ -23,10 +23,15 @@ import { useGlobalAppStore } from '@/store/global-app-store'
 import MaterialSymbolIcon from './material-symbol-icon'
 import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog'
 import { SignInForm, SignUpForm } from './form'
+import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
+import {
+  NotificationCardProfileView,
+  NotificationCardOtherView
+} from './notification-card'
 
 export default function Navbar ({ className }: { className?: string }) {
   const { sidebarState, setSidebarState } = useGlobalAppStore()
-  const [signedin, setSignedin] = useState(false)
+  const [signedin, setSignedin] = useState(true)
   return (
     <header
       className={cn(
@@ -124,7 +129,32 @@ export default function Navbar ({ className }: { className?: string }) {
         </DropdownMenu>
         {signedin ? (
           <>
-            <MaterialSymbolIcon>notifications_none</MaterialSymbolIcon>
+            <Popover>
+              <PopoverTrigger asChild>
+                <div className='cursor-pointer'>
+                  <MaterialSymbolIcon>notifications_none</MaterialSymbolIcon>
+                </div>
+              </PopoverTrigger>
+              <PopoverContent
+                side='bottom'
+                align='center'
+                className='bg-card translate-y-3 space-y-3 max-h-[600px] w-[400px] overflow-y-auto scroller'
+              >
+                <h1 className='text-xl font-semibold'>Notifications</h1>
+                <div className='space-y-3'>
+                  {Array.from({ length: 21 }, (_, i) => i).map(i =>
+                    Math.floor(Math.random() * 2) ? (
+                      <NotificationCardOtherView key={i} />
+                    ) : (
+                      <NotificationCardProfileView key={i} />
+                    )
+                  )}
+                </div>
+                <div className='p-2 flex justify-center items-center'>
+                  View All Notifications
+                </div>
+              </PopoverContent>
+            </Popover>
             <MaterialSymbolIcon>chat</MaterialSymbolIcon>
           </>
         ) : (

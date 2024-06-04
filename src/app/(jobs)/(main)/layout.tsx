@@ -45,7 +45,7 @@ const tabList: TabItem[] = [
     href: '',
     icon: 'schedule'
   },
-  { label: 'Studios', href: '/studios', icon: 'apartment' },
+  { label: 'Studios', href: '/jobs/studios', icon: 'apartment' },
   { label: 'Bookmark Jobs', href: '/bookmark-jobs', icon: 'bookmark' },
   { label: 'Job Preferences', href: '/job-preference', icon: 'manage_accounts' }
 ]
@@ -88,7 +88,10 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
                 side={'right'}
                 className='bg-lightAccent overflow-y-auto scroller-hide'
               >
-                <Accordion type='multiple'>
+                <Accordion
+                  type='multiple'
+                  defaultValue={['location', 'job_type']}
+                >
                   <AccordionItem value='location'>
                     <AccordionTrigger className='px-2'>
                       Location

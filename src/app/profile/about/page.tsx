@@ -1,48 +1,216 @@
+'use client'
+
 import { MaterialSymbolIcon, ProfileInfoOverView } from '@/components/custom'
-import { AboutSectionItemsWrapper } from '@/components/custom/profile'
+import {
+  AboutSectionItemsWrapper,
+  JobPreferenceForm
+} from '@/components/custom/profile'
 import { Badge } from '@/components/ui/badge'
 import { sample_cateories } from '@/constants/categories'
 import Image from 'next/image'
 import pdf_image from '../../../../public/images/pdf.png'
+import { HTMLProps, useEffect, useMemo, useRef, useState } from 'react'
+import { cn } from '@/lib/utils'
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTrigger
+} from '@/components/ui/dialog'
+import { Textarea } from '@/components/ui/textarea'
+import { bioDesc } from '@/constants/profile-about'
+import { Button } from '@/components/ui/button'
+import { useForm } from 'react-hook-form'
+import {
+  ProfileJobPreferenceSchemaType,
+  profileJobPreferenceSchema
+} from '@/schema/profile-job-preference'
+import { zodResolver } from '@hookform/resolvers/zod'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage
+} from '@/components/ui/form'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select'
+import { job_types } from '@/constants/job-types'
+import { categories } from '@/constants/job-categories'
+import { Input } from '@/components/ui/input'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger
+} from '@/components/ui/popover'
+import { currencies } from '@/constants/job-requirements'
+
+function EditIcon ({ className, ...props }: {} & HTMLProps<HTMLDivElement>) {
+  return (
+    <div
+      className={cn(
+        'rounded-full border-2 border-primary h-10 w-10 flex justify-center items-center cursor-pointer',
+        className
+      )}
+      {...props}
+    >
+      <MaterialSymbolIcon className='opacity-100 text-primary'>
+        edit
+      </MaterialSymbolIcon>
+    </div>
+  )
+}
 
 export default function AboutPage () {
+  const [bio, setBio] = useState({
+    initial: bioDesc,
+    edited: bioDesc
+  })
+  const [dialog, setDialog] = useState({
+    bio: false,
+    job_preference: false,
+    work_experience: false
+  })
+
+  const [jobPreferences, setJobPreferences] = useState<
+    ProfileJobPreferenceSchemaType[]
+  >([])
+
+  /* Forms Start */
+
+  const jobPreferenceForm = useForm<ProfileJobPreferenceSchemaType>({
+    resolver: zodResolver(profileJobPreferenceSchema)
+  })
+
+  /* Forms End */
+
+  /* Forms Handlers Start */
+
+  const handleJobPreferenceFormSubmit = async (
+    data: ProfileJobPreferenceSchemaType
+  ) => {
+    setJobPreferences(prev => [...prev, data])
+  }
+
+  /* Forms Handlers End */
+
   return (
-    <section className='md:w-3/5 mx-auto space-y-10 bg-'>
-      <AboutSectionItemsWrapper title='My Bio' className='text-center'>
-        Embarking on a journey of boundless creativity within the realm of
-        digital art, I'm Cat—a passionate artist dedicated to translating my
-        vivid imagination into captivating visual experiences. Follow for free
-        giveaways, including images and DALL-E prompts! Welcome to Cats Corner
-        Graphics, where innovation meets imagination. Here, I curate the latest
-        trends in digital art and design, inviting you to join me on this
-        exciting exploration of the visual frontier. Every creation is a
-        testament to my commitment to pushing the boundaries of artistic
-        innovation.
+    <section className='md:w-3/5 mx-auto space-y-10'>
+      <AboutSectionItemsWrapper
+        title='My Bio'
+        className=''
+        edit={
+          <Dialog
+            open={dialog.bio}
+            onOpenChange={e => {
+              setDialog(prev => ({ ...prev, bio: e }))
+              setBio(prev => ({ ...prev, edited: prev.initial }))
+            }}
+          >
+            <DialogTrigger asChild>
+              <EditIcon />
+            </DialogTrigger>
+            <DialogContent className='w-full md:w-1/2'>
+              <DialogHeader>
+                <h1>My Bio</h1>
+              </DialogHeader>
+              <DialogDescription>
+                <Textarea
+                  value={bio.edited}
+                  onChange={e =>
+                    setBio(prev => ({ ...prev, edited: e.target.value }))
+                  }
+                  rows={10}
+                />
+              </DialogDescription>
+              <DialogFooter>
+                <Button
+                  onClick={() => {
+                    setBio(prev => ({ ...prev, initial: prev.edited }))
+                    setDialog(prev => ({ ...prev, bio: false }))
+                  }}
+                >
+                  Save
+                </Button>
+                <DialogClose>
+                  <Button variant={'outline'}>Cancel</Button>
+                </DialogClose>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        }
+      >
+        {bio.initial}
       </AboutSectionItemsWrapper>
       <AboutSectionItemsWrapper
         title='Job Preference'
         className='opacity-100 space-y-6'
+        edit={
+          <Dialog
+            open={dialog.job_preference}
+            onOpenChange={e =>
+              setDialog(prev => ({ ...prev, job_preference: e }))
+            }
+          >
+            <DialogTrigger asChild>
+              <EditIcon />
+            </DialogTrigger>
+            <DialogContent>
+              <JobPreferenceForm
+                form={jobPreferenceForm}
+                onSubmit={e => {
+                  handleJobPreferenceFormSubmit(e)
+                  setDialog(prev => ({ ...prev, job_preference: false }))
+                }}
+              />
+            </DialogContent>
+          </Dialog>
+        }
       >
-        <div className='space-y-2 w-full'>
-          <h1 className='text-lg text-white'>IT - Fullstack</h1>
-          <div className=' opacity-60'>
-            <p>Pune</p>
-            <p>Full Time</p>
-            <p>USD 1200-1500/month</p>
+        {jobPreferences.map((jobPreference, index) => (
+          <div className='space-y-2 w-full' key={index}>
+            <h1 className='text-lg text-white'>
+              {jobPreference.category} - {jobPreference.subcategory}
+            </h1>
+            <div className=' opacity-60'>
+              <p>{jobPreference.preferred_city}</p>
+              <p>{jobPreference.job_type}</p>
+              <p>
+                {jobPreference.expected_salary.currency}{' '}
+                {jobPreference.expected_salary.lower_limit}LPA -{' '}
+                {jobPreference.expected_salary.upper_limit}LPA/month
+              </p>
+            </div>
           </div>
-        </div>
-        <div className='space-y-2 w-full'>
-          <h1 className='text-lg text-white'>IT - Fullstack</h1>
-          <div className=' opacity-60'>
-            <p>Pune</p>
-            <p>Full Time</p>
-            <p>USD 1200-1500/month</p>
-          </div>
-        </div>
+        ))}
       </AboutSectionItemsWrapper>
       <AboutSectionItemsWrapper
         title='Work Experience'
         className='opacity-100 space-y-6'
+        edit={
+          <Dialog
+            open={dialog.work_experience}
+            onOpenChange={e =>
+              setDialog(prev => ({ ...prev, work_experience: e }))
+            }
+          >
+            <DialogTrigger asChild>
+              <EditIcon />
+            </DialogTrigger>
+            <DialogContent>
+              <h1>Work Experience</h1>
+            </DialogContent>
+          </Dialog>
+        }
       >
         <div className='space-y-2 w-full'>
           <h1 className='text-lg text-white'>Ubisoft</h1>

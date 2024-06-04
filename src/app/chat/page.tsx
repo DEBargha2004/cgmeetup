@@ -16,6 +16,7 @@ import { useState } from 'react'
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 import {
@@ -25,6 +26,9 @@ import {
   TooltipTrigger
 } from '@/components/ui/tooltip'
 import { Badge } from '@/components/ui/badge'
+import EmojiPicker from 'emoji-picker-react'
+import { FieldType } from '@/types/field-type'
+import * as l from 'lodash'
 
 // const EmojiPicker = dynamic(() => import('@/components/custom/emoji-picker'), {
 //   ssr: false
@@ -94,11 +98,21 @@ const messages = [
   }
 ]
 
+const attachments: (FieldType & { icon: string })[] = [
+  { label: 'Images', value: 'gallery', icon: 'photo_library' },
+  { label: 'Resume', value: 'resume', icon: 'draft' },
+  { label: 'Share Number', value: 'contacts', icon: 'phone' },
+  { label: 'Demo Reel', value: 'videos', icon: 'slow_motion_video' }
+]
+
 const badges = ['All', 'Unread', 'Groups']
 
 export default function ChatPage () {
   const [showInfo, setShowInfo] = useState(false)
   const [showChat, setShowChat] = useState(false)
+  const [showReactions, setShowReactions] = useState<null | number | string>(
+    null
+  )
   return (
     <div className='flex justify-start items-start h-full relative overflow-hidden'>
       <div
@@ -229,24 +243,49 @@ export default function ChatPage () {
             {messages.map(message => (
               <div
                 className={cn(
-                  'flex ',
-                  message.user_id === 1 ? 'justify-end' : 'justify-start'
+                  'flex group',
+                  message.user_id === 1 ? 'justify-end ' : 'justify-start'
                 )}
                 key={message.id}
               >
-                <div className={cn('w-fit max-w-[50%] ')}>
+                <div
+                  className={cn(
+                    'flex max-w-[60%] gap-6 items-center',
+                    message.user_id === 1
+                      ? 'justify-end flex-row-reverse'
+                      : 'justify-start'
+                  )}
+                >
+                  <div className={cn('w-fit')}>
+                    <div
+                      className={cn(
+                        'p-4 pb-1 rounded flex flex-col justify-between items-end',
+                        message.user_id === 1
+                          ? 'bg-white text-black rounded-br-none '
+                          : 'bg-primary rounded-tl-none'
+                      )}
+                    >
+                      <p>{message.message}</p>
+                      <p className='text-xs opacity-70'>
+                        {format(message.time, 'h:mm a')}
+                      </p>
+                    </div>
+                  </div>
+                  {/* <Popover open={showReactions === message.id} onOpenChange={e => setShowReactions(e?message.id:null)}>
+                    <PopoverTrigger asChild>
+                      <div className={cn('group-hover:block hidden cursor-pointer',l.isNull(showReactions))}>
+                        <MaterialSymbolIcon>mood</MaterialSymbolIcon>
+                      </div>
+                    </PopoverTrigger>
+                    <PopoverContent side='top'></PopoverContent>
+                  </Popover> */}
                   <div
                     className={cn(
-                      'p-4 pb-1 rounded flex flex-col justify-between items-end',
-                      message.user_id === 1
-                        ? 'bg-white text-black rounded-br-none '
-                        : 'bg-primary rounded-tl-none'
+                      'group-hover:block hidden cursor-pointer'
+                      // l.isNull(showReactions)
                     )}
                   >
-                    <p>{message.message}</p>
-                    <p className='text-xs opacity-70'>
-                      {format(message.time, 'h:mm a')}
-                    </p>
+                    <MaterialSymbolIcon>mood</MaterialSymbolIcon>
                   </div>
                 </div>
               </div>
@@ -268,19 +307,43 @@ export default function ChatPage () {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent side='top'>jgygef</DropdownMenuContent>
               </DropdownMenu> */}
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
+
+              <Popover>
+                <PopoverTrigger asChild>
+                  <div className='cursor-pointer'>
                     <MaterialSymbolIcon className='text-3xl'>
                       mood
                     </MaterialSymbolIcon>
-                  </TooltipTrigger>
-                  <TooltipContent>weiudwde</TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-              <MaterialSymbolIcon className='text-3xl'>
-                attach_file
-              </MaterialSymbolIcon>
+                  </div>
+                </PopoverTrigger>
+                <PopoverContent className='w-fit'>
+                  <EmojiPicker
+                    //@ts-ignore
+                    theme={'dark'}
+                    style={{ backgroundColor: 'transparent' }}
+                  />
+                </PopoverContent>
+              </Popover>
+
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <div className='cursor-pointer'>
+                    <MaterialSymbolIcon className='text-3xl'>
+                      attach_file
+                    </MaterialSymbolIcon>
+                  </div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent side='top' className='-translate-y-5'>
+                  {attachments.map(attachment => (
+                    <DropdownMenuItem key={attachment.value}>
+                      <MaterialSymbolIcon className='text-2xl opacity-100 mr-2'>
+                        {attachment.icon}
+                      </MaterialSymbolIcon>
+                      <span>{attachment.label}</span>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
             <Input className='w-full' />
             <div>

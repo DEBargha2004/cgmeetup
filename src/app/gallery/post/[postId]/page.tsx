@@ -49,7 +49,7 @@ including versions of Lorem Ipsum`
     >
       <Close className='lg:hidden block z-20 top-4 right-4' />
       <div
-        className='w-full lg:w-[70%] md:h-[calc(100vh-64px)] h-[calc(100vh/2)] flex flex-col justify-start items-center 
+        className='w-full xl:w-[74%] lg:w-[70%] md:h-[calc(100vh-64px)] h-[calc(100vh/2)] flex flex-col justify-start items-center 
              relative bg-darkAccent'
       >
         <Breadcrumb className='w-full p-3 px-6'>
@@ -101,7 +101,7 @@ including versions of Lorem Ipsum`
           </div>
         </Link>
       </div>
-      <div className='w-full lg:w-[30%] h-full overflow-y-auto px-4 scroller space-y-3 py-2'>
+      <div className='w-full xl:w-[24%] lg:w-[30%] h-full overflow-y-auto px-4 scroller space-y-3 py-2'>
         <Card className='rounded bg-lightAccent relative'>
           <div className='flex justify-end gap-2 items-center absolute top-0 right-0 w-full pt-[6px]'>
             <MaterialSymbolIcon
@@ -112,11 +112,11 @@ including versions of Lorem Ipsum`
             </MaterialSymbolIcon>
             <Close className='lg:block lg:relative hidden text-[20px] opacity-100 hover:text-primary' />
           </div>
-          <CardContent id='user-profile' className='space-y-6 pt-7 pb-3 pr-8'>
+          <CardContent id='user-profile' className='space-y-6 pt-7 pb-3 pr-2'>
             <ProfileInfoOverView
               heading='text-[14px] xl:text-[16px]'
               description='text-[11px] xl:text-[12px] text-white opacity-70'
-              className='pr-5 items-center'
+              className='items-center'
               image='w-14 h-14 xl:w-14 xl:h-14'
               textContainer='justify-start gap-1'
             >
@@ -133,8 +133,8 @@ including versions of Lorem Ipsum`
         </Card>
         <div className='flex justify-between items-center '>
           <div className='flex justify-between 2xl:gap-6 gap-3 items-center w-full'>
-            <div className='flex 2xl:gap-6 gap-3 items-center'>
-              <div className='flex justify-between items-center gap-2'>
+            <div className='flex 2xl:gap-6 gap-2 items-center'>
+              <div className='flex justify-between items-center 2xl:gap-2 gap-1'>
                 <div
                   className='flex justify-center items-center bg-lightAccent h-8 w-8 
                 2xl:h-9 2xl:w-9 rounded-full'
@@ -148,7 +148,7 @@ including versions of Lorem Ipsum`
                 </div>
                 <span className='font-bold opacity-90'>3</span>
               </div>
-              <div className='flex justify-between items-center gap-2'>
+              <div className='flex justify-between items-center 2xl:gap-2 gap-1'>
                 <div
                   className='flex justify-center items-center bg-lightAccent h-8 w-8 
                 2xl:h-9 2xl:w-9 rounded-full'
@@ -162,7 +162,7 @@ including versions of Lorem Ipsum`
                 </div>
                 <span className='font-bold opacity-90'>3</span>
               </div>
-              <div className='flex justify-between items-center gap-2'>
+              <div className='flex justify-between items-center 2xl:gap-2 gap-1'>
                 <div
                   className='flex justify-center items-center bg-lightAccent h-8 w-8 
                 2xl:h-9 2xl:w-9 rounded-full'
@@ -178,7 +178,7 @@ including versions of Lorem Ipsum`
               </div>
             </div>
             <div className='flex 2xl:gap-6 gap-3 items-center'>
-              <div className='flex justify-between items-center gap-2'>
+              <div className='flex justify-between items-center 2xl:gap-2 gap-1'>
                 <div
                   className='flex justify-center items-center bg-lightAccent h-8 w-8 
                 2xl:h-9 2xl:w-9 rounded-full'
@@ -197,7 +197,7 @@ including versions of Lorem Ipsum`
                 </div>
                 <span className='font-bold opacity-90'>3</span>
               </div>
-              <div className='flex justify-between items-center gap-2'>
+              <div className='flex justify-between items-center 2xl:gap-2 gap-1'>
                 <div
                   className='flex justify-center items-center bg-lightAccent h-8 w-8 
                 2xl:h-9 2xl:w-9 rounded-full'
