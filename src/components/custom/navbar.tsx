@@ -18,12 +18,15 @@ import { profileItems, uploadButtonItems } from '@/constants/dropdown-items'
 import { CircleUser, Menu, Package2, Plus, Search } from 'lucide-react'
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
 import { Button } from '../ui/button'
-import React from 'react'
+import React, { useState } from 'react'
 import { useGlobalAppStore } from '@/store/global-app-store'
 import MaterialSymbolIcon from './material-symbol-icon'
+import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog'
+import { SignInForm, SignUpForm } from './form'
 
 export default function Navbar ({ className }: { className?: string }) {
   const { sidebarState, setSidebarState } = useGlobalAppStore()
+  const [signedin, setSignedin] = useState(false)
   return (
     <header
       className={cn(
@@ -119,8 +122,41 @@ export default function Navbar ({ className }: { className?: string }) {
             ))}
           </DropdownMenuContent>
         </DropdownMenu>
-        <MaterialSymbolIcon>notifications_none</MaterialSymbolIcon>
-        <MaterialSymbolIcon>chat</MaterialSymbolIcon>
+        {signedin ? (
+          <>
+            <MaterialSymbolIcon>notifications_none</MaterialSymbolIcon>
+            <MaterialSymbolIcon>chat</MaterialSymbolIcon>
+          </>
+        ) : (
+          <>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant={'success'} className='h-9'>
+                  <MaterialSymbolIcon className='sm:mr-1'>
+                    person
+                  </MaterialSymbolIcon>
+                  Sign up
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <SignUpForm />
+              </DialogContent>
+            </Dialog>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button className='h-9'>
+                  <MaterialSymbolIcon className='sm:mr-1'>
+                    login
+                  </MaterialSymbolIcon>
+                  Sign In
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <SignInForm />
+              </DialogContent>
+            </Dialog>
+          </>
+        )}
         <MaterialSymbolIcon>add_shopping_cart</MaterialSymbolIcon>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

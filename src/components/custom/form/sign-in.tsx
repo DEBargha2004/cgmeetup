@@ -14,6 +14,7 @@ import { SignInSchemaType, signInSchema } from '@/schema/sign-in'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
+import MaterialSymbolIcon from '../material-symbol-icon'
 
 export default function SignInForm () {
   const form = useForm<SignInSchemaType>({
@@ -26,6 +27,7 @@ export default function SignInForm () {
         onSubmit={form.handleSubmit(handleFormSubmit)}
         className='flex flex-col justify-start items-stretch gap-4 w-full'
       >
+        <h1 className='text-2xl font-semibold'>Sign In</h1>
         <FormField
           control={form.control}
           name='id'
@@ -52,7 +54,12 @@ export default function SignInForm () {
             </FormItem>
           )}
         />
-        <Button className=''>Sign In</Button>
+        <Button className=''>
+          <MaterialSymbolIcon className='mr-2 opacity-100'>
+            login
+          </MaterialSymbolIcon>
+          Sign In
+        </Button>
         <div className='text-center'>
           <Link href={'/forgot-password'} className='text-sm text-primary'>
             Forgot Password?

@@ -25,6 +25,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import DatePicker from '../date-picker'
 import { experienceLevels } from '@/constants/experience-level'
+import MaterialSymbolIcon from '../material-symbol-icon'
 
 export default function SignUpForm () {
   const form = useForm<SignUpSchemaType>({
@@ -37,6 +38,7 @@ export default function SignUpForm () {
         onSubmit={form.handleSubmit(handleFormSubmit)}
         className='flex flex-col justify-start items-stretch gap-4 w-full'
       >
+        <h1 className='text-2xl font-semibold'>Sign Up</h1>
         <FormField
           control={form.control}
           name='first_name'
@@ -142,7 +144,13 @@ export default function SignUpForm () {
           )}
         />
         <Checkbox />
-        <Button variant={'success'}>Sign Up</Button>
+        <Button variant={'success'}>
+          {' '}
+          <MaterialSymbolIcon className='mr-2 opacity-100'>
+            person
+          </MaterialSymbolIcon>
+          Sign Up
+        </Button>
       </form>
     </Form>
   )

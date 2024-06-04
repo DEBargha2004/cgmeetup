@@ -70,32 +70,39 @@ export default function ProfileLayout ({
               <p className='text-sm'>Posts</p>
             </div>
             {/* <Separator orientation='vertical' className='h-[40px] w-[2px]' /> */}
-            <div className='text-center flex flex-row items-center gap-1'>
-              <h1 className='font-bold text-sm'>234</h1>
-              <p className='text-sm'>Followers</p>
-            </div>
+            <Link href={'/profile/followers'}>
+              <div className='text-center flex flex-row items-center gap-1'>
+                <h1 className='font-bold text-sm'>234</h1>
+                <p className='text-sm'>Followers</p>
+              </div>
+            </Link>
             {/* <Separator orientation='vertical' className='h-[40px] w-[2px]' /> */}
-            <div className='text-center flex flex-row items-center gap-1'>
-              <h1 className='font-bold text-sm'>234</h1>
-              <p className='text-sm'>Following</p>
-            </div>
+            <Link href={'/profile/following'}>
+              <div className='text-center flex flex-row items-center gap-1'>
+                <h1 className='font-bold text-sm'>234</h1>
+                <p className='text-sm'>Following</p>
+              </div>
+            </Link>
           </div>
           <div className='flex gap-4  sm:flex-row justify-center'>
-            <Button className='border-primary w-[150px]'>Follow</Button>
-            <Button variant={'success'} className='border-primary w-[150px]'>
+            <Button className='border-primary w-[150px] h-9'>Follow</Button>
+            <Button
+              variant={'success'}
+              className='border-primary w-[150px] h-9'
+            >
               Message
             </Button>
           </div>
         </div>
       </div>
       <div className='my-10'>
-        <div className='flex justify-center items-center gap-1 my-2'>
+        <div className='flex justify-center items-center gap-1 my-2 bg-lightAccent'>
           {tabs.map(tab => (
             <Link key={tab.href} href={tab.href}>
               <div
                 className={cn(
-                  'px-4 py-2 rounded hover:bg-lightAccent cursor-pointer',
-                  pathName === tab.href && 'bg-lightAccent'
+                  'px-4 py-4 hover:bg-card cursor-pointer',
+                  pathName === tab.href && 'bg-card '
                 )}
               >
                 {tab.label}
