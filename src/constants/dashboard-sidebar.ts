@@ -38,5 +38,13 @@ export const dashboardSidebar: SidebarItem[] = [
     href: '/dashboard/jobs',
     icon_name: 'work',
     catch_routes: ['/dashboard/jobs', '/dashboard/jobs/create']
+  },
+  {
+    type: 'link',
+    label: 'Bookmarks',
+    href: '/dashboard/bookmarks',
+    icon_name: 'bookmark',
+    id: 'bookmarks',
+    catch_routes: ['/dashboard/bookmarks']
   }
 ]
