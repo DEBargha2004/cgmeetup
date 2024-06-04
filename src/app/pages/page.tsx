@@ -47,6 +47,14 @@ export default function Pages () {
       href: '/profile/jobs'
     },
     { label: 'Profile - About', href: '/profile/about' },
+    {
+      label: 'Profile - Following',
+      href: '/profile/following'
+    },
+    {
+      label: 'Profile - Followers',
+      href: '/profile/followers'
+    },
     // Add more profile pages here
     {
       label: 'Dashboard',
