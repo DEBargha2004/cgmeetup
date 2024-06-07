@@ -50,9 +50,9 @@ export const dashboardSidebar: SidebarItem[] = [
   {
     type: 'link',
     label: 'Edit Profile',
-    href: '/dashboard/edit',
+    href: '/dashboard/profile',
     icon_name: 'person',
     id: 'edit-profileprofile',
-    catch_routes: ['/dashboard/edit']
+    catch_routes: ['/dashboard/profile']
   }
 ]
