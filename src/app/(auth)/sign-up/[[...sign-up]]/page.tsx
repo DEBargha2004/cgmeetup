@@ -4,7 +4,10 @@ import {
   OtpForm,
   PasswordForm,
   AccountCreateForm,
-  JobPreferenceForm
+  JobPreferenceForm,
+  EducationForm,
+  BioForm,
+  WorkExperienceForm
 } from '@/components/custom/form'
 import { Button } from '@/components/ui/button'
 import { PhoneInput } from '@/components/ui/phone-input'
@@ -18,7 +21,9 @@ const signUpFlow = [
   'password',
   'details',
   'job_preference',
-  'higher_education'
+  'work_experience',
+  'higher_education',
+  'bio'
 ] as const
 
 export default function SignUpPage () {
@@ -61,7 +66,7 @@ export default function SignUpPage () {
               {item_idx + 1}
             </p>
             {signUpFlow[item_idx + 1] && (
-              <div className='w-16 bg-lightAccent'>
+              <div className='w-4 md:w-8 xl:w-16 bg-lightAccent'>
                 <div
                   className={cn(
                     'h-1 transition-all duration-500',
@@ -81,7 +86,7 @@ export default function SignUpPage () {
           <>
             <div className='flex justify-between items-end'>
               <h1 className='text-2xl font-semibold'>Sign Up Account</h1>
-              <p className='sm:text-sm text-xs text-primary'>
+              <p className='sm:text-sm text-xs text-primary cursor-pointer'>
                 Switch to Recruiter
               </p>
             </div>
@@ -118,6 +123,41 @@ export default function SignUpPage () {
               </p>
             </div>
             <JobPreferenceForm />
+          </>
+        )}
+        {formStage.work_experience && (
+          <>
+            <div className='space-y-2'>
+              <div className='flex justify-between items-center'>
+                <h1 className='text-2xl font-semibold'>Work Experience</h1>
+                {/* <Skip onClick={goNext} /> */}
+              </div>
+            </div>
+            <WorkExperienceForm />
+          </>
+        )}
+        {formStage.higher_education && (
+          <>
+            <div className='space-y-2'>
+              <div className='flex justify-between items-center'>
+                <h1 className='text-2xl font-semibold'>Highest Education</h1>
+                <Skip onClick={goNext} />
+              </div>
+              <p className='text-sm opacity-70'>
+                Please fill in your highest education details
+              </p>
+            </div>
+            <EducationForm />
+          </>
+        )}
+        {formStage.bio && (
+          <>
+            <div className='space-y-2'>
+              <div className='flex justify-between items-center'>
+                <h1 className='text-2xl font-semibold'>Bio</h1>
+              </div>
+            </div>
+            <BioForm />
           </>
         )}
         <div>
