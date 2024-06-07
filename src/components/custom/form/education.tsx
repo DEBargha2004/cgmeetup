@@ -122,9 +122,11 @@ export default function EducationForm () {
             />
           </div>
         </div>
-        <Button className='w-full' type='submit'>
-          Next
-        </Button>
+        <div className='pt-3 flex justify-center'>
+          <Button className='w-24' type='submit'>
+            Next
+          </Button>
+        </div>
       </form>
     </Form>
   )

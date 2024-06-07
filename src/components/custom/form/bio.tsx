@@ -42,9 +42,11 @@ export default function BioForm () {
             </FormItem>
           )}
         />
-        <Button type='submit' className='w-full'>
-          Finish
-        </Button>
+        <div className='pt-3 flex justify-center'>
+          <Button type='submit' className='w-24'>
+            Submit
+          </Button>
+        </div>
       </form>
     </Form>
   )

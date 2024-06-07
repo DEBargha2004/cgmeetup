@@ -49,7 +49,7 @@ export default function WorkExperienceForm () {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(handleFormSubmit)}
-        className='space-y-4'
+        className='space-y-4 w-full'
       >
         <FormField
           control={form.control}
@@ -186,7 +186,7 @@ export default function WorkExperienceForm () {
             </FormItem>
           )}
         />
-        <FormField
+        {/* <FormField
           control={form.control}
           name='department'
           render={({ field }) => (
@@ -197,7 +197,7 @@ export default function WorkExperienceForm () {
               </FormControl>
             </FormItem>
           )}
-        />
+        /> */}
         <FormField
           control={form.control}
           name='is_intern'
@@ -213,9 +213,11 @@ export default function WorkExperienceForm () {
             </FormItem>
           )}
         />
-        <Button type='submit' className='w-full'>
-          Next
-        </Button>
+        <div className='flex justify-center pt-3'>
+          <Button type='submit' className='w-24'>
+            Next
+          </Button>
+        </div>
       </form>
     </Form>
   )

@@ -7,7 +7,10 @@ import {
   JobPreferenceForm,
   EducationForm,
   BioForm,
-  WorkExperienceForm
+  WorkExperienceForm,
+  FieldsContainer,
+  FormCard,
+  PhoneNumberForm
 } from '@/components/custom/form'
 import { Button } from '@/components/ui/button'
 import { PhoneInput } from '@/components/ui/phone-input'
@@ -78,103 +81,107 @@ export default function SignUpPage () {
           </div>
         ))}
       </div>
-      <div
-        className='p-4 w-full flex flex-col justify-start items-stretch gap-4 
-    rounded-lg border bg-card h-fit'
-      >
+      <div className='w-full flex flex-col justify-start items-stretch '>
         {formStage.phone && (
-          <>
-            <div className='flex justify-between items-end'>
-              <h1 className='text-2xl font-semibold'>Sign Up Account</h1>
+          <FormCard
+            extraButton={
               <p className='sm:text-sm text-xs text-primary cursor-pointer'>
-                Switch to Recruiter
+                Switch to Recruiter / Company
+              </p>
+            }
+            heading='Sign Up Account'
+          >
+            <FieldsContainer className='w-1/2 pt-10'>
+              <PhoneNumberForm />
+            </FieldsContainer>
+            <div className='px-4 pb-4'>
+              <p className='text-sm'>
+                Already have an account?{' '}
+                <Link href={'/sign-in'} className='text-primary'>
+                  Sign In
+                </Link>
               </p>
             </div>
-            <PhoneInput
-              value={phoneNumber}
-              onChange={setPhoneNumber}
-              international
-              defaultCountry='IN'
-            />
-          </>
+          </FormCard>
         )}
         {formStage.otp && (
-          <>
-            <h1 className='text-2xl font-semibold'>Verify OTP</h1>
-            <OtpForm />
-          </>
+          <FormCard heading='Verify OTP'>
+            <FieldsContainer className='w-1/2'>
+              <OtpForm />
+            </FieldsContainer>
+          </FormCard>
         )}
         {formStage.password && (
+          <FormCard heading='Create Password'>
+            <FieldsContainer className='w-1/2'>
+              <PasswordForm />
+            </FieldsContainer>
+          </FormCard>
+        )}
+        {formStage.details && (
           <>
-            <h1 className='text-2xl font-semibold'>Create Password</h1>
-            <PasswordForm />
+            <FormCard
+              subHeading='Please tell us about yourself'
+              heading='Create Profile'
+            >
+              <FieldsContainer className='w-full pt-0'>
+                <AccountCreateForm />
+              </FieldsContainer>
+            </FormCard>
           </>
         )}
-        {formStage.details && <AccountCreateForm />}
         {formStage.job_preference && (
-          <>
-            <div className='space-y-2'>
-              <div className='flex justify-between items-center'>
-                <h1 className='text-2xl font-semibold'>Job Preference</h1>
-                <Skip onClick={goNext} />
-              </div>
-              <p className='text-sm opacity-70'>
-                What type of job are you looking for?
-              </p>
-            </div>
-            <JobPreferenceForm />
-          </>
+          <FormCard
+            heading='Job Preference'
+            subHeading='What type of job are you looking for?'
+            extraButton={<Skip onClick={goNext} />}
+          >
+            <FieldsContainer className='w-1/2'>
+              <JobPreferenceForm />
+            </FieldsContainer>
+          </FormCard>
         )}
         {formStage.work_experience && (
-          <>
-            <div className='space-y-2'>
-              <div className='flex justify-between items-center'>
-                <h1 className='text-2xl font-semibold'>Work Experience</h1>
-                {/* <Skip onClick={goNext} /> */}
-              </div>
-            </div>
-            <WorkExperienceForm />
-          </>
+          <FormCard
+            heading='Work Experience'
+            subHeading='Please fill in your work experience details'
+            extraButton={<Skip onClick={goNext} />}
+          >
+            <FieldsContainer className='w-1/2'>
+              <WorkExperienceForm />
+            </FieldsContainer>
+          </FormCard>
         )}
         {formStage.higher_education && (
-          <>
-            <div className='space-y-2'>
-              <div className='flex justify-between items-center'>
-                <h1 className='text-2xl font-semibold'>Highest Education</h1>
-                <Skip onClick={goNext} />
-              </div>
-              <p className='text-sm opacity-70'>
-                Please fill in your highest education details
-              </p>
-            </div>
-            <EducationForm />
-          </>
+          <FormCard
+            heading='Highest Education'
+            subHeading='Please fill in your highest education details'
+            extraButton={<Skip onClick={goNext} />}
+          >
+            <FieldsContainer className='w-1/2'>
+              <EducationForm />
+            </FieldsContainer>
+          </FormCard>
         )}
         {formStage.bio && (
-          <>
-            <div className='space-y-2'>
-              <div className='flex justify-between items-center'>
-                <h1 className='text-2xl font-semibold'>Bio</h1>
-              </div>
-            </div>
-            <BioForm />
-          </>
+          <FormCard
+            heading='Bio'
+            subHeading='Introduce about yourself.'
+            extraButton={<Skip onClick={goNext} />}
+          >
+            <FieldsContainer className='w-1/2'>
+              <BioForm />
+            </FieldsContainer>
+          </FormCard>
         )}
-        <div>
-          <p className='text-sm'>
-            Already have an account?{' '}
-            <Link href={'/sign-in'} className='text-primary'>
-              Sign In
-            </Link>
-          </p>
-        </div>
-        <div className='flex justify-between'>
-          <Button type='button' onClick={goPrev}>
+
+        <div className='flex justify-between p-4'>
+          <p className='text-primary text-sm' onClick={goPrev}>
             Prev
-          </Button>
-          <Button type='button' onClick={goNext}>
+          </p>
+          <p className='text-primary text-sm' onClick={goNext}>
             Next
-          </Button>
+          </p>
         </div>
       </div>
     </div>
@@ -187,7 +194,7 @@ function Skip ({
   ...props
 }: { label?: string } & HTMLProps<HTMLParagraphElement>) {
   return (
-    <p {...props} className={cn('text-primary cursor-pointer', className)}>
+    <p {...props} className={cn('text-primary cursor-pointer ', className)}>
       {label || 'Skip'}
     </p>
   )

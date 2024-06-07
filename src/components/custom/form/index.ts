@@ -6,6 +6,9 @@ import JobPreferenceForm from './job-preference-form'
 import EducationForm from './education'
 import BioForm from './bio'
 import WorkExperienceForm from './work-experience'
+import FieldsContainer from './field-container'
+import FormCard from './form-card'
+import PhoneNumberForm from './phone-number-form'
 
 export {
   SignInForm,
@@ -15,5 +18,8 @@ export {
   JobPreferenceForm,
   EducationForm,
   BioForm,
-  WorkExperienceForm
+  WorkExperienceForm,
+  FieldsContainer,
+  FormCard,
+  PhoneNumberForm
 }

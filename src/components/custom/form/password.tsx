@@ -32,7 +32,7 @@ export default function PasswordForm () {
   return (
     <Form {...form}>
       <form
-        className='space-y-4'
+        className='w-full flex flex-col justify-start items-stretch gap-4'
         onSubmit={form.handleSubmit(handleFormSubmit)}
       >
         <FormField
@@ -96,7 +96,7 @@ export default function PasswordForm () {
           )}
         />
 
-        <Button type='submit' className='h-9 rounded-sm w-full'>
+        <Button type='submit' className='h-9 rounded-sm w-24 mx-auto mt-3'>
           Next
         </Button>
       </form>

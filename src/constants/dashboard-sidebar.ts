@@ -46,5 +46,13 @@ export const dashboardSidebar: SidebarItem[] = [
     icon_name: 'bookmark',
     id: 'bookmarks',
     catch_routes: ['/dashboard/bookmarks']
+  },
+  {
+    type: 'link',
+    label: 'Edit Profile',
+    href: '/dashboard/edit',
+    icon_name: 'person',
+    id: 'edit-profileprofile',
+    catch_routes: ['/dashboard/edit']
   }
 ]

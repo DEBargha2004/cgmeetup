@@ -315,7 +315,7 @@ export default function JobPreferenceForm ({
           />
         </div>
         <div className='flex justify-center items-center'>
-          <Button className='w-full'>Create Job Preference</Button>
+          <Button className='w-fit'>Add Job Preference</Button>
         </div>
       </form>
     </Form>
