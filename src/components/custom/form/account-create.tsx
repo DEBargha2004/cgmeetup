@@ -20,25 +20,85 @@ import {
   SelectValue
 } from '@/components/ui/select'
 import { genders } from '@/constants/gender'
-import { SignUpSchemaType, signUpSchema } from '@/schema/sign-up'
+import {
+  AccountCreateSchemaType,
+  accountCreateSchema
+} from '@/schema/account-create'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import DatePicker from '../date-picker'
 import { experienceLevels } from '@/constants/experience-level'
 import MaterialSymbolIcon from '../material-symbol-icon'
+import { useEffect, useMemo, useState } from 'react'
+import { categories } from '@/constants/job-categories'
+import avatar from '../../../../public/images/king.jpg'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { getShortendName } from '@/functions'
+import { useDropzone } from 'react-dropzone'
 
-export default function SignUpForm () {
-  const form = useForm<SignUpSchemaType>({
-    resolver: zodResolver(signUpSchema)
+export default function AccountCreateForm () {
+  const [imageUrl, setImageUrl] = useState('')
+  const form = useForm<AccountCreateSchemaType>({
+    resolver: zodResolver(accountCreateSchema)
   })
-  const handleFormSubmit = async (data: SignUpSchemaType) => {}
+  const handleFormSubmit = async (data: AccountCreateSchemaType) => {}
+
+  const subCategories = useMemo(() => {
+    return (
+      categories.find(cat => cat.label === form.watch('category'))
+        ?.sub_category || []
+    )
+  }, [form.watch('category')])
+
+  const { getInputProps, getRootProps, acceptedFiles } = useDropzone({
+    maxFiles: 1,
+    multiple: false
+  })
+
+  useEffect(() => {
+    const reader = new FileReader()
+    const file = acceptedFiles[0]
+
+    if (file) {
+      reader.readAsDataURL(file)
+
+      reader.onloadend = () => {
+        setImageUrl(reader.result as string)
+      }
+    }
+  }, [acceptedFiles])
+
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(handleFormSubmit)}
         className='flex flex-col justify-start items-stretch gap-4 w-full'
       >
-        <h1 className='text-2xl font-semibold'>Sign Up</h1>
+        <h1 className='text-2xl font-semibold'>Create Account</h1>
+        <div className='flex justify-center items-center'>
+          <input id='avatar' type='file' hidden {...getInputProps()} />
+
+          <div
+            className='h-[100px] w-[100px] rounded-full bg-darkAccent relative'
+            {...getRootProps()}
+          >
+            <Avatar className='w-full h-full'>
+              <AvatarImage
+                src={imageUrl || avatar.src}
+                className='object-cover'
+              />
+              <AvatarFallback>{getShortendName('John Doe')}</AvatarFallback>
+            </Avatar>
+            <div
+              className='h-6 w-6 flex justify-center items-center bg-primary 
+              rounded-lg absolute top-[70px] right-1'
+            >
+              <MaterialSymbolIcon className='text-base'>
+                edit
+              </MaterialSymbolIcon>
+            </div>
+          </div>
+        </div>
         <FormField
           control={form.control}
           name='first_name'
@@ -73,6 +133,19 @@ export default function SignUpForm () {
               <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input {...field} type='email' />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name='address'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Address</FormLabel>
+              <FormControl>
+                <Input {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -133,6 +206,58 @@ export default function SignUpForm () {
                       {experienceLevels.map(gender => (
                         <SelectItem key={gender.id} value={gender.value}>
                           {gender.label}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name='category'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Category</FormLabel>
+              <FormControl>
+                <Select value={field.value} onValueChange={field.onChange}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      {categories.map(cat => (
+                        <SelectItem key={cat.value} value={cat.label}>
+                          {cat.label}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name='subcategory'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Sub Category</FormLabel>
+              <FormControl>
+                <Select value={field.value} onValueChange={field.onChange}>
+                  <SelectTrigger disabled={!subCategories.length}>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      {subCategories.map(subCat => (
+                        <SelectItem key={subCat.value} value={subCat.label}>
+                          {subCat.label}
                         </SelectItem>
                       ))}
                     </SelectGroup>

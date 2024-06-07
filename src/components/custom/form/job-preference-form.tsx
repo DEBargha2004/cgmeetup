@@ -1,3 +1,5 @@
+'use client'
+
 import {
   Form,
   FormControl,
@@ -21,20 +23,25 @@ import {
 } from '@/components/ui/select'
 import { categories } from '@/constants/job-categories'
 import { job_types } from '@/constants/job-types'
-import { ProfileJobPreferenceSchemaType } from '@/schema/profile-job-preference'
+import {
+  ProfileJobPreferenceSchemaType,
+  profileJobPreferenceSchema
+} from '@/schema/profile-job-preference'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import MaterialSymbolIcon from '../material-symbol-icon'
 import { currencies } from '@/constants/job-requirements'
 import { Button } from '@/components/ui/button'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 export default function JobPreferenceForm ({
-  form,
   onSubmit
 }: {
-  form: ReturnType<typeof useForm<ProfileJobPreferenceSchemaType>>
-  onSubmit: (data: ProfileJobPreferenceSchemaType) => void
+  onSubmit?: (data: ProfileJobPreferenceSchemaType) => void
 }) {
+  const form = useForm<ProfileJobPreferenceSchemaType>({
+    resolver: zodResolver(profileJobPreferenceSchema)
+  })
   const selectedCategory = form.watch('category')
 
   const subCategories = useMemo(() => {
@@ -67,17 +74,16 @@ export default function JobPreferenceForm ({
       ro.disconnect()
     }
   }, [])
+
+  const defaultSubmit = async (data: ProfileJobPreferenceSchemaType) => {}
   return (
     <Form {...form}>
-      <form className='space-y-4' onSubmit={form.handleSubmit(onSubmit)}>
-        <div className='space-y-2'>
-          <h1 className='text-2xl font-semibold'>Job Preference</h1>
-          <p className='text-sm opacity-70'>
-            What type of job are you looking for?
-          </p>
-        </div>
+      <form
+        className='space-y-4'
+        onSubmit={form.handleSubmit(onSubmit || defaultSubmit)}
+      >
         <div>
-          <h1 className='text-lg m-2 font-semibold'>Job Type</h1>
+          <h1 className='text-sm m-2 font-semibold'>Job Type</h1>
           <FormField
             control={form.control}
             name='job_type'
@@ -103,7 +109,7 @@ export default function JobPreferenceForm ({
           />
         </div>
         <div className='space-y-2'>
-          <h1 className='text-lg m-2 font-semibold'>Functional Area</h1>
+          <h1 className='text-sm m-2 font-semibold'>Functional Area</h1>
           <FormField
             control={form.control}
             name='category'
@@ -156,7 +162,7 @@ export default function JobPreferenceForm ({
           />
         </div>
         <div className='space-y-2'>
-          <h1 className='text-lg m-2 font-semibold'>Preferred City</h1>
+          <h1 className='text-sm m-2 font-semibold'>Preferred City</h1>
           <FormField
             control={form.control}
             name='preferred_city'
@@ -171,7 +177,7 @@ export default function JobPreferenceForm ({
           />
         </div>
         <div className='space-y-2'>
-          <h1 className='text-lg m-2 font-semibold'>Expected Salary</h1>
+          <h1 className='text-sm m-2 font-semibold'>Expected Salary</h1>
           <FormField
             control={form.control}
             name='preferred_city'
@@ -309,7 +315,7 @@ export default function JobPreferenceForm ({
           />
         </div>
         <div className='flex justify-center items-center'>
-          <Button className='w-full md:w-4/5'>Create Job Preference</Button>
+          <Button className='w-full'>Create Job Preference</Button>
         </div>
       </form>
     </Form>

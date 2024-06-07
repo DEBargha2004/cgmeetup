@@ -11,7 +11,7 @@ export const profileItems: ProfileItem[] = [
   {
     id: 'profile',
     label: 'Profile',
-    href: '/profile',
+    href: '/@tuit',
     type: 'link'
   },
   {

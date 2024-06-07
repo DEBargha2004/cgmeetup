@@ -1,15 +1,12 @@
 'use client'
 
 import { MaterialSymbolIcon, ProfileInfoOverView } from '@/components/custom'
-import {
-  AboutSectionItemsWrapper,
-  JobPreferenceForm
-} from '@/components/custom/profile'
+import { AboutSectionItemsWrapper } from '@/components/custom/profile'
 import { Badge } from '@/components/ui/badge'
 import { sample_cateories } from '@/constants/categories'
 import Image from 'next/image'
 import pdf_image from '../../../../public/images/pdf.png'
-import { HTMLProps, useEffect, useMemo, useRef, useState } from 'react'
+import { HTMLProps, useState } from 'react'
 import { cn } from '@/lib/utils'
 import {
   Dialog,
@@ -29,30 +26,7 @@ import {
   profileJobPreferenceSchema
 } from '@/schema/profile-job-preference'
 import { zodResolver } from '@hookform/resolvers/zod'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage
-} from '@/components/ui/form'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from '@/components/ui/select'
-import { job_types } from '@/constants/job-types'
-import { categories } from '@/constants/job-categories'
-import { Input } from '@/components/ui/input'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger
-} from '@/components/ui/popover'
-import { currencies } from '@/constants/job-requirements'
+import { JobPreferenceForm } from '@/components/custom/form'
 
 function EditIcon ({ className, ...props }: {} & HTMLProps<HTMLDivElement>) {
   return (
@@ -86,10 +60,6 @@ export default function AboutPage () {
   >([])
 
   /* Forms Start */
-
-  const jobPreferenceForm = useForm<ProfileJobPreferenceSchemaType>({
-    resolver: zodResolver(profileJobPreferenceSchema)
-  })
 
   /* Forms End */
 
@@ -166,7 +136,6 @@ export default function AboutPage () {
             </DialogTrigger>
             <DialogContent>
               <JobPreferenceForm
-                form={jobPreferenceForm}
                 onSubmit={e => {
                   handleJobPreferenceFormSubmit(e)
                   setDialog(prev => ({ ...prev, job_preference: false }))

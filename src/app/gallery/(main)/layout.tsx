@@ -23,11 +23,6 @@ const tabList: TabItem[] = [
     icon: 'schedule'
   },
   {
-    label: 'Artists',
-    href: '/gallery/artists',
-    icon: 'group'
-  },
-  {
     label: 'Bookmarked',
     href: '/gallery/bookmarked',
     icon: 'bookmark'

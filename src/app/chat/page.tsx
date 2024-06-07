@@ -19,16 +19,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger
-} from '@/components/ui/tooltip'
 import { Badge } from '@/components/ui/badge'
 import EmojiPicker from 'emoji-picker-react'
 import { FieldType } from '@/types/field-type'
-import * as l from 'lodash'
 
 // const EmojiPicker = dynamic(() => import('@/components/custom/emoji-picker'), {
 //   ssr: false

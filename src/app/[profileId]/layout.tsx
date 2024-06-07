@@ -12,15 +12,15 @@ import { usePathname } from 'next/navigation'
 const tabs: { label: string; href: string }[] = [
   {
     label: 'Posts',
-    href: '/profile'
+    href: '/123'
   },
   {
     label: 'Jobs',
-    href: '/profile/jobs'
+    href: '/123/jobs'
   },
   {
     label: 'About',
-    href: '/profile/about'
+    href: '/123/about'
   }
 ]
 
@@ -70,14 +70,14 @@ export default function ProfileLayout ({
               <p className='text-sm'>Posts</p>
             </div>
             {/* <Separator orientation='vertical' className='h-[40px] w-[2px]' /> */}
-            <Link href={'/profile/followers'}>
+            <Link href={'/123/followers'}>
               <div className='text-center flex flex-row items-center gap-1'>
                 <h1 className='font-bold text-sm'>234</h1>
                 <p className='text-sm'>Followers</p>
               </div>
             </Link>
             {/* <Separator orientation='vertical' className='h-[40px] w-[2px]' /> */}
-            <Link href={'/profile/following'}>
+            <Link href={'/123/following'}>
               <div className='text-center flex flex-row items-center gap-1'>
                 <h1 className='font-bold text-sm'>234</h1>
                 <p className='text-sm'>Following</p>

@@ -13,6 +13,7 @@ import {
   NotificationCardProfileView,
   NotificationCardOtherView
 } from './notification-card'
+import MainPageForm from './main-page-form'
 
 export {
   AppLogo,
@@ -27,5 +28,6 @@ export {
   Tabs,
   EmojiPickerElement,
   NotificationCardProfileView,
-  NotificationCardOtherView
+  NotificationCardOtherView,
+  MainPageForm
 }

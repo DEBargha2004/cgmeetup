@@ -1,7 +1,8 @@
 import { MaterialSymbolIcon } from '@/components/custom'
+import { SuggestionCard } from '@/components/custom/feed'
 import { Input } from '@/components/ui/input'
 
-export default function ArtistsPage () {
+export default function CompanyPage () {
   return (
     <>
       <div className='flex min-h-screen w-full flex-col'>
@@ -22,7 +23,11 @@ export default function ArtistsPage () {
               </MaterialSymbolIcon>
             </div>
           </div>
-          {}
+          <div className='grid grid-cols-4 gap-5 w-[90%] mx-auto'>
+            {Array.from({ length: 29 }).map((_, i) => (
+              <SuggestionCard key={i} />
+            ))}
+          </div>
         </main>
       </div>
     </>

@@ -22,7 +22,7 @@ import React, { useState } from 'react'
 import { useGlobalAppStore } from '@/store/global-app-store'
 import MaterialSymbolIcon from './material-symbol-icon'
 import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog'
-import { SignInForm, SignUpForm } from './form'
+import { SignInForm, AccountCreateForm } from './form'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 import {
   NotificationCardProfileView,
@@ -169,7 +169,7 @@ export default function Navbar ({ className }: { className?: string }) {
                 </Button>
               </DialogTrigger>
               <DialogContent>
-                <SignUpForm />
+                <AccountCreateForm />
               </DialogContent>
             </Dialog>
             <Dialog>

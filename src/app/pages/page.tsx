@@ -40,20 +40,20 @@ export default function Pages () {
     },
     {
       label: 'Profile - Posts',
-      href: '/profile'
+      href: '/123'
     },
     {
       label: 'Profile - Jobs',
-      href: '/profile/jobs'
+      href: '/123/jobs'
     },
-    { label: 'Profile - About', href: '/profile/about' },
+    { label: 'Profile - About', href: '/123/about' },
     {
       label: 'Profile - Following',
-      href: '/profile/following'
+      href: '/123/following'
     },
     {
       label: 'Profile - Followers',
-      href: '/profile/followers'
+      href: '/123/followers'
     },
     // Add more profile pages here
     {

@@ -33,7 +33,7 @@ import { Search } from 'lucide-react'
 import { Roboto } from 'next/font/google'
 import { HTMLProps, useEffect, useState } from 'react'
 
-const tabList: TabItem[] = [
+const tabList1: TabItem[] = [
   { label: 'Jobs', href: '/jobs', icon: 'work' },
   {
     label: 'Trending',
@@ -44,8 +44,11 @@ const tabList: TabItem[] = [
     label: 'Latest',
     href: '',
     icon: 'schedule'
-  },
-  { label: 'Studios', href: '/jobs/studios', icon: 'apartment' },
+  }
+  // { label: 'Studios', href: '/jobs/studios', icon: 'apartment' },
+]
+
+const tabList2: TabItem[] = [
   { label: 'Bookmark Jobs', href: '/bookmark-jobs', icon: 'bookmark' },
   { label: 'Job Preferences', href: '/job-preference', icon: 'manage_accounts' }
 ]
@@ -300,11 +303,16 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
           </div>
           <div
             className={cn(
-              'w-full flex justify-start items-center gap-0 pl-3',
+              'w-full flex justify-start lg:justify-between items-center gap-0 pl-3',
               roboto.className
             )}
           >
-            <Tabs tabs={tabList} />
+            <div className='flex justify-start items-center'>
+              <Tabs tabs={tabList1} />
+            </div>
+            <div className='flex justify-start items-center'>
+              <Tabs tabs={tabList2} />
+            </div>
           </div>
         </div>
         {children}

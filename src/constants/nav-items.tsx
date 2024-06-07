@@ -18,11 +18,11 @@ export const navItems: NavItem[] = [
   {
     id: 'artists',
     label: 'Artists',
-    href: '/gallery/artists'
+    href: '/artists'
   },
   {
     id: 'company',
     label: 'Company',
-    href: '/jobs/studios'
+    href: '/companies'
   }
 ]
