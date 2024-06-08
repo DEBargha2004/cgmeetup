@@ -53,6 +53,12 @@ export const dashboardSidebar: SidebarItem[] = [
     href: '/dashboard/profile',
     icon_name: 'person',
     id: 'edit-profileprofile',
-    catch_routes: ['/dashboard/profile']
+    catch_routes: [
+      '/dashboard/profile',
+      '/dashboard/job-preference',
+      '/dashboard/work-experience',
+      '/dashboard/highest-education',
+      '/dashboard/bio'
+    ]
   }
 ]

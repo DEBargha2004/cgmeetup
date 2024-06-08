@@ -9,6 +9,7 @@ import WorkExperienceForm from './work-experience'
 import FieldsContainer from './field-container'
 import FormCard from './form-card'
 import PhoneNumberForm from './phone-number-form'
+import RecruiterProfileCreateForm from './recuiter-profile-create'
 
 export {
   SignInForm,
@@ -21,5 +22,6 @@ export {
   WorkExperienceForm,
   FieldsContainer,
   FormCard,
-  PhoneNumberForm
+  PhoneNumberForm,
+  RecruiterProfileCreateForm
 }
