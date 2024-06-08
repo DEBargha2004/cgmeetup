@@ -1,29 +1,13 @@
-import { MaterialSymbolIcon } from '@/components/custom'
+import { MaterialSymbolIcon, ShowcaseCard } from '@/components/custom'
 import { Input } from '@/components/ui/input'
 
 export default function ArtistsPage () {
   return (
     <>
-      <div className='flex min-h-screen w-full flex-col'>
-        <main className='flex flex-1 flex-col py-4 md:gap-0 md:py-12'>
-          <div className='my-6 flex flex-col justify-between items-center gap-12 text-center'>
-            <div className='space-y-4'>
-              <h1 className='text-4xl md:text-[52px] font-bold'>
-                Showcase & Discover Creative Work
-              </h1>
-              <p className='text-lg md:text-xl'>
-                for Concept Art , Visual Effects , Short Films and more.
-              </p>
-            </div>
-            <div className='w-3/4 md:w-3/5 lg:w-2/5 relative flex justify-between items-center gap-2'>
-              <Input className='pl-10' placeholder='Search' />
-              <MaterialSymbolIcon className='absolute left-2 top-1/2 -translate-y-1/2'>
-                search
-              </MaterialSymbolIcon>
-            </div>
-          </div>
-          {}
-        </main>
+      <div className='grid lg:grid-cols-2 gap-5 px-4'>
+        {Array.from({ length: 33 }, (_, i) => i).map(item => (
+          <ShowcaseCard key={item} className='bg-card' />
+        ))}
       </div>
     </>
   )

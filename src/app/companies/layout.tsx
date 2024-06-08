@@ -6,12 +6,13 @@ import { cn } from '@/lib/utils'
 import { TabItem } from '@/types/tab'
 import { Search } from 'lucide-react'
 import { Roboto } from 'next/font/google'
+import Filter from './_components/filter'
 
 const tabList1: TabItem[] = [
   {
-    label: 'Community',
-    href: '/gallery',
-    icon: 'language'
+    label: 'Companies',
+    href: '/companies',
+    icon: 'apartment'
   },
   {
     label: 'Trending',
@@ -43,10 +44,10 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
           <div className='my-6 flex flex-col justify-between items-center gap-12 text-center'>
             <div className='space-y-4'>
               <h1 className='text-4xl md:text-[52px] font-bold'>
-                Showcase & Discover Creative Work
+                Find World Talented Artist
               </h1>
               <p className='text-lg md:text-xl'>
-                for Concept Art , Visual Effects , Short Films and more.
+                for Concept Artists , Visual Effect Artsts, and Digital Artists.
               </p>
             </div>
             <div className='w-3/4 md:w-3/5 lg:w-2/5 relative flex justify-between items-center gap-2'>
@@ -62,14 +63,16 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
                 </SheetTrigger>
                 <SheetContent
                   side={'right'}
-                  className='bg-lightAccent'
-                ></SheetContent>
+                  className='bg-card overflow-y-auto scroller-hide pt-10'
+                >
+                  <Filter />
+                </SheetContent>
               </Sheet>
             </div>
             <div>
               <Button>
                 <MaterialSymbolIcon className='mr-2'>person</MaterialSymbolIcon>
-                <span>Find Artist</span>
+                <span>Create Profile</span>
               </Button>
             </div>
             <div

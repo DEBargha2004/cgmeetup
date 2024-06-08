@@ -9,7 +9,13 @@ export default function AppLogo ({ className }: { className?: string }) {
         className
       )}
     >
-      <div className='bg-[#FF0000] p-[2px] rounded-sm'>CG</div> Meetup
+      <div
+        className='bg-[#FF0000] p-[2px] rounded-sm font-extrabold text-lg h-7 flex 
+      items-center'
+      >
+        CG
+      </div>{' '}
+      Meetup
     </div>
   )
 }

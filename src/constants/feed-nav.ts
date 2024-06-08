@@ -17,69 +17,69 @@ type FeedNav =
     }
 
 export const feedNavItems: FeedNav[] = [
-  {
-    type: 'header',
-    label: 'Discover'
-  },
-  {
-    type: 'link',
-    id: 'explore',
-    label: 'Explore',
-    href: '/feed',
-    icon_name: 'explore'
-  },
-  {
-    type: 'link',
-    id: 'trending',
-    label: 'Trending',
-    href: '/trending',
-    icon_name: 'trending_up'
-  },
-  {
-    type: 'link',
-    id: 'latest',
-    label: 'Latest',
-    href: '/latest',
-    icon_name: 'new_releases'
-  },
-  {
-    type: 'link',
-    id: 'search',
-    label: 'Search',
-    href: '/search',
-    icon_name: 'search'
-  },
-  {
-    type: 'separator'
-  },
-  {
-    type: 'link',
-    id: 'chat',
-    label: 'Chat',
-    href: '/chat',
-    icon_name: 'chat'
-  },
-  {
-    type: 'link',
-    id: 'bookmarks',
-    label: 'Bookmarks',
-    href: '/bookmarks',
-    icon_name: 'bookmark'
-  },
-  {
-    type: 'link',
-    id: 'notifications',
-    label: 'Notifications',
-    href: '/notifications',
-    icon_name: 'notifications'
-  },
-  {
-    type: 'link',
-    id: 'liked',
-    label: 'Liked',
-    href: '/liked',
-    icon_name: 'favorite'
-  },
+  // {
+  //   type: 'header',
+  //   label: 'Discover'
+  // },
+  // {
+  //   type: 'link',
+  //   id: 'explore',
+  //   label: 'Explore',
+  //   href: '/feed',
+  //   icon_name: 'explore'
+  // },
+  // {
+  //   type: 'link',
+  //   id: 'trending',
+  //   label: 'Trending',
+  //   href: '/trending',
+  //   icon_name: 'trending_up'
+  // },
+  // {
+  //   type: 'link',
+  //   id: 'latest',
+  //   label: 'Latest',
+  //   href: '/latest',
+  //   icon_name: 'new_releases'
+  // },
+  // {
+  //   type: 'link',
+  //   id: 'search',
+  //   label: 'Search',
+  //   href: '/search',
+  //   icon_name: 'search'
+  // },
+  // {
+  //   type: 'separator'
+  // },
+  // {
+  //   type: 'link',
+  //   id: 'chat',
+  //   label: 'Chat',
+  //   href: '/chat',
+  //   icon_name: 'chat'
+  // },
+  // {
+  //   type: 'link',
+  //   id: 'bookmarks',
+  //   label: 'Bookmarks',
+  //   href: '/bookmarks',
+  //   icon_name: 'bookmark'
+  // },
+  // {
+  //   type: 'link',
+  //   id: 'notifications',
+  //   label: 'Notifications',
+  //   href: '/notifications',
+  //   icon_name: 'notifications'
+  // },
+  // {
+  //   type: 'link',
+  //   id: 'liked',
+  //   label: 'Liked',
+  //   href: '/liked',
+  //   icon_name: 'favorite'
+  // },
   //My Profile
   // Edit Profile
   // Edit Bio
@@ -100,13 +100,13 @@ export const feedNavItems: FeedNav[] = [
     href: '/edit-profile',
     icon_name: 'edit'
   },
-  {
-    type: 'link',
-    id: 'edit-bio',
-    label: 'Edit Bio',
-    href: '/edit-bio',
-    icon_name: 'edit'
-  },
+  // {
+  //   type: 'link',
+  //   id: 'edit-bio',
+  //   label: 'Edit Bio',
+  //   href: '/edit-bio',
+  //   icon_name: 'edit'
+  // },
   {
     type: 'separator'
   },

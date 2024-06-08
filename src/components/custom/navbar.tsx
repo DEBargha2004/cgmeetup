@@ -28,10 +28,12 @@ import {
   NotificationCardProfileView,
   NotificationCardOtherView
 } from './notification-card'
+import { usePathname } from 'next/navigation'
 
 export default function Navbar ({ className }: { className?: string }) {
   const { sidebarState, setSidebarState } = useGlobalAppStore()
-  const [signedin, setSignedin] = useState(true)
+  const [signedin, setSignedin] = useState(false)
+  const pathname = usePathname()
   return (
     <header
       className={cn(
@@ -51,7 +53,10 @@ export default function Navbar ({ className }: { className?: string }) {
           <Link
             key={item.id}
             href={item.href}
-            className='transition-colors text-foreground'
+            className={cn(
+              'transition-colors text-foreground',
+              pathname === item.href ? 'text-primary' : ''
+            )}
           >
             {item.label}
           </Link>
@@ -77,9 +82,15 @@ export default function Navbar ({ className }: { className?: string }) {
               <Link
                 key={item.id}
                 href={item.href}
-                className='flex items-center gap-2 text-lg font-semibold'
+                className={cn(
+                  'flex items-center gap-2 text-lg font-semibold',
+                  pathname === item.href ? 'text-primary' : ''
+                )}
               >
-                {item.label}
+                <MaterialSymbolIcon className='opacity-100'>
+                  {item.icon}
+                </MaterialSymbolIcon>
+                <span>{item.label}</span>
               </Link>
             ))}
           </nav>
@@ -91,7 +102,7 @@ export default function Navbar ({ className }: { className?: string }) {
             <Search className='absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground' />
             <Input
               type='search'
-              placeholder='Search products...'
+              placeholder='Search...'
               className='pl-8 sm:w-full'
             />
           </div>

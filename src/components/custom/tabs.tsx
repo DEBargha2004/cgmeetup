@@ -29,15 +29,19 @@ export default function Tabs ({
               <Link href={tab.href}>
                 <div
                   className={cn(
-                    'md:px-4 px-2 py-2 hover:bg-lightAccent cursor-pointer whitespace-nowrap md:text-base sm:text-sm text-xs flex justify-between items-center gap-2',
+                    `md:pl-2 md:pr-4 px-2 py-2 hover:bg-lightAccent cursor-pointer 
+                    whitespace-nowrap md:text-base sm:text-sm text-xs flex 
+                    justify-start items-center gap-2`,
                     pathname === tab.href
-                      ? 'border-b-2 border-primary md:text-lg sm:text-base text-sm'
+                      ? 'border-b-2 border-primary md:text-lg sm:text-base text-sm text-primary'
                       : '',
                     className
                   )}
                 >
                   <span>
-                    <MaterialSymbolIcon>{tab.icon}</MaterialSymbolIcon>
+                    <MaterialSymbolIcon className={cn('opacity-100')}>
+                      {tab.icon}
+                    </MaterialSymbolIcon>
                   </span>
                   <span className='lg:block hidden'>{tab.label}</span>
                 </div>

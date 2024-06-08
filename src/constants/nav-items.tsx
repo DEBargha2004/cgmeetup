@@ -2,27 +2,32 @@ type NavItem = {
   id: string
   label: string
   href: string
+  icon: string
 }
 
 export const navItems: NavItem[] = [
   {
     id: 'gallery',
     label: 'Gallery',
-    href: '/gallery'
+    href: '/gallery',
+    icon: 'imagesmode'
   },
   {
     id: 'jobs',
     label: 'Jobs',
-    href: '/jobs'
+    href: '/jobs',
+    icon: 'work'
   },
   {
     id: 'artists',
     label: 'Artists',
-    href: '/artists'
+    href: '/artists',
+    icon: 'person'
   },
   {
     id: 'company',
     label: 'Company',
-    href: '/companies'
+    href: '/companies',
+    icon: 'apartment'
   }
 ]

@@ -14,6 +14,8 @@ import {
   NotificationCardOtherView
 } from './notification-card'
 import MainPageForm from './main-page-form'
+import ShowcaseCard from './showcase-card'
+import ClearButton from './clear-button'
 
 export {
   AppLogo,
@@ -29,5 +31,7 @@ export {
   EmojiPickerElement,
   NotificationCardProfileView,
   NotificationCardOtherView,
-  MainPageForm
+  MainPageForm,
+  ShowcaseCard,
+  ClearButton
 }

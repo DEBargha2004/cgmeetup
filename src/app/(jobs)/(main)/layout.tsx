@@ -1,6 +1,6 @@
 'use client'
 
-import { MaterialSymbolIcon, Tabs } from '@/components/custom'
+import { ClearButton, MaterialSymbolIcon, Tabs } from '@/components/custom'
 import {
   Accordion,
   AccordionContent,
@@ -31,7 +31,7 @@ import { cn } from '@/lib/utils'
 import { TabItem } from '@/types/tab'
 import { Search } from 'lucide-react'
 import { Roboto } from 'next/font/google'
-import { HTMLProps, useEffect, useState } from 'react'
+import { useState } from 'react'
 
 const tabList1: TabItem[] = [
   { label: 'Jobs', href: '/jobs', icon: 'work' },
@@ -49,8 +49,12 @@ const tabList1: TabItem[] = [
 ]
 
 const tabList2: TabItem[] = [
-  { label: 'Bookmark Jobs', href: '/bookmark-jobs', icon: 'bookmark' },
-  { label: 'Job Preferences', href: '/job-preference', icon: 'manage_accounts' }
+  { label: 'Bookmarks', href: '/dashboard/bookmarks', icon: 'bookmark' },
+  {
+    label: 'Job Preferences',
+    href: '/dashboard/job-preference',
+    icon: 'manage_accounts'
+  }
 ]
 
 const roboto = Roboto({ subsets: ['cyrillic'], weight: '700' })
@@ -89,7 +93,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
               </SheetTrigger>
               <SheetContent
                 side={'right'}
-                className='bg-lightAccent overflow-y-auto scroller-hide'
+                className='bg-card overflow-y-auto scroller-hide'
               >
                 <Accordion
                   type='multiple'
@@ -332,24 +336,5 @@ function AccordionItemChildWrapper ({
     <div className={cn('flex justify-start items-center gap-2', className)}>
       {children}
     </div>
-  )
-}
-
-function ClearButton ({
-  className,
-  children = 'Clear',
-  ...props
-}: { className?: string } & ButtonProps) {
-  return (
-    <Button
-      className={cn(
-        'w-full h-8 bg-lightAccent border-border border-2 rounded-sm hover:bg-darkAccent/40',
-        className
-      )}
-      variant={'outline'}
-      {...props}
-    >
-      {children}
-    </Button>
   )
 }

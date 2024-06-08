@@ -21,6 +21,7 @@ import { Button } from '@/components/ui/button'
 import { MaterialSymbolIcon } from '@/components/custom'
 import 'react-circular-progressbar/dist/styles.css'
 import ProgressBar from '@/components/custom/progress-bar'
+import Image from 'next/image'
 
 export default function FeedPage () {
   return (
@@ -29,8 +30,37 @@ export default function FeedPage () {
         className='w-full h-fit bottom-0 left-0 md:w-[75px] 6xl:w-[45%] 5xl:w-2/5
         4xl:w-1/3 xl:w-1/4 lg:w-1/5 z-20 md:h-full border-r  px-2 flex flex-row md:flex-col 
         justify-center md:justify-start items-center md:items-end 
-        md:overflow-y-auto scroller overflow-x-auto overflow-y-auto'
+        md:overflow-y-auto scroller overflow-x-auto overflow-y-auto pt-8'
       >
+        <section className='w-full max-w-[250px] flex flex-col justify-between items-center mb-10'>
+          <div className='px-2' id='profile-image'>
+            <Image
+              src={
+                'https://cdnb.artstation.com/p/users/avatars/000/809/063/large/ffeb4741d6275c9a5f8e78eee0703a0f.jpg?1642309641'
+              }
+              alt='profile-image'
+              height={100}
+              width={100}
+              className='object-cover rounded-full h-[100px] w-[100px] border-2 border-white 
+              box-content'
+            />
+          </div>
+          <div
+            id='profile-description'
+            className='flex flex-col justify-start items-center w-full'
+          >
+            <div className='flex justify-start items-center gap-2 pt-2'>
+              <h1 className='text-lg font-semibold'>Narendra Kumar</h1>
+              {/* <Badge className='bg-primary rounded-full'>PRO</Badge> */}
+            </div>
+            <div className='flex justify-between items-end text-center'>
+              <div>
+                <p className='text-sm opacity-70'>Artist</p>
+                <p className='text-sm opacity-70'>Rome,Italy</p>
+              </div>
+            </div>
+          </div>
+        </section>
         {feedNavItems.map((item, item_idx) => (
           <React.Fragment key={item_idx}>
             {item.type === 'separator' ? (
@@ -38,12 +68,12 @@ export default function FeedPage () {
             ) : item.type === 'header' ? (
               <div
                 className='hidden lg:flex justify-start items-center rounded p-2 
-              text-xl font-bold shrink-0 w-full max-w-[250px]'
+              text-xl font-bold shrink-0 w-full max-w-[200px]'
               >
                 <h1>{item.label}</h1>
               </div>
             ) : (
-              <Link href={item.href} className='w-full max-w-[250px]'>
+              <Link href={item.href} className='w-full max-w-[200px]'>
                 <div
                   className='flex justify-center lg:gap-2 lg:justify-start items-center rounded 
                   hover:bg-lightAccent p-2 font-semibold shrink-0'
@@ -144,9 +174,9 @@ export default function FeedPage () {
               </p>
             </div>
           </div>
-          {Array.from({ length: 5 }, (_, i) => i).map(i => (
+          {/* {Array.from({ length: 5 }, (_, i) => i).map(i => (
             <SuggestionCard key={i} />
-          ))}
+          ))} */}
         </div>
       </div>
     </main>
