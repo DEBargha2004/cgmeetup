@@ -62,17 +62,24 @@ const tabs: (FieldType & { icon: string; href: string })[] = [
     icon: 'public',
     href: '/dashboard/social'
   },
-  {
-    label: 'User Name',
-    value: 'username',
-    icon: 'alternate_email',
-    href: '/dashboard/username'
-  },
+
   {
     label: 'Skills',
     value: 'skills',
     icon: 'code',
     href: '/dashboard/skills'
+  },
+  {
+    label: 'Softwares',
+    value: 'softwares',
+    icon: 'code',
+    href: '/dashboard/softwares'
+  },
+  {
+    label: 'User Name',
+    value: 'username',
+    icon: 'alternate_email',
+    href: '/dashboard/username'
   }
 ]
 
@@ -100,13 +107,17 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
           </Breadcrumb>
         </header>
         <main className='flex flex-col justify-start items-center gap-10 w-full'>
-          <div className='w-1/2 flex justify-center items-center gap-3'>
+          <div className='w-full flex justify-start items-center gap-3 px-3'>
             <Tabs value={pathname}>
               <TabsList>
                 {tabs.map(tab => (
-                  <TabsTrigger key={tab.value} value={tab.href}>
+                  <TabsTrigger
+                    key={tab.value}
+                    value={tab.href}
+                    className='border-r border-darkAccent last:border-none rounded'
+                  >
                     <Link href={tab.href} className='flex items-center'>
-                      <MaterialSymbolIcon className='mr-1 text-[16px]'>
+                      <MaterialSymbolIcon className='mr-1 text-[16px] opacity-100'>
                         {tab.icon}
                       </MaterialSymbolIcon>
                       <span className='lg:inline hidden'>{tab.label}</span>

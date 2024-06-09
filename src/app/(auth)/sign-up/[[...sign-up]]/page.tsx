@@ -208,8 +208,8 @@ export default function SignUpPage () {
               subHeading='Introduce about yourself.'
               extraButton={<Skip onClick={goNext} />}
             >
-              <FieldsContainer className='w-1/2'>
-                <BioForm />
+              <FieldsContainer className='w-full px-5'>
+                <BioForm submitLabel='Save' />
               </FieldsContainer>
             </FormCard>
           )}

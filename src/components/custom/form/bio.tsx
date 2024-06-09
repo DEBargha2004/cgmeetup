@@ -13,7 +13,7 @@ import { BioSchemaType, bioSchema } from '@/schema/bio'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 
-export default function BioForm () {
+export default function BioForm ({ submitLabel }: { submitLabel?: string }) {
   const form = useForm<BioSchemaType>({
     resolver: zodResolver(bioSchema)
   })
@@ -44,7 +44,7 @@ export default function BioForm () {
         />
         <div className='pt-3 flex justify-center'>
           <Button type='submit' className='w-24'>
-            Submit
+            {submitLabel || 'Submit'}
           </Button>
         </div>
       </form>

@@ -59,29 +59,22 @@ export default function ProfileLayout ({
         <div className='flex flex-col justify-between items-center gap-[6px]'>
           <p className='text-sm  opacity-60'>3D Animator</p>
           <p className='flex justify-center items-end opacity-60 text-sm'>
-            <MaterialSymbolIcon>location_on</MaterialSymbolIcon>
+            <MaterialSymbolIcon className='text-sm'>
+              location_on
+            </MaterialSymbolIcon>
             &nbsp; Florida,USA
           </p>
         </div>
         <div className='flex flex-col justify-between items-center gap-5 w-1/5 min-w-[250px]'>
           <div className='flex justify-between items-center gap-5 w-full'>
-            <div className='text-center flex flex-row items-center gap-1'>
-              <h1 className='font-bold text-sm'>234</h1>
-              <p className='text-sm'>Posts</p>
-            </div>
+            <ProfileSubSectionItem heading='234' description='Posts' />
             {/* <Separator orientation='vertical' className='h-[40px] w-[2px]' /> */}
             <Link href={'/123/followers'}>
-              <div className='text-center flex flex-row items-center gap-1'>
-                <h1 className='font-bold text-sm'>234</h1>
-                <p className='text-sm'>Followers</p>
-              </div>
+              <ProfileSubSectionItem heading='234' description='Followers' />
             </Link>
             {/* <Separator orientation='vertical' className='h-[40px] w-[2px]' /> */}
             <Link href={'/123/following'}>
-              <div className='text-center flex flex-row items-center gap-1'>
-                <h1 className='font-bold text-sm'>234</h1>
-                <p className='text-sm'>Following</p>
-              </div>
+              <ProfileSubSectionItem heading='234' description='Following' />
             </Link>
           </div>
           <div className='flex gap-4  sm:flex-row justify-center'>
@@ -101,7 +94,7 @@ export default function ProfileLayout ({
             <Link key={tab.href} href={tab.href}>
               <div
                 className={cn(
-                  'px-4 py-4 hover:bg-card cursor-pointer',
+                  'px-4 py-3 hover:bg-card cursor-pointer',
                   pathName === tab.href && 'bg-card '
                 )}
               >
@@ -113,5 +106,20 @@ export default function ProfileLayout ({
         {children}
       </div>
     </section>
+  )
+}
+
+function ProfileSubSectionItem ({
+  heading,
+  description
+}: {
+  heading: string
+  description: string
+}) {
+  return (
+    <div className='text-center flex flex-row items-center gap-1'>
+      <h1 className='font-bold text-sm'>{heading}</h1>
+      <p className='text-sm opacity-70'>{description}</p>
+    </div>
   )
 }

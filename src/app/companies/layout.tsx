@@ -44,10 +44,10 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
           <div className='my-6 flex flex-col justify-between items-center gap-12 text-center'>
             <div className='space-y-4'>
               <h1 className='text-4xl md:text-[52px] font-bold'>
-                Find World Talented Artist
+                Find Studios & Schools
               </h1>
               <p className='text-lg md:text-xl'>
-                for Concept Artists , Visual Effect Artsts, and Digital Artists.
+                3D Animation, Visual Effects, Game Studios
               </p>
             </div>
             <div className='w-3/4 md:w-3/5 lg:w-2/5 relative flex justify-between items-center gap-2'>

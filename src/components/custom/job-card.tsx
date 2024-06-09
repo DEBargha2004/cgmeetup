@@ -7,7 +7,7 @@ import MaterialSymbolIcon from './material-symbol-icon'
 export default function JobCard () {
   return (
     <Card
-      className='bg-lightAccent grid grid-cols-4 gap-x-3 gap-y-2 w-full
+      className='bg-card grid grid-cols-4 gap-x-3 gap-y-2 w-full
     p-3 pb-3 md:pb-3 relative'
     >
       <div className='col-span-4 flex gap-x-4'>

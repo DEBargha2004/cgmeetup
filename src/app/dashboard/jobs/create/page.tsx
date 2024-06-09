@@ -70,16 +70,7 @@ import {
 } from '@/components/ui/popover'
 import logo from '../../../../../public/images/company-logo.jpg'
 
-const visibilityOptions: FieldType[] = [
-  {
-    label: 'Public',
-    value: 'public'
-  },
-  {
-    label: 'Closed',
-    value: 'closed'
-  }
-]
+const visibilityOptions: string[] = ['Open', 'Closed']
 
 const addresses = [
   'Lagos, Nigeria',
@@ -95,7 +86,7 @@ const addresses = [
 
 export default function Dashboard () {
   const [selectedCategory, setSelectedCategory] = useState<string[]>([])
-  const [selectedVisibility, setSelectedVisibility] = useState(
+  const [selectedVisibility, setSelectedVisibility] = useState<string>(
     visibilityOptions[0]
   )
   const [images, setImages] = useState<
@@ -116,7 +107,7 @@ export default function Dashboard () {
     resolver: zodResolver(jobPostSchema),
     defaultValues: {
       type: job_types[0].value,
-      visibility: visibilityOptions[0].value,
+      visibility: visibilityOptions[0],
       skills: [],
       salary: {
         currency: currencies[0]
@@ -183,11 +174,9 @@ export default function Dashboard () {
                 Create Job
               </h1>
               <Badge variant='outline' className='ml-auto sm:ml-0'>
-                {
-                  visibilityOptions.find(
-                    item => item.value === form.watch('visibility')
-                  )?.label
-                }
+                {visibilityOptions.find(
+                  item => item === form.watch('visibility')
+                )}
               </Badge>
             </div>
             <Form {...form}>
@@ -710,12 +699,8 @@ export default function Dashboard () {
                     <CardContent>
                       <div className='grid gap-3'>
                         <Select
-                          value={selectedVisibility.value}
-                          onValueChange={e => {
-                            setSelectedVisibility(
-                              visibilityOptions.find(v => v.value === e)!
-                            )
-                          }}
+                          value={selectedVisibility}
+                          onValueChange={setSelectedVisibility}
                         >
                           <SelectTrigger id='status' aria-label='Select status'>
                             <SelectValue placeholder='Select status' />
@@ -724,10 +709,10 @@ export default function Dashboard () {
                             {visibilityOptions.map((item, index) => (
                               <SelectItem
                                 key={index}
-                                value={item.value}
+                                value={item}
                                 className='cursor-pointer hover:bg-darkAccent/80'
                               >
-                                {item.label}
+                                {item}
                               </SelectItem>
                             ))}
                           </SelectContent>

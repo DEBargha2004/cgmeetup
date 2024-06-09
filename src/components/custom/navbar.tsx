@@ -170,32 +170,23 @@ export default function Navbar ({ className }: { className?: string }) {
           </>
         ) : (
           <>
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button variant={'success'} className='h-9'>
-                  <MaterialSymbolIcon className='sm:mr-1'>
-                    person
-                  </MaterialSymbolIcon>
-                  Sign up
-                </Button>
-              </DialogTrigger>
-              <DialogContent>
-                <AccountCreateForm />
-              </DialogContent>
-            </Dialog>
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button className='h-9'>
-                  <MaterialSymbolIcon className='sm:mr-1'>
-                    login
-                  </MaterialSymbolIcon>
-                  Sign In
-                </Button>
-              </DialogTrigger>
-              <DialogContent>
-                <SignInForm />
-              </DialogContent>
-            </Dialog>
+            <Link href={'/sign-up'}>
+              <Button variant={'success'} className='h-9'>
+                <MaterialSymbolIcon className='sm:mr-1'>
+                  person
+                </MaterialSymbolIcon>
+                Sign up
+              </Button>
+            </Link>
+
+            <Link href={'/sign-in'}>
+              <Button className='h-9'>
+                <MaterialSymbolIcon className='sm:mr-1'>
+                  login
+                </MaterialSymbolIcon>
+                Sign In
+              </Button>
+            </Link>
           </>
         )}
         <MaterialSymbolIcon>add_shopping_cart</MaterialSymbolIcon>

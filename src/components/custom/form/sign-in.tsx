@@ -27,13 +27,12 @@ export default function SignInForm () {
         onSubmit={form.handleSubmit(handleFormSubmit)}
         className='flex flex-col justify-start items-stretch gap-4 w-full'
       >
-        <h1 className='text-2xl font-semibold'>Sign In</h1>
         <FormField
           control={form.control}
           name='id'
           render={({ field }) => (
             <FormItem className='text-left'>
-              <FormLabel>Email / Password</FormLabel>
+              <FormLabel>Email / Phone</FormLabel>
               <FormControl>
                 <Input {...field} placeholder='Email or Phone' />
               </FormControl>
@@ -54,7 +53,7 @@ export default function SignInForm () {
             </FormItem>
           )}
         />
-        <Button className=''>
+        <Button className='w-28 mx-auto'>
           <MaterialSymbolIcon className='mr-2 opacity-100'>
             login
           </MaterialSymbolIcon>
