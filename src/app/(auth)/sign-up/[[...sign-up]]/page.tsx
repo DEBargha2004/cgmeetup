@@ -16,8 +16,15 @@ import {
 import { Button } from '@/components/ui/button'
 import { PhoneInput } from '@/components/ui/phone-input'
 import { cn } from '@/lib/utils'
+import { EducationSchemaType, educationSchema } from '@/schema/education'
+import {
+  WorkExperienceSchemaType,
+  workExperienceSchema
+} from '@/schema/work-experience'
+import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
 import { HTMLProps, useEffect, useMemo, useState } from 'react'
+import { useForm } from 'react-hook-form'
 
 const signUpFlow = [
   {
@@ -64,6 +71,20 @@ export default function SignUpPage () {
 
   const [formStageIndex, setFormStageIndex] = useState(0)
 
+  const workExpForm = useForm<WorkExperienceSchemaType>({
+    resolver: zodResolver(workExperienceSchema),
+    defaultValues: {
+      is_intern: false
+    }
+  })
+
+  const eduForm = useForm<EducationSchemaType>({
+    resolver: zodResolver(educationSchema),
+    defaultValues: {
+      online: true
+    }
+  })
+
   const goPrev = () => {
     if (formStageIndex > 0) {
       setFormStageIndex(formStageIndex - 1)
@@ -87,7 +108,6 @@ export default function SignUpPage () {
     })
   }, [formStageIndex, userType, currentUserType])
 
-  console.log(formStage)
   return (
     <div className='flex flex-col justify-between items-center gap-20'>
       <div className='flex'>
@@ -187,7 +207,7 @@ export default function SignUpPage () {
               extraButton={<Skip onClick={goNext} />}
             >
               <FieldsContainer className='w-1/2'>
-                <WorkExperienceForm />
+                <WorkExperienceForm form={workExpForm} />
               </FieldsContainer>
             </FormCard>
           )}
@@ -198,7 +218,7 @@ export default function SignUpPage () {
               extraButton={<Skip onClick={goNext} />}
             >
               <FieldsContainer className='w-1/2'>
-                <EducationForm />
+                <EducationForm form={eduForm} />
               </FieldsContainer>
             </FormCard>
           )}

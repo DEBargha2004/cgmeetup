@@ -27,15 +27,18 @@ import {
 } from '@/components/ui/select'
 import { Switch } from '@/components/ui/switch'
 import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
+import { Textarea } from '@/components/ui/textarea'
 
-export default function WorkExperienceForm () {
-  const form = useForm<WorkExperienceSchemaType>({
-    resolver: zodResolver(workExperienceSchema),
-    defaultValues: {
-      is_intern: false
-    }
-  })
-
+export default function WorkExperienceForm ({
+  submitLabel,
+  onSubmit,
+  form
+}: {
+  submitLabel?: string
+  onSubmit?: (data: WorkExperienceSchemaType) => void
+  form: ReturnType<typeof useForm<WorkExperienceSchemaType>>
+}) {
   const selectedCategory = form.watch('category')
 
   const subCategories = useMemo(() => {
@@ -48,7 +51,7 @@ export default function WorkExperienceForm () {
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(handleFormSubmit)}
+        onSubmit={form.handleSubmit(onSubmit || handleFormSubmit)}
         className='space-y-4 w-full'
       >
         <FormField
@@ -64,49 +67,19 @@ export default function WorkExperienceForm () {
             </FormItem>
           )}
         />
-
         <FormField
           control={form.control}
-          name='industry'
+          name='company_name'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Industry</FormLabel>
+              <FormLabel>Company</FormLabel>
               <FormControl>
-                <Input placeholder='e.g. Advertising' {...field} />
+                <Input placeholder='e.g. Company Name' {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <div className='space-y-2'>
-          <p className='text-sm'>Start & End Date</p>
-          <div className='grid grid-cols-2 gap-4'>
-            <FormField
-              control={form.control}
-              name='from'
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <DatePicker value={field.value} onChange={field.onChange} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='to'
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <DatePicker value={field.value} onChange={field.onChange} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-        </div>
         <div className='space-y-2'>
           <h1 className='text-sm m-2 font-semibold'>Functional Area</h1>
           <FormField
@@ -162,42 +135,69 @@ export default function WorkExperienceForm () {
         </div>
         <FormField
           control={form.control}
-          name='department'
+          name='location'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Department</FormLabel>
+              <FormLabel>Location</FormLabel>
               <FormControl>
-                <Input placeholder='e.g. Full Stack Department' {...field} />
+                <Input placeholder='e.g. Location' {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
+
+        <div className='space-y-2'>
+          <p className='text-sm'>Start & End Date</p>
+          <div className='grid grid-cols-2 gap-4'>
+            <FormField
+              control={form.control}
+              name='from'
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <DatePicker value={field.value} onChange={field.onChange} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name='to'
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <DatePicker value={field.value} onChange={field.onChange} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className='flex justify-start items-center gap-2'>
+            <Checkbox className='mr-2' />{' '}
+            <span className='text-sm'>I am Currently Working</span>
+          </div>
+        </div>
+
         <FormField
           control={form.control}
-          name='department'
+          name='description'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Department</FormLabel>
+              <FormLabel>Description</FormLabel>
               <FormControl>
-                <Input placeholder='e.g. Full Stack Department' {...field} />
+                <Textarea
+                  placeholder='e.g. Detail about your work experience'
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        {/* <FormField
-          control={form.control}
-          name='department'
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Department</FormLabel>
-              <FormControl>
-                <Input placeholder='e.g. Full Stack Department' {...field} />
-              </FormControl>
-            </FormItem>
-          )}
-        /> */}
+
         <FormField
           control={form.control}
           name='is_intern'
@@ -214,8 +214,8 @@ export default function WorkExperienceForm () {
           )}
         />
         <div className='flex justify-center pt-3'>
-          <Button type='submit' className='w-24'>
-            Next
+          <Button type='submit' className='w-24' variant={'success'}>
+            {submitLabel || 'Save'}
           </Button>
         </div>
       </form>

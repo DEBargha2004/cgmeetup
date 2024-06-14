@@ -33,10 +33,10 @@ const tabs: (FieldType & { icon: string; href: string })[] = [
     href: '/dashboard/work-experience'
   },
   {
-    label: 'Highest Education',
-    value: 'highest-education',
+    label: 'Education',
+    value: 'education',
     icon: 'school',
-    href: '/dashboard/highest-education'
+    href: '/dashboard/education'
   },
   {
     label: 'Bio',
@@ -57,10 +57,16 @@ const tabs: (FieldType & { icon: string; href: string })[] = [
     href: '/dashboard/demoreel'
   },
   {
-    label: 'Social',
-    value: 'social',
+    label: 'Productions',
+    value: 'productions',
+    icon: 'movie',
+    href: '/dashboard/productions'
+  },
+  {
+    label: 'Links',
+    value: 'links',
     icon: 'public',
-    href: '/dashboard/social'
+    href: '/dashboard/links'
   },
 
   {

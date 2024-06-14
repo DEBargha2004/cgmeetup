@@ -2,9 +2,9 @@
 
 import { MaterialSymbolIcon } from '@/components/custom'
 import {
+  EducationForm,
   FieldsContainer,
-  FormCard,
-  WorkExperienceForm
+  FormCard
 } from '@/components/custom/form'
 import { Button } from '@/components/ui/button'
 import {
@@ -14,44 +14,39 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 import { Separator } from '@/components/ui/separator'
-import {
-  WorkExperienceSchemaType,
-  workExperienceSchema
-} from '@/schema/work-experience'
+import { EducationSchemaType, educationSchema } from '@/schema/education'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { format } from 'date-fns'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-export default function WorkExperiencePage () {
+export default function HighestEducationPage () {
   const [showForm, setShowForm] = useState(false)
   const [showEditForm, setShowEditForm] = useState({
     show: false,
     index: -1
   })
-  const [workexperiences, setWorkExperiences] = useState<
-    WorkExperienceSchemaType[]
-  >([])
+  const [education, setEducation] = useState<EducationSchemaType[]>([])
 
-  const form = useForm<WorkExperienceSchemaType>({
-    resolver: zodResolver(workExperienceSchema),
+  const form = useForm<EducationSchemaType>({
+    resolver: zodResolver(educationSchema),
     defaultValues: {
-      is_intern: false
+      online: true
     }
   })
 
-  const editForm = useForm<WorkExperienceSchemaType>({
-    resolver: zodResolver(workExperienceSchema)
+  const editForm = useForm<EducationSchemaType>({
+    resolver: zodResolver(educationSchema)
   })
 
-  const handleFormSubmit = async (data: WorkExperienceSchemaType) => {
-    setWorkExperiences(prev => [...prev, data])
+  const handleFormSubmit = async (data: EducationSchemaType) => {
+    setEducation(prev => [...prev, data])
     setShowForm(false)
     form.reset()
   }
 
-  const handleEditFormSubmit = async (data: WorkExperienceSchemaType) => {
-    setWorkExperiences(prev =>
+  const handleEditFormSubmit = async (data: EducationSchemaType) => {
+    setEducation(prev =>
       prev.map((item, index) => (index === showEditForm.index ? data : item))
     )
     setShowEditForm({ show: false, index: -1 })
@@ -59,11 +54,11 @@ export default function WorkExperiencePage () {
   }
 
   const handleDelete = (idx: number) => {
-    setWorkExperiences(prev => prev.filter((_, i) => i !== idx))
+    setEducation(prev => prev.filter((_, i) => i !== idx))
   }
 
   const handleEdit = (idx: number) => {
-    const selectedWorkExp = workexperiences[idx]
+    const selectedWorkExp = education[idx]
     editForm.reset(selectedWorkExp)
     setShowForm(false)
     setShowEditForm({ show: true, index: idx })
@@ -71,8 +66,8 @@ export default function WorkExperiencePage () {
   return (
     <section className='space-y-5'>
       <FormCard
-        subHeading='Please fill in your work experience'
-        heading='Work Experience'
+        subHeading='Please fill in your education details'
+        heading='Education'
         extraButton={
           <Button
             onClick={() => {
@@ -81,33 +76,30 @@ export default function WorkExperiencePage () {
             }}
           >
             <MaterialSymbolIcon className='mr-2'>add</MaterialSymbolIcon>Add
-            Position
+            Education
           </Button>
         }
       >
         <FieldsContainer className='w-1/2'>
           {showForm ? (
             <>
-              <WorkExperienceForm onSubmit={handleFormSubmit} form={form} />
+              <EducationForm onSubmit={handleFormSubmit} form={form} />
               <Separator />
             </>
           ) : null}
 
           {showEditForm.show ? (
             <>
-              <WorkExperienceForm
-                onSubmit={handleEditFormSubmit}
-                form={editForm}
-              />
+              <EducationForm onSubmit={handleEditFormSubmit} form={editForm} />
               <Separator />
             </>
           ) : null}
 
-          {workexperiences.map((work_exp, idx) => (
+          {education.map((edu, idx) => (
             <div className='space-y-2 w-full' key={idx}>
               <div>
                 <h1 className='text-lg text-white flex justify-between items-center'>
-                  {work_exp.title}
+                  {edu.course}
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <div className='cursor-pointer'>
@@ -124,23 +116,23 @@ export default function WorkExperiencePage () {
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </h1>
-                <h1 className=''>{work_exp.company_name}</h1>
+                <h1 className=''>{edu.institution}</h1>
               </div>
               <div className='opacity-60 text-sm space-y-4'>
                 <div>
-                  <p>
+                  {/* <p>
                     {work_exp.category},{work_exp.sub_category}
-                  </p>
+                  </p> */}
                   <p>
+                    <span>{edu.education_level}</span> |{' '}
                     <span>
-                      {format(new Date(work_exp.from), 'MMM yyyy')} -{' '}
-                      {format(new Date(work_exp.to), 'MMM yyyy')}
+                      {format(new Date(edu.from), 'MMM yyyy')} -{' '}
+                      {format(new Date(edu.to), 'MMM yyyy')}
                     </span>
-                    | <span>{work_exp.location}</span>
                   </p>{' '}
-                  <span>{work_exp.is_intern ? 'Internshp' : ''}</span>
+                  {/* <span>{work_exp.is_intern ? 'Internshp' : ''}</span> */}
                 </div>
-                <article>{work_exp.description}</article>
+                <article>{edu.description}</article>
               </div>
             </div>
           ))}

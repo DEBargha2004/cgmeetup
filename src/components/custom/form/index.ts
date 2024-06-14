@@ -11,6 +11,8 @@ import FormCard from './form-card'
 import PhoneNumberForm from './phone-number-form'
 import RecruiterProfileCreateForm from './recuiter-profile-create'
 import UsernameForm from './username'
+import SocialsForm from './socials'
+import ProductionsForm from './productions'
 
 export {
   SignInForm,
@@ -25,5 +27,7 @@ export {
   FormCard,
   PhoneNumberForm,
   RecruiterProfileCreateForm,
-  UsernameForm
+  UsernameForm,
+  SocialsForm,
+  ProductionsForm
 }

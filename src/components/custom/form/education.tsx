@@ -22,6 +22,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import DatePicker from '../date-picker'
 import { Button } from '@/components/ui/button'
+import { Textarea } from '@/components/ui/textarea'
+import { Checkbox } from '@/components/ui/checkbox'
 
 const education_levels: FieldType[] = [
   { label: 'High School', value: 'high_school' },
@@ -31,15 +33,22 @@ const education_levels: FieldType[] = [
   { label: 'Doctorate Degree', value: 'doctorate_degree' }
 ]
 
-export default function EducationForm () {
-  const form = useForm<EducationSchemaType>({
-    resolver: zodResolver(educationSchema)
-  })
-
-  const handleSubmit = async (data: EducationSchemaType) => {}
+export default function EducationForm ({
+  form,
+  submitLabel,
+  onSubmit
+}: {
+  submitLabel?: string
+  onSubmit?: (data: EducationSchemaType) => void
+  form: ReturnType<typeof useForm<EducationSchemaType>>
+}) {
+  const handleFormSubmit = async (data: EducationSchemaType) => {}
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-4'>
+      <form
+        onSubmit={form.handleSubmit(onSubmit || handleFormSubmit)}
+        className='space-y-4'
+      >
         <FormField
           control={form.control}
           name='education_level'
@@ -82,10 +91,25 @@ export default function EducationForm () {
         />
         <FormField
           control={form.control}
+          name='online'
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <div className='flex justify-start items-center gap-2'>
+                  <Checkbox checked={field.value} onChange={field.onChange} />
+                  <span className=''>Online</span>
+                </div>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
           name='institution'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Institute Name</FormLabel>
+              <FormLabel>School & Institute Name</FormLabel>
               <FormControl>
                 <Input {...field} placeholder='e.g. University of Pune' />
               </FormControl>
@@ -122,9 +146,25 @@ export default function EducationForm () {
             />
           </div>
         </div>
+        <FormField
+          control={form.control}
+          name='description'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Description</FormLabel>
+              <FormControl>
+                <Textarea
+                  {...field}
+                  placeholder='e.g. Description of education'
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <div className='pt-3 flex justify-center'>
-          <Button className='w-24' type='submit'>
-            Next
+          <Button className='w-24' type='submit' variant={'success'}>
+            {submitLabel || 'Save'}
           </Button>
         </div>
       </form>
