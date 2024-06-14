@@ -31,7 +31,7 @@ export default function HighestEducationPage () {
   const form = useForm<EducationSchemaType>({
     resolver: zodResolver(educationSchema),
     defaultValues: {
-      online: true
+      online: false
     }
   })
 

@@ -18,6 +18,10 @@ import { PhoneInput } from '@/components/ui/phone-input'
 import { cn } from '@/lib/utils'
 import { EducationSchemaType, educationSchema } from '@/schema/education'
 import {
+  RecruiterProfileCreateSchemaType,
+  recruiterProfileCreateSchema
+} from '@/schema/recruiter-profile-create'
+import {
   WorkExperienceSchemaType,
   workExperienceSchema
 } from '@/schema/work-experience'
@@ -84,6 +88,13 @@ export default function SignUpPage () {
       online: true
     }
   })
+
+  const recruiterProfileForm = useForm<RecruiterProfileCreateSchemaType>({
+    resolver: zodResolver(recruiterProfileCreateSchema)
+  })
+  const handleRecruiterProfileFormSubmit = async (
+    data: RecruiterProfileCreateSchemaType
+  ) => {}
 
   const goPrev = () => {
     if (formStageIndex > 0) {
@@ -282,7 +293,10 @@ export default function SignUpPage () {
                 heading='Create Profile'
               >
                 <FieldsContainer className='w-1/2 '>
-                  <RecruiterProfileCreateForm />
+                  <RecruiterProfileCreateForm
+                    form={recruiterProfileForm}
+                    onSubmit={handleRecruiterProfileFormSubmit}
+                  />
                 </FieldsContainer>
               </FormCard>
             </>

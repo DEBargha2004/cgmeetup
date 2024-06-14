@@ -27,16 +27,24 @@ import {
 import { genders } from '@/constants/gender'
 import { Button } from '@/components/ui/button'
 
-export default function RecruiterProfileCreateForm () {
-  const form = useForm<RecruiterProfileCreateSchemaType>({
-    resolver: zodResolver(recruiterProfileCreateSchema)
-  })
+export default function RecruiterProfileCreateForm ({
+  submitLabel,
+  form,
+  onSubmit
+}: {
+  submitLabel?: string
+  form: ReturnType<typeof useForm<RecruiterProfileCreateSchemaType>>
+  onSubmit: (data: RecruiterProfileCreateSchemaType) => void
+}) {
+  // const form = useForm<RecruiterProfileCreateSchemaType>({
+  //   resolver: zodResolver(recruiterProfileCreateSchema)
+  // })
 
-  const handleSubmit = async (data: RecruiterProfileCreateSchemaType) => {}
+  // const handleSubmit = async (data: RecruiterProfileCreateSchemaType) => {}
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(handleSubmit)}
+        onSubmit={form.handleSubmit(onSubmit)}
         className='flex flex-col justify-start items-stretch gap-4'
       >
         <FormField
@@ -194,8 +202,8 @@ export default function RecruiterProfileCreateForm () {
             </FormItem>
           )}
         />
-        <Button type='submit' className='w-24 mx-auto'>
-          Next
+        <Button type='submit' className='w-24 mx-auto' variant={'success'}>
+          {submitLabel || 'Save'}
         </Button>
       </form>
     </Form>

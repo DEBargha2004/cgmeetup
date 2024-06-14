@@ -60,5 +60,12 @@ export const dashboardSidebar: SidebarItem[] = [
       '/dashboard/highest-education',
       '/dashboard/bio'
     ]
+  },
+  {
+    type: 'link',
+    label: 'Edit Company',
+    href: '/dashboard/company',
+    icon_name: 'business',
+    id: 'edit-company'
   }
 ]

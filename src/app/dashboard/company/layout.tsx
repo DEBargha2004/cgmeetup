@@ -9,90 +9,28 @@ import {
   BreadcrumbSeparator
 } from '@/components/ui/breadcrumb'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { cn } from '@/lib/utils'
 import { FieldType } from '@/types/field-type'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 const tabs: (FieldType & { icon: string; href: string })[] = [
   {
-    label: 'Edit Profile',
+    label: 'Edit Company Profile',
     value: 'edit-profile',
-    icon: 'person',
-    href: '/dashboard/profile'
+    icon: 'apartment',
+    href: '/dashboard/company'
   },
   {
-    label: 'Job Preference',
-    value: 'job-preference',
-    icon: 'work',
-    href: '/dashboard/job-preference'
-  },
-  {
-    label: 'Work Experience',
-    value: 'work-experience',
-    icon: 'work_history',
-    href: '/dashboard/work-experience'
-  },
-  {
-    label: 'Education',
-    value: 'education',
-    icon: 'school',
-    href: '/dashboard/education'
-  },
-  {
-    label: 'Bio',
-    value: 'bio',
-    icon: 'info',
-    href: '/dashboard/bio'
-  },
-  {
-    label: 'Resume',
-    value: 'resume',
-    icon: 'description',
-    href: '/dashboard/resume'
-  },
-  {
-    label: 'DemoReel',
-    value: 'demoreel',
-    icon: 'slow_motion_video',
-    href: '/dashboard/demoreel'
-  },
-  {
-    label: 'Productions',
-    value: 'productions',
-    icon: 'movie',
-    href: '/dashboard/productions'
-  },
-  {
-    label: 'Links',
-    value: 'links',
-    icon: 'public',
-    href: '/dashboard/links'
-  },
-
-  {
-    label: 'Skills',
-    value: 'skills',
-    icon: 'code',
-    href: '/dashboard/skills'
-  },
-  {
-    label: 'Softwares',
-    value: 'softwares',
-    icon: 'code',
-    href: '/dashboard/softwares'
-  },
-  {
-    label: 'User Name',
-    value: 'username',
-    icon: 'alternate_email',
-    href: '/dashboard/username'
+    label: 'Verification',
+    href: '/dashboard/company/verification',
+    value: 'verification',
+    icon: 'verified'
   }
 ]
 
 export default function Layout ({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
-  console.log(pathname.split('/dashboard/edit/'))
+
   return (
     <div className='flex h-full w-full flex-col'>
       <div className='flex flex-col sm:gap-4 sm:py-4 '>
@@ -107,7 +45,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
               <BreadcrumbSeparator />
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href='#'>Edit Profile</Link>
+                  <Link href='#'>Edit Company</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
             </BreadcrumbList>
@@ -121,17 +59,13 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
                   <TabsTrigger
                     key={tab.value}
                     value={tab.href}
-                    className={cn(
-                      `border-r border-darkAccent last:border-none rounded `
-                    )}
+                    className='border-r border-darkAccent last:border-none rounded'
                   >
                     <Link href={tab.href} className='flex items-center'>
                       <MaterialSymbolIcon className='mr-1 text-[16px] opacity-100'>
                         {tab.icon}
                       </MaterialSymbolIcon>
-                      <span className='lg:inline hidden text-white'>
-                        {tab.label}
-                      </span>
+                      <span className='lg:inline hidden'>{tab.label}</span>
                     </Link>
                   </TabsTrigger>
                 ))}

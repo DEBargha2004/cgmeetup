@@ -111,7 +111,10 @@ export default function EducationForm ({
             <FormItem>
               <FormLabel>School & Institute Name</FormLabel>
               <FormControl>
-                <Input {...field} placeholder='e.g. University of Pune' />
+                <Input
+                  {...field}
+                  placeholder='e.g. University of Massachusetts'
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

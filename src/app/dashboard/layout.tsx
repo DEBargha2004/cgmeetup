@@ -31,7 +31,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
               <Link href={item.href} className='w-full lg:max-w-[250px]'>
                 <div
                   className={cn(
-                    `flex justify-center lg:gap-2 lg:justify-start items-center  
+                    `flex justify-center lg:gap-1 lg:justify-start items-center  
                   hover:bg-lightAccent p-2 px-3 font-semibold shrink-0 rounded`,
                     (
                       item.catch_routes
@@ -45,7 +45,9 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
                   <MaterialSymbolIcon className=''>
                     {item.icon_name || ''}
                   </MaterialSymbolIcon>
-                  <p className='lg:block hidden'>{item.label}</p>
+                  <p className='lg:block hidden whitespace-nowrap'>
+                    {item.label}
+                  </p>
                 </div>
               </Link>
             )}

@@ -69,7 +69,7 @@ export default function ProductionsForm ({
               <FormControl>
                 <div
                   {...productionImageDropzone.getRootProps()}
-                  className='w-1/2 aspect-square border border-dashed rounded-lg mx-auto bg-lightAccent cursor-pointer'
+                  className='w-1/2 aspect-[2/3] border border-dashed mx-auto bg-lightAccent cursor-pointer'
                 >
                   <input
                     type='file'

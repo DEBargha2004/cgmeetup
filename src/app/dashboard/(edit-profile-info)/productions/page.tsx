@@ -105,7 +105,7 @@ export default function ProductionsPage () {
               alt='cover-art'
               height={300}
               width={300}
-              className='w-[200px] aspect-square object-cover'
+              className='w-[200px] aspect-[2/3] object-cover'
             />
             <div className='max-w-[100px]'>
               <p className='text-sm opacity-70'>{prod.release_year}</p>
