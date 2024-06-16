@@ -107,8 +107,8 @@ export default function Gallery () {
             <div className='flex items-center gap-2'>
               <TabsList className='bg-card'>
                 <TabsTrigger value='all'>All</TabsTrigger>
-                <TabsTrigger value='active'>Public</TabsTrigger>
-                <TabsTrigger value='active'>Private</TabsTrigger>
+                <TabsTrigger value='public'>Public</TabsTrigger>
+                <TabsTrigger value='private'>Private</TabsTrigger>
                 <TabsTrigger value='draft'>Draft</TabsTrigger>
               </TabsList>
               <Link href={'/dashboard/jobs/create'}>

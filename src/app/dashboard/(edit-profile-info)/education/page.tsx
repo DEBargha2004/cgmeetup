@@ -64,80 +64,78 @@ export default function HighestEducationPage () {
     setShowEditForm({ show: true, index: idx })
   }
   return (
-    <section className='space-y-5'>
-      <FormCard
-        subHeading='Please fill in your education details'
-        heading='Education'
-        extraButton={
-          <Button
-            onClick={() => {
-              setShowForm(true)
-              setShowEditForm({ show: false, index: -1 })
-            }}
-          >
-            <MaterialSymbolIcon className='mr-2'>add</MaterialSymbolIcon>Add
-            Education
-          </Button>
-        }
-      >
-        <FieldsContainer className='w-1/2'>
-          {showForm ? (
-            <>
-              <EducationForm onSubmit={handleFormSubmit} form={form} />
-              <Separator />
-            </>
-          ) : null}
+    <FormCard
+      subHeading='Please fill in your education details'
+      heading='Education'
+      extraButton={
+        <Button
+          onClick={() => {
+            setShowForm(true)
+            setShowEditForm({ show: false, index: -1 })
+          }}
+        >
+          <MaterialSymbolIcon className='mr-2'>add</MaterialSymbolIcon>Add
+          Education
+        </Button>
+      }
+    >
+      <FieldsContainer className='w-1/2'>
+        {showForm ? (
+          <>
+            <EducationForm onSubmit={handleFormSubmit} form={form} />
+            <Separator />
+          </>
+        ) : null}
 
-          {showEditForm.show ? (
-            <>
-              <EducationForm onSubmit={handleEditFormSubmit} form={editForm} />
-              <Separator />
-            </>
-          ) : null}
+        {showEditForm.show ? (
+          <>
+            <EducationForm onSubmit={handleEditFormSubmit} form={editForm} />
+            <Separator />
+          </>
+        ) : null}
 
-          {education.map((edu, idx) => (
-            <div className='space-y-2 w-full' key={idx}>
+        {education.map((edu, idx) => (
+          <div className='space-y-2 w-full' key={idx}>
+            <div>
+              <h1 className='text-lg text-white flex justify-between items-center'>
+                {edu.course}
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <div className='cursor-pointer'>
+                      <MaterialSymbolIcon>more_vert</MaterialSymbolIcon>
+                    </div>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align='end'>
+                    <DropdownMenuItem onClick={() => handleEdit(idx)}>
+                      Edit
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => handleDelete(idx)}>
+                      Delete
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </h1>
+              <h1 className=''>{edu.institution}</h1>
+            </div>
+            <div className='opacity-60 text-sm space-y-4'>
               <div>
-                <h1 className='text-lg text-white flex justify-between items-center'>
-                  {edu.course}
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <div className='cursor-pointer'>
-                        <MaterialSymbolIcon>more_vert</MaterialSymbolIcon>
-                      </div>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align='end'>
-                      <DropdownMenuItem onClick={() => handleEdit(idx)}>
-                        Edit
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => handleDelete(idx)}>
-                        Delete
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </h1>
-                <h1 className=''>{edu.institution}</h1>
-              </div>
-              <div className='opacity-60 text-sm space-y-4'>
-                <div>
-                  {/* <p>
+                {/* <p>
                     {work_exp.category},{work_exp.sub_category}
                   </p> */}
-                  <p>
-                    <span>{edu.education_level}</span> |{' '}
-                    <span>
-                      {format(new Date(edu.from), 'MMM yyyy')} -{' '}
-                      {format(new Date(edu.to), 'MMM yyyy')}
-                    </span>
-                  </p>{' '}
-                  {/* <span>{work_exp.is_intern ? 'Internshp' : ''}</span> */}
-                </div>
-                <article>{edu.description}</article>
+                <p>
+                  <span>{edu.education_level}</span> |{' '}
+                  <span>
+                    {format(new Date(edu.from), 'MMM yyyy')} -{' '}
+                    {format(new Date(edu.to), 'MMM yyyy')}
+                  </span>
+                </p>{' '}
+                {/* <span>{work_exp.is_intern ? 'Internshp' : ''}</span> */}
               </div>
+              <article>{edu.description}</article>
             </div>
-          ))}
-        </FieldsContainer>
-      </FormCard>
-    </section>
+          </div>
+        ))}
+      </FieldsContainer>
+    </FormCard>
   )
 }

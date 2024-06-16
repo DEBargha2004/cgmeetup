@@ -13,6 +13,7 @@ import RecruiterProfileCreateForm from './recuiter-profile-create'
 import UsernameForm from './username'
 import SocialsForm from './socials'
 import ProductionsForm from './productions'
+import CompanyLegalNameForm from './company-legal-name'
 
 export {
   SignInForm,
@@ -29,5 +30,6 @@ export {
   RecruiterProfileCreateForm,
   UsernameForm,
   SocialsForm,
-  ProductionsForm
+  ProductionsForm,
+  CompanyLegalNameForm
 }

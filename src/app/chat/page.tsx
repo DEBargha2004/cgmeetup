@@ -22,6 +22,7 @@ import {
 import { Badge } from '@/components/ui/badge'
 import EmojiPicker from 'emoji-picker-react'
 import { FieldType } from '@/types/field-type'
+import _ from 'lodash'
 
 // const EmojiPicker = dynamic(() => import('@/components/custom/emoji-picker'), {
 //   ssr: false
@@ -106,6 +107,7 @@ export default function ChatPage () {
   const [showReactions, setShowReactions] = useState<null | number | string>(
     null
   )
+  const [selectedChat, setSelectedChat] = useState<null | number>(null)
   return (
     <div className='flex justify-start items-start h-full relative overflow-hidden'>
       <div
@@ -141,9 +143,9 @@ export default function ChatPage () {
             <div
               className={cn(
                 ' w-full flex justify-start items-center gap-2 p-2 hover:bg-[#0000009d] cursor-pointer',
-                i == 2 ? ' bg-black' : 'bg-darkAccent'
+                selectedChat === i ? ' bg-black' : 'bg-darkAccent'
               )}
-              onClick={() => setShowChat(true)}
+              onClick={() => setSelectedChat(i)}
               key={i}
             >
               <Image
@@ -174,97 +176,104 @@ export default function ChatPage () {
         </div>
       </div>
 
-      <div
-        id='chat'
-        className={cn(
-          'w-full sm:w-3/5 lg:w-2/3 xl:w-3/4 h-full flex overflow-hidden absolute sm:relative',
-          showChat ? ' left-0' : 'left-full sm:left-0'
-        )}
-      >
+      {_.isNull(selectedChat) ? (
+        <div className='flex flex-col justify-center items-center w-full gap-10 h-full'>
+          <div className='flex justify-between items-center gap-10'></div>
+          <p>Artist</p>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+        </div>
+      ) : (
         <div
-          id='chat-container'
+          id='chat'
           className={cn(
-            `shrink-0 h-full bg-slate-400 flex flex-col justify-between items-center
-            transition-all duration-300 bg-darkAccent`,
-            showInfo ? 'xl:w-2/3 lg:w-1/2 w-full' : 'w-full'
+            'w-full sm:w-3/5 lg:w-2/3 xl:w-3/4 h-full flex overflow-hidden absolute sm:relative',
+            !_.isNull(selectedChat) ? ' left-0' : 'left-full sm:left-0'
           )}
         >
           <div
-            id='nav'
-            className='h-[8%] w-full bg-lightAccent flex justify-between items-center px-2 gap-4'
+            id='chat-container'
+            className={cn(
+              `shrink-0 h-full bg-slate-400 flex flex-col justify-between items-center
+             bg-darkAccent w-full`,
+              showInfo ? 'xl:w-2/3 lg:w-1/2 w-full' : 'w-full'
+            )}
           >
             <div
-              className='flex justify-start items-center gap-2 w-full'
-              onClick={() => setShowInfo(true)}
+              id='nav'
+              className='h-[8%] w-full bg-lightAccent flex justify-between items-center px-2 gap-4'
             >
-              <Image
-                src={
-                  'https://cdnb.artstation.com/p/assets/images/images/000/424/193/smaller_square/glenn-melenhorst-car0001.jpg?1443927098'
-                }
-                alt='profile'
-                height={40}
-                width={40}
-                className='rounded-full h-10 w-10 border-2 border-white object-contain'
-              />
-              <div>
-                <h1 className='text-lg'>Alibaba Salmon</h1>
-                <p className='text-xs text-primary '>
-                  3D Animator<i className='text-success ml-2'>typing...</i>
-                </p>
+              <div
+                className='flex justify-start items-center gap-2 w-full'
+                onClick={() => setShowInfo(true)}
+              >
+                <Image
+                  src={
+                    'https://cdnb.artstation.com/p/assets/images/images/000/424/193/smaller_square/glenn-melenhorst-car0001.jpg?1443927098'
+                  }
+                  alt='profile'
+                  height={40}
+                  width={40}
+                  className='rounded-full h-10 w-10 border-2 border-white object-contain'
+                />
+                <div>
+                  <h1 className='text-lg'>Alibaba Salmon</h1>
+                  <p className='text-xs text-primary '>
+                    3D Animator<i className='text-success ml-2'>typing...</i>
+                  </p>
+                </div>
+              </div>
+              <div className='flex justify-between items-center gap-2'>
+                <MaterialSymbolIcon className='opacity-100'>
+                  more_vert
+                </MaterialSymbolIcon>
+                <MaterialSymbolIcon
+                  variant='filled'
+                  className='opacity-100 cursor-pointer sm:hidden'
+                  onClick={e => {
+                    e.stopPropagation()
+                    setShowChat(false)
+                  }}
+                >
+                  close
+                </MaterialSymbolIcon>
               </div>
             </div>
-            <div className='flex justify-between items-center gap-2'>
-              <MaterialSymbolIcon className='opacity-100'>
-                more_vert
-              </MaterialSymbolIcon>
-              <MaterialSymbolIcon
-                variant='filled'
-                className='opacity-100 cursor-pointer sm:hidden'
-                onClick={e => {
-                  e.stopPropagation()
-                  setShowChat(false)
-                }}
-              >
-                close
-              </MaterialSymbolIcon>
-            </div>
-          </div>
-          <div
-            id='messages'
-            className='h-[82%] w-full  overflow-y-auto scroller space-y-2 p-2'
-          >
-            {messages.map(message => (
-              <div
-                className={cn(
-                  'flex group',
-                  message.user_id === 1 ? 'justify-end ' : 'justify-start'
-                )}
-                key={message.id}
-              >
+            <div
+              id='messages'
+              className='h-[82%] w-full  overflow-y-auto scroller space-y-2 p-2'
+            >
+              {messages.map(message => (
                 <div
                   className={cn(
-                    'flex max-w-[60%] gap-6 items-center',
-                    message.user_id === 1
-                      ? 'justify-end flex-row-reverse'
-                      : 'justify-start'
+                    'flex group',
+                    message.user_id === 1 ? 'justify-end ' : 'justify-start'
                   )}
+                  key={message.id}
                 >
-                  <div className={cn('w-fit')}>
-                    <div
-                      className={cn(
-                        'p-4 pb-1 rounded flex flex-col justify-between items-end',
-                        message.user_id === 1
-                          ? 'bg-white text-black rounded-br-none '
-                          : 'bg-primary rounded-tl-none'
-                      )}
-                    >
-                      <p>{message.message}</p>
-                      <p className='text-xs opacity-70'>
-                        {format(message.time, 'h:mm a')}
-                      </p>
+                  <div
+                    className={cn(
+                      'flex max-w-[60%] gap-6 items-center',
+                      message.user_id === 1
+                        ? 'justify-end flex-row-reverse'
+                        : 'justify-start'
+                    )}
+                  >
+                    <div className={cn('w-fit')}>
+                      <div
+                        className={cn(
+                          'p-4 pb-1 rounded flex flex-col justify-between items-end',
+                          message.user_id === 1
+                            ? 'bg-white text-black rounded-br-none '
+                            : 'bg-primary rounded-tl-none'
+                        )}
+                      >
+                        <p>{message.message}</p>
+                        <p className='text-xs opacity-70'>
+                          {format(message.time, 'h:mm a')}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                  {/* <Popover open={showReactions === message.id} onOpenChange={e => setShowReactions(e?message.id:null)}>
+                    {/* <Popover open={showReactions === message.id} onOpenChange={e => setShowReactions(e?message.id:null)}>
                     <PopoverTrigger asChild>
                       <div className={cn('group-hover:block hidden cursor-pointer',l.isNull(showReactions))}>
                         <MaterialSymbolIcon>mood</MaterialSymbolIcon>
@@ -272,24 +281,24 @@ export default function ChatPage () {
                     </PopoverTrigger>
                     <PopoverContent side='top'></PopoverContent>
                   </Popover> */}
-                  <div
-                    className={cn(
-                      'group-hover:block hidden cursor-pointer'
-                      // l.isNull(showReactions)
-                    )}
-                  >
-                    <MaterialSymbolIcon>mood</MaterialSymbolIcon>
+                    <div
+                      className={cn(
+                        'group-hover:block hidden cursor-pointer'
+                        // l.isNull(showReactions)
+                      )}
+                    >
+                      <MaterialSymbolIcon>mood</MaterialSymbolIcon>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-          <div
-            id='input'
-            className='h-[10%] w-full flex justify-between items-center gap-4 border-t px-4 bg-lightAccent'
-          >
-            <div className='flex justify-start items-center gap-4 shrink-0 h-10'>
-              {/* <DropdownMenu>
+              ))}
+            </div>
+            <div
+              id='input'
+              className='h-[10%] w-full flex justify-between items-center gap-4 border-t px-4 bg-lightAccent'
+            >
+              <div className='flex justify-start items-center gap-4 shrink-0 h-10'>
+                {/* <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <MaterialSymbolIcon
                     className='text-2xl text-[#ffff46] opacity-100 cursor-pointer 
@@ -301,145 +310,146 @@ export default function ChatPage () {
                 <DropdownMenuContent side='top'>jgygef</DropdownMenuContent>
               </DropdownMenu> */}
 
-              <Popover>
-                <PopoverTrigger asChild>
-                  <div className='cursor-pointer'>
-                    <MaterialSymbolIcon className='text-3xl'>
-                      mood
-                    </MaterialSymbolIcon>
-                  </div>
-                </PopoverTrigger>
-                <PopoverContent className='w-fit'>
-                  <EmojiPicker
-                    //@ts-ignore
-                    theme={'dark'}
-                    style={{ backgroundColor: 'transparent' }}
-                  />
-                </PopoverContent>
-              </Popover>
-
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <div className='cursor-pointer'>
-                    <MaterialSymbolIcon className='text-3xl'>
-                      attach_file
-                    </MaterialSymbolIcon>
-                  </div>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent side='top' className='-translate-y-5'>
-                  {attachments.map(attachment => (
-                    <DropdownMenuItem key={attachment.value}>
-                      <MaterialSymbolIcon className='text-2xl opacity-100 mr-2'>
-                        {attachment.icon}
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <div className='cursor-pointer'>
+                      <MaterialSymbolIcon className='text-3xl'>
+                        mood
                       </MaterialSymbolIcon>
-                      <span>{attachment.label}</span>
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
-            <Input className='w-full' />
-            <div>
-              <div className='h-10 w-10 flex justify-center items-center bg-primary rounded-full'>
-                <MaterialSymbolIcon className='text-2xl'>
-                  send
-                </MaterialSymbolIcon>
+                    </div>
+                  </PopoverTrigger>
+                  <PopoverContent className='w-fit'>
+                    <EmojiPicker
+                      //@ts-ignore
+                      theme={'dark'}
+                      style={{ backgroundColor: 'transparent' }}
+                    />
+                  </PopoverContent>
+                </Popover>
+
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <div className='cursor-pointer'>
+                      <MaterialSymbolIcon className='text-3xl'>
+                        attach_file
+                      </MaterialSymbolIcon>
+                    </div>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent side='top' className='-translate-y-5'>
+                    {attachments.map(attachment => (
+                      <DropdownMenuItem key={attachment.value}>
+                        <MaterialSymbolIcon className='text-2xl opacity-100 mr-2'>
+                          {attachment.icon}
+                        </MaterialSymbolIcon>
+                        <span>{attachment.label}</span>
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+              <Input className='w-full' />
+              <div>
+                <div className='h-10 w-10 flex justify-center items-center bg-primary rounded-full'>
+                  <MaterialSymbolIcon className='text-2xl'>
+                    send
+                  </MaterialSymbolIcon>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div
-          id='info'
-          className={cn(
-            `shrink-0 xl:w-1/3 lg:w-1/2 h-full bg-lightAccent w-full transition-all duration-300 
+          <div
+            id='info'
+            className={cn(
+              `shrink-0 xl:w-1/3 lg:w-1/2 h-full bg-lightAccent w-full duration-300 
             overflow-y-auto scroller p-4 space-y-6
            `,
-            showInfo ? '-translate-x-full lg:translate-x-0' : 'translate-x-0'
-          )}
-        >
-          <div className='flex justify-between items-center'>
-            <h1 className='text-xl font-semibold'>Profile</h1>
-            <MaterialSymbolIcon
-              variant='filled'
-              className='opacity-100 cursor-pointer'
-              onClick={() => setShowInfo(false)}
-            >
-              close
-            </MaterialSymbolIcon>
-          </div>
-          <div className='flex flex-col justify-between items-center gap-4'>
-            <Image
-              src={
-                'https://cdnb.artstation.com/p/assets/images/images/000/424/193/smaller_square/glenn-melenhorst-car0001.jpg?1443927098'
-              }
-              alt='profile'
-              height={100}
-              width={100}
-              className='rounded-full h-[120px] w-[120px] border-2 border-white'
-            />
-            <div className='text-center  w-full'>
-              <h1 className='text-2xl font-semibold'>Sarah Smith</h1>
-              <h2 className='w-4/5 truncate mx-auto text-primary'>
-                sarah.smith
-              </h2>
-            </div>
-            <div className='w-full flex justify-center items-center gap-2'>
-              <Button className='w-[35%] flex justify-center gap-2 items-center'>
-                <MaterialSymbolIcon>person_add</MaterialSymbolIcon>
-                <span>Follow</span>
-              </Button>
-              <Button
-                variant={'outline'}
-                className='w-[35%] flex justify-center gap-2 items-center'
+              showInfo ? '-translate-x-full lg:translate-x-0' : 'translate-x-0'
+            )}
+          >
+            <div className='flex justify-between items-center'>
+              <h1 className='text-xl font-semibold'>Profile</h1>
+              <MaterialSymbolIcon
+                variant='filled'
+                className='opacity-100 cursor-pointer'
+                onClick={() => setShowInfo(false)}
               >
-                <MaterialSymbolIcon
-                  variant='filled'
-                  className={cn(
-                    'opacity-100',
-                    true ? 'text-primary' : 'text-white'
-                  )}
+                close
+              </MaterialSymbolIcon>
+            </div>
+            <div className='flex flex-col justify-between items-center gap-4'>
+              <Image
+                src={
+                  'https://cdnb.artstation.com/p/assets/images/images/000/424/193/smaller_square/glenn-melenhorst-car0001.jpg?1443927098'
+                }
+                alt='profile'
+                height={100}
+                width={100}
+                className='rounded-full h-[120px] w-[120px] border-2 border-white'
+              />
+              <div className='text-center  w-full'>
+                <h1 className='text-2xl font-semibold'>Sarah Smith</h1>
+                <h2 className='w-4/5 truncate mx-auto text-primary'>
+                  sarah.smith
+                </h2>
+              </div>
+              <div className='w-full flex justify-center items-center gap-2'>
+                <Button className='w-[35%] flex justify-center gap-2 items-center'>
+                  <MaterialSymbolIcon>person_add</MaterialSymbolIcon>
+                  <span>Follow</span>
+                </Button>
+                <Button
+                  variant={'outline'}
+                  className='w-[35%] flex justify-center gap-2 items-center'
                 >
-                  bookmark
-                </MaterialSymbolIcon>
-                <span>Bookmark</span>
-              </Button>
-            </div>
-            <div className='space-y-2'>
-              <h1 className='text-xl'>About</h1>
-              <p className='text-sm'>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the leap into
-                electronic typesetting, remaining essentially unchanged. It was
-                popularised in the 1960s with the release of Letraset sheets
-                containing Lorem Ipsum passages, and more recently with desktop
-                publishing software like Aldus PageMaker including versions of
-                Lorem Ipsum
-              </p>
-            </div>
-            <div className='space-y-2'>
-              <h1 className='text-xl'>Portfolio</h1>
-              <div className='grid grid-cols-3 gap-1'>
-                {Array.from({ length: 6 }, (_, i) => i).map((_, i) => (
-                  <Image
-                    key={i}
-                    src={
-                      'https://cdnb.artstation.com/p/assets/images/images/000/424/193/smaller_square/glenn-melenhorst-car0001.jpg?1443927098'
-                    }
-                    height={100}
-                    width={100}
-                    alt='post'
-                    className='rounded-sm w-full aspect-square object-cover'
-                  />
-                ))}
+                  <MaterialSymbolIcon
+                    variant='filled'
+                    className={cn(
+                      'opacity-100',
+                      true ? 'text-primary' : 'text-white'
+                    )}
+                  >
+                    bookmark
+                  </MaterialSymbolIcon>
+                  <span>Bookmark</span>
+                </Button>
+              </div>
+              <div className='space-y-2'>
+                <h1 className='text-xl'>About</h1>
+                <p className='text-sm'>
+                  Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry. Lorem Ipsum has been the industry's
+                  standard dummy text ever since the 1500s, when an unknown
+                  printer took a galley of type and scrambled it to make a type
+                  specimen book. It has survived not only five centuries, but
+                  also the leap into electronic typesetting, remaining
+                  essentially unchanged. It was popularised in the 1960s with
+                  the release of Letraset sheets containing Lorem Ipsum
+                  passages, and more recently with desktop publishing software
+                  like Aldus PageMaker including versions of Lorem Ipsum
+                </p>
+              </div>
+              <div className='space-y-2'>
+                <h1 className='text-xl'>Portfolio</h1>
+                <div className='grid grid-cols-3 gap-1'>
+                  {Array.from({ length: 6 }, (_, i) => i).map((_, i) => (
+                    <Image
+                      key={i}
+                      src={
+                        'https://cdnb.artstation.com/p/assets/images/images/000/424/193/smaller_square/glenn-melenhorst-car0001.jpg?1443927098'
+                      }
+                      height={100}
+                      width={100}
+                      alt='post'
+                      className='rounded-sm w-full aspect-square object-cover'
+                    />
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }

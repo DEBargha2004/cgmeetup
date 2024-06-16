@@ -21,6 +21,12 @@ const tabs: (FieldType & { icon: string; href: string })[] = [
     href: '/dashboard/company'
   },
   {
+    label: 'Company',
+    href: '/dashboard/company/new',
+    icon: 'apartment',
+    value: 'new-company'
+  },
+  {
     label: 'Verification',
     href: '/dashboard/company/verification',
     value: 'verification',

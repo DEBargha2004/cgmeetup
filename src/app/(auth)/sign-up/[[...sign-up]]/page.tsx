@@ -11,12 +11,17 @@ import {
   FieldsContainer,
   FormCard,
   PhoneNumberForm,
-  RecruiterProfileCreateForm
+  RecruiterProfileCreateForm,
+  CompanyLegalNameForm
 } from '@/components/custom/form'
 import { Button } from '@/components/ui/button'
 import { PhoneInput } from '@/components/ui/phone-input'
 import { cn } from '@/lib/utils'
 import { EducationSchemaType, educationSchema } from '@/schema/education'
+import {
+  ProfileJobPreferenceSchemaType,
+  profileJobPreferenceSchema
+} from '@/schema/profile-job-preference'
 import {
   RecruiterProfileCreateSchemaType,
   recruiterProfileCreateSchema
@@ -46,7 +51,16 @@ const signUpFlow = [
   },
   {
     type: 'recruiter',
-    stages: ['phone', 'otp', 'password', 'details', 'company_registration']
+    stages: [
+      'phone',
+      'otp',
+      'password',
+      'details',
+      'company_select',
+      'company_registration',
+      'verification',
+      'bio'
+    ]
   }
 ] as const
 
@@ -87,6 +101,10 @@ export default function SignUpPage () {
     defaultValues: {
       online: true
     }
+  })
+
+  const jobPrefForm = useForm<ProfileJobPreferenceSchemaType>({
+    resolver: zodResolver(profileJobPreferenceSchema)
   })
 
   const recruiterProfileForm = useForm<RecruiterProfileCreateSchemaType>({
@@ -207,7 +225,7 @@ export default function SignUpPage () {
               extraButton={<Skip onClick={goNext} />}
             >
               <FieldsContainer className='w-1/2'>
-                <JobPreferenceForm />
+                <JobPreferenceForm form={jobPrefForm} />
               </FieldsContainer>
             </FormCard>
           )}
@@ -300,6 +318,17 @@ export default function SignUpPage () {
                 </FieldsContainer>
               </FormCard>
             </>
+          )}
+          {formStage.recruiter?.company_select && (
+            <FormCard
+              heading='Register a Company'
+              subHeading='Introduce yourself to the candidates'
+              // extraButton={<Skip onClick={goNext} />}
+            >
+              <FieldsContainer className='w-1/2'>
+                <CompanyLegalNameForm />
+              </FieldsContainer>
+            </FormCard>
           )}
         </>
 

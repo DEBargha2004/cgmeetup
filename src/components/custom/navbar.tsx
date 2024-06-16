@@ -192,11 +192,11 @@ export default function Navbar ({ className }: { className?: string }) {
         <MaterialSymbolIcon>add_shopping_cart</MaterialSymbolIcon>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant='secondary' size='icon' className='rounded-full'>
-              <MaterialSymbolIcon className='text-[40px]'>
+            <div>
+              <MaterialSymbolIcon className='text-[40px] max-w-10 inline-block'>
                 account_circle
               </MaterialSymbolIcon>
-            </Button>
+            </div>
           </DropdownMenuTrigger>
           <DropdownMenuContent align='end'>
             {profileItems.map((item, item_idx) => (

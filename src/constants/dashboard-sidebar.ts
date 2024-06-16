@@ -66,6 +66,15 @@ export const dashboardSidebar: SidebarItem[] = [
     label: 'Edit Company',
     href: '/dashboard/company',
     icon_name: 'business',
-    id: 'edit-company'
+    id: 'edit-company',
+    catch_routes: ['/dashboard/company', '/dashboard/company/verification']
+  },
+  {
+    type: 'link',
+    label: 'Settings',
+    id: 'settings',
+    href: '/dashboard/settings',
+    icon_name: 'settings',
+    catch_routes: ['/dashboard/settings']
   }
 ]

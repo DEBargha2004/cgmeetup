@@ -51,7 +51,7 @@ export default function OtpForm () {
             </FormItem>
           )}
         />
-        <Button className='w-fit mx-auto mt-4'>Send OTP</Button>
+        <Button className='w-fit mx-auto mt-4'>Verify OTP</Button>
       </form>
     </Form>
   )

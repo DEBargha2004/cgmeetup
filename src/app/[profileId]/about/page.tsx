@@ -61,6 +61,10 @@ export default function AboutPage () {
 
   /* Forms Start */
 
+  const jobPreferencesForm = useForm<ProfileJobPreferenceSchemaType>({
+    resolver: zodResolver(profileJobPreferenceSchema)
+  })
+
   /* Forms End */
 
   /* Forms Handlers Start */
@@ -136,6 +140,7 @@ export default function AboutPage () {
             </DialogTrigger>
             <DialogContent>
               <JobPreferenceForm
+                form={jobPreferencesForm}
                 onSubmit={e => {
                   handleJobPreferenceFormSubmit(e)
                   setDialog(prev => ({ ...prev, job_preference: false }))

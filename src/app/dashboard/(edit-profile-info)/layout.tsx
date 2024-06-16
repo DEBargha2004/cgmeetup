@@ -81,13 +81,13 @@ const tabs: (FieldType & { icon: string; href: string })[] = [
     value: 'softwares',
     icon: 'code',
     href: '/dashboard/softwares'
-  },
-  {
-    label: 'User Name',
-    value: 'username',
-    icon: 'alternate_email',
-    href: '/dashboard/username'
   }
+  // {
+  //   label: 'User Name',
+  //   value: 'username',
+  //   icon: 'alternate_email',
+  //   href: '/dashboard/username'
+  // }
 ]
 
 export default function Layout ({ children }: { children: React.ReactNode }) {

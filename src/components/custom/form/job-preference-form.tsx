@@ -35,13 +35,14 @@ import { Button } from '@/components/ui/button'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 export default function JobPreferenceForm ({
-  onSubmit
+  onSubmit,
+  form,
+  submitLabel
 }: {
   onSubmit?: (data: ProfileJobPreferenceSchemaType) => void
+  form: ReturnType<typeof useForm<ProfileJobPreferenceSchemaType>>
+  submitLabel?: string
 }) {
-  const form = useForm<ProfileJobPreferenceSchemaType>({
-    resolver: zodResolver(profileJobPreferenceSchema)
-  })
   const selectedCategory = form.watch('category')
 
   const subCategories = useMemo(() => {
@@ -96,7 +97,7 @@ export default function JobPreferenceForm ({
                     </SelectTrigger>
                     <SelectContent>
                       {job_types.map(type => (
-                        <SelectItem key={type.value} value={type.value}>
+                        <SelectItem key={type.value} value={type.label}>
                           {type.label}
                         </SelectItem>
                       ))}
@@ -261,9 +262,7 @@ export default function JobPreferenceForm ({
                                       (_, i) => i
                                     ).map(i => (
                                       <SelectItem value={i.toString()} key={i}>
-                                        {`${form.watch(
-                                          'expected_salary.currency'
-                                        )} ${i} ${'LPA'}`}
+                                        {`${i} ${'LPA'}`}
                                       </SelectItem>
                                     ))}
                                   </SelectContent>
@@ -293,9 +292,7 @@ export default function JobPreferenceForm ({
                                   <SelectContent>
                                     {upperLimits.map(i => (
                                       <SelectItem value={i.toString()} key={i}>
-                                        {`${form.watch(
-                                          'expected_salary.currency'
-                                        )} ${i} ${'LPA'}`}
+                                        {`${i} ${'LPA'}`}
                                       </SelectItem>
                                     ))}
                                   </SelectContent>
@@ -315,7 +312,9 @@ export default function JobPreferenceForm ({
           />
         </div>
         <div className='flex justify-center items-center'>
-          <Button className='w-fit'>Add Job Preference</Button>
+          <Button className='w-24' variant={'success'}>
+            {submitLabel || 'Save'}
+          </Button>
         </div>
       </form>
     </Form>

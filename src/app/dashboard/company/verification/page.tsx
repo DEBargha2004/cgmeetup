@@ -8,6 +8,20 @@ import { useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import pdf from '../../../../../public/images/pdf.png'
 import Link from 'next/link'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
+} from '@/components/ui/table'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu'
 
 type FileInfo = {
   name: string
@@ -40,15 +54,38 @@ export default function VerificationPage () {
           handleFileChange={file => setSelectedDoc(file)}
         />
         {selectedDoc && (
-          <Link href={selectedDoc.url} target='_blank'>
-            <div className='flex justify-start items-center gap-2'>
-              <Image src={pdf} alt='pdf' height={30} width={30} />
-              <p className='text-sm opacity-70'>{selectedDoc?.name}</p>
-              <p className='text-sm '>
-                {Math.floor(selectedDoc?.size / 1024)} KB
+          <>
+            <Link href={selectedDoc.url} target='_blank'>
+              <div className='flex justify-start items-center gap-2'>
+                <Image src={pdf} alt='pdf' height={30} width={30} />
+                <p className='text-sm opacity-70'>{selectedDoc?.name}</p>
+                <p className='text-sm '>
+                  {Math.floor(selectedDoc?.size / 1024)} KB
+                </p>
+              </div>
+            </Link>
+            <div className='py-4 flex flex-col justify-center items-center border bg-lightAccent rounded'>
+              <MaterialSymbolIcon className='text-2xl text-primary'>
+                upload_2
+              </MaterialSymbolIcon>
+              <p className='text-primary'>Documented Submitted Successfully</p>
+            </div>
+            <div className='py-4 flex flex-col justify-center items-center border bg-lightAccent rounded'>
+              <MaterialSymbolIcon className='text-2xl text-yellow-500 opacity-100'>
+                remove_red_eye
+              </MaterialSymbolIcon>
+
+              <p className='text-yellow-500'>
+                Account Status: You Account is under review
               </p>
             </div>
-          </Link>
+            <div className='py-4 flex flex-col justify-center items-center border bg-lightAccent rounded'>
+              <MaterialSymbolIcon className='text-2xl text-success'>
+                check_circle
+              </MaterialSymbolIcon>
+              <p className='text-success'>Verified Successfully</p>
+            </div>
+          </>
         )}
       </FieldsContainer>
     </FormCard>
