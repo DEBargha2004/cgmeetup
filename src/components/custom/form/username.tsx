@@ -16,19 +16,20 @@ import { useForm } from 'react-hook-form'
 import MaterialSymbolIcon from '../material-symbol-icon'
 
 export default function UsernameForm ({
-  submitLabel
+  submitLabel,
+  form,
+  onSubmit,
+  submitButton
 }: {
   submitLabel?: string
+  form: ReturnType<typeof useForm<UsernameSchemaType>>
+  onSubmit: (data: UsernameSchemaType) => void
+  submitButton?: React.ReactNode
 }) {
-  const form = useForm<UsernameSchemaType>({
-    resolver: zodResolver(usernameSchema)
-  })
-
-  const handleSubmit = async (data: UsernameSchemaType) => {}
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(handleSubmit)}
+        onSubmit={form.handleSubmit(onSubmit)}
         className='flex flex-col justify-start gap-4 items-stretch'
       >
         <FormField
@@ -47,7 +48,14 @@ export default function UsernameForm ({
             </FormItem>
           )}
         />
-        <Button className='ml-auto h-9'>{submitLabel || 'Save'}</Button>
+        {submitButton || (
+          <Button
+            className='ml-auto h-9 w-24'
+            disabled={form.formState.isSubmitting}
+          >
+            {submitLabel || 'Save'}
+          </Button>
+        )}
       </form>
     </Form>
   )

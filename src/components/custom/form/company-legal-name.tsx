@@ -1,14 +1,11 @@
 'use client'
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
-import { useEffect, useRef, useState } from 'react'
+import { HTMLProps, useRef, useState } from 'react'
 import MaterialSymbolIcon from '../material-symbol-icon'
+import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
+import { useClickAway } from '@uidotdev/usehooks'
 
 const list: string[] = [
   'Microsoft Corporation',
@@ -32,62 +29,71 @@ const list: string[] = [
   'Dropbox, Inc.'
 ]
 
-export default function CompanyLegalNameForm ({}: {}) {
-  const [salaryPopoverWidth, setSalaryPopoverWidth] = useState(0)
-  const salaryTriggerRef = useRef<HTMLInputElement>(null)
-  const dropdownTriggerRef = useRef<HTMLDivElement>(null)
+export default function CompanyLegalNameForm ({
+  onCreateClick,
+  onListItemClick
+}: {
+  onCreateClick?: () => void
+  onListItemClick?: () => void
+}) {
   const [dropdownOpen, setDropdownOpen] = useState(false)
+  const salaryTriggerRef = useClickAway(() => setDropdownOpen(false))
 
-  useEffect(() => {
-    const handleResize = (e: ResizeObserverEntry[]) => {
-      for (const entry of e) {
-        setSalaryPopoverWidth(entry.contentBoxSize[0].inlineSize + 26)
-      }
-    }
-
-    const ro = new ResizeObserver(handleResize)
-
-    salaryTriggerRef.current && ro.observe(salaryTriggerRef.current!)
-
-    return () => {
-      ro?.disconnect()
-    }
-  }, [])
-
-  useEffect(() => {
-    if (!salaryTriggerRef.current) return
-    salaryTriggerRef.current.onclick = () => {
-      dropdownTriggerRef.current?.focus()
-    }
-
-    salaryTriggerRef.current.onblur = () => {
-      setDropdownOpen(false)
-    }
-  }, [])
   return (
     <>
-      <div className='relative'>
-        <Input
-          className='placeholder:text-muted-foreground pl-10'
-          ref={salaryTriggerRef}
-        />
+      <div
+        className='relative'
+        //@ts-ignore
+        ref={salaryTriggerRef}
+        onClick={() => setDropdownOpen(true)}
+      >
+        <Input className='placeholder:text-muted-foreground pl-10' />
         <MaterialSymbolIcon className='absolute left-2 top-1/2 -translate-y-1/2'>
           search
         </MaterialSymbolIcon>
+
+        {dropdownOpen && (
+          <div
+            className={cn(
+              `absolute top-full translate-y-2 left-0 w-full bg-card border rounded 
+            overflow-y-auto scroller space-y-1 p-1 shadow-md h-fit max-h-[250px]`
+            )}
+          >
+            {list.map((item, index) => (
+              <DropodownItem
+                key={item}
+                onClick={() => {
+                  onListItemClick?.()
+                }}
+              >
+                {item}
+              </DropodownItem>
+            ))}
+            <DropodownItem className='flex justify-between items-start'>
+              <p>This company has not been created </p>
+              <Button onClick={() => onCreateClick?.()}>Create</Button>
+            </DropodownItem>
+          </div>
+        )}
       </div>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <div ref={dropdownTriggerRef}></div>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent
-          className='max-h-[300px] overflow-y-auto scroller'
-          style={{ width: salaryPopoverWidth }}
-        >
-          {list?.map(item => (
-            <DropdownMenuItem key={item}>{item}</DropdownMenuItem>
-          ))}
-        </DropdownMenuContent>
-      </DropdownMenu>
     </>
+  )
+}
+
+function DropodownItem ({
+  children,
+  className,
+  ...props
+}: { children: React.ReactNode } & HTMLProps<HTMLDivElement>) {
+  return (
+    <div
+      className={cn(
+        'p-2 cursor-pointer hover:bg-lightAccent transition-all rounded-sm text-sm',
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </div>
   )
 }

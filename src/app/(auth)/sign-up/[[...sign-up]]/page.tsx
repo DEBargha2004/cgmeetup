@@ -12,11 +12,17 @@ import {
   FormCard,
   PhoneNumberForm,
   RecruiterProfileCreateForm,
-  CompanyLegalNameForm
+  CompanyLegalNameForm,
+  CompanyVerificationForm
 } from '@/components/custom/form'
+import CompanyRegistrationForm from '@/components/custom/form/company-registration'
 import { Button } from '@/components/ui/button'
 import { PhoneInput } from '@/components/ui/phone-input'
 import { cn } from '@/lib/utils'
+import {
+  CompanyRegistrationSchemaType,
+  companyRegistrationSchema
+} from '@/schema/company-registration'
 import { EducationSchemaType, educationSchema } from '@/schema/education'
 import {
   ProfileJobPreferenceSchemaType,
@@ -107,6 +113,10 @@ export default function SignUpPage () {
     resolver: zodResolver(profileJobPreferenceSchema)
   })
 
+  const compRegisForm = useForm<CompanyRegistrationSchemaType>({
+    resolver: zodResolver(companyRegistrationSchema)
+  })
+
   const recruiterProfileForm = useForm<RecruiterProfileCreateSchemaType>({
     resolver: zodResolver(recruiterProfileCreateSchema)
   })
@@ -122,6 +132,18 @@ export default function SignUpPage () {
   const goNext = () => {
     if (formStageIndex < currentUserType.stages.length - 1) {
       setFormStageIndex(formStageIndex + 1)
+    }
+  }
+
+  const goAtIndex = (index: number) => {
+    if (index <= currentUserType.stages.length - 1) {
+      setFormStageIndex(index)
+    }
+  }
+
+  const goAfter = (change: number) => {
+    if (formStageIndex + change <= currentUserType.stages.length - 1) {
+      setFormStageIndex(formStageIndex + change)
     }
   }
 
@@ -144,10 +166,8 @@ export default function SignUpPage () {
           <div className='flex justify-center items-center' key={item_idx}>
             <p
               className={cn(
-                'h-7 w-7 rounded-full flex justify-center items-center transition-all ',
-                formStageIndex >= item_idx
-                  ? 'bg-primary delay-500'
-                  : 'bg-lightAccent'
+                'h-7 w-7 rounded-full flex justify-center items-center ',
+                formStageIndex >= item_idx ? 'bg-primary' : 'bg-lightAccent'
               )}
             >
               {item_idx + 1}
@@ -156,7 +176,7 @@ export default function SignUpPage () {
               <div className='w-4 md:w-8 xl:w-16 bg-lightAccent'>
                 <div
                   className={cn(
-                    'h-1 transition-all duration-500',
+                    'h-1 ',
                     formStageIndex > item_idx ? 'bg-primary w-full' : 'w-0'
                   )}
                 ></div>
@@ -326,7 +346,32 @@ export default function SignUpPage () {
               // extraButton={<Skip onClick={goNext} />}
             >
               <FieldsContainer className='w-1/2'>
-                <CompanyLegalNameForm />
+                <CompanyLegalNameForm
+                  onCreateClick={goNext}
+                  onListItemClick={() => {
+                    goAfter(2)
+                  }}
+                />
+              </FieldsContainer>
+            </FormCard>
+          )}
+          {formStage.recruiter?.company_registration && (
+            <FormCard
+              heading='Register a Company'
+              subHeading='Introduce yourself to the candidates'
+            >
+              <FieldsContainer className='w-1/2'>
+                <CompanyRegistrationForm form={compRegisForm} />
+              </FieldsContainer>
+            </FormCard>
+          )}
+          {formStage.recruiter?.verification && (
+            <FormCard
+              heading='Company and Recruiter Verification'
+              subHeading='Choose one of the following verification method:'
+            >
+              <FieldsContainer className='w-[70%] space-y-4'>
+                <CompanyVerificationForm />
               </FieldsContainer>
             </FormCard>
           )}

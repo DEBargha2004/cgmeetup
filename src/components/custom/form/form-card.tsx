@@ -27,7 +27,11 @@ export default function FormCard ({
             <h1 className='text-xl font-semibold'>{heading}</h1>
             {extraButton}
           </div>
-          <p className='text-sm opacity-70'>{subHeading}</p>
+          <div className='text-sm opacity-70'>
+            {subHeading?.split('@new').map((item, index) => (
+              <p key={index}>{item}</p>
+            ))}
+          </div>
         </div>
       </div>
       {children}

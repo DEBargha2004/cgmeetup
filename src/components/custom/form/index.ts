@@ -14,6 +14,7 @@ import UsernameForm from './username'
 import SocialsForm from './socials'
 import ProductionsForm from './productions'
 import CompanyLegalNameForm from './company-legal-name'
+import CompanyVerificationForm from './company-verification'
 
 export {
   SignInForm,
@@ -31,5 +32,6 @@ export {
   UsernameForm,
   SocialsForm,
   ProductionsForm,
-  CompanyLegalNameForm
+  CompanyLegalNameForm,
+  CompanyVerificationForm
 }

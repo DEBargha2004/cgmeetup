@@ -9,10 +9,7 @@ export const companyRegistrationSchema = z.object({
     required_error: 'Company Short Name is required'
   }),
   functional_area: z.string({ required_error: 'Functional Area is required' }),
-  company_size: z.object({
-    lower_limit: z.string({ required_error: 'Lower Limit is required' }),
-    upper_limit: z.string({ required_error: 'Upper Limit is required' })
-  }),
+  company_size: z.string({ required_error: 'Company Size is required' }),
   location: z.string({ required_error: 'Location is required' }),
   website: z.string({ required_error: 'Website is required' }),
   description: z.string({ required_error: 'Description is required' })
