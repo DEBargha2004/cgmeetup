@@ -55,7 +55,13 @@ export default function Navbar ({ className }: { className?: string }) {
             href={item.href}
             className={cn(
               'transition-colors text-foreground',
-              pathname === item.href ? 'text-primary' : ''
+              (
+                item.catch_routes
+                  ? item.catch_routes.includes(pathname)
+                  : pathname === item.href
+              )
+                ? 'text-primary'
+                : ''
             )}
           >
             {item.label}
@@ -84,7 +90,13 @@ export default function Navbar ({ className }: { className?: string }) {
                 href={item.href}
                 className={cn(
                   'flex items-center gap-2 text-lg font-semibold',
-                  pathname === item.href ? 'text-primary' : ''
+                  (
+                    item.catch_routes
+                      ? item.catch_routes.includes(pathname)
+                      : pathname === item.href
+                  )
+                    ? 'text-primary'
+                    : ''
                 )}
               >
                 <MaterialSymbolIcon className='opacity-100'>
@@ -175,7 +187,7 @@ export default function Navbar ({ className }: { className?: string }) {
                 <MaterialSymbolIcon className='sm:mr-1'>
                   person
                 </MaterialSymbolIcon>
-                Sign up
+                <span className='md:inline hidden'>Sign Up</span>
               </Button>
             </Link>
 
@@ -184,7 +196,7 @@ export default function Navbar ({ className }: { className?: string }) {
                 <MaterialSymbolIcon className='sm:mr-1'>
                   login
                 </MaterialSymbolIcon>
-                Sign In
+                <span className='md:inline hidden'>Sign In</span>
               </Button>
             </Link>
           </>

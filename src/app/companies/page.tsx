@@ -1,7 +1,6 @@
-import { MaterialSymbolIcon, ShowcaseCard } from '@/components/custom'
-import { Input } from '@/components/ui/input'
+import { ShowcaseCard } from '@/components/custom'
 
-export default function ArtistsPage () {
+export default function CompaniesPage () {
   return (
     <>
       <div className='grid lg:grid-cols-2 gap-5 px-4'>

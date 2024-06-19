@@ -19,7 +19,7 @@ import { cn } from '@/lib/utils'
 
 export default function GalleryPage () {
   return (
-    <div className='space-y-3 '>
+    <div className='space-y-3'>
       <section className='flex justify-start items-center gap-10 px-2'>
         <Popover>
           <PopoverTrigger asChild>

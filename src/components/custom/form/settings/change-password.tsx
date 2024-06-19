@@ -22,15 +22,12 @@ export default function ChangePasswordForm ({
 }) {
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className='grid grid-cols-2 gap-4'
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className='grid gap-4'>
         <FormField
           control={form.control}
           name='password'
           render={({ field }) => (
-            <FormItem>
+            <FormItem className='col-span-2'>
               <FormLabel>Password</FormLabel>
               <FormControl>
                 <Input
@@ -47,7 +44,7 @@ export default function ChangePasswordForm ({
           control={form.control}
           name='confirmPassword'
           render={({ field }) => (
-            <FormItem>
+            <FormItem className='col-span-2'>
               <FormLabel>Password Confirmation</FormLabel>
               <FormControl>
                 <Input type='password' placeholder='New Password' {...field} />

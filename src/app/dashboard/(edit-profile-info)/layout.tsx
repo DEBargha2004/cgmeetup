@@ -1,6 +1,6 @@
 'use client'
 
-import { MaterialSymbolIcon } from '@/components/custom'
+import { Tabs } from '@/components/custom'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -8,8 +8,6 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator
 } from '@/components/ui/breadcrumb'
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { cn } from '@/lib/utils'
 import { FieldType } from '@/types/field-type'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -95,7 +93,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
   console.log(pathname.split('/dashboard/edit/'))
   return (
     <div className='flex h-full w-full flex-col'>
-      <div className='flex flex-col sm:gap-4 sm:py-4 '>
+      <div className='flex flex-col sm:gap-4 '>
         <header className=' z-30 flex md:h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6'>
           <Breadcrumb className='hidden md:flex'>
             <BreadcrumbList>
@@ -114,29 +112,8 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
           </Breadcrumb>
         </header>
         <main className='flex flex-col justify-start items-center gap-10 w-full'>
-          <div className='w-full flex justify-center items-center gap-3 px-3'>
-            <Tabs value={pathname}>
-              <TabsList>
-                {tabs.map(tab => (
-                  <TabsTrigger
-                    key={tab.value}
-                    value={tab.href}
-                    className={cn(
-                      `border-r border-darkAccent last:border-none rounded `
-                    )}
-                  >
-                    <Link href={tab.href} className='flex items-center'>
-                      <MaterialSymbolIcon className='mr-1 text-[16px] opacity-100'>
-                        {tab.icon}
-                      </MaterialSymbolIcon>
-                      <span className='lg:inline hidden text-white'>
-                        {tab.label}
-                      </span>
-                    </Link>
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-            </Tabs>
+          <div className='w-full flex justify-start items-center gap-0 px-3'>
+            <Tabs tabs={tabs} className='md:px-4' />
           </div>
           <div className='w-full md:w-1/2 px-2 md:px-0 flex flex-col justify-start items-stretch gap-0'>
             {children}

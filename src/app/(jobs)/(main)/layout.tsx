@@ -37,12 +37,12 @@ const tabList1: TabItem[] = [
   { label: 'Jobs', href: '/jobs', icon: 'work' },
   {
     label: 'Trending',
-    href: '',
+    href: '/jobs/trending',
     icon: 'trending_up'
   },
   {
     label: 'Latest',
-    href: '',
+    href: '/jobs/latest',
     icon: 'schedule'
   }
   // { label: 'Studios', href: '/jobs/studios', icon: 'apartment' },

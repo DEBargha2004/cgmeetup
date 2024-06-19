@@ -78,77 +78,24 @@ export default function AboutPage () {
   /* Forms Handlers End */
 
   return (
-    <section className='md:w-3/5 mx-auto space-y-10'>
-      <AboutSectionItemsWrapper
-        title='My Bio'
-        className=''
-        edit={
-          <Dialog
-            open={dialog.bio}
-            onOpenChange={e => {
-              setDialog(prev => ({ ...prev, bio: e }))
-              setBio(prev => ({ ...prev, edited: prev.initial }))
-            }}
-          >
-            <DialogTrigger asChild>
-              <EditIcon />
-            </DialogTrigger>
-            <DialogContent className='w-full md:w-1/2'>
-              <DialogHeader>
-                <h1>My Bio</h1>
-              </DialogHeader>
-              <DialogDescription>
-                <Textarea
-                  value={bio.edited}
-                  onChange={e =>
-                    setBio(prev => ({ ...prev, edited: e.target.value }))
-                  }
-                  rows={10}
-                />
-              </DialogDescription>
-              <DialogFooter>
-                <Button
-                  onClick={() => {
-                    setBio(prev => ({ ...prev, initial: prev.edited }))
-                    setDialog(prev => ({ ...prev, bio: false }))
-                  }}
-                >
-                  Save
-                </Button>
-                <DialogClose>
-                  <Button variant={'outline'}>Cancel</Button>
-                </DialogClose>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-        }
-      >
+    <section className='md:w-3/5 mx-auto space-y-8'>
+      <div className='flex justify-center mt-8'>
+        <Button
+          className='bg-transparent hover:bg-primary text-primary hover:text-white'
+          variant={'outline'}
+        >
+          <MaterialSymbolIcon className='mr-2 opacity-100'>
+            edit
+          </MaterialSymbolIcon>
+          Edit Profile
+        </Button>
+      </div>
+      <AboutSectionItemsWrapper title='My Bio' className=''>
         {bio.initial}
       </AboutSectionItemsWrapper>
       <AboutSectionItemsWrapper
         title='Job Preference'
         className='opacity-100 space-y-6'
-        edit={
-          <Dialog
-            open={dialog.job_preference}
-            onOpenChange={e =>
-              setDialog(prev => ({ ...prev, job_preference: e }))
-            }
-          >
-            <DialogTrigger asChild>
-              <EditIcon />
-            </DialogTrigger>
-            <DialogContent>
-              <JobPreferenceForm
-                form={jobPreferencesForm}
-                onSubmit={e => {
-                  handleJobPreferenceFormSubmit(e)
-                  setDialog(prev => ({ ...prev, job_preference: false }))
-                }}
-              />
-            </DialogContent>
-          </Dialog>
-        }
       >
         {jobPreferences.map((jobPreference, index) => (
           <div className='space-y-2 w-full' key={index}>
@@ -170,21 +117,6 @@ export default function AboutPage () {
       <AboutSectionItemsWrapper
         title='Work Experience'
         className='opacity-100 space-y-6'
-        edit={
-          <Dialog
-            open={dialog.work_experience}
-            onOpenChange={e =>
-              setDialog(prev => ({ ...prev, work_experience: e }))
-            }
-          >
-            <DialogTrigger asChild>
-              <EditIcon />
-            </DialogTrigger>
-            <DialogContent>
-              <h1>Work Experience</h1>
-            </DialogContent>
-          </Dialog>
-        }
       >
         <div className='space-y-2 w-full'>
           <h1 className='text-lg text-white'>Ubisoft</h1>

@@ -29,16 +29,16 @@ export default function Tabs ({
               <Link href={tab.href}>
                 <div
                   className={cn(
-                    `md:pl-2 md:pr-4 px-2 py-2 hover:bg-lightAccent cursor-pointer 
-                    whitespace-nowrap md:text-base sm:text-sm text-xs flex 
-                    justify-start items-center gap-2`,
+                    `h-10 bg-lightAccent/60 hover:bg-lightAccent transition-all 
+              md:px-10 px-5 py-4 flex justify-center items-center text-sm border-r border-r-darkAccent 
+              last:border-r-none gap-2`,
                     pathname === tab.href
-                      ? 'border-b-2 border-primary md:text-lg sm:text-base text-sm text-primary'
+                      ? 'border-b-2 border-b-primary bg-lightAccent'
                       : '',
                     className
                   )}
                 >
-                  <span>
+                  <span className='flex items-center'>
                     <MaterialSymbolIcon className={cn('opacity-100')}>
                       {tab.icon}
                     </MaterialSymbolIcon>

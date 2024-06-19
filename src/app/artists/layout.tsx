@@ -16,12 +16,12 @@ const tabList1: TabItem[] = [
   },
   {
     label: 'Trending',
-    href: '',
+    href: '/artists/trending',
     icon: 'trending_up'
   },
   {
     label: 'Latest',
-    href: '',
+    href: '/artists/latest',
     icon: 'schedule'
   }
 ]

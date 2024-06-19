@@ -75,6 +75,11 @@ export const dashboardSidebar: SidebarItem[] = [
     id: 'settings',
     href: '/dashboard/settings',
     icon_name: 'settings',
-    catch_routes: ['/dashboard/settings']
+    catch_routes: [
+      '/dashboard/settings',
+      '/dashboard/settings/notifications',
+      '/dashboard/settings/blocking',
+      '/dashboard/settings/payment'
+    ]
   }
 ]

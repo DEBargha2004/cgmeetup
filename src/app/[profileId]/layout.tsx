@@ -12,15 +12,15 @@ import { usePathname } from 'next/navigation'
 const tabs: { label: string; href: string }[] = [
   {
     label: 'Posts',
-    href: '/123'
+    href: '/@tuit'
   },
   {
     label: 'Jobs',
-    href: '/123/jobs'
+    href: '/@tuit/jobs'
   },
   {
     label: 'About',
-    href: '/123/about'
+    href: '/@tuit/about'
   }
 ]
 
@@ -95,7 +95,7 @@ export default function ProfileLayout ({
               <div
                 className={cn(
                   'px-4 py-3 hover:bg-card cursor-pointer',
-                  pathName === tab.href && 'bg-card '
+                  pathName === tab.href && 'bg-card border-b-2 border-primary'
                 )}
               >
                 {tab.label}

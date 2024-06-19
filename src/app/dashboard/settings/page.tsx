@@ -51,38 +51,38 @@ export default function SettingsPage () {
   ) => {}
   //submit handler end
   return (
-    <div className='grid grid-cols-2 gap-4'>
-      <FormCard heading='Login Email' className='rounded col-span-2'>
-        <FieldsContainer className='w-full px-2'>
+    <div className='flex flex-col justify-start items-start gap-4'>
+      <FormCard heading='Login Email' className='rounded col-span-2 w-1/2'>
+        <FieldsContainer className='w-1/2 px-2'>
           <LoginEmailForm form={loginEmailForm} onSubmit={handleFormSubmit} />
         </FieldsContainer>
       </FormCard>
-      <FormCard heading='Change Username' className='rounded col-span-2'>
-        <FieldsContainer className='w-full px-2'>
+      <FormCard heading='Change Username' className='rounded col-span-2 w-1/2'>
+        <FieldsContainer className='w-1/2 px-2'>
           <UsernameForm
             form={usernameForm}
             onSubmit={handleUsernameFormSubmit}
           />
         </FieldsContainer>
       </FormCard>
-      <FormCard heading='Change Password' className='rounded col-span-2'>
-        <FieldsContainer className='w-full px-2'>
+      <FormCard heading='Change Password' className='rounded col-span-2 w-1/2'>
+        <FieldsContainer className='w-1/2 px-2'>
           <ChangePasswordForm
             form={passwordChangeForm}
             onSubmit={handlePasswordChangeFormSubmit}
           />
         </FieldsContainer>
       </FormCard>
-      <FormCard heading='Browsing Experience' className='rounded'>
-        <FieldsContainer className='w-full px-2'>
+      <FormCard heading='Browsing Experience' className='rounded w-1/2 '>
+        <FieldsContainer className='w-1/2 px-2'>
           <BrowsingExperienceForm
             form={browsingExpForm}
             onSubmit={handleBrowsingExpFormSubmit}
           />
         </FieldsContainer>
       </FormCard>
-      <FormCard heading='Delete Account' className='rounded'>
-        <FieldsContainer className='w-full px-2'>
+      <FormCard heading='Delete Account' className='rounded w-1/2 '>
+        <FieldsContainer className='w-1/2 px-2'>
           <Button className='w-fit ml-auto' variant={'destructive'}>
             Delete Account
           </Button>

@@ -5,6 +5,8 @@ import {
   FormCard,
   RecruiterProfileCreateForm
 } from '@/components/custom/form'
+import CompanyRegistrationForm from '@/components/custom/form/company-registration'
+import { CompanyRegistrationSchemaType } from '@/schema/company-registration'
 import {
   RecruiterProfileCreateSchemaType,
   recruiterProfileCreateSchema
@@ -13,14 +15,14 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 
 export default function CompanyPage () {
-  const form = useForm<RecruiterProfileCreateSchemaType>({
+  const form = useForm<CompanyRegistrationSchemaType>({
     resolver: zodResolver(recruiterProfileCreateSchema)
   })
-  const handleFormSubmit = async (data: RecruiterProfileCreateSchemaType) => {}
+  const handleFormSubmit = async (data: CompanyRegistrationSchemaType) => {}
   return (
     <FormCard heading='Edit Company' subHeading='Edit your company details.'>
       <FieldsContainer className='w-1/2'>
-        <RecruiterProfileCreateForm form={form} onSubmit={handleFormSubmit} />
+        <CompanyRegistrationForm form={form} onSubmit={handleFormSubmit} />
       </FieldsContainer>
     </FormCard>
   )

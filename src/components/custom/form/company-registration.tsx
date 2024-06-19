@@ -177,7 +177,7 @@ export default function CompanyRegistrationForm ({
             </FormItem>
           )}
         />
-        <FormField
+        {/* <FormField
           control={form.control}
           name='location'
           render={({ field }) => (
@@ -189,7 +189,7 @@ export default function CompanyRegistrationForm ({
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
         <FormField
           control={form.control}
           name='website'

@@ -1,6 +1,4 @@
-import { MaterialSymbolIcon, ShowcaseCard } from '@/components/custom'
-import { Input } from '@/components/ui/input'
-
+import { ShowcaseCard } from '@/components/custom'
 export default function ArtistsPage () {
   return (
     <>

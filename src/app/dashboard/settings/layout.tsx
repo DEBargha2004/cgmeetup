@@ -1,5 +1,13 @@
 'use client'
 
+import { Tabs } from '@/components/custom'
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator
+} from '@/components/ui/breadcrumb'
 import { cn } from '@/lib/utils'
 import { FieldType } from '@/types/field-type'
 import Link from 'next/link'
@@ -35,27 +43,33 @@ const tabs: (FieldType & { icon: string; href: string })[] = [
 export default function Layout ({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   return (
-    <div className='p-5 space-y-4'>
-      <div className='flex justify-start items-center'>
-        {tabs.map((tab, tab_idx) => (
-          <Link href={tab.href} key={tab_idx}>
-            <div
-              key={tab_idx}
-              className={cn(
-                `h-10 bg-lightAccent/60 hover:bg-lightAccent transition-all 
-              px-10 py-4 flex justify-center items-center text-sm border-r border-r-darkAccent 
-              last:border-r-none`,
-                pathname === tab.href
-                  ? 'border-b-2 border-b-primary bg-lightAccent'
-                  : ''
-              )}
-            >
-              {tab.label}
-            </div>
-          </Link>
-        ))}
+    <div className='space-y-4'>
+      <header
+        className='z-30 hidden sm:flex md:h-14 items-center gap-4 border-b bg-background px-4 
+      sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6'
+      >
+        <Breadcrumb className='hidden md:flex'>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href='#'>Dashboard</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href='#'>Settings</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      </header>
+      <div className='px-6 space-y-2'>
+        <div className='flex justify-start items-center'>
+          <Tabs tabs={tabs} />
+        </div>
+        <div>{children}</div>
       </div>
-      <div>{children}</div>
     </div>
   )
 }

@@ -26,8 +26,9 @@ export default function BlockingPage () {
       heading='Blocking'
       subHeading="Blocking a user prevents that user from commenting on your projects and discussion posts. Note that it does not remove the user's project from the main walls of art (Trending/Picks/etc.).
       @new The purpose of this feature is to prevent users from harrasing you on CGMeetup"
+      className='w-1/2'
     >
-      <FieldsContainer className='w-full px-2'>
+      <FieldsContainer className='w-1/2 px-2'>
         <UsernameForm
           form={form}
           onSubmit={handleFormSubmit}

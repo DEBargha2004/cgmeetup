@@ -61,6 +61,7 @@ export default function Payment () {
     <FormCard
       heading='Payment'
       subHeading='Add your payment method.'
+      className='rounded w-1/2'
       extraButton={
         <Button
           onClick={() => {
@@ -69,7 +70,7 @@ export default function Payment () {
           }}
         >
           <MaterialSymbolIcon className='mr-2'>add</MaterialSymbolIcon>
-          <span>Add Job Preference</span>
+          <span>Add Payment method</span>
         </Button>
       }
     >

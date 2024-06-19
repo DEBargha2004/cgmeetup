@@ -12,7 +12,7 @@ export default function MaterialSymbolIcon ({
   return (
     <span
       className={cn(
-        'material-symbols-outlined text-xl max-w-6 overflow-hidden opacity-60',
+        'material-symbols-outlined text-xl overflow-hidden opacity-60',
         className
       )}
       {...props}

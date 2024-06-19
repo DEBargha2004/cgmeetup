@@ -4,7 +4,7 @@ import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'
 import { NotificationsSchemaType } from '@/schema/notifications'
 import { useForm } from 'react-hook-form'
 
-export default function NotoficationsForm ({
+export default function NotificationsForm ({
   form,
   onSubmit,
   submitLabel,
