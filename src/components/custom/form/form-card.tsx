@@ -21,7 +21,7 @@ export default function FormCard ({
         className
       )}
     >
-      <div className='space-y-4'>
+      <div className='space-y-4 w-full'>
         <div className='space-y-2 p-4 bg-lightAccent'>
           <div className='flex justify-between items-center'>
             <h1 className='text-xl font-semibold'>{heading}</h1>

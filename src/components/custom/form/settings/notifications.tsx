@@ -38,13 +38,13 @@ export default function NotificationsForm ({
             </FormItem>
           )}
         />
-        <Button
+        {/* <Button
           className='min-w-24 ml-auto'
           type='submit'
           disabled={form.formState.isSubmitting}
         >
           {submitLabel || 'Save'}
-        </Button>
+        </Button> */}
       </form>
     </Form>
   )

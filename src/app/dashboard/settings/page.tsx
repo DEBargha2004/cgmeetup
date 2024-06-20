@@ -51,13 +51,13 @@ export default function SettingsPage () {
   ) => {}
   //submit handler end
   return (
-    <div className='flex flex-col justify-start items-start gap-4'>
-      <FormCard heading='Login Email' className='rounded col-span-2 w-1/2'>
+    <div className='grid grid-cols-2 gap-4'>
+      <FormCard heading='Login Email' className='rounded'>
         <FieldsContainer className='w-1/2 px-2'>
           <LoginEmailForm form={loginEmailForm} onSubmit={handleFormSubmit} />
         </FieldsContainer>
       </FormCard>
-      <FormCard heading='Change Username' className='rounded col-span-2 w-1/2'>
+      <FormCard heading='Change Username' className='rounded '>
         <FieldsContainer className='w-1/2 px-2'>
           <UsernameForm
             form={usernameForm}
@@ -65,7 +65,7 @@ export default function SettingsPage () {
           />
         </FieldsContainer>
       </FormCard>
-      <FormCard heading='Change Password' className='rounded col-span-2 w-1/2'>
+      <FormCard heading='Change Password' className='rounded w-full'>
         <FieldsContainer className='w-1/2 px-2'>
           <ChangePasswordForm
             form={passwordChangeForm}
@@ -73,21 +73,23 @@ export default function SettingsPage () {
           />
         </FieldsContainer>
       </FormCard>
-      <FormCard heading='Browsing Experience' className='rounded w-1/2 '>
-        <FieldsContainer className='w-1/2 px-2'>
-          <BrowsingExperienceForm
-            form={browsingExpForm}
-            onSubmit={handleBrowsingExpFormSubmit}
-          />
-        </FieldsContainer>
-      </FormCard>
-      <FormCard heading='Delete Account' className='rounded w-1/2 '>
-        <FieldsContainer className='w-1/2 px-2'>
-          <Button className='w-fit ml-auto' variant={'destructive'}>
-            Delete Account
-          </Button>
-        </FieldsContainer>
-      </FormCard>
+      <div className='flex flex-col justify-between items-stretch'>
+        <FormCard heading='Browsing Experience' className='rounded w-full'>
+          <FieldsContainer className='w-2/3 px-2'>
+            <BrowsingExperienceForm
+              form={browsingExpForm}
+              onSubmit={handleBrowsingExpFormSubmit}
+            />
+          </FieldsContainer>
+        </FormCard>
+        <FormCard heading='Delete Account' className='rounded w-full'>
+          <FieldsContainer className='w-1/2 px-2'>
+            <Button className='w-fit mx-auto' variant={'destructive'}>
+              Delete Account
+            </Button>
+          </FieldsContainer>
+        </FormCard>
+      </div>
     </div>
   )
 }

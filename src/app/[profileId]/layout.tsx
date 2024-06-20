@@ -42,17 +42,30 @@ export default function ProfileLayout ({
           width={400}
           className='w-full h-full object-cover'
         />
-        <Avatar className='md:h-[200px] md:w-[200px] h-[150px] w-[150px] border-2 border-white absolute left-1/2 top-full -translate-x-1/2 -translate-y-[60%]'>
-          <AvatarImage
-            src='https://cdna.artstation.com/p/users/avatars/000/078/930/large/99d98b9db85095a32a74190b5b4be7d1.jpg?1669152204'
-            alt='profile'
-            height={300}
-            width={300}
-          />
-          <AvatarFallback className='text-2xl'>
-            {getShortendName('Alibaba Salmon')}
-          </AvatarFallback>
-        </Avatar>
+        <div
+          className='md:h-[200px] md:w-[200px] h-[150px] w-[150px] border-2 border-white 
+        absolute left-1/2 top-full -translate-x-1/2 -translate-y-[60%] rounded-full'
+        >
+          <Avatar className='h-full w-full'>
+            <AvatarImage
+              src='https://cdna.artstation.com/p/users/avatars/000/078/930/large/99d98b9db85095a32a74190b5b4be7d1.jpg?1669152204'
+              alt='profile'
+              height={300}
+              width={300}
+            />
+            <AvatarFallback className='text-2xl'>
+              {getShortendName('Alibaba Salmon')}
+            </AvatarFallback>
+          </Avatar>
+          <div
+            className='absolute h-8 w-8 rounded-full bg-[rgba(0,0,0,0.6)] bottom-5 right-0 flex 
+          justify-center items-center cursor-pointer'
+          >
+            <MaterialSymbolIcon className='text-primary opacity-100 text-base'>
+              edit
+            </MaterialSymbolIcon>
+          </div>
+        </div>
       </div>
       <div className='mt-[90px] flex flex-col justify-between items-center gap-2'>
         <h1 className='md:text-4xl text-2xl font-bold'>Alibaba Salmon</h1>
@@ -67,13 +80,15 @@ export default function ProfileLayout ({
         </div>
         <div className='flex flex-col justify-between items-center gap-5 w-1/5 min-w-[250px]'>
           <div className='flex justify-between items-center gap-5 w-full'>
-            <ProfileSubSectionItem heading='234' description='Posts' />
+            <Link href={'/@tuit'}>
+              <ProfileSubSectionItem heading='234' description='Posts' />
+            </Link>
             {/* <Separator orientation='vertical' className='h-[40px] w-[2px]' /> */}
-            <Link href={'/123/followers'}>
+            <Link href={'/@tuit/followers'}>
               <ProfileSubSectionItem heading='234' description='Followers' />
             </Link>
             {/* <Separator orientation='vertical' className='h-[40px] w-[2px]' /> */}
-            <Link href={'/123/following'}>
+            <Link href={'/@tuit/following'}>
               <ProfileSubSectionItem heading='234' description='Following' />
             </Link>
           </div>

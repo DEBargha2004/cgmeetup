@@ -11,11 +11,14 @@ import {
   Select,
   SelectContent,
   SelectGroup,
+  SelectItem,
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
 import { EmailDigestsSchemaType } from '@/schema/notifications'
 import { useForm } from 'react-hook-form'
+
+const dummyOptions = ['Option 1', 'Option 2', 'Option 3']
 
 export default function EmailDigestsForm ({
   form,
@@ -29,14 +32,14 @@ export default function EmailDigestsForm ({
   return (
     <Form {...form}>
       <form
-        className='flex flex-col justify-start items-stretch gap-4'
+        className='flex justify-start items-end gap-4'
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <FormField
           control={form.control}
           name='options'
           render={({ field }) => (
-            <FormItem>
+            <FormItem className='w-[250px]'>
               <FormLabel>Email Digests</FormLabel>
               <FormControl>
                 <Select value={field.value} onValueChange={field.onChange}>
@@ -44,7 +47,13 @@ export default function EmailDigestsForm ({
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectGroup></SelectGroup>
+                    <SelectGroup>
+                      {dummyOptions.map(option => (
+                        <SelectItem key={option} value={option}>
+                          {option}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
                   </SelectContent>
                 </Select>
               </FormControl>

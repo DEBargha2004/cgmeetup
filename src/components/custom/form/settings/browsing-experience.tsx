@@ -26,35 +26,34 @@ export default function BrowsingExperienceForm ({
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className='grid grid-cols-2 gap-4'
+        className='flex justify-center items-center gap-4'
       >
         <FormField
           control={form.control}
           name='show_mature_content'
           render={({ field }) => (
-            <FormItem>
-              <FormLabel></FormLabel>
+            <FormItem className=''>
               <FormControl>
                 <div className='flex justify-start items-center gap-2'>
                   <Checkbox
                     checked={field.value}
                     onCheckedChange={field.onChange}
                   />
-                  <span>Show Mature Content</span>
+                  <span className=''>Show Mature Content</span>
                 </div>
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-
+        {/* 
         <Button
           type='submit'
           className='w-24 ml-auto'
           disabled={form.formState.isSubmitting}
         >
           {submitLabel || 'Submit'}
-        </Button>
+        </Button> */}
       </form>
     </Form>
   )

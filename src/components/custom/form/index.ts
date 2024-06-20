@@ -17,6 +17,7 @@ import CompanyLegalNameForm from './company-legal-name'
 import CompanyVerificationForm from './company-verification'
 import CompanyAddressForm from './company-address'
 import CompanyRecruiterForm from './company-recruiter'
+import UploadImageDual from './upload-image-dual'
 
 export {
   SignInForm,
@@ -36,5 +37,7 @@ export {
   ProductionsForm,
   CompanyLegalNameForm,
   CompanyVerificationForm,
-  CompanyAddressForm
+  CompanyAddressForm,
+  CompanyRecruiterForm,
+  UploadImageDual
 }

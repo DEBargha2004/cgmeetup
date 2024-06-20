@@ -43,6 +43,7 @@ import {
   TooltipTrigger
 } from '@/components/ui/tooltip'
 import { cn } from '@/lib/utils'
+import FieldsContainer from './field-container'
 
 export default function AccountCreateForm ({
   className,
@@ -53,12 +54,6 @@ export default function AccountCreateForm ({
   coverImage?: HTMLProps<HTMLDivElement>
   buttonLabel?: string
 }) {
-  const [imageUrl, setImageUrl] = useState('')
-  const [backgroundImageInfo, setBackgroundImageInfo] = useState({
-    src: '',
-    width: 0,
-    height: 0
-  })
   const form = useForm<AccountCreateSchemaType>({
     resolver: zodResolver(accountCreateSchema)
   })
@@ -71,141 +66,16 @@ export default function AccountCreateForm ({
     )
   }, [form.watch('category')])
 
-  const profileImage = useDropzone({
-    maxFiles: 1,
-    multiple: false
-  })
-
-  const backgroundImage = useDropzone({
-    maxFiles: 1,
-    multiple: false
-  })
-
-  useEffect(() => {
-    const reader = new FileReader()
-    const file = profileImage.acceptedFiles[0]
-
-    if (file) {
-      reader.readAsDataURL(file)
-
-      reader.onloadend = () => {
-        setImageUrl(reader.result as string)
-      }
-    }
-  }, [profileImage.acceptedFiles])
-
-  useEffect(() => {
-    const reader = new FileReader()
-    const file = backgroundImage.acceptedFiles[0]
-    console.log(file)
-    if (file) {
-      reader.readAsDataURL(file)
-      const img = new Image()
-      img.src = URL.createObjectURL(file)
-      reader.onloadend = () => {
-        setBackgroundImageInfo({
-          src: reader.result as string,
-          width: img.width,
-          height: img.height
-        })
-      }
-    }
-  }, [backgroundImage.acceptedFiles])
-
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(handleFormSubmit)}
         className={cn(
-          'flex flex-col justify-start items-stretch gap-4 w-full',
+          'flex justify-center items-start gap-4 w-full px-2',
           className
         )}
       >
-        <section className='relative mb-10 w-full'>
-          <input type='file' hidden {...backgroundImage.getInputProps()} />
-          <div
-            className={cn(
-              'w-full h-[150px] rounded-sm border border-lightAccent relative overflow-hidden group'
-            )}
-          >
-            <NextImage
-              src={
-                backgroundImageInfo.src ||
-                'https://cdnb.artstation.com/p/assets/images/images/000/424/193/smaller_square/glenn-melenhorst-car0001.jpg?1443927098'
-              }
-              alt='back-cover'
-              width={400}
-              height={40}
-              className='w-full h-full object-cover'
-            />
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <div
-                    className='h-6 w-6 flex justify-center items-center bg-lightAccent/60 text-primary 
-              rounded-full absolute top-2 right-2  cursor-pointer '
-                    {...backgroundImage.getRootProps()}
-                  >
-                    <MaterialSymbolIcon className='text-base opacity-100'>
-                      edit
-                    </MaterialSymbolIcon>
-                  </div>
-                </TooltipTrigger>
-                <TooltipContent side='right'>
-                  <div>
-                    <p>Upload Cover Image</p>
-                    <p>1920 x 640</p>
-                  </div>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </div>
-          <div className='flex justify-center items-center absolute left-1/2 -translate-x-1/2 -bottom-[40px]'>
-            <input
-              id='avatar'
-              type='file'
-              hidden
-              {...profileImage.getInputProps()}
-            />
-
-            <div className='h-[120px] w-[120px] rounded-full bg-darkAccent relative'>
-              <Avatar className='w-full h-full border-2 box-content'>
-                <AvatarImage
-                  src={imageUrl || avatar.src}
-                  className='object-cover'
-                />
-                <AvatarFallback>{getShortendName('John Doe')}</AvatarFallback>
-              </Avatar>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <div
-                      className='h-6 w-6 flex justify-center items-center bg-lightAccent/60 text-primary 
-              rounded-lg absolute top-[85px] right-1 cursor-pointer'
-                      {...profileImage.getRootProps()}
-                    >
-                      <MaterialSymbolIcon className='text-base opacity-100'>
-                        edit
-                      </MaterialSymbolIcon>
-                    </div>
-                  </TooltipTrigger>
-                  <TooltipContent side='right'>
-                    <div>
-                      <p>Upload Avatar</p>
-
-                      <p>512 x 512</p>
-                    </div>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </div>
-          </div>
-        </section>
-        <section
-          className={cn(
-            'w-1/2 mx-auto flex flex-col justify-start items-stretch gap-4'
-          )}
-        >
+        <FieldsContainer className={cn('w-1/2 mx-0')}>
           <FormField
             control={form.control}
             name='first_name'
@@ -384,7 +254,7 @@ export default function AccountCreateForm ({
             {' '}
             {buttonLabel || 'Sign Up'}
           </Button>
-        </section>
+        </FieldsContainer>
       </form>
     </Form>
   )

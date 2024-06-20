@@ -53,7 +53,7 @@ export default function NotificationsPage () {
   //submit handler end
 
   return (
-    <div className='space-y-4'>
+    <div className='space-y-4 pb-10'>
       <div className='space-y-3'>
         <h1 className='flex justify-start items-center gap-2 text-2xl'>
           <MaterialSymbolIcon className='opacity-100 text-primary text-2xl'>
@@ -62,12 +62,8 @@ export default function NotificationsPage () {
           <span>Email Notifications</span>
         </h1>
         <div className='grid grid-cols-2 gap-4'>
-          <FormCard
-            heading='Email Digests'
-            subHeading=''
-            className='rounded col-span-2 w-1/2'
-          >
-            <FieldsContainer className='w-1/2 px-2'>
+          <FormCard heading='Email Digests' subHeading='' className='rounded '>
+            <FieldsContainer className='px-2 w-full flex justify-center items-center'>
               <EmailDigestsForm
                 form={emailDigestsForm}
                 onSubmit={handleEmailDigestsFormSubmit}
@@ -77,9 +73,9 @@ export default function NotificationsPage () {
           <FormCard
             heading="Email Notifications on Other people's portfolio"
             subHeading=''
-            className='rounded w-1/2 col-span-2'
+            className='rounded h-full'
           >
-            <FieldsContainer className='w-1/2 px-2'>
+            <FieldsContainer className='px-2'>
               <NotificationsForm
                 form={notificationsOnOthersActivityForm}
                 onSubmit={handleNotificationsOnOthersActivityFormSubmit}
@@ -90,7 +86,7 @@ export default function NotificationsPage () {
           <FormCard
             heading='Email Notifications on My activity'
             subHeading=''
-            className='rounded w-1/2 col-span-2'
+            className='rounded'
           >
             <FieldsContainer className='w-1/2 px-2'>
               <NotificationsForm
@@ -113,7 +109,7 @@ export default function NotificationsPage () {
           <FormCard
             heading='Announcement Emails'
             subHeading=''
-            className='rounded col-span-2 w-1/2'
+            className='rounded '
           >
             <FieldsContainer className='w-1/2 px-2'>
               <NotificationsForm
@@ -123,11 +119,7 @@ export default function NotificationsPage () {
               />
             </FieldsContainer>
           </FormCard>
-          <FormCard
-            heading='Job'
-            subHeading=''
-            className='rounded w-1/2 col-span-2'
-          >
+          <FormCard heading='Job' subHeading='' className='rounded'>
             <FieldsContainer className='w-1/2 px-2'>
               <NotificationsForm
                 form={notificationsOnJobDigestsForm}

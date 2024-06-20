@@ -69,10 +69,11 @@ export default function WorkExperiencePage () {
     setShowEditForm({ show: true, index: idx })
   }
   return (
-    <section className='space-y-5'>
+    <section className='space-y-4 w-full'>
       <FormCard
         subHeading='Please fill in your work experience'
         heading='Work Experience'
+        className=''
         extraButton={
           <Button
             onClick={() => {
