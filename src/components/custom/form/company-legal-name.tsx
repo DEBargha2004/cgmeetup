@@ -69,10 +69,6 @@ export default function CompanyLegalNameForm ({
                 {item}
               </DropodownItem>
             ))}
-            <DropodownItem className='flex justify-between items-start'>
-              <p>This company has not been created </p>
-              <Button onClick={() => onCreateClick?.()}>Create</Button>
-            </DropodownItem>
           </div>
         )}
       </div>

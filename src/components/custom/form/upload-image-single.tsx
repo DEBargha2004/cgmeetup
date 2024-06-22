@@ -13,20 +13,14 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import MaterialSymbolIcon from '../material-symbol-icon'
 import avatar from '../../../../public/images/king.jpg'
+import { getShortendName } from '@/functions'
 import { Button } from '@/components/ui/button'
 import FieldsContainer from './field-container'
-import cover from '../../../../public/images/cover-image.jpg'
 
-export default function UploadImageDual () {
+export default function UploadImageSingle () {
   const [imageUrl, setImageUrl] = useState('')
-  const [backgroundImageUrl, setBackgroundImageUrl] = useState('')
 
   const profileImage = useDropzone({
-    maxFiles: 1,
-    multiple: false
-  })
-
-  const backgroundImage = useDropzone({
     maxFiles: 1,
     multiple: false
   })
@@ -44,18 +38,6 @@ export default function UploadImageDual () {
     }
   }, [profileImage.acceptedFiles])
 
-  useEffect(() => {
-    const reader = new FileReader()
-    const file = backgroundImage.acceptedFiles[0]
-
-    if (file) {
-      reader.readAsDataURL(file)
-
-      reader.onloadend = () => {
-        setBackgroundImageUrl(reader.result as string)
-      }
-    }
-  }, [backgroundImage.acceptedFiles])
   return (
     <section className='space-y-4 w-full grid gap-4 px-2'>
       <FieldsContainer className='w-1/2'>
@@ -68,10 +50,10 @@ export default function UploadImageDual () {
           className='h-[150px] w-[150px] object-cover rounded-full mx-auto'
         />
         <div className='flex justify-center items-center gap-3 w-full'>
-          <p>Upload Avatar</p>
+          <p className='shrink-0'>Upload Avatar</p>
           <Button
             {...profileImage.getRootProps()}
-            className='rounded min-w-24'
+            className='rounded min-w-24 shrink-0'
             variant={'success'}
           >
             <MaterialSymbolIcon className='mr-2 opacity-100'>
@@ -80,33 +62,6 @@ export default function UploadImageDual () {
             Upload
           </Button>
         </div>
-      </FieldsContainer>
-      <FieldsContainer className='w-full'>
-        <input hidden {...backgroundImage.getInputProps()} />
-        <NextImage
-          src={backgroundImageUrl || cover}
-          height={500}
-          width={500}
-          alt='avatar'
-          className='w-full max-h-[250px] object-cover rounded'
-        />
-        <span className='mx-auto opacity-70 text-sm'>
-          Size of image should be 1920px x 740px
-        </span>
-        <div className='flex justify-center items-center gap-3 w-full'>
-          <p>Upload Cover Image</p>
-          <Button
-            {...backgroundImage.getRootProps()}
-            className='rounded min-w-24'
-            variant={'success'}
-          >
-            <MaterialSymbolIcon className='mr-2 opacity-100'>
-              upload_2
-            </MaterialSymbolIcon>
-            Upload
-          </Button>
-        </div>
-        <Button className='w-24 ml-auto'>Submit</Button>
       </FieldsContainer>
     </section>
   )

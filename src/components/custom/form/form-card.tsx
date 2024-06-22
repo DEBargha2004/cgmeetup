@@ -17,7 +17,7 @@ export default function FormCard ({
     <div
       className={cn(
         `w-full flex flex-col justify-start items-stretch gap-0
-    rounded-lg border bg-card h-fit`,
+    rounded border bg-card h-fit`,
         className
       )}
     >

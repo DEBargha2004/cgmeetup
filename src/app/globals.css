@@ -79,6 +79,17 @@ html {
   overflow: hidden;
 }
 
+.scroller {
+  scrollbar-width: thin; /* Sets the width of the scrollbar */
+  scrollbar-color: hsl(204, 99%, 49%) transparent; /* Sets the thumb color and track color */
+}
+
+/* Hides the scrollbar for Firefox */
+.scroller-hide {
+  scrollbar-width: none; /* Hides the scrollbar */
+}
+
+/* For other browsers */
 .scroller::-webkit-scrollbar {
   width: 3px;
 }
@@ -88,7 +99,7 @@ html {
 }
 
 .scroller::-webkit-scrollbar-thumb {
-  background-color: hsl(204 99% 49%);
+  background-color: hsl(204, 99%, 49%);
   border-radius: 20px;
   background-clip: content-box;
 }

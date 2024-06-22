@@ -3,7 +3,7 @@ import Image from 'next/image'
 import MaterialSymbolIcon from '../material-symbol-icon'
 
 type ArtWork = {
-  id: number
+  id: number | string
   hash_id: string
   url: string
   smaller_square_cover_url: string

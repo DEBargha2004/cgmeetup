@@ -1,11 +1,10 @@
 import projects from '../../../public/data/projects.json'
 import {
   FeedCard,
-  JobCard,
   JobCardContainer,
-  ProfileAvatarStatus,
-  SuggestionCard
+  ProfileAvatarStatus
 } from '@/components/custom/feed'
+import { JobCard } from '@/components/custom'
 import {
   Carousel,
   CarouselContent,
@@ -13,15 +12,16 @@ import {
   CarouselNext,
   CarouselPrevious
 } from '@/components/ui/carousel'
-import { sample_cateories } from '@/constants/categories'
 import { feedNavItems } from '@/constants/feed-nav'
 import Link from 'next/link'
 import React from 'react'
-import { Button } from '@/components/ui/button'
 import { MaterialSymbolIcon } from '@/components/custom'
 import 'react-circular-progressbar/dist/styles.css'
 import ProgressBar from '@/components/custom/progress-bar'
 import Image from 'next/image'
+import Tags from './_components/tags'
+import add1 from '../../../public/images/add_1.jpg'
+import add2 from '../../../public/images/add-2.jpg'
 
 export default function FeedPage () {
   return (
@@ -111,41 +111,21 @@ export default function FeedPage () {
             <CarouselNext className='-translate-x-10 bg-transparent' />
             <CarouselPrevious className='translate-x-10 bg-transparent' />
           </Carousel>
+          <div className='flex justify-between items-center w-full'>
+            <h1 className='text-lg'>Job Recommendation</h1>
+            <Link href={'/jobs'} className='text-primary text-sm'>
+              See All
+            </Link>
+          </div>
           <JobCardContainer className='w-full border-none'>
             {Array.from({ length: 9 }, (_, i) => i).map(i => (
-              <JobCard key={i} className='select-none bg-transparent border' />
+              <JobCard
+                key={i}
+                className='select-none bg-transparent border shrink-0'
+              />
             ))}
           </JobCardContainer>
-          <Carousel className='w-full rounded '>
-            <CarouselContent className='flex'>
-              {sample_cateories.map(category => (
-                <CarouselItem
-                  className='basis-auto flex justify-center'
-                  key={category}
-                >
-                  <Button
-                    variant={'outline'}
-                    className='whitespace-nowrap w-full flex justify-center border-primary 
-                   select-none bg-transparent hover:bg-inherit'
-                  >
-                    {category}
-                  </Button>
-                </CarouselItem>
-              ))}
-              <CarouselItem className='basis-auto flex justify-center'>
-                <Button
-                  variant={'outline'}
-                  className='whitespace-nowrap w-full flex justify-center border-primary 
-                   select-none bg-transparent'
-                >
-                  <span className='material-symbols-outlined'>
-                    work_history
-                  </span>
-                  <span className='material-symbols-outlined'>add</span>
-                </Button>
-              </CarouselItem>
-            </CarouselContent>
-          </Carousel>
+          <Tags />
 
           {projects.data.map(project => (
             <FeedCard project={project} key={project.id} />
@@ -156,16 +136,18 @@ export default function FeedPage () {
           className='w-0 lg:w-[40%] max-w-[370px] h-fit  
          my-5 feed-right-bar space-y-2 overflow-hidden'
         >
-          <div className='w-full rounded bg-blue-500 flex justify-start items-start gap-2 p-4'>
+          <div className='w-full rounded bg-card flex justify-start items-start gap-2 p-4'>
             <div>
               <ProgressBar value={20} />
             </div>
             <div className='space-y-1'>
-              <div className='text-xl font-bold flex justify-between items-center'>
+              <div className='text-xl font-bold flex justify-between items-start'>
                 <h1 className='text-lg'>20% Profile Completed!</h1>
-                <div className='flex items-center justify-center text-green-800'>
-                  <MaterialSymbolIcon className=''>edit</MaterialSymbolIcon>
-                  <span className='text-sm '>Edit</span>
+                <div className='flex items-center justify-center text-white opacity-70'>
+                  <MaterialSymbolIcon className='text-sm mr-1'>
+                    edit
+                  </MaterialSymbolIcon>
+                  <span className='text-sm font-light'>Edit</span>
                 </div>
               </div>
               <p className='font-medium text-sm'>
@@ -174,9 +156,23 @@ export default function FeedPage () {
               </p>
             </div>
           </div>
-          {/* {Array.from({ length: 5 }, (_, i) => i).map(i => (
-            <SuggestionCard key={i} />
-          ))} */}
+          <div className='w-full space-y-3'>
+            {Array.from({ length: 2 }, (_, i) => i).map(i => (
+              <Link
+                href={'/gallery/a8'}
+                key={i}
+                className='inline-block w-full'
+              >
+                <Image
+                  src={i % 2 === 0 ? add1 : add2}
+                  height={300}
+                  width={300}
+                  alt='add'
+                  className='w-full'
+                />
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </main>

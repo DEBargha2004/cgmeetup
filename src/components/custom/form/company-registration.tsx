@@ -44,77 +44,12 @@ export default function CompanyRegistrationForm ({
 }) {
   const defaultSubmit = async (data: CompanyRegistrationSchemaType) => {}
 
-  const companyProfileDropzone = useDropzone({
-    multiple: false
-  })
-
-  useEffect(() => {
-    if (companyProfileDropzone.acceptedFiles.length) {
-      const reader = new FileReader()
-      reader.readAsDataURL(companyProfileDropzone.acceptedFiles[0])
-      reader.onloadend = () => {
-        form.setValue('image', reader.result as string)
-      }
-    }
-  }, [companyProfileDropzone.acceptedFiles])
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit || defaultSubmit)}
         className='flex flex-col justify-start items-stretch gap-4'
       >
-        <FormField
-          control={form.control}
-          name='image'
-          render={({ field }) => (
-            <FormItem className='flex justify-center items-center'>
-              <FormControl>
-                <>
-                  <input
-                    id='avatar'
-                    type='file'
-                    hidden
-                    {...companyProfileDropzone.getInputProps()}
-                  />
-
-                  <div className='h-[120px] w-[120px] rounded-full bg-darkAccent relative'>
-                    <Avatar className='w-full h-full border-2 box-content'>
-                      <AvatarImage
-                        src={field.value || imageUrl.src}
-                        className='object-cover'
-                      />
-                      <AvatarFallback>
-                        {getShortendName('John Doe')}
-                      </AvatarFallback>
-                    </Avatar>
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <div
-                            className='h-6 w-6 flex justify-center items-center bg-lightAccent/60 text-primary 
-              rounded-lg absolute top-[85px] right-1 cursor-pointer'
-                            {...companyProfileDropzone.getRootProps()}
-                          >
-                            <MaterialSymbolIcon className='text-base opacity-100'>
-                              edit
-                            </MaterialSymbolIcon>
-                          </div>
-                        </TooltipTrigger>
-                        <TooltipContent side='right'>
-                          <div>
-                            <p>Upload Avatar</p>
-
-                            <p>512 x 512</p>
-                          </div>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  </div>
-                </>
-              </FormControl>
-            </FormItem>
-          )}
-        />
         <FormField
           control={form.control}
           name='company_legal_name'

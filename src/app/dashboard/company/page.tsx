@@ -3,7 +3,8 @@
 import {
   FieldsContainer,
   FormCard,
-  RecruiterProfileCreateForm
+  RecruiterProfileCreateForm,
+  UploadImageSingle
 } from '@/components/custom/form'
 import CompanyRegistrationForm from '@/components/custom/form/company-registration'
 import { CompanyRegistrationSchemaType } from '@/schema/company-registration'
@@ -20,10 +21,17 @@ export default function CompanyPage () {
   })
   const handleFormSubmit = async (data: CompanyRegistrationSchemaType) => {}
   return (
-    <FormCard heading='Edit Company' subHeading='Edit your company details.'>
-      <FieldsContainer className='w-1/2'>
-        <CompanyRegistrationForm form={form} onSubmit={handleFormSubmit} />
-      </FieldsContainer>
-    </FormCard>
+    <>
+      <FormCard heading='Edit Company' subHeading='Edit your company details.'>
+        <FieldsContainer className='w-1/2'>
+          <CompanyRegistrationForm form={form} onSubmit={handleFormSubmit} />
+        </FieldsContainer>
+      </FormCard>
+      <FormCard heading='Upload Image' subHeading='Upload your profile image.'>
+        <FieldsContainer className='w-1/2'>
+          <UploadImageSingle />
+        </FieldsContainer>
+      </FormCard>
+    </>
   )
 }

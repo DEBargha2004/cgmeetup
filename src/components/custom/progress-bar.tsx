@@ -15,7 +15,7 @@ export default function ProgressBar ({ value = 0 }: { value?: number }) {
       // text={`${value}%`}
       styles={{
         text: {
-          fill: 'white'
+          fill: '#2196f3'
         },
         background: {
           backgroundColor: 'red'
@@ -25,10 +25,10 @@ export default function ProgressBar ({ value = 0 }: { value?: number }) {
           width: '80px'
         },
         path: {
-          stroke: '#2196f3'
+          stroke: 'white'
         },
         trail: {
-          stroke: 'white'
+          stroke: '#2196f3'
         }
       }}
     >

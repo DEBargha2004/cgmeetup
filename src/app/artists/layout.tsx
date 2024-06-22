@@ -75,9 +75,11 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
                 <span>Create Profile</span>
               </Button>
             </div>
+          </div>
+          <div className='space-y-2'>
             <div
               className={cn(
-                'w-full flex lg:justify-between justify-start items-center gap-0 pl-3',
+                'w-full flex lg:justify-between justify-start items-center gap-0',
                 roboto.className
               )}
             >
@@ -88,8 +90,8 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
                 <Tabs tabs={tabList2} />
               </div>
             </div>
+            {children}
           </div>
-          {children}
         </main>
       </div>
     </>

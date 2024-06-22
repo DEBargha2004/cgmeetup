@@ -1,5 +1,6 @@
 'use client'
 
+import { MaterialSymbolIcon } from '@/components/custom'
 import {
   OtpForm,
   PasswordForm,
@@ -19,6 +20,7 @@ import CompanyRegistrationForm from '@/components/custom/form/company-registrati
 import { Button } from '@/components/ui/button'
 import { PhoneInput } from '@/components/ui/phone-input'
 import { cn } from '@/lib/utils'
+import { BioSchemaType, bioSchema } from '@/schema/bio'
 import {
   CompanyRegistrationSchemaType,
   companyRegistrationSchema
@@ -120,9 +122,15 @@ export default function SignUpPage () {
   const recruiterProfileForm = useForm<RecruiterProfileCreateSchemaType>({
     resolver: zodResolver(recruiterProfileCreateSchema)
   })
+
+  const companyBioForm = useForm<BioSchemaType>({
+    resolver: zodResolver(bioSchema)
+  })
   const handleRecruiterProfileFormSubmit = async (
     data: RecruiterProfileCreateSchemaType
   ) => {}
+
+  const handleCompanyBioSubmit = async (data: BioSchemaType) => {}
 
   const goPrev = () => {
     if (formStageIndex > 0) {
@@ -343,7 +351,14 @@ export default function SignUpPage () {
             <FormCard
               heading='Register a Company'
               subHeading='Introduce yourself to the candidates'
-              // extraButton={<Skip onClick={goNext} />}
+              extraButton={
+                <Button onClick={goNext}>
+                  <MaterialSymbolIcon className='mr-2 opacity-100'>
+                    add
+                  </MaterialSymbolIcon>
+                  <span>Add Company</span>
+                </Button>
+              }
             >
               <FieldsContainer className='w-1/2'>
                 <CompanyLegalNameForm
@@ -372,6 +387,17 @@ export default function SignUpPage () {
             >
               <FieldsContainer className='w-[70%] space-y-4'>
                 <CompanyVerificationForm />
+              </FieldsContainer>
+            </FormCard>
+          )}
+          {formStage.recruiter?.bio && (
+            <FormCard
+              heading='Bio'
+              subHeading='Introduce about yourself.'
+              extraButton={<Skip onClick={goNext} />}
+            >
+              <FieldsContainer className='w-full px-5'>
+                <BioForm submitLabel='Save' />
               </FieldsContainer>
             </FormCard>
           )}

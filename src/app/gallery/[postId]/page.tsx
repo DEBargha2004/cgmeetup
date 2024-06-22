@@ -1,8 +1,7 @@
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
-import projects from '../../../../../public/data/projects.json'
+import projects from '../../../../public/data/projects.json'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
 import { sample_cateories } from '@/constants/categories'
 import { Badge } from '@/components/ui/badge'
 import {
@@ -20,7 +19,8 @@ import {
   BreadcrumbSeparator
 } from '@/components/ui/breadcrumb'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
-import vertical from '../../../../../public/images/dog-vertical.webp'
+import vertical from '../../../../public/images/dog-vertical.webp'
+import horizontal from '../../../../public/images/dog.webp'
 
 export default function Post ({
   params: { postId }
@@ -45,11 +45,11 @@ including versions of Lorem Ipsum`
   return (
     <main
       className='lg:h-full h-auto overflow-y-auto scroller max-w-[100vw] flex lg:flex-row 
-    flex-col justify-between items-start relative'
+    flex-col justify-start items-start relative'
     >
       <Close className='lg:hidden block z-20 top-4 right-4' />
       <div
-        className='w-full xl:w-[74%] lg:w-[70%] md:h-[calc(100vh-64px)] h-[calc(100vh/2)] flex flex-col justify-start items-center 
+        className='w-full xl:w-[74%] lg:w-[70%] md:h-[calc(100vh-64px)]  flex flex-col justify-start items-stretch 
              relative bg-darkAccent'
       >
         <Breadcrumb className='w-full p-3 px-6'>
@@ -59,15 +59,15 @@ including versions of Lorem Ipsum`
             <BreadcrumbItem>MonstercarId</BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <div className='overflow-y-auto h-full snap-mandatory snap-y scroller-hide'>
+        <div className='md:overflow-y-auto h-fit md:h-full md:snap-mandatory md:snap-y scroller'>
           {Array.from({ length: 4 }, (_, i) => i).map(item => (
             <PostImage key={item}>
               <Image
-                src={vertical}
+                src={item % 2 === 0 ? horizontal : vertical}
                 alt={project.title}
                 height={800}
                 width={800}
-                className='h-full shrink-0 object-contain'
+                className='md:h-full w-fit mx-auto shrink-0 object-contain'
               />
             </PostImage>
           ))}
@@ -101,7 +101,7 @@ including versions of Lorem Ipsum`
           </div>
         </Link>
       </div>
-      <div className='w-full xl:w-[24%] lg:w-[30%] h-full overflow-y-auto px-4 scroller space-y-3 py-2'>
+      <div className='w-full xl:w-[26%] lg:w-[30%] h-full overflow-y-auto px-1 scroller space-y-3 py-2'>
         <Card className='rounded bg-lightAccent relative'>
           <div className='flex justify-end gap-2 items-center absolute top-0 right-0 w-full pt-[6px]'>
             <MaterialSymbolIcon
@@ -112,7 +112,7 @@ including versions of Lorem Ipsum`
             </MaterialSymbolIcon>
             <Close className='lg:block lg:relative hidden text-[20px] opacity-100 hover:text-primary' />
           </div>
-          <CardContent id='user-profile' className='space-y-6 pt-7 pb-3 pr-2'>
+          <CardContent id='user-profile' className='space-y-6 pt-7 pb-3 pr-5'>
             <ProfileInfoOverView
               heading='text-[14px] xl:text-[16px]'
               description='text-[11px] xl:text-[12px] text-white opacity-70'
@@ -120,9 +120,14 @@ including versions of Lorem Ipsum`
               image='w-14 h-14 xl:w-14 xl:h-14'
               textContainer='justify-start gap-1'
             >
-              <Button className='xl:text-sm text-xs xl:h-8 xl:w-8 h-8 px-3 rounded-full'>
-                <MaterialSymbolIcon>person_add</MaterialSymbolIcon>
-              </Button>
+              <div
+                className='xl:text-sm text-xs h-8 w-8 bg-primary flex justify-center items-center 
+              shrink-0 rounded-full'
+              >
+                <MaterialSymbolIcon className='opacity-100'>
+                  person_add
+                </MaterialSymbolIcon>
+              </div>
             </ProfileInfoOverView>
           </CardContent>
           <CardContent id='post-info' className='space-y-2 pt-0'>
@@ -312,7 +317,7 @@ function PostImage ({
   children?: React.ReactNode
 }) {
   return (
-    <div className={cn('h-full w-auto snap-center shrink-0', className)}>
+    <div className={cn('h-full w-full snap-center shrink-0', className)}>
       {children}
     </div>
   )

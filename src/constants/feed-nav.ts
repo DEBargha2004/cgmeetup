@@ -1,4 +1,4 @@
-import React from 'react'
+'https://cdnb.artstation.com/p/users/covers/000/618/337/default/fac6732bc80210accc4f78774225a1a1.jpg?1659954166'
 
 type FeedNav =
   | {
@@ -97,6 +97,13 @@ export const feedNavItems: FeedNav[] = [
     type: 'link',
     id: 'edit-profile',
     label: 'Edit Profile',
+    href: '/edit-profile',
+    icon_name: 'edit'
+  },
+  {
+    type: 'link',
+    id: 'edit-company-profile',
+    label: 'Edit Company Profile',
     href: '/edit-profile',
     icon_name: 'edit'
   },

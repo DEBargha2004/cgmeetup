@@ -18,6 +18,7 @@ import CompanyVerificationForm from './company-verification'
 import CompanyAddressForm from './company-address'
 import CompanyRecruiterForm from './company-recruiter'
 import UploadImageDual from './upload-image-dual'
+import UploadImageSingle from './upload-image-single'
 
 export {
   SignInForm,
@@ -39,5 +40,6 @@ export {
   CompanyVerificationForm,
   CompanyAddressForm,
   CompanyRecruiterForm,
-  UploadImageDual
+  UploadImageDual,
+  UploadImageSingle
 }

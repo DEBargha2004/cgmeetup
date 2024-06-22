@@ -9,6 +9,13 @@ import {
 } from '@/components/ui/accordion'
 import { Badge } from '@/components/ui/badge'
 import { Button, ButtonProps } from '@/components/ui/button'
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious
+} from '@/components/ui/carousel'
 import { Checkbox } from '@/components/ui/checkbox'
 import {
   DropdownMenu,
@@ -17,8 +24,14 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger
+} from '@/components/ui/popover'
 
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import { sample_cateories } from '@/constants/categories'
 import {
   expertise_level,
   industry,
@@ -305,21 +318,70 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
               <MaterialSymbolIcon>arrow_right_alt</MaterialSymbolIcon>
             </Button>
           </div>
+        </div>
+        <div className='space-y-2'>
           <div
             className={cn(
-              'w-full flex justify-start lg:justify-between items-center gap-0 pl-3',
+              'w-full flex justify-start lg:justify-between items-center gap-0 ',
               roboto.className
             )}
           >
             <div className='flex justify-start items-center'>
               <Tabs tabs={tabList1} />
             </div>
-            <div className='flex justify-start items-center'>
+            <div className='flex justify-end items-center'>
               <Tabs tabs={tabList2} />
             </div>
           </div>
+          <section className='flex justify-start items-center gap-10 px-2'>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button className='bg-lightAccent'>Job Positions</Button>
+              </PopoverTrigger>
+              <PopoverContent
+                side='right'
+                className='space-y-4 bg-lightAccent rounded-sm'
+              >
+                <Input className='h-[37px] w-full' />
+                <div className='h-[300px] overflow-y-auto scroller space-y-2 w-[260px]'>
+                  {['All', ...sample_cateories].map(item => (
+                    <div
+                      key={item}
+                      className={cn(
+                        'h-10 bg-darkAccent flex justify-center items-center text-sm cursor-pointer rounded-sm',
+                        item === 'All' ? 'bg-primary' : ''
+                      )}
+                    >
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </PopoverContent>
+            </Popover>
+            <Carousel className='w-[calc(100%-190px)]'>
+              <CarouselContent className=''>
+                {sample_cateories.map((cat, index) => (
+                  <CarouselItem className='basis-auto' key={cat}>
+                    <Badge className='text-sm bg-lightAccent'>{cat}</Badge>
+                  </CarouselItem>
+                ))}
+                {sample_cateories.map((cat, index) => (
+                  <CarouselItem className='basis-auto' key={cat}>
+                    <Badge className='bg-lightAccent'>{cat}</Badge>
+                  </CarouselItem>
+                ))}
+                {sample_cateories.map((cat, index) => (
+                  <CarouselItem className='basis-auto' key={cat}>
+                    <Badge className='bg-lightAccent'>{cat}</Badge>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselNext className='-translate-x-3' />
+              <CarouselPrevious className='translate-x-3' />
+            </Carousel>
+          </section>
+          {children}
         </div>
-        {children}
       </main>
     </div>
   )

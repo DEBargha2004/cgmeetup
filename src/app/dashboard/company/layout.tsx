@@ -105,7 +105,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
             </BreadcrumbList>
           </Breadcrumb>
         </header>
-        <main className='flex flex-col justify-start items-center gap-10 w-full'>
+        <main className='flex flex-col justify-start items-center gap-2 w-full'>
           <div className='w-full flex justify-start items-center px-3'>
             <Tabs tabs={tabs} className='md:px-4' />
           </div>
