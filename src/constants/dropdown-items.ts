@@ -15,6 +15,12 @@ export const profileItems: ProfileItem[] = [
     type: 'link'
   },
   {
+    type: 'link',
+    id: 'company',
+    label: 'Company',
+    href: '/@tuit/company'
+  },
+  {
     id: 'pages',
     label: 'Pages',
     href: '/pages',
@@ -38,6 +44,7 @@ export const profileItems: ProfileItem[] = [
     label: 'Chat',
     href: '/chat'
   },
+
   {
     type: 'separator'
   },
@@ -53,25 +60,25 @@ export const profileItems: ProfileItem[] = [
     label: 'Sign In',
     href: '/sign-in',
     type: 'link'
-  },
-  {
-    type: 'link',
-    id: 'otp',
-    label: 'OTP',
-    href: '/otp'
-  },
-  {
-    type: 'link',
-    id: 'phone-number',
-    label: 'Phone Number',
-    href: '/phone-number'
-  },
-  {
-    type: 'link',
-    id: 'password',
-    label: 'Password',
-    href: '/password'
   }
+  // {
+  //   type: 'link',
+  //   id: 'otp',
+  //   label: 'OTP',
+  //   href: '/otp'
+  // },
+  // {
+  //   type: 'link',
+  //   id: 'phone-number',
+  //   label: 'Phone Number',
+  //   href: '/phone-number'
+  // },
+  // {
+  //   type: 'link',
+  //   id: 'password',
+  //   label: 'Password',
+  //   href: '/password'
+  // }
 ]
 
 export const uploadButtonItems: ProfileItem[] = [

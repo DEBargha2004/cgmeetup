@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/tooltip'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import MaterialSymbolIcon from '../material-symbol-icon'
-import avatar from '../../../../public/images/king.jpg'
+import avatar from '../../../../public/images/profile-1.jpg'
 import { Button } from '@/components/ui/button'
 import FieldsContainer from './field-container'
 import cover from '../../../../public/images/cover-image.jpg'

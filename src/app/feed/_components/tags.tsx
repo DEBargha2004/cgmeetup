@@ -23,7 +23,7 @@ export default function Tags () {
             <Button
               variant={'outline'}
               className={cn(
-                `whitespace-nowrap w-full flex justify-center border-primary 
+                `whitespace-nowrap w-full flex justify-center 
                    select-none bg-transparent hover:bg-inherit`,
                 selectedTags.includes(category)
                   ? 'bg-primary hover:bg-primary'
@@ -45,7 +45,7 @@ export default function Tags () {
         <CarouselItem className='basis-auto flex justify-center'>
           <Button
             variant={'outline'}
-            className='whitespace-nowrap w-full flex justify-center border-primary 
+            className='whitespace-nowrap w-full flex justify-center  
                    select-none bg-transparent'
           >
             <span className='material-symbols-outlined'>work_history</span>

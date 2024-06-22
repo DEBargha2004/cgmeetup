@@ -150,7 +150,7 @@ export default function Navbar ({ className }: { className?: string }) {
             ))}
           </DropdownMenuContent>
         </DropdownMenu>
-        {/* {signedin ? (
+        {!signedin ? (
           <>
             <Popover>
               <PopoverTrigger asChild>
@@ -200,7 +200,7 @@ export default function Navbar ({ className }: { className?: string }) {
               </Button>
             </Link>
           </>
-        )} */}
+        )}
         <MaterialSymbolIcon>add_shopping_cart</MaterialSymbolIcon>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

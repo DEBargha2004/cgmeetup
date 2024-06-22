@@ -1,8 +1,11 @@
+'use client'
+
 import projects from '../../../public/data/projects.json'
 import {
   FeedCard,
   JobCardContainer,
-  ProfileAvatarStatus
+  ProfileAvatarStatus,
+  UserInfoProfile
 } from '@/components/custom/feed'
 import { JobCard } from '@/components/custom'
 import {
@@ -14,7 +17,7 @@ import {
 } from '@/components/ui/carousel'
 import { feedNavItems } from '@/constants/feed-nav'
 import Link from 'next/link'
-import React from 'react'
+import React, { useRef } from 'react'
 import { MaterialSymbolIcon } from '@/components/custom'
 import 'react-circular-progressbar/dist/styles.css'
 import ProgressBar from '@/components/custom/progress-bar'
@@ -24,6 +27,7 @@ import add1 from '../../../public/images/add_1.jpg'
 import add2 from '../../../public/images/add-2.jpg'
 
 export default function FeedPage () {
+  const feedRef = useRef<HTMLDivElement>(null)
   return (
     <main className='h-full flex md:flex-row flex-col-reverse justify-start items-start bg-darkAccent'>
       <div
@@ -96,6 +100,7 @@ export default function FeedPage () {
         <div
           className='w-full sm:max-w-[630px] lg:w-[60%] space-y-4 flex flex-col items-center 
         px-2 py-4 border-r '
+          ref={feedRef}
         >
           <Carousel className='w-full'>
             <CarouselContent className='mt-4'>
@@ -125,6 +130,11 @@ export default function FeedPage () {
               />
             ))}
           </JobCardContainer>
+          <JobCardContainer className='w-full border-none'>
+            {Array.from({ length: 9 }, (_, i) => i).map(i => (
+              <UserInfoProfile key={i} className='shrink-0' />
+            ))}
+          </JobCardContainer>
           <Tags />
 
           {projects.data.map(project => (
@@ -133,8 +143,9 @@ export default function FeedPage () {
         </div>
 
         <div
-          className='w-0 lg:w-[40%] max-w-[370px] h-fit  
-         my-5 feed-right-bar space-y-2 overflow-hidden'
+          className='w-0 lg:w-[40%] max-w-[370px]
+         my-5 feed-right-bar space-y-2 h-fit'
+          style={{ height: feedRef.current?.scrollHeight }}
         >
           <div className='w-full rounded bg-card flex justify-start items-start gap-2 p-4'>
             <div>
@@ -156,7 +167,7 @@ export default function FeedPage () {
               </p>
             </div>
           </div>
-          <div className='w-full space-y-3'>
+          <div className='w-full space-y-3 sticky top-0'>
             {Array.from({ length: 2 }, (_, i) => i).map(i => (
               <Link
                 href={'/gallery/a8'}
@@ -168,11 +179,12 @@ export default function FeedPage () {
                   height={300}
                   width={300}
                   alt='add'
-                  className='w-full'
+                  className='max-w-[300px] aspect-square object-cover mx-auto'
                 />
               </Link>
             ))}
           </div>
+          <div className='h-[calc(100%-100vh)] ' />
         </div>
       </div>
     </main>
