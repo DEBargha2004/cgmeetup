@@ -13,7 +13,8 @@ export default function ProfileInfoOverView ({
   heading,
   textContainer,
   descriptionValue,
-  titleValue
+  titleValue,
+  profileInfo
 }: {
   children?: React.ReactNode
   className?: string
@@ -25,10 +26,11 @@ export default function ProfileInfoOverView ({
   textContainer?: string
   titleValue?: string
   descriptionValue?: string
+  profileInfo?: string
 }) {
   return (
     <div className={cn('flex justify-between items-start w-full', className)}>
-      <div className={cn('flex gap-3 w-full')}>
+      <div className={cn('flex gap-3 w-full', profileInfo)}>
         <Avatar
           className={cn('border-2 border-white h-full aspect-square', image)}
         >
@@ -45,7 +47,7 @@ export default function ProfileInfoOverView ({
         </Avatar>
         <div
           className={cn(
-            'flex flex-col justify-between items-start ',
+            'flex flex-col justify-between items-start w-fit',
             textContainer
           )}
         >

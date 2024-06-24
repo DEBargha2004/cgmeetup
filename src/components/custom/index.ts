@@ -16,6 +16,7 @@ import {
 import MainPageForm from './main-page-form'
 import ShowcaseCard from './showcase-card'
 import ClearButton from './clear-button'
+import AccordionItemChildWrapper from './accordion-item-children-wrapper'
 
 export {
   AppLogo,
@@ -33,5 +34,6 @@ export {
   NotificationCardOtherView,
   MainPageForm,
   ShowcaseCard,
-  ClearButton
+  ClearButton,
+  AccordionItemChildWrapper
 }

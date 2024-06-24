@@ -20,6 +20,7 @@ import { cn } from '@/lib/utils'
 import { TabItem } from '@/types/tab'
 import { Search } from 'lucide-react'
 import { Roboto } from 'next/font/google'
+import Filter from './_components/filter'
 
 const tabList1: TabItem[] = [
   {
@@ -74,10 +75,14 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
                     <span>Filter</span>
                   </div>
                 </SheetTrigger>
-                <SheetContent
-                  side={'right'}
-                  className='bg-lightAccent'
-                ></SheetContent>
+                <SheetContent side={'right'} className='bg-lightAccent'>
+                  <div className=' space-y-3'>
+                    <Filter />
+                    <div className='flex justify-end'>
+                      <Button className='ml-auto'>Reset</Button>
+                    </div>
+                  </div>
+                </SheetContent>
               </Sheet>
             </div>
             <div>

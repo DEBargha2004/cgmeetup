@@ -63,7 +63,7 @@ const tabs: (FieldType & { icon: string; href: string })[] = [
     icon: 'map'
   },
   {
-    label: 'Team Members',
+    label: 'Members',
     href: '/dashboard/company/recruiters',
     value: 'recruiters',
     icon: 'people'

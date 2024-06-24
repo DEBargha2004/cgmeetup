@@ -21,6 +21,7 @@ import {
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import vertical from '../../../../public/images/dog-vertical.webp'
 import horizontal from '../../../../public/images/dog.webp'
+import Comment from './_components/comment'
 
 export default function Post ({
   params: { postId }
@@ -67,7 +68,7 @@ including versions of Lorem Ipsum`
                 alt={project.title}
                 height={800}
                 width={800}
-                className='md:h-full w-fit mx-auto shrink-0 object-contain'
+                className='md:h-full w-fit mx-auto shrink-0 object-contain '
               />
             </PostImage>
           ))}
@@ -228,7 +229,7 @@ including versions of Lorem Ipsum`
           <CardContent className='rounded h-[calc(39vh)] pb-0 pl-4 pr-[5px]'>
             <div className='pt-6 space-y-6 scroller overflow-y-auto h-full bg-darkAccent'>
               {Array.from({ length: 12 }, (_, i) => i).map(item => (
-                <Comment key={item} />
+                <Comment key={item} showNestedComments />
               ))}
             </div>
           </CardContent>
@@ -251,13 +252,21 @@ including versions of Lorem Ipsum`
           </div>
         </Card>
 
-        <Card className='bg-lightAccent'>
+        <Card className='bg-card'>
           {/* <CardHeader className='inline-block'>
             <strong>Category</strong>
           </CardHeader> */}
           <CardContent className='flex gap-2 flex-wrap pt-6'>
+            <strong className='opacity-70'>Software :</strong>
+            {sample_cateories.slice(0, 4).map(cat => (
+              <Badge key={cat} className=' border opacity-70'>
+                {cat}
+              </Badge>
+            ))}
+          </CardContent>
+          <CardContent className='flex gap-2 flex-wrap pt-6'>
             <strong className='opacity-70'>Category :</strong>
-            {sample_cateories.map(cat => (
+            {sample_cateories.slice(0, 4).map(cat => (
               <Badge key={cat} className=' border opacity-70'>
                 {cat}
               </Badge>
@@ -268,28 +277,20 @@ including versions of Lorem Ipsum`
           </CardHeader> */}
           <CardContent className='flex gap-2 flex-wrap'>
             <strong className='opacity-70'>Tags :</strong>
-            {sample_cateories.map(cat => (
+            {sample_cateories.slice(0, 3).map(cat => (
               <Badge key={cat} className='border opacity-70'>
                 {cat}
               </Badge>
             ))}
           </CardContent>
         </Card>
-        {/* <Card className='bg-lightAccent'>
-          <CardHeader>
-            <strong>Category</strong>
-          </CardHeader>
-          <CardContent className='flex gap-2 flex-wrap'>
-            {sample_cateories.map(cat => (
-              <Badge key={cat} className=' border-primary'>
-                {cat}
-              </Badge>
-            ))}
-          </CardContent>
-        </Card> */}
-        <Card id='more-work' className='bg-lightAccent'>
+
+        <Card id='more-work' className='bg-card'>
           <CardHeader className='flex flex-row justify-start items-center gap-2'>
-            More by <strong>Guillaume</strong>
+            More by{' '}
+            <strong className='cursor-pointer hover:text-primary'>
+              Guillaume
+            </strong>
           </CardHeader>
           <CardContent className='grid grid-cols-3 gap-1'>
             {Array.from({ length: 6 }, (_, i) => i).map(item => (
@@ -299,7 +300,7 @@ including versions of Lorem Ipsum`
                 alt='more-work'
                 height={100}
                 width={100}
-                className='rounded w-full'
+                className='rounded-sm w-full'
               />
             ))}
           </CardContent>
@@ -319,23 +320,6 @@ function PostImage ({
   return (
     <div className={cn('h-full w-full snap-center shrink-0', className)}>
       {children}
-    </div>
-  )
-}
-
-function Comment () {
-  return (
-    <div className='flex flex-col justify-start items-start gap-2'>
-      <ProfileInfoOverView
-        heading='text-[14px] xl:text-[16px] opacity-70'
-        description='text-[11px] xl:text-[12px] text-white opacity-70'
-      />
-      <p className='w-[calc(100%-50px)] ml-auto font-semibold'>Lorem ipsum</p>
-      <div className='flex justify-start items-center gap-2 w-[calc(100%-50px)] ml-auto'>
-        <MaterialSymbolIcon className='text-sm'>favorite</MaterialSymbolIcon>
-        <i className='text-xs opacity-60'>34 hours ago</i>
-        <p className='text-sm opacity-90'>Reply</p>
-      </div>
     </div>
   )
 }

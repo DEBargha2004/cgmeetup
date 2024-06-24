@@ -1,6 +1,11 @@
 'use client'
 
-import { ClearButton, MaterialSymbolIcon, Tabs } from '@/components/custom'
+import {
+  AccordionItemChildWrapper,
+  ClearButton,
+  MaterialSymbolIcon,
+  Tabs
+} from '@/components/custom'
 import {
   Accordion,
   AccordionContent,
@@ -45,6 +50,7 @@ import { TabItem } from '@/types/tab'
 import { Search } from 'lucide-react'
 import { Roboto } from 'next/font/google'
 import { useState } from 'react'
+import Filter from './_components/filter'
 
 const tabList1: TabItem[] = [
   { label: 'Jobs', href: '/jobs', icon: 'work' },
@@ -73,8 +79,6 @@ const tabList2: TabItem[] = [
 const roboto = Roboto({ subsets: ['cyrillic'], weight: '700' })
 
 export default function Layout ({ children }: { children: React.ReactNode }) {
-  const [selectedSoftwares, setSelectedSoftwares] = useState<string[]>([])
-
   return (
     <div className='flex min-h-screen w-full flex-col'>
       <main className='flex flex-1 flex-col py-4 md:gap-0 md:py-12'>
@@ -108,207 +112,12 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
                 side={'right'}
                 className='bg-card overflow-y-auto scroller-hide'
               >
-                <Accordion
-                  type='multiple'
-                  defaultValue={['location', 'job_type']}
-                >
-                  <AccordionItem value='location'>
-                    <AccordionTrigger className='px-2'>
-                      Location
-                    </AccordionTrigger>
-                    <AccordionContent className='space-y-4 p-2'>
-                      <Input />
-                      <div className='space-y-2'>
-                        {location.map(item => (
-                          <AccordionItemChildWrapper key={item}>
-                            <Checkbox />
-                            <span>{item}</span>
-                          </AccordionItemChildWrapper>
-                        ))}
-                      </div>
-                      <ClearButton />
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value='job_type'>
-                    <AccordionTrigger className='px-2'>
-                      Job Type
-                    </AccordionTrigger>
-                    <AccordionContent className='space-y-4 p-2'>
-                      <div className='space-y-2'>
-                        {job_type.map(item => (
-                          <AccordionItemChildWrapper key={item}>
-                            <Checkbox />
-                            <span>{item}</span>
-                          </AccordionItemChildWrapper>
-                        ))}
-                      </div>
-                      <ClearButton />
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value='expertise_level'>
-                    <AccordionTrigger className='px-2'>
-                      Level of Expertise
-                    </AccordionTrigger>
-                    <AccordionContent className='space-y-4 p-2'>
-                      <div className='space-y-2'>
-                        {expertise_level.map(item => (
-                          <AccordionItemChildWrapper key={item}>
-                            <Checkbox />
-                            <span>{item}</span>
-                          </AccordionItemChildWrapper>
-                        ))}
-                      </div>
-                      <ClearButton />
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value='industry'>
-                    <AccordionTrigger className='px-2'>
-                      Industry
-                    </AccordionTrigger>
-                    <AccordionContent className='space-y-4 p-2'>
-                      <Input />
-                      <div className='space-y-2'>
-                        {industry.map(item => (
-                          <AccordionItemChildWrapper key={item}>
-                            <Checkbox />
-                            <span>{item}</span>
-                          </AccordionItemChildWrapper>
-                        ))}
-                      </div>
-                      <ClearButton />
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value='tags'>
-                    <AccordionTrigger className='px-2'>Tags</AccordionTrigger>
-                    <AccordionContent className='space-y-4 p-2'>
-                      <Input />
-                      <div className='space-y-2'>
-                        {tags.map(item => (
-                          <AccordionItemChildWrapper key={item}>
-                            <Checkbox />
-                            <span>{item}</span>
-                          </AccordionItemChildWrapper>
-                        ))}
-                      </div>
-                      <ClearButton />
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value='medium'>
-                    <AccordionTrigger className='px-2'>Medium</AccordionTrigger>
-                    <AccordionContent className='space-y-4 p-2'>
-                      <Input />
-                      <div className='space-y-2'>
-                        {medium.map(item => (
-                          <AccordionItemChildWrapper key={item}>
-                            <Checkbox />
-                            <span>{item}</span>
-                          </AccordionItemChildWrapper>
-                        ))}
-                      </div>
-                      <ClearButton />
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value='software'>
-                    <AccordionTrigger className='px-2'>
-                      Software
-                    </AccordionTrigger>
-                    <AccordionContent className='space-y-4 p-2'>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <div
-                            className='p-2 flex justify-between items-center w-full border rounded 
-                          h-10 bg-darkAccent'
-                          >
-                            <span>Software</span>
-                            <MaterialSymbolIcon className=''>
-                              keyboard_arrow_down
-                            </MaterialSymbolIcon>
-                          </div>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent
-                          className='max-h-[300px] overflow-y-auto scroller h-[200px] 
-                        w-full space-y-1'
-                        >
-                          {tags.map(item => (
-                            <DropdownMenuItem
-                              key={item}
-                              className={cn(
-                                'flex justify-start items-center gap-1',
-                                selectedSoftwares.includes(item)
-                                  ? 'bg-lightAccent'
-                                  : ''
-                              )}
-                              onSelect={e => {
-                                e.preventDefault()
-                                setSelectedSoftwares(prev => {
-                                  if (prev.includes(item)) {
-                                    return prev.filter(tag => tag !== item)
-                                  }
-                                  return [...prev, item]
-                                })
-                              }}
-                            >
-                              <span
-                                className={cn(
-                                  selectedSoftwares.includes(item)
-                                    ? 'opacity-100'
-                                    : 'opacity-0'
-                                )}
-                              >
-                                <MaterialSymbolIcon>check</MaterialSymbolIcon>
-                              </span>
-                              <span>{item}</span>
-                            </DropdownMenuItem>
-                          ))}
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                      <div className='flex flex-wrap gap-2'>
-                        {selectedSoftwares.map(item => (
-                          <Badge
-                            key={item}
-                            className='bg-lightAccent p-2 flex justify-between items-center gap-1'
-                          >
-                            <span>{item}</span>
-                            <MaterialSymbolIcon
-                              variant='filled'
-                              className='text-sm cursor-pointer'
-                              onClick={() => {
-                                setSelectedSoftwares(prev => {
-                                  return prev.filter(tag => tag !== item)
-                                })
-                              }}
-                            >
-                              close
-                            </MaterialSymbolIcon>
-                          </Badge>
-                        ))}
-                      </div>
-                      <ClearButton />
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value='salary'>
-                    <AccordionTrigger className='px-2'>Salary</AccordionTrigger>
-                    <AccordionContent className='space-y-4 p-2'>
-                      <AccordionItemChildWrapper>
-                        <Checkbox />
-                        <span>Only show listings with salary included</span>
-                      </AccordionItemChildWrapper>
-                      <ClearButton />
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value='job_preferences'>
-                    <AccordionTrigger className='px-2'>
-                      Job Preferences
-                    </AccordionTrigger>
-                    <AccordionContent className='space-y-4 p-2'>
-                      <AccordionItemChildWrapper>
-                        <Checkbox />
-                        <span>Apply Job Preferences</span>
-                      </AccordionItemChildWrapper>
-                      <ClearButton />
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
+                <div className=' space-y-3'>
+                  <Filter />
+                  <div className='flex justify-end'>
+                    <Button className='ml-auto'>Reset</Button>
+                  </div>
+                </div>
               </SheetContent>
             </Sheet>
           </div>
@@ -383,20 +192,6 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
           {children}
         </div>
       </main>
-    </div>
-  )
-}
-
-function AccordionItemChildWrapper ({
-  children,
-  className
-}: {
-  children: React.ReactNode
-  className?: string
-}) {
-  return (
-    <div className={cn('flex justify-start items-center gap-2', className)}>
-      {children}
     </div>
   )
 }

@@ -69,6 +69,7 @@ import {
   PopoverTrigger
 } from '@/components/ui/popover'
 import logo from '../../../../../public/images/company-logo.jpg'
+import _ from 'lodash'
 
 const visibilityOptions: string[] = ['Open', 'Closed']
 
@@ -110,7 +111,9 @@ export default function Dashboard () {
       visibility: visibilityOptions[0],
       skills: [],
       salary: {
-        currency: currencies[0]
+        currency: currencies[0],
+        lower_limit: '0',
+        upper_limit: '1'
       }
     }
   })
@@ -541,9 +544,13 @@ export default function Dashboard () {
                             >
                               <span className='text-sm'>
                                 {form.watch('salary.currency')}&nbsp;
-                                {lowerLimit ? `${lowerLimit} LPA -` : null}
+                                {!_.isNull(lowerLimit)
+                                  ? `${lowerLimit} LPA -`
+                                  : null}
                                 &nbsp;
-                                {upperLimit ? `${upperLimit} LPA` : null}
+                                {!_.isNull(upperLimit)
+                                  ? `${upperLimit} LPA`
+                                  : null}
                               </span>
                               <MaterialSymbolIcon className='select-none'>
                                 keyboard_arrow_down
@@ -608,9 +615,7 @@ export default function Dashboard () {
                                               value={i.toString()}
                                               key={i}
                                             >
-                                              {`${form.watch(
-                                                'salary.currency'
-                                              )} ${i} ${'LPA'}`}
+                                              {`${i}`}
                                             </SelectItem>
                                           ))}
                                         </SelectContent>
@@ -640,9 +645,7 @@ export default function Dashboard () {
                                               value={i.toString()}
                                               key={i}
                                             >
-                                              {`${form.watch(
-                                                'salary.currency'
-                                              )} ${i} ${'LPA'}`}
+                                              {`${i}`}
                                             </SelectItem>
                                           ))}
                                         </SelectContent>

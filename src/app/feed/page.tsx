@@ -17,7 +17,7 @@ import {
 } from '@/components/ui/carousel'
 import { feedNavItems } from '@/constants/feed-nav'
 import Link from 'next/link'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { MaterialSymbolIcon } from '@/components/custom'
 import 'react-circular-progressbar/dist/styles.css'
 import ProgressBar from '@/components/custom/progress-bar'
@@ -28,6 +28,17 @@ import add2 from '../../../public/images/add-2.jpg'
 
 export default function FeedPage () {
   const feedRef = useRef<HTMLDivElement>(null)
+  const rightSidebarRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const resizeObserver = new ResizeObserver(entries => {
+      if (feedRef.current && rightSidebarRef.current) {
+        rightSidebarRef.current.style.height = `${entries[0].contentRect.height}px`
+      }
+    })
+
+    resizeObserver.observe(feedRef.current!)
+  }, [])
   return (
     <main className='h-full flex md:flex-row flex-col-reverse justify-start items-start bg-darkAccent'>
       <div
@@ -144,8 +155,9 @@ export default function FeedPage () {
 
         <div
           className='w-0 lg:w-[40%] max-w-[370px]
-         my-5 feed-right-bar space-y-2 h-fit'
+         my-5 feed-right-bar space-y-2'
           style={{ height: feedRef.current?.scrollHeight }}
+          ref={rightSidebarRef}
         >
           <div className='w-full rounded bg-card flex justify-start items-start gap-2 p-4'>
             <div>

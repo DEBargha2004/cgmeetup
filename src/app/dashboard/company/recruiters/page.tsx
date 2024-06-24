@@ -1,11 +1,7 @@
 'use client'
 
 import { MaterialSymbolIcon, ProfileInfoOverView } from '@/components/custom'
-import {
-  CompanyAddressForm,
-  FieldsContainer,
-  FormCard
-} from '@/components/custom/form'
+import { FieldsContainer, FormCard } from '@/components/custom/form'
 import CompanyRecruiterForm from '@/components/custom/form/company-recruiter'
 import { Button } from '@/components/ui/button'
 import {
@@ -19,6 +15,8 @@ import { RecruiterSchemaType, recruiterSchema } from '@/schema/recruiter'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import pdfIcon from '../../../../../public/images/pdf.png'
+import Image from 'next/image'
 
 export default function CompanyRecruiter () {
   const [showForm, setShowForm] = useState(false)
@@ -103,22 +101,42 @@ export default function CompanyRecruiter () {
               <ProfileInfoOverView
                 titleValue={recruiter.name}
                 descriptionValue={`Role: ${recruiter.role}`}
+                profileInfo='w-[250px]'
               >
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <div className='cursor-pointer'>
-                      <MaterialSymbolIcon>more_vert</MaterialSymbolIcon>
+                <div className='w-full flex justify-between items-center'>
+                  <div className='flex justify-start items-center gap-10'>
+                    <div className='flex justify-center items-center gap-1'>
+                      <Image src={pdfIcon} height={20} width={20} alt='pdf' />
+                      <p className='hover:text-primary cursor-pointer'>
+                        Document
+                      </p>
                     </div>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align='end'>
-                    <DropdownMenuItem onClick={() => handleEdit(idx)}>
-                      Edit
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => handleDelete(idx)}>
-                      Delete
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                    <p className='text-orange-500'>Pending</p>
+                    <div className='flex justify-center items-center gap-3'>
+                      <MaterialSymbolIcon className='opacity-100 cursor-pointer text-destructive'>
+                        close
+                      </MaterialSymbolIcon>
+                      <MaterialSymbolIcon className='opacity-100 cursor-pointer text-success'>
+                        check
+                      </MaterialSymbolIcon>
+                    </div>
+                  </div>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <div className='cursor-pointer'>
+                        <MaterialSymbolIcon>more_vert</MaterialSymbolIcon>
+                      </div>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align='end'>
+                      <DropdownMenuItem onClick={() => handleEdit(idx)}>
+                        Edit
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => handleDelete(idx)}>
+                        Delete
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
               </ProfileInfoOverView>
             </div>
           ))}

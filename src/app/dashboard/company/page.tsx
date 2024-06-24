@@ -4,6 +4,7 @@ import {
   FieldsContainer,
   FormCard,
   RecruiterProfileCreateForm,
+  UploadImageDual,
   UploadImageSingle
 } from '@/components/custom/form'
 import CompanyRegistrationForm from '@/components/custom/form/company-registration'
@@ -28,8 +29,8 @@ export default function CompanyPage () {
         </FieldsContainer>
       </FormCard>
       <FormCard heading='Upload Image' subHeading='Upload your profile image.'>
-        <FieldsContainer className='w-1/2'>
-          <UploadImageSingle />
+        <FieldsContainer className='w-full'>
+          <UploadImageDual />
         </FieldsContainer>
       </FormCard>
     </>
