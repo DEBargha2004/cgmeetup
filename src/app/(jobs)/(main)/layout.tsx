@@ -63,18 +63,23 @@ const tabList1: TabItem[] = [
     label: 'Latest',
     href: '/jobs/latest',
     icon: 'schedule'
+  },
+  {
+    label: 'Featured',
+    icon: 'featured_play_list',
+    href: '/jobs/featured'
   }
   // { label: 'Studios', href: '/jobs/studios', icon: 'apartment' },
 ]
 
-const tabList2: TabItem[] = [
-  { label: 'Bookmarks', href: '/dashboard/bookmarks', icon: 'bookmark' },
-  {
-    label: 'Job Preferences',
-    href: '/dashboard/job-preference',
-    icon: 'manage_accounts'
-  }
-]
+// const tabList2: TabItem[] = [
+//   { label: 'Bookmarks', href: '/dashboard/bookmarks', icon: 'bookmark' },
+//   {
+//     label: 'Job Preferences',
+//     href: '/dashboard/job-preference',
+//     icon: 'manage_accounts'
+//   }
+// ]
 
 const roboto = Roboto({ subsets: ['cyrillic'], weight: '700' })
 
@@ -131,16 +136,16 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
         <div className='space-y-2'>
           <div
             className={cn(
-              'w-full flex justify-start lg:justify-between items-center gap-0 ',
+              'w-full flex justify-center items-center gap-0 ',
               roboto.className
             )}
           >
             <div className='flex justify-start items-center'>
               <Tabs tabs={tabList1} />
             </div>
-            <div className='flex justify-end items-center'>
+            {/* <div className='flex justify-end items-center'>
               <Tabs tabs={tabList2} />
-            </div>
+            </div> */}
           </div>
           <section className='flex justify-start items-center gap-10 px-2'>
             <Popover>

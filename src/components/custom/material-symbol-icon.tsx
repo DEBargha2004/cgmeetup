@@ -11,10 +11,7 @@ export default function MaterialSymbolIcon ({
 } & HTMLProps<HTMLSpanElement>) {
   return (
     <span
-      className={cn(
-        'material-symbols-outlined text-xl overflow-hidden opacity-60',
-        className
-      )}
+      className={cn('material-symbols-outlined text-xl opacity-60', className)}
       {...props}
     >
       {children}

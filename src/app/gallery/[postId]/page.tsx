@@ -253,9 +253,6 @@ including versions of Lorem Ipsum`
         </Card>
 
         <Card className='bg-card'>
-          {/* <CardHeader className='inline-block'>
-            <strong>Category</strong>
-          </CardHeader> */}
           <CardContent className='flex gap-2 flex-wrap pt-6'>
             <strong className='opacity-70'>Software :</strong>
             {sample_cateories.slice(0, 4).map(cat => (
@@ -272,9 +269,7 @@ including versions of Lorem Ipsum`
               </Badge>
             ))}
           </CardContent>
-          {/* <CardHeader>
-            <strong>Tags</strong>
-          </CardHeader> */}
+
           <CardContent className='flex gap-2 flex-wrap'>
             <strong className='opacity-70'>Tags :</strong>
             {sample_cateories.slice(0, 3).map(cat => (

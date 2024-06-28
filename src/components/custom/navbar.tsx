@@ -11,7 +11,13 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger
 } from '../ui/dropdown-menu'
 import { profileItems, uploadButtonItems } from '@/constants/dropdown-items'
@@ -29,11 +35,13 @@ import {
   NotificationCardOtherView
 } from './notification-card'
 import { usePathname } from 'next/navigation'
+import { useTheme } from 'next-themes'
 
 export default function Navbar ({ className }: { className?: string }) {
   const { sidebarState, setSidebarState } = useGlobalAppStore()
   const [signedin, setSignedin] = useState(false)
   const pathname = usePathname()
+  const { theme, setTheme } = useTheme()
   return (
     <header
       className={cn(
@@ -224,6 +232,32 @@ export default function Navbar ({ className }: { className?: string }) {
                 )}
               </React.Fragment>
             ))}
+            <DropdownMenuSub>
+              <DropdownMenuSubTrigger>
+                <span>Theme</span>
+              </DropdownMenuSubTrigger>
+              <DropdownMenuPortal>
+                <DropdownMenuSubContent>
+                  <DropdownMenuRadioGroup
+                    value={theme}
+                    onValueChange={e => setTheme(e)}
+                  >
+                    <DropdownMenuRadioItem
+                      value='light'
+                      className='cursor-pointer'
+                    >
+                      <span className=''>Light</span>
+                    </DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem
+                      value='dark'
+                      className='cursor-pointer'
+                    >
+                      <span className=''>Dark</span>
+                    </DropdownMenuRadioItem>
+                  </DropdownMenuRadioGroup>
+                </DropdownMenuSubContent>
+              </DropdownMenuPortal>
+            </DropdownMenuSub>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
