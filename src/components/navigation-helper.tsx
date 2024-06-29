@@ -6,9 +6,13 @@ import { useEffect } from 'react'
 
 export default function NavigationHelper () {
   const pathname = usePathname()
-  const { setSidebarState } = useGlobalAppStore()
+  const { setSidebarState, setAuthDialogState } = useGlobalAppStore()
   useEffect(() => {
     setSidebarState(false)
   }, [pathname])
+
+  useEffect(() => {
+    setAuthDialogState(true)
+  }, [])
   return null
 }

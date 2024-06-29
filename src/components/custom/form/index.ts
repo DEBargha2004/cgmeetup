@@ -19,6 +19,9 @@ import CompanyAddressForm from './company-address'
 import CompanyRecruiterForm from './company-recruiter'
 import UploadImageDual from './upload-image-dual'
 import UploadImageSingle from './upload-image-single'
+import SignInWithPassForm from './sign-in-with-pass'
+import SignInWithOtpForm from './sign-in-with-otp'
+import AccountCreateForm2 from './account-create-2'
 
 export {
   SignInForm,
@@ -41,5 +44,8 @@ export {
   CompanyAddressForm,
   CompanyRecruiterForm,
   UploadImageDual,
-  UploadImageSingle
+  UploadImageSingle,
+  SignInWithPassForm,
+  SignInWithOtpForm,
+  AccountCreateForm2
 }

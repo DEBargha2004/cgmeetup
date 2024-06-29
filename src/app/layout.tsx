@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils'
 import { Navbar, NavigationHelper } from '@/components/custom'
 import './globals.css'
 import './global-icons.css'
+import AuthDialog from '@/components/custom/auth-dialog'
 
 const inter = Open_Sans({ subsets: ['cyrillic'] })
 
@@ -31,6 +32,7 @@ export default function RootLayout ({
           <div className='h-[calc(100%-64px)] overflow-y-auto scroller'>
             {children}
           </div>
+          <AuthDialog />
           <NavigationHelper />
         </ThemeProvider>
       </body>

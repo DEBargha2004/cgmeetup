@@ -27,6 +27,10 @@ import {
 } from '@/schema/company-registration'
 import { EducationSchemaType, educationSchema } from '@/schema/education'
 import {
+  PhoneNumberSchemaType,
+  phoneNumberSchema
+} from '@/schema/phone-number-schema'
+import {
   ProfileJobPreferenceSchemaType,
   profileJobPreferenceSchema
 } from '@/schema/profile-job-preference'
@@ -126,11 +130,18 @@ export default function SignUpPage () {
   const companyBioForm = useForm<BioSchemaType>({
     resolver: zodResolver(bioSchema)
   })
+
+  const phoneNumberForm = useForm<PhoneNumberSchemaType>({
+    resolver: zodResolver(phoneNumberSchema)
+  })
+
   const handleRecruiterProfileFormSubmit = async (
     data: RecruiterProfileCreateSchemaType
   ) => {}
 
   const handleCompanyBioSubmit = async (data: BioSchemaType) => {}
+
+  const handlePhoneNumberFormSubmit = async (data: PhoneNumberSchemaType) => {}
 
   const goPrev = () => {
     if (formStageIndex > 0) {
@@ -208,7 +219,10 @@ export default function SignUpPage () {
               heading='Sign Up Account'
             >
               <FieldsContainer className='w-1/2 pt-10'>
-                <PhoneNumberForm />
+                <PhoneNumberForm
+                  form={phoneNumberForm}
+                  onSubmit={handlePhoneNumberFormSubmit}
+                />
               </FieldsContainer>
               <div className='px-4 pb-4'>
                 <p className='text-sm'>
@@ -306,7 +320,10 @@ export default function SignUpPage () {
               heading='Recruiter Register Account'
             >
               <FieldsContainer className='w-1/2 pt-10'>
-                <PhoneNumberForm />
+                <PhoneNumberForm
+                  form={phoneNumberForm}
+                  onSubmit={handlePhoneNumberFormSubmit}
+                />
               </FieldsContainer>
               <div className='px-4 pb-4'>
                 <p className='text-sm'>
