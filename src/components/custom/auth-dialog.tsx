@@ -118,7 +118,7 @@ export default function AuthDialog () {
             </FieldsContainer>
           </FormCard>
         ) : null}
-        {/* <div className='flex justify-between p-2'>
+        <div className='flex justify-between p-2'>
           <p
             className='w-fit text-sm text-primary cursor-pointer'
             onClick={() => setShowForm({ create_acc: true })}
@@ -131,7 +131,7 @@ export default function AuthDialog () {
           >
             Phone Number
           </p>
-        </div> */}
+        </div>
       </DialogContent>
     </Dialog>
   )
