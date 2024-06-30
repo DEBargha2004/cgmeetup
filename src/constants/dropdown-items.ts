@@ -1,3 +1,7 @@
+'use client'
+
+import { useGlobalAppStore } from '@/store/global-app-store'
+
 type ProfileItem =
   | {
       id: string
@@ -61,24 +65,6 @@ export const profileItems: ProfileItem[] = [
     href: '/sign-in',
     type: 'link'
   }
-  // {
-  //   type: 'link',
-  //   id: 'otp',
-  //   label: 'OTP',
-  //   href: '/otp'
-  // },
-  // {
-  //   type: 'link',
-  //   id: 'phone-number',
-  //   label: 'Phone Number',
-  //   href: '/phone-number'
-  // },
-  // {
-  //   type: 'link',
-  //   id: 'password',
-  //   label: 'Password',
-  //   href: '/password'
-  // }
 ]
 
 export const uploadButtonItems: ProfileItem[] = [
@@ -106,6 +92,7 @@ export const uploadButtonItems: ProfileItem[] = [
     label: 'Add Short Film',
     href: '/dashboard/gallery/create'
   },
+
   {
     type: 'separator'
   },

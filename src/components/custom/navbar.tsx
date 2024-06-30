@@ -10,7 +10,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuPortal,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
@@ -38,10 +37,16 @@ import { usePathname } from 'next/navigation'
 import { useTheme } from 'next-themes'
 
 export default function Navbar ({ className }: { className?: string }) {
-  const { sidebarState, setSidebarState } = useGlobalAppStore()
+  const {
+    sidebarState,
+    setSidebarState,
+    setAuthDialogState,
+    setPostDialogState
+  } = useGlobalAppStore()
   const [signedin, setSignedin] = useState(false)
   const pathname = usePathname()
   const { theme, setTheme } = useTheme()
+
   return (
     <header
       className={cn(
@@ -137,12 +142,18 @@ export default function Navbar ({ className }: { className?: string }) {
                 variant='filled'
                 className='sm:mr-1 opacity-100'
               >
-                upload_2
+                add
               </MaterialSymbolIcon>
-              <span className='sm:inline hidden'>Upload</span>
+              <span className='sm:inline hidden'>Post</span>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align='end'>
+            <DropdownMenuItem
+              className='cursor-pointer'
+              onClick={() => setPostDialogState(true)}
+            >
+              Add Work
+            </DropdownMenuItem>
             {uploadButtonItems.map((item, item_idx) => (
               <React.Fragment key={item_idx}>
                 {item.type === 'link' ? (
@@ -232,32 +243,12 @@ export default function Navbar ({ className }: { className?: string }) {
                 )}
               </React.Fragment>
             ))}
-            <DropdownMenuSub>
-              <DropdownMenuSubTrigger>
-                <span>Theme</span>
-              </DropdownMenuSubTrigger>
-              <DropdownMenuPortal>
-                <DropdownMenuSubContent>
-                  <DropdownMenuRadioGroup
-                    value={theme}
-                    onValueChange={e => setTheme(e)}
-                  >
-                    <DropdownMenuRadioItem
-                      value='light'
-                      className='cursor-pointer'
-                    >
-                      <span className=''>Light</span>
-                    </DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem
-                      value='dark'
-                      className='cursor-pointer'
-                    >
-                      <span className=''>Dark</span>
-                    </DropdownMenuRadioItem>
-                  </DropdownMenuRadioGroup>
-                </DropdownMenuSubContent>
-              </DropdownMenuPortal>
-            </DropdownMenuSub>
+            <DropdownMenuItem
+              className='cursor-pointer'
+              onClick={() => setAuthDialogState(true)}
+            >
+              Auth Dialog
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

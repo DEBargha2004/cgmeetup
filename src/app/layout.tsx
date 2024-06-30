@@ -2,10 +2,14 @@ import type { Metadata } from 'next'
 import { Inter, Open_Sans, Roboto } from 'next/font/google'
 import { ThemeProvider } from '@/provider/theme-provider'
 import { cn } from '@/lib/utils'
-import { Navbar, NavigationHelper } from '@/components/custom'
+import {
+  AuthDialog,
+  Navbar,
+  NavigationHelper,
+  PostCreateDialog
+} from '@/components/custom'
 import './globals.css'
 import './global-icons.css'
-import AuthDialog from '@/components/custom/auth-dialog'
 
 const inter = Open_Sans({ subsets: ['cyrillic'] })
 
@@ -33,6 +37,7 @@ export default function RootLayout ({
             {children}
           </div>
           <AuthDialog />
+          <PostCreateDialog />
           <NavigationHelper />
         </ThemeProvider>
       </body>

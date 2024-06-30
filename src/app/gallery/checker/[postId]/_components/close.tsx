@@ -10,7 +10,7 @@ export default function Close ({ className }: { className?: string }) {
     <MaterialSymbolIcon
       variant='filled'
       className={cn(
-        'text-base absolute right-2 top-0 cursor-pointer',
+        'text-base absolute right-2 top-0 cursor-pointer opacity-100',
         className
       )}
       onClick={() => router.back()}

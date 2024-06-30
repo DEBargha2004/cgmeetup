@@ -37,12 +37,12 @@ export default function Sidebar ({ postId }: { postId: string }) {
     <div className='w-full xl:w-[26%] lg:w-[30%] h-full overflow-y-auto px-1 scroller pt-2'>
       <div
         className={cn(
-          ' space-y-3 overflow-y-auto',
+          ' space-y-3 overflow-y-auto scroller',
           activeTab === 'comment' ? 'h-[calc(100%-80px)]' : 'h-full'
         )}
       >
         <Card className='rounded bg-lightAccent relative'>
-          <div className='flex justify-end gap-2 items-center absolute top-0 right-0 w-full pt-[6px]'>
+          {/* <div className='flex justify-end gap-2 items-center absolute top-0 right-0 w-full pt-[6px]'>
             <MaterialSymbolIcon
               variant='filled'
               className='opacity-100 hover:text-primary text-[20px] cursor-pointer'
@@ -50,8 +50,8 @@ export default function Sidebar ({ postId }: { postId: string }) {
               more_vert
             </MaterialSymbolIcon>
             <Close className='lg:block lg:relative hidden text-[20px] opacity-100 hover:text-primary' />
-          </div>
-          <CardContent id='user-profile' className='space-y-6 pt-7 pb-3 pr-5'>
+          </div> */}
+          <CardContent id='user-profile' className='space-y-6 py-3 pr-5'>
             <ProfileInfoOverView
               heading='text-[14px] xl:text-[16px]'
               description='text-[11px] xl:text-[12px] text-white opacity-70'
@@ -104,7 +104,7 @@ export default function Sidebar ({ postId }: { postId: string }) {
               )}
               onClick={() => setActiveTab('creator')}
             >
-              <span>Creator Info</span>
+              <span>More Work</span>
             </TabItem>
           </div>
           <div className='py-3 w-[95%] mx-auto space-y-3'>

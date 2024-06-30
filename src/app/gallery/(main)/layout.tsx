@@ -60,7 +60,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
     <>
       <div className='flex min-h-screen w-full flex-col'>
         <main className='flex flex-1 flex-col py-4 md:gap-0 md:py-12'>
-          <div className='my-6 flex flex-col justify-between items-center gap-12 text-center'>
+          <div className='my-6 mb-10 flex flex-col justify-between items-center gap-12 text-center'>
             <div className='space-y-4'>
               <h1 className='text-4xl md:text-[52px] font-bold'>
                 Showcase & Discover Creative Work

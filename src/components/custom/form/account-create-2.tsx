@@ -31,12 +31,22 @@ import {
 } from '@/components/ui/input-otp'
 import { Button } from '@/components/ui/button'
 
-const userType = ['Artist', 'Recruiter']
+const userType = ['Artist', 'Bussiness']
 
 export default function AccountCreateForm2 ({}: {}) {
   const [profileSrc, setProfileSrc] = useState<string>('')
   const [showPassword, setShowPassword] = useState(false)
-  const form = useForm()
+  const form = useForm({
+    defaultValues: {
+      account_type: userType[0],
+      category: '',
+      otp: '',
+      phoneNumber: '',
+      email: '',
+      password: '',
+      subcategory: ''
+    }
+  })
   const profileDropZone = useDropzone()
 
   const selectedCategory = form.watch('category')
@@ -59,16 +69,42 @@ export default function AccountCreateForm2 ({}: {}) {
   }, [profileDropZone.acceptedFiles])
   return (
     <Form {...form}>
-      <form className='flex flex-col justify-start items-stretch gap-4'>
-        <div className='mx-auto py-4'>
-          <div className='relative'>
+      <form className='flex flex-col justify-start items-stretch gap-1'>
+        <div className='flex justify-start items-center gap-2'>
+          <div>
+            <FormField
+              name=''
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>First Name</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              name=''
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Last Name</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className='relative w-fit h-fit mx-auto shrink-0'>
             <input type='file' hidden {...profileDropZone.getInputProps()} />
             <Image
               src={profileSrc || avatar}
               height={120}
               width={120}
               alt='avatar'
-              className='rounded-full h-[120px] w-[120px] object-cover'
+              className='rounded-full h-[100px] w-[100px] sm:h-[120px] sm:w-[120px] object-cover'
             />
             <div
               className='h-8 w-8 rounded-full bg-darkAccent/50 absolute bottom-0 right-0 
@@ -81,70 +117,49 @@ export default function AccountCreateForm2 ({}: {}) {
             </div>
           </div>
         </div>
-        <FormField
-          name=''
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>First Name</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          name=''
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Last Name</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          name=''
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input {...field} type='email' />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name=''
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <div className='relative'>
-                  <Input
-                    type={showPassword ? 'text' : 'password'}
-                    placeholder='Password'
-                    {...field}
-                    className='pr-10'
-                  />
-                  <div
-                    className='absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer'
-                    onClick={() => setShowPassword(prev => !prev)}
-                  >
-                    <MaterialSymbolIcon>
-                      {showPassword ? 'visibility' : 'visibility_off'}
-                    </MaterialSymbolIcon>
+
+        <div className='grid grid-cols-2 gap-2'>
+          <FormField
+            name=''
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input {...field} type='email' />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='password'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <div className='relative'>
+                    <Input
+                      type={showPassword ? 'text' : 'password'}
+                      placeholder='Password'
+                      {...field}
+                      className='pr-10'
+                    />
+                    <div
+                      className='absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer'
+                      onClick={() => setShowPassword(prev => !prev)}
+                    >
+                      <MaterialSymbolIcon>
+                        {showPassword ? 'visibility' : 'visibility_off'}
+                      </MaterialSymbolIcon>
+                    </div>
                   </div>
-                </div>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
         <FormField
           name=''
           render={({ field }) => (
@@ -157,61 +172,69 @@ export default function AccountCreateForm2 ({}: {}) {
             </FormItem>
           )}
         />
+
+        <div className='space-y-1'>
+          <FormLabel>Job Position</FormLabel>
+          <div className='grid grid-cols-2 gap-2'>
+            <FormField
+              control={form.control}
+              name='category'
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Select value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger>
+                        <SelectValue placeholder='Industry' />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {categories.map(type => (
+                          <SelectItem key={type.value} value={type.label}>
+                            {type.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name='subcategory'
+              render={({ field }) => (
+                <FormItem className=''>
+                  <FormControl>
+                    <Select
+                      value={field.value}
+                      onValueChange={field.onChange}
+                      disabled={!subCategories.length}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder='Position' />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {subCategories.map(type => (
+                          <SelectItem key={type.value} value={type.label}>
+                            {type.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+        </div>
+
         <FormField
           control={form.control}
-          name='category'
+          name='account_type'
           render={({ field }) => (
             <FormItem>
-              <FormControl>
-                <Select value={field.value} onValueChange={field.onChange}>
-                  <SelectTrigger>
-                    <SelectValue placeholder='Select Category' />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {categories.map(type => (
-                      <SelectItem key={type.value} value={type.label}>
-                        {type.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name='subcategory'
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Select
-                  value={field.value}
-                  onValueChange={field.onChange}
-                  disabled={!subCategories.length}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder='Select Sub-Category' />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {subCategories.map(type => (
-                      <SelectItem key={type.value} value={type.label}>
-                        {type.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name=''
-          render={({ field }) => (
-            <FormItem>
+              <FormLabel>Account Type</FormLabel>
               <FormControl>
                 <Select value={field.value} onValueChange={field.onChange}>
                   <SelectTrigger>
@@ -235,6 +258,7 @@ export default function AccountCreateForm2 ({}: {}) {
           name='phoneNumber'
           render={({ field }) => (
             <FormItem>
+              <FormLabel>Phone Number</FormLabel>
               <FormControl>
                 <PhoneInput
                   value={field.value}
@@ -251,34 +275,16 @@ export default function AccountCreateForm2 ({}: {}) {
           control={form.control}
           name='otp'
           render={({ field }) => (
-            <FormItem className='mx-auto'>
+            <FormItem className=''>
               <FormControl>
                 <InputOTP maxLength={6} {...field}>
-                  <InputOTPGroup>
-                    <InputOTPSlot
-                      index={0}
-                      className='xs:h-12 xs:w-12 h-8 w-8 '
-                    />
-                    <InputOTPSlot
-                      index={1}
-                      className='xs:h-12 xs:w-12 h-8 w-8 '
-                    />
-                    <InputOTPSlot
-                      index={2}
-                      className='xs:h-12 xs:w-12 h-8 w-8 '
-                    />
-                    <InputOTPSlot
-                      index={3}
-                      className='xs:h-12 xs:w-12 h-8 w-8 '
-                    />
-                    <InputOTPSlot
-                      index={4}
-                      className='xs:h-12 xs:w-12 h-8 w-8 '
-                    />
-                    <InputOTPSlot
-                      index={5}
-                      className='xs:h-12 xs:w-12 h-8 w-8 '
-                    />
+                  <InputOTPGroup className='grid grid-cols-6 w-full gap-2 sm:gap-4'>
+                    <InputOTPSlot index={0} className='w-full aspect-square' />
+                    <InputOTPSlot index={1} className='w-full aspect-square' />
+                    <InputOTPSlot index={2} className='w-full aspect-square' />
+                    <InputOTPSlot index={3} className='w-full aspect-square' />
+                    <InputOTPSlot index={4} className='w-full aspect-square' />
+                    <InputOTPSlot index={5} className='w-full aspect-square' />
                   </InputOTPGroup>
                 </InputOTP>
               </FormControl>
@@ -286,7 +292,7 @@ export default function AccountCreateForm2 ({}: {}) {
             </FormItem>
           )}
         />
-        <Button>Send OTP</Button>
+        <Button className='mt-4 w-fit min-w-24 mx-auto'>Send OTP</Button>
       </form>
     </Form>
   )

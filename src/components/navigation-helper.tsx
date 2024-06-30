@@ -11,8 +11,5 @@ export default function NavigationHelper () {
     setSidebarState(false)
   }, [pathname])
 
-  useEffect(() => {
-    setAuthDialogState(true)
-  }, [])
   return null
 }

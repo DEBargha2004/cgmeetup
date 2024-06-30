@@ -62,13 +62,13 @@ export default function SignInWithOtpForm ({
               <FormLabel>Password</FormLabel>
               <FormControl>
                 <InputOTP maxLength={6} {...field}>
-                  <InputOTPGroup className='gap-2 mx-auto'>
-                    <InputOTPSlot index={0} />
-                    <InputOTPSlot index={1} />
-                    <InputOTPSlot index={2} />
-                    <InputOTPSlot index={3} />
-                    <InputOTPSlot index={4} />
-                    <InputOTPSlot index={5} />
+                  <InputOTPGroup className='w-full grid grid-cols-6 gap-2'>
+                    <InputOTPSlot index={0} className='w-full aspect-square' />
+                    <InputOTPSlot index={1} className='w-full aspect-square' />
+                    <InputOTPSlot index={2} className='w-full aspect-square' />
+                    <InputOTPSlot index={3} className='w-full aspect-square' />
+                    <InputOTPSlot index={4} className='w-full aspect-square' />
+                    <InputOTPSlot index={5} className='w-full aspect-square' />
                   </InputOTPGroup>
                 </InputOTP>
               </FormControl>

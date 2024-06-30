@@ -23,7 +23,11 @@ export default function ImageCollection ({
       data-scale={imageScale}
     >
       {projects.data.map((project, index) => (
-        <Link href={`/gallery/${project.id}`} key={index}>
+        <Link
+          href={`/gallery/?id=${project.id}`}
+          as={`/gallery/${project.id}`}
+          key={index}
+        >
           <GalleryImage project={project} key={project.id} />
         </Link>
       ))}

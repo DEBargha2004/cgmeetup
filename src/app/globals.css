@@ -80,8 +80,8 @@ html {
 }
 
 .scroller {
-  scrollbar-width: thin; /* Sets the width of the scrollbar */
-  scrollbar-color: hsl(204, 99%, 49%) transparent; /* Sets the thumb color and track color */
+  scrollbar-width: thin;
+  scrollbar-color: hsl(204, 99%, 49%) transparent;
 }
 
 /* Hides the scrollbar for Firefox */

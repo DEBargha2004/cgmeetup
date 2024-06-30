@@ -36,19 +36,12 @@ export default function Post ({
       className='lg:h-full h-auto overflow-y-auto scroller max-w-[100vw] flex lg:flex-row 
     flex-col justify-start items-start relative'
     >
-      <Close className='lg:hidden block z-20 top-4 right-4' />
       <div
         className='w-full xl:w-[74%] lg:w-[70%] lg:h-[calc(100vh-64px)]  flex flex-col justify-start items-stretch 
              relative bg-darkAccent'
       >
-        <Breadcrumb className='w-full p-3 px-6'>
-          <BreadcrumbList>
-            <BreadcrumbItem>Gallery</BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>MonstercarId</BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-        <div className='md:overflow-y-auto h-fit md:h-full md:snap-mandatory md:snap-y scroller'>
+        <div className='md:overflow-y-auto h-fit md:h-full md:snap-mandatory md:snap-y scroller relative'>
+          <Close className='z-20 top-4 left-14  w-fit' />
           {Array.from({ length: 4 }, (_, i) => i).map(item => (
             <PostImage key={item}>
               <Image
@@ -94,7 +87,7 @@ function Navigator ({
   return (
     <div
       className={cn(
-        `h-full absolute top-0 flex justify-center items-center px-8
+        `h-full absolute top-0 flex justify-center items-center px-4
         hover:bg-lightAccent/20 transition-all cursor-pointer`,
         className
       )}

@@ -73,10 +73,10 @@ export default function AuthDialog () {
 
   return (
     <Dialog open={authDialogState} onOpenChange={setAuthDialogState}>
-      <DialogContent className='p-0 overflow-hidden max-h-[calc(100vh-100px)] overflow-y-auto scroller'>
+      <DialogContent className='p-0 overflow-hidden max-h-[calc(100vh-30px)] overflow-y-auto scroller'>
         {showForm.phone ? (
-          <FormCard heading='Phone Number'>
-            <FieldsContainer className='w-3/4'>
+          <FormCard heading='Sign Up'>
+            <FieldsContainer className='w-3/5'>
               <PhoneNumberForm
                 form={phoneInputForm}
                 onSubmit={handlePhoneInputFormSubmit}
@@ -86,8 +86,8 @@ export default function AuthDialog () {
           </FormCard>
         ) : null}
         {showForm.pass ? (
-          <FormCard heading='Phone Number'>
-            <FieldsContainer className='w-3/4'>
+          <FormCard heading='Sign Up'>
+            <FieldsContainer className='w-3/5'>
               <SignInWithPassForm
                 form={signInWithPasswordForm}
                 onSubmit={handleSignInWithPasswordFormSubmit}
@@ -99,8 +99,8 @@ export default function AuthDialog () {
           </FormCard>
         ) : null}
         {showForm.otp ? (
-          <FormCard heading='Phone Number'>
-            <FieldsContainer className='w-3/4'>
+          <FormCard heading='Sign Up'>
+            <FieldsContainer className='w-3/5'>
               <SignInWithOtpForm
                 form={signInWithOtpForm}
                 onSubmit={handleSignInWithOtpFormSubmit}
@@ -112,16 +112,13 @@ export default function AuthDialog () {
           </FormCard>
         ) : null}
         {showForm.create_acc ? (
-          <FormCard
-            heading='Create Account'
-            subHeading='Create an account to continue.'
-          >
-            <FieldsContainer className='w-4/5'>
+          <FormCard heading='Create Account'>
+            <FieldsContainer className='w-3/4'>
               <AccountCreateForm2 />
             </FieldsContainer>
           </FormCard>
         ) : null}
-        <div className='flex justify-between p-2'>
+        {/* <div className='flex justify-between p-2'>
           <p
             className='w-fit text-sm text-primary cursor-pointer'
             onClick={() => setShowForm({ create_acc: true })}
@@ -134,7 +131,7 @@ export default function AuthDialog () {
           >
             Phone Number
           </p>
-        </div>
+        </div> */}
       </DialogContent>
     </Dialog>
   )

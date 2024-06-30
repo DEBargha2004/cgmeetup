@@ -22,16 +22,18 @@ export default function FormCard ({
       )}
     >
       <div className='space-y-4 w-full'>
-        <div className='space-y-2 p-4 bg-lightAccent'>
+        <div className='space-y-2 p-2 px-4 px bg-lightAccent'>
           <div className='flex justify-between items-center'>
             <h1 className='text-xl font-semibold'>{heading}</h1>
             {extraButton}
           </div>
-          <div className='text-sm opacity-70'>
-            {subHeading?.split('@new').map((item, index) => (
-              <p key={index}>{item}</p>
-            ))}
-          </div>
+          {subHeading ? (
+            <div className='text-sm opacity-70'>
+              {subHeading?.split('@new').map((item, index) => (
+                <p key={index}>{item}</p>
+              ))}
+            </div>
+          ) : null}
         </div>
       </div>
       {children}
