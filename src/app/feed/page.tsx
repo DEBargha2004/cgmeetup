@@ -25,6 +25,7 @@ import Image from 'next/image'
 import Tags from './_components/tags'
 import add1 from '../../../public/images/add_1.jpg'
 import add2 from '../../../public/images/add-2.jpg'
+import PostCreate from './_components/post-create'
 
 export default function FeedPage () {
   const feedRef = useRef<HTMLDivElement>(null)
@@ -127,6 +128,7 @@ export default function FeedPage () {
             <CarouselNext className='-translate-x-10 bg-transparent' />
             <CarouselPrevious className='translate-x-10 bg-transparent' />
           </Carousel>
+          <PostCreate />
           <div className='flex justify-between items-center w-full'>
             <h1 className='text-lg'>Job Recommendation</h1>
             <Link href={'/jobs'} className='text-primary text-sm'>

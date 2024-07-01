@@ -19,6 +19,7 @@ import ClearButton from './clear-button'
 import AccordionItemChildWrapper from './accordion-item-children-wrapper'
 import AuthDialog from './auth-dialog'
 import PostCreateDialog from './post-create-dialog'
+import MultiSelect from './multi-select'
 
 export {
   AppLogo,
@@ -39,5 +40,6 @@ export {
   ClearButton,
   AccordionItemChildWrapper,
   AuthDialog,
-  PostCreateDialog
+  PostCreateDialog,
+  MultiSelect
 }

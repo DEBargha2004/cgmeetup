@@ -22,6 +22,7 @@ import UploadImageSingle from './upload-image-single'
 import SignInWithPassForm from './sign-in-with-pass'
 import SignInWithOtpForm from './sign-in-with-otp'
 import AccountCreateForm2 from './account-create-2'
+import VideoUrlForm from './video-url'
 
 export {
   SignInForm,
@@ -47,5 +48,6 @@ export {
   UploadImageSingle,
   SignInWithPassForm,
   SignInWithOtpForm,
-  AccountCreateForm2
+  AccountCreateForm2,
+  VideoUrlForm
 }

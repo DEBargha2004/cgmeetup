@@ -170,7 +170,7 @@ export default function Sidebar ({ postId }: { postId: string }) {
       </div>
       <div
         className={cn(
-          'flex justify-center items-center border-t border-white',
+          'flex justify-center items-center border-t border-border',
           activeTab === 'comment' ? 'h-[80px]' : 'hidden'
         )}
       >

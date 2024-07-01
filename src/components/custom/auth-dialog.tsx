@@ -73,7 +73,7 @@ export default function AuthDialog () {
 
   return (
     <Dialog open={authDialogState} onOpenChange={setAuthDialogState}>
-      <DialogContent className='p-0 overflow-hidden max-h-[calc(100vh-30px)] overflow-y-auto scroller'>
+      <DialogContent className='p-0 overflow-hidden max-h-[calc(100vh-30px)] overflow-y-auto scroller-hide'>
         {showForm.phone ? (
           <FormCard heading='Sign Up'>
             <FieldsContainer className='w-3/5'>

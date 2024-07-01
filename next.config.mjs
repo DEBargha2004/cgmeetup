@@ -10,6 +10,9 @@ const nextConfig = {
       },
       {
         hostname: 'cdna.artstation.com'
+      },
+      {
+        hostname: 'img.youtube.com'
       }
     ]
   }

@@ -79,10 +79,10 @@ html {
   overflow: hidden;
 }
 
-.scroller {
+/* .scroller {
   scrollbar-width: thin;
   scrollbar-color: hsl(204, 99%, 49%) transparent;
-}
+} */
 
 /* Hides the scrollbar for Firefox */
 .scroller-hide {
