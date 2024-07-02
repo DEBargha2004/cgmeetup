@@ -41,11 +41,33 @@ export const dashboardSidebar: SidebarItem[] = [
   },
   {
     type: 'link',
+    label: 'News',
+    id: 'news',
+    href: '/dashboard/news',
+    icon_name: 'newspaper',
+    catch_routes: ['/dashboard/news', '/dashboard/news/create']
+  },
+  {
+    type: 'separator'
+  },
+  {
+    type: 'link',
     label: 'Bookmarks',
     href: '/dashboard/bookmarks',
     icon_name: 'bookmark',
     id: 'bookmarks',
     catch_routes: ['/dashboard/bookmarks']
+  },
+  {
+    type: 'link',
+    label: 'Notifications',
+    href: '/dashboard/notifications',
+    icon_name: 'notifications',
+    id: 'notifications',
+    catch_routes: ['/dashboard/notifications']
+  },
+  {
+    type: 'separator'
   },
   {
     type: 'link',

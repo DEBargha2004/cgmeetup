@@ -20,6 +20,8 @@ import AccordionItemChildWrapper from './accordion-item-children-wrapper'
 import AuthDialog from './auth-dialog'
 import PostCreateDialog from './post-create-dialog'
 import MultiSelect from './multi-select'
+import NewsCard from './news-card'
+import FeaturedNewsCard from './featured-news-card'
 
 export {
   AppLogo,
@@ -41,5 +43,7 @@ export {
   AccordionItemChildWrapper,
   AuthDialog,
   PostCreateDialog,
-  MultiSelect
+  MultiSelect,
+  NewsCard,
+  FeaturedNewsCard
 }

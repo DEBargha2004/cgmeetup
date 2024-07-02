@@ -115,6 +115,26 @@ export default function Sidebar ({ postId }: { postId: string }) {
               : null}
             {activeTab === 'creator' ? (
               <>
+                <Card id='more-work' className='bg-card'>
+                  <CardHeader className='flex flex-row justify-start items-center gap-2'>
+                    More by{' '}
+                    <strong className='cursor-pointer hover:text-primary'>
+                      Guillaume
+                    </strong>
+                  </CardHeader>
+                  <CardContent className='grid grid-cols-3 gap-1'>
+                    {Array.from({ length: 6 }, (_, i) => i).map(item => (
+                      <Image
+                        key={item}
+                        src={project.smaller_square_cover_url}
+                        alt='more-work'
+                        height={100}
+                        width={100}
+                        className='rounded-sm w-full'
+                      />
+                    ))}
+                  </CardContent>
+                </Card>
                 <Card className='bg-card'>
                   <CardContent className='flex gap-2 flex-wrap pt-6'>
                     <strong className='opacity-70'>Software :</strong>
@@ -139,27 +159,6 @@ export default function Sidebar ({ postId }: { postId: string }) {
                       <Badge key={cat} className='border opacity-70'>
                         {cat}
                       </Badge>
-                    ))}
-                  </CardContent>
-                </Card>
-
-                <Card id='more-work' className='bg-card'>
-                  <CardHeader className='flex flex-row justify-start items-center gap-2'>
-                    More by{' '}
-                    <strong className='cursor-pointer hover:text-primary'>
-                      Guillaume
-                    </strong>
-                  </CardHeader>
-                  <CardContent className='grid grid-cols-3 gap-1'>
-                    {Array.from({ length: 6 }, (_, i) => i).map(item => (
-                      <Image
-                        key={item}
-                        src={project.smaller_square_cover_url}
-                        alt='more-work'
-                        height={100}
-                        width={100}
-                        className='rounded-sm w-full'
-                      />
                     ))}
                   </CardContent>
                 </Card>

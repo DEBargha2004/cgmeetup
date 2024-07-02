@@ -41,7 +41,8 @@ export default function Navbar ({ className }: { className?: string }) {
     sidebarState,
     setSidebarState,
     setAuthDialogState,
-    setPostDialogState
+    setPostDialogState,
+    setJobDialogState
   } = useGlobalAppStore()
   const [signedin, setSignedin] = useState(false)
   const pathname = usePathname()
@@ -167,6 +168,12 @@ export default function Navbar ({ className }: { className?: string }) {
                 )}
               </React.Fragment>
             ))}
+            <DropdownMenuItem
+              className='cursor-pointer'
+              onClick={() => setJobDialogState(true)}
+            >
+              Add Job
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
         {!signedin ? (

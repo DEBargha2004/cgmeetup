@@ -27,6 +27,13 @@ export const navItems: NavItem[] = [
     catch_routes: ['/jobs', '/jobs/latest', '/jobs/trending', '/jobs/featured']
   },
   {
+    id: 'news',
+    label: 'News',
+    href: '/news',
+    icon: 'newspaper',
+    catch_routes: ['/news']
+  },
+  {
     id: 'artists',
     label: 'Artists',
     href: '/artists',

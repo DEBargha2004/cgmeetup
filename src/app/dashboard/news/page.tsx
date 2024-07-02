@@ -31,7 +31,6 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import {
   Table,
   TableBody,
@@ -62,7 +61,7 @@ export default function Gallery () {
   const [selectedFilter, setSelectedFilter] = useState(filter[0].value)
   return (
     <div className='flex h-full w-full flex-col'>
-      <div className='flex flex-col sm:gap-4'>
+      <div className='flex flex-col sm:gap-4 '>
         <header className=' z-30 flex md:h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6'>
           <Breadcrumb className='hidden md:flex'>
             <BreadcrumbList>
@@ -74,7 +73,7 @@ export default function Gallery () {
               <BreadcrumbSeparator />
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href='#'>Gallery Posts</Link>
+                  <Link href='#'>News Posts</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
             </BreadcrumbList>
@@ -85,11 +84,11 @@ export default function Gallery () {
             <div className='flex items-center gap-2'>
               <TabsList className='bg-card'>
                 <TabsTrigger value='all'>All</TabsTrigger>
-                <TabsTrigger value='active'>Public</TabsTrigger>
-                <TabsTrigger value='active'>Private</TabsTrigger>
+                <TabsTrigger value='public'>Public</TabsTrigger>
+                <TabsTrigger value='private'>Private</TabsTrigger>
                 <TabsTrigger value='draft'>Draft</TabsTrigger>
               </TabsList>
-              <Link href={'/dashboard/gallery/create'}>
+              <Link href={'/dashboard/news/create'}>
                 <Button
                   size='sm'
                   variant={'success'}
@@ -97,7 +96,7 @@ export default function Gallery () {
                 >
                   <PlusCircle className='h-3.5 w-3.5' />
                   <span className='sr-only sm:not-sr-only sm:whitespace-nowrap'>
-                    Add Post
+                    Add News
                   </span>
                 </Button>
               </Link>
@@ -139,7 +138,7 @@ export default function Gallery () {
             <TabsContent value='all'>
               <Card x-chunk='dashboard-06-chunk-0' className='bg-card'>
                 <CardHeader className='pb-2'>
-                  <CardTitle className='text-xl'>Gallery Posts</CardTitle>
+                  <CardTitle className='text-xl'>News Posts</CardTitle>
                   <CardDescription>
                     Manage your posts and view their performance.
                   </CardDescription>

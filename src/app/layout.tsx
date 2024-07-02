@@ -10,6 +10,7 @@ import {
 } from '@/components/custom'
 import './globals.css'
 import './global-icons.css'
+import JobCreateDialog from '@/components/custom/job-create-dialog'
 
 const inter = Open_Sans({ subsets: ['cyrillic'] })
 
@@ -38,6 +39,7 @@ export default function RootLayout ({
           </div>
           <AuthDialog />
           <PostCreateDialog />
+          <JobCreateDialog />
           <NavigationHelper />
         </ThemeProvider>
       </body>

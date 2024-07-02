@@ -19,7 +19,7 @@ export const jobPostSchema = z.object({
     lower_limit: z.string({ required_error: 'Lower Limit is required' }),
     upper_limit: z.string({ required_error: 'Upper Limit is required' })
   }),
-  mode: z.string({ required_error: 'Mode is required' })
+  location: z.string({ required_error: 'Location is required' })
 })
 
 export type JobPostSchemaType = z.infer<typeof jobPostSchema>

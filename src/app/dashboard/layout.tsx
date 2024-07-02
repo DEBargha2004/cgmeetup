@@ -19,7 +19,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
         {dashboardSidebar.map((item, item_idx) => (
           <React.Fragment key={item_idx}>
             {item.type === 'separator' ? (
-              <div className='py-2' />
+              <div className='border-b w-full' />
             ) : item.type === 'header' ? (
               <div
                 className='hidden lg:flex justify-start items-center p-2 

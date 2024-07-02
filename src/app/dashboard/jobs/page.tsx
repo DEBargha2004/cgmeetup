@@ -182,7 +182,7 @@ export default function Gallery () {
                           Category
                         </TableHead>
                         <TableHead className='hidden md:table-cell'>
-                          Created at
+                          Created on
                         </TableHead>
                         <TableHead>
                           <span className='sr-only'>Actions</span>

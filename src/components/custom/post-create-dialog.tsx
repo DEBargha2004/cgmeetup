@@ -158,6 +158,7 @@ export default function PostCreateDialog () {
       onOpenChange={e => {
         setPostDesc('')
         setMediaList([])
+        setTitle('')
         setPostDialogState(e)
       }}
     >
@@ -195,7 +196,7 @@ export default function PostCreateDialog () {
               </p>
             </div>
             <div className='flex justify-between items-center'>
-              <div className='flex justify-start items-center gap-4'>
+              <div className='flex justify-start items-center gap-4 cursor-pointer'>
                 <input type='file' {...imageDropzone.getInputProps()} hidden />
                 <div
                   className='flex justify-start items-center gap-1'
@@ -245,49 +246,66 @@ export default function PostCreateDialog () {
                 </MaterialSymbolIcon>
               </div>
             )}
-            <div className='w-full overflow-hidden relative p-2 bg-darkAccent border'>
-              <div
-                className='flex gap-1 overflow-x-auto scroller-hide transition-all'
-                ref={mediaListRef}
-              >
-                {mediaList.map((media, index) => (
-                  <PostMedia
-                    index={index}
-                    key={media.id}
-                    {...media}
-                    onDelete={handleDeleteImage}
-                    className='w-1/3 aspect-square shrink-0'
-                  />
-                ))}
+            {mediaList.length ? (
+              <div className='w-full overflow-hidden relative p-2 bg-darkAccent border'>
+                <div
+                  className='flex gap-1 overflow-x-auto scroller-hide transition-all'
+                  ref={mediaListRef}
+                >
+                  {mediaList.map((media, index) => (
+                    <PostMedia
+                      index={index}
+                      key={media.id}
+                      {...media}
+                      onDelete={handleDeleteImage}
+                      className='w-1/3 aspect-square shrink-0'
+                    />
+                  ))}
 
-                {mediaList.length ? (
-                  <div className='w-1/3 aspect-square grid place-content-center shrink-0'>
-                    <div
-                      className='h-14 aspect-square rounded-full border-2 border-primary 
+                  {mediaList.length ? (
+                    <div className='w-1/3 aspect-square grid place-content-center shrink-0'>
+                      <div
+                        className='h-14 aspect-square rounded-full border-2 border-primary 
                       grid place-content-center cursor-pointer'
-                      {...imageDropzone.getRootProps()}
-                    >
-                      <MaterialSymbolIcon className='text-4xl opacity-100'>
-                        add
-                      </MaterialSymbolIcon>
+                        {...imageDropzone.getRootProps()}
+                      >
+                        <MaterialSymbolIcon className='text-4xl opacity-100'>
+                          add
+                        </MaterialSymbolIcon>
+                      </div>
                     </div>
-                  </div>
-                ) : null}
+                  ) : null}
+                </div>
+                <Navigator
+                  icon='arrow_back_ios'
+                  className='absolute left-0 top-1/2 -translate-y-1/2 z-10 '
+                  onClick={() => handleCarouselNavigation('prev')}
+                />
+                <Navigator
+                  icon='arrow_forward_ios'
+                  className='absolute right-0 top-1/2 -translate-y-1/2 z-10 '
+                  onClick={() => handleCarouselNavigation('next')}
+                />
               </div>
-              <Navigator
-                icon='arrow_back_ios'
-                className='absolute left-0 top-1/2 -translate-y-1/2 z-10 '
-                onClick={() => handleCarouselNavigation('prev')}
-              />
-              <Navigator
-                icon='arrow_forward_ios'
-                className='absolute right-0 top-1/2 -translate-y-1/2 z-10 '
-                onClick={() => handleCarouselNavigation('next')}
-              />
-            </div>
+            ) : null}
             <div hidden={!Boolean(mediaList.length)}>
               <p className='text-sm'>Thumbnail</p>
-              <div className='w-full h-[240px] flex justify-center items-center border p-2 bg-darkAccent'></div>
+              <div
+                className='w-full h-[240px] flex justify-center items-center border 
+              p-2 bg-darkAccent relative'
+              >
+                <div className='absolute w-full bottom-0 py-2 left-0 flex justify-center items-center gap-4'>
+                  <Badge
+                    className='h-8 w-fit px-2 flex justify-between items-center gap-2
+                cursor-pointer'
+                  >
+                    <MaterialSymbolIcon className='opacity-100 text-base'>
+                      upload_2
+                    </MaterialSymbolIcon>
+                    <span>Upload</span>
+                  </Badge>
+                </div>
+              </div>
             </div>
             {showOptions ? (
               <div className='grid gap-2'>
@@ -317,12 +335,15 @@ export default function PostCreateDialog () {
                     <Switch />
                   </div>
                 </div>
-                <div className='flex justify-start items-center gap-2'>
-                  <span className='text-sm'>Delete Post</span>
-                  <MaterialSymbolIcon className='cursor-pointer text-2xl text-destructive opacity-100'>
+                <Badge
+                  className='h-8 w-fit px-2 flex justify-between items-center gap-2
+                cursor-pointer'
+                >
+                  <MaterialSymbolIcon className='opacity-100 text-base'>
                     delete
                   </MaterialSymbolIcon>
-                </div>
+                  <span>Delete</span>
+                </Badge>
               </div>
             ) : null}
           </div>

@@ -33,7 +33,9 @@ export default function MultiSelect ({
             </Badge>
           ))}
           {!selectedValues.length ? (
-            <span className='opacity-70 text-sm my-auto'>{placeholder}</span>
+            <span className='opacity-70 text-sm my-auto px-2'>
+              {placeholder}
+            </span>
           ) : null}
         </div>
       </DropdownMenuTrigger>
