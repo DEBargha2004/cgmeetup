@@ -6,12 +6,7 @@ export const experience_levels = [
   '8 - 10 Years',
   '10 - 12 Years',
   '12 - 15 Years',
-  '15 - 18 Years',
-  '18 - 20 Years',
-  '20 - 25 Years',
-  '25 - 30 Years',
-  '30 - 40 Years',
-  '40 - 60 Years'
+  '15+ Years'
 ]
 
 export const education_levels = [

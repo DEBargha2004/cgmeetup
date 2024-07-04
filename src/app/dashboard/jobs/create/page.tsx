@@ -70,6 +70,7 @@ import {
 } from '@/components/ui/popover'
 import logo from '../../../../../public/images/company-logo.jpg'
 import _ from 'lodash'
+import { Combobox } from '@/components/ui/combobox'
 
 const visibilityOptions: string[] = ['Open', 'Closed']
 
@@ -83,6 +84,13 @@ const addresses = [
   'Kaduna, Nigeria',
   'Jos, Nigeria',
   'Ilorin, Nigeria'
+]
+
+const apply_options = ['Chat', 'Link', 'Email']
+const assignable_members: { label: string; value: string }[] = [
+  { label: 'Rafique', value: 'rafique' },
+  { label: 'Hamza', value: 'hamza' },
+  { label: 'Talha', value: 'talha' }
 ]
 
 export default function Dashboard () {
@@ -112,9 +120,11 @@ export default function Dashboard () {
       skills: [],
       salary: {
         currency: currencies[0],
-        lower_limit: '0',
-        upper_limit: '1'
-      }
+        lower_limit: '2',
+        upper_limit: '5'
+      },
+      apply_option: apply_options[0],
+      location: addresses[0]
     }
   })
 
@@ -122,6 +132,7 @@ export default function Dashboard () {
 
   const upperLimit = parseInt(form.watch('salary.upper_limit') || '0')
   const lowerLimit = parseInt(form.watch('salary.lower_limit') || '0')
+  const apply_option = form.watch('apply_option')
 
   const upperLimits = useMemo(() => {
     return Array.from({ length: 200 }).map((_, i) => lowerLimit + i + 1)
@@ -283,7 +294,7 @@ export default function Dashboard () {
 
                   <Card x-chunk='dashboard-07-chunk-2' className='bg-card'>
                     <CardHeader className='pb-3'>
-                      <CardTitle className='text-xl'>Category</CardTitle>
+                      <CardTitle className='text-xl'>Job Positions</CardTitle>
                     </CardHeader>
                     <CardContent className=''>
                       <div className='flex items-center justify-start gap-3'>
@@ -296,7 +307,7 @@ export default function Dashboard () {
                               onValueChange={field.onChange}
                             >
                               <SelectTrigger className=' md:w-1/2 w-full'>
-                                <SelectValue placeholder='Category' />
+                                <SelectValue placeholder='Industry' />
                               </SelectTrigger>
                               <SelectContent>
                                 {categories.map(category => (
@@ -324,7 +335,7 @@ export default function Dashboard () {
                                   onValueChange={field.onChange}
                                 >
                                   <SelectTrigger className=''>
-                                    <SelectValue placeholder='Sub Category' />
+                                    <SelectValue placeholder='Positions' />
                                   </SelectTrigger>
                                   <SelectContent>
                                     {categories
@@ -543,6 +554,7 @@ export default function Dashboard () {
                               ref={salaryTriggerRef}
                             >
                               <span className='text-sm'>
+                                Salary&nbsp;
                                 {form.watch('salary.currency')}&nbsp;
                                 {!_.isNull(lowerLimit)
                                   ? `${lowerLimit} LPA -`
@@ -661,25 +673,90 @@ export default function Dashboard () {
                       </div>
                     </CardContent>
                   </Card>
+
+                  <Card x-chunk='dashboard-07-chunk-2' className='bg-card'>
+                    <CardHeader className='pb-3'>
+                      <CardTitle className='text-xl'>How to Apply</CardTitle>
+                    </CardHeader>
+                    <CardContent className='grid grid-cols-3 gap-2'>
+                      <FormField
+                        control={form.control}
+                        name='apply_option'
+                        render={({ field }) => (
+                          <FormItem className=''>
+                            <FormControl>
+                              <Select
+                                value={field.value}
+                                onValueChange={field.onChange}
+                              >
+                                <SelectTrigger>
+                                  <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  {apply_options.map((opt, index) => (
+                                    <SelectItem value={opt} key={index}>
+                                      {opt}
+                                    </SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      {['Link', 'Email'].includes(apply_option) ? (
+                        <FormField
+                          control={form.control}
+                          name='apply_option_info'
+                          render={({ field }) => (
+                            <FormItem className='col-span-2'>
+                              <FormControl>
+                                <Input
+                                  {...field}
+                                  placeholder={`Application ${apply_option}`}
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      ) : null}
+                    </CardContent>
+                  </Card>
                   <Card x-chunk='dashboard-07-chunk-2' className='bg-card'>
                     <CardHeader className='pb-3'>
                       <CardTitle className='text-xl'>Address</CardTitle>
                     </CardHeader>
-                    <CardContent className='flex justify-between items-center gap-2'>
-                      <Select>
-                        <SelectTrigger className='w-1/2'>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {addresses.map((address, index) => (
-                            <SelectItem value={address} key={index}>
-                              {address}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                    <CardContent className='grid grid-cols-2 gap-2'>
+                      <FormField
+                        control={form.control}
+                        name='location'
+                        render={({ field }) => (
+                          <FormItem className='w-full'>
+                            <FormControl>
+                              <Select
+                                value={field.value}
+                                onValueChange={field.onChange}
+                              >
+                                <SelectTrigger className=''>
+                                  <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  {addresses.map((address, index) => (
+                                    <SelectItem value={address} key={index}>
+                                      {address}
+                                    </SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
                       <Button
-                        className='w-fit rounded  bg-transparent hover:bg-darkAccent/80'
+                        className='w-fit rounded  bg-transparent hover:bg-darkAccent/80 ml-auto'
                         variant={'outline'}
                         type='button'
                       >
@@ -688,6 +765,31 @@ export default function Dashboard () {
                         </MaterialSymbolIcon>
                         Edit Address Here
                       </Button>
+                    </CardContent>
+                  </Card>
+                  <Card x-chunk='dashboard-07-chunk-2' className='bg-card'>
+                    <CardHeader className='pb-3'>
+                      <CardTitle className='text-xl'>
+                        Assigned To Team Member
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className='grid grid-cols-2 gap-2'>
+                      <FormField
+                        control={form.control}
+                        name='assigned_to'
+                        render={({ field }) => (
+                          <FormItem className='w-full'>
+                            <FormControl>
+                              <Combobox
+                                value={field.value}
+                                onChange={field.onChange}
+                                options={assignable_members}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
                     </CardContent>
                   </Card>
                 </div>
@@ -775,10 +877,10 @@ export default function Dashboard () {
                     <CardHeader className='px-0 pb-2 pt-0'>
                       <CardTitle className='text-xl'>Delete</CardTitle>
                     </CardHeader>
-                    <CardContent className='px-0'>
+                    <CardContent className='px-0 grid place-content-center'>
                       <Button
                         variant={'destructive'}
-                        className='w-full'
+                        className='min-w-24 '
                         type='button'
                       >
                         <MaterialSymbolIcon className='mr-2'>

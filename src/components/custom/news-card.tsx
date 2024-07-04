@@ -9,6 +9,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger
 } from '../ui/dropdown-menu'
+import Link from 'next/link'
 
 export default function NewsCard ({ className }: { className?: string }) {
   return (
@@ -31,7 +32,9 @@ export default function NewsCard ({ className }: { className?: string }) {
         />
         <div className='space-y-2 w-full'>
           <div className='text-lg md:text-xl font-semibold flex justify-between items-center'>
-            <h1>The Autodesk Showreel 2024</h1>
+            <Link href={'/news/123'}>
+              <h1>The Autodesk Showreel 2024</h1>
+            </Link>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <MaterialSymbolIcon className='inline-block cursor-pointer'>

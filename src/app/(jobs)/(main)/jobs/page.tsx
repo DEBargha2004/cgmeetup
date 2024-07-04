@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { JobCard, FeaturedJobCard } from '@/components/custom'
 import { sample_cateories } from '@/constants/categories'
+import Filter from '../_components/filter'
 
 export default function Dashboard () {
   return (
@@ -23,7 +24,15 @@ border-none bg-transparent'
           </Link>
         </CardContent>
       </Card>
-      <Card className='bg-transparent border-none col-span-3 xl:col-span-1'>
+      <Card className='bg-transparent border-none col-span-3 xl:col-span-1 space-y-3'>
+        <Card className='bg-card border'>
+          <CardHeader className='pb-0'>
+            <CardTitle className='text-xl '>Filters</CardTitle>
+          </CardHeader>
+          <CardContent className=''>
+            <Filter />
+          </CardContent>
+        </Card>
         <Card className='bg-transparent border-none'>
           <CardHeader className='xl:pt-0 px-1 pb-3'>
             <CardTitle className='text-lg font-bold'>Featured Jobs</CardTitle>
@@ -44,8 +53,8 @@ border-none bg-transparent'
           </CardContent>
         </Card>
         <Card className='bg-transparent border-none'>
-          <CardHeader className='px-1'>
-            <CardTitle>Categories</CardTitle>
+          <CardHeader className='px-1 pt-0'>
+            <CardTitle className='text-xl'>Categories</CardTitle>
           </CardHeader>
           <CardContent className='grid grid-cols-2 gap-2 px-1'>
             {sample_cateories.map(cat => (

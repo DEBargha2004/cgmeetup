@@ -60,14 +60,14 @@ const tabList1: TabItem[] = [
     icon: 'trending_up'
   },
   {
-    label: 'Latest',
-    href: '/jobs/latest',
-    icon: 'schedule'
-  },
-  {
     label: 'Featured',
     icon: 'featured_play_list',
     href: '/jobs/featured'
+  },
+  {
+    label: 'Latest',
+    href: '/jobs/latest',
+    icon: 'schedule'
   }
   // { label: 'Studios', href: '/jobs/studios', icon: 'apartment' },
 ]
@@ -150,7 +150,10 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
           <section className='flex justify-start items-center gap-10 px-2'>
             <Popover>
               <PopoverTrigger asChild>
-                <Button className='bg-lightAccent'>Job Positions</Button>
+                <Button className='bg-lightAccent flex justify-between items-center gap-1'>
+                  <MaterialSymbolIcon>work</MaterialSymbolIcon>
+                  <span>Job Positions</span>
+                </Button>
               </PopoverTrigger>
               <PopoverContent
                 side='right'
@@ -172,7 +175,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
                 </div>
               </PopoverContent>
             </Popover>
-            <Carousel className='w-[calc(100%-190px)]'>
+            <Carousel className='w-[calc(100%-210px)]'>
               <CarouselContent className=''>
                 {sample_cateories.map((cat, index) => (
                   <CarouselItem className='basis-auto' key={cat}>
