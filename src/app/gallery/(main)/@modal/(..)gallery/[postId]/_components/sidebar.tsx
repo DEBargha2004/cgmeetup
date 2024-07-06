@@ -7,7 +7,7 @@ import {
 } from '@/components/custom'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import Close from './close'
-import projects from '../../../../../../../../public/data/projects.json'
+import projects from '@/../public/data/projects.json'
 import CommentInput from './comment-input'
 import Comment from './comment'
 import { HTMLProps, useState } from 'react'
@@ -20,7 +20,7 @@ export default function Sidebar ({ postId }: { postId: string }) {
   const project_idx = projects.data.findIndex(
     project => project.id === Number(postId)
   )
-  const description = `ALorem Ipsum is simply dummy text of the printing and typesetting
+  const description = `Lorem Ipsum is simply dummy text of the printing and typesetting
     industry. Lorem Ipsum has been the industry's standard dummy text ever
     since the 1500s, when an unknown printer took a galley of type and
     scrambled it to make a type specimen book. It has survived not only
@@ -34,14 +34,23 @@ export default function Sidebar ({ postId }: { postId: string }) {
 
   const [activeTab, setActiveTab] = useState<'comment' | 'creator'>('comment')
   return (
-    <div className='w-full xl:w-[26%] lg:w-[30%] h-full overflow-y-auto px-1 scroller pt-2'>
+    <div className='w-full xl:w-[26%] lg:w-[30%] h-full lg:overflow-y-auto px-1 scroller pt-2'>
       <div
         className={cn(
-          ' space-y-3 overflow-y-auto scroller',
+          ' space-y-3 lg:overflow-y-auto scroller',
           activeTab === 'comment' ? 'h-[calc(100%-80px)]' : 'h-full'
         )}
       >
         <Card className='rounded bg-lightAccent relative'>
+          {/* <div className='flex justify-end gap-2 items-center absolute top-0 right-0 w-full pt-[6px]'>
+            <MaterialSymbolIcon
+              variant='filled'
+              className='opacity-100 hover:text-primary text-[20px] cursor-pointer'
+            >
+              more_vert
+            </MaterialSymbolIcon>
+            <Close className='lg:block lg:relative hidden text-[20px] opacity-100 hover:text-primary' />
+          </div> */}
           <CardContent id='user-profile' className='space-y-6 py-3 pr-5'>
             <ProfileInfoOverView
               heading='text-[14px] xl:text-[16px]'
@@ -80,7 +89,7 @@ export default function Sidebar ({ postId }: { postId: string }) {
           </div>
         </div>
         <div>
-          <div className='grid grid-cols-2 w-[95%] mx-auto sticky top-0 bg-darkAccent z-10'>
+          <div className='grid grid-cols-2 w-[95%] mx-auto sticky lg:top-0  bg-darkAccent z-10'>
             <TabItem
               className={cn(
                 activeTab === 'comment' ? ' border-primary border-b-2 ' : ''
@@ -98,7 +107,14 @@ export default function Sidebar ({ postId }: { postId: string }) {
               <span>More Work</span>
             </TabItem>
           </div>
-          <div className='py-3 w-[95%] mx-auto space-y-3 overflow-y-auto scroller'>
+          <div
+            className={cn(
+              'py-3 w-[95%]  lg:h-auto mx-auto space-y-3',
+              activeTab === 'comment'
+                ? 'overflow-y-auto scroller h-[calc(100vh/2)]'
+                : ''
+            )}
+          >
             {activeTab === 'comment'
               ? Array.from({ length: 19 }, (_, i) => i).map(item => (
                   <Comment key={item} showNestedComments />

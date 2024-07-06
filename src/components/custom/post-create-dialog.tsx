@@ -4,10 +4,17 @@ import { useGlobalAppStore } from '@/store/global-app-store'
 import { Dialog, DialogContent } from '../ui/dialog'
 import MaterialSymbolIcon from './material-symbol-icon'
 import { Textarea } from '../ui/textarea'
-import { HTMLProps, forwardRef, useEffect, useRef, useState } from 'react'
+import {
+  HTMLProps,
+  forwardRef,
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from 'react'
 import { Button } from '../ui/button'
 import { useDropzone } from 'react-dropzone'
-import Image from 'next/image'
+import NextImage from 'next/image'
 import { cn } from '@/lib/utils'
 import { Input } from '../ui/input'
 import avatar from '../../../public/images/profile-1.jpg'
@@ -17,21 +24,17 @@ import { useForm } from 'react-hook-form'
 import { VideoUrlSchemaType, videoUrlSchema } from '@/schema/video-url'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { VideoUrlForm } from './form'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger
-} from '../ui/dropdown-menu'
 import { Badge } from '../ui/badge'
 import MultiSelect from './multi-select'
 import { categories } from '@/constants/job-categories'
 import { Switch } from '../ui/switch'
+import Cropper, { ReactCropperElement } from 'react-cropper'
+import 'cropperjs/dist/cropper.css'
 
 type PostMedia = {
   type: 'video' | 'image'
-  height?: number
-  width?: number
+  height: number
+  width: number
   url: string
   id: string
 }
@@ -60,29 +63,46 @@ export default function PostCreateDialog () {
   const [title, setTitle] = useState<string>('')
   const [postDesc, setPostDesc] = useState('')
   const [mediaList, setMediaList] = useState<PostMedia[]>([])
+  const [thumbnail, setThumbnail] = useState<
+    (PostMedia & { custom: boolean }) | null
+  >(null)
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
   const [selectedSoftwares, setSelectedSoftwares] = useState<string[]>([])
   const [showOptions, setShowOptions] = useState(false)
 
   const mediaListRef = useRef<HTMLDivElement>(null)
+  const cropperRef = useRef<ReactCropperElement>(null)
 
   const imageDropzone = useDropzone({
     accept: { 'image/*': [] },
     multiple: true
   })
+  const thumbnailDropzone = useDropzone({
+    accept: { 'image/*': [] },
+    multiple: false
+  })
+
   const videoUrlForm = useForm<VideoUrlSchemaType>({
     resolver: zodResolver(videoUrlSchema)
   })
 
   const handleUrlSubmit = (data: VideoUrlSchemaType) => {
-    setMediaList(prev => [
-      ...prev,
-      {
-        id: crypto.randomUUID(),
-        url: getYoutubeThumbnail(data.url),
-        type: 'video'
-      }
-    ])
+    const thumbnail_url = getYoutubeThumbnail(data.url)
+    const image = new Image()
+    image.src = thumbnail_url
+
+    image.onload = () => {
+      setMediaList(prev => [
+        ...prev,
+        {
+          id: crypto.randomUUID(),
+          url: thumbnail_url,
+          height: image.height,
+          width: image.width,
+          type: 'video'
+        }
+      ])
+    }
 
     videoUrlForm.reset()
     setVideoUrlInput({ show: false, value: '' })
@@ -124,22 +144,61 @@ export default function PostCreateDialog () {
     })
   }
 
+  const cropperDimension = useMemo(() => {
+    const firstElement = mediaList[0]
+    if (firstElement) {
+      const dimension =
+        firstElement.height > firstElement.width
+          ? firstElement.width
+          : firstElement.height
+
+      return {
+        height: dimension,
+        width: dimension
+      }
+    } else {
+      return {
+        height: 0,
+        width: 0
+      }
+    }
+  }, [mediaList])
+
+  const loadImage = (file: File, cb: (postmedia: PostMedia) => void) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+
+    reader.onloadend = () => {
+      const image = new Image()
+      image.src = reader.result as string
+
+      image.onload = () => {
+        cb({
+          id: crypto.randomUUID(),
+          url: reader.result as string,
+          height: image.height,
+          width: image.width,
+          type: 'image'
+        })
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (mediaList.length) {
+      setThumbnail(prev => {
+        if (!prev?.custom) {
+          return { ...mediaList[0], custom: false }
+        }
+        return prev
+      })
+    }
+  }, [mediaList])
+
   useEffect(() => {
     if (imageDropzone.acceptedFiles.length) {
       imageDropzone.acceptedFiles.forEach(file => {
-        const reader = new FileReader()
-        reader.readAsDataURL(file)
-
-        reader.onloadend = () => {
-          setMediaList(prev => [
-            ...prev,
-            {
-              id: crypto.randomUUID(),
-              url: reader.result as string,
-              type: 'image'
-            }
-          ])
-        }
+        loadImage(file, media => setMediaList(prev => [...prev, media]))
       })
     }
   }, [imageDropzone.acceptedFiles])
@@ -152,12 +211,21 @@ export default function PostCreateDialog () {
     }
   }, [mediaList, title, postDesc])
 
+  useEffect(() => {
+    if (thumbnailDropzone.acceptedFiles.length) {
+      loadImage(thumbnailDropzone.acceptedFiles[0], media => {
+        setThumbnail({ ...media, custom: true })
+      })
+    }
+  }, [thumbnailDropzone.acceptedFiles])
+
   return (
     <Dialog
       open={postDialogState}
       onOpenChange={e => {
         setPostDesc('')
         setMediaList([])
+        setThumbnail(null)
         setTitle('')
         setPostDialogState(e)
       }}
@@ -288,25 +356,50 @@ export default function PostCreateDialog () {
                 />
               </div>
             ) : null}
-            <div hidden={!Boolean(mediaList.length)}>
-              <p className='text-sm'>Thumbnail</p>
-              <div
-                className='w-full h-[240px] flex justify-center items-center border 
+            {thumbnail ? (
+              <div>
+                <p className='text-sm'>Thumbnail</p>
+                <div
+                  className='w-full h-[240px] flex justify-center items-center border 
               p-2 bg-darkAccent relative'
-              >
-                <div className='absolute w-full bottom-0 py-2 left-0 flex justify-center items-center gap-4'>
-                  <Badge
-                    className='h-8 w-fit px-2 flex justify-between items-center gap-2
+                >
+                  <Cropper
+                    ref={cropperRef}
+                    style={{
+                      height: '100%',
+                      width: '100%'
+                    }}
+                    className='object-contain cropper'
+                    aspectRatio={1}
+                    src={thumbnail.url}
+                    // zoomTo={0.5}
+                    initialAspectRatio={1}
+                    preview='.img-preview'
+                    viewMode={1}
+                    minCropBoxHeight={10}
+                    minCropBoxWidth={10}
+                    background={false}
+                    responsive={true}
+                    autoCropArea={1}
+                    checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
+                    guides={true}
+                  />
+                  <div className='absolute w-full bottom-0 py-2 left-0 flex justify-center items-center gap-4'>
+                    <input {...thumbnailDropzone.getInputProps()} hidden />
+                    <Badge
+                      className='h-8 w-fit px-2 flex justify-between items-center gap-2
                 cursor-pointer'
-                  >
-                    <MaterialSymbolIcon className='opacity-100 text-base'>
-                      upload_2
-                    </MaterialSymbolIcon>
-                    <span>Upload</span>
-                  </Badge>
+                      {...thumbnailDropzone.getRootProps()}
+                    >
+                      <MaterialSymbolIcon className='opacity-100 text-base'>
+                        upload_2
+                      </MaterialSymbolIcon>
+                      <span>Upload</span>
+                    </Badge>
+                  </div>
                 </div>
               </div>
-            </div>
+            ) : null}
             {showOptions ? (
               <div className='grid gap-2'>
                 <MultiSelect
@@ -389,7 +482,7 @@ const PostMedia = forwardRef<
     id={id}
     data-index={index}
   >
-    <Image
+    <NextImage
       src={url}
       alt='post-media'
       className='h-full aspect-square object-cover'

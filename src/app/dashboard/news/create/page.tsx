@@ -31,7 +31,7 @@ import {
   SelectValue
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
-import { MaterialSymbolIcon, RichTextEditor } from '@/components/custom'
+import { MaterialSymbolIcon } from '@/components/custom'
 import { Switch } from '@/components/ui/switch'
 import { gallery_post_categories } from '@/constants/categories'
 import {
@@ -42,23 +42,12 @@ import {
   useRef,
   useState
 } from 'react'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu'
+
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import { useDropzone } from 'react-dropzone'
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTrigger
-} from '@/components/ui/dialog'
 import { FieldType } from '@/types/field-type'
+import { RichTextEditor } from '@/components/custom/editor'
 
 const upload_types: { icon: string; title: string; description: string }[] = [
   {
@@ -162,14 +151,15 @@ export default function Dashboard () {
               <h1 className='flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0'>
                 Add News Post
               </h1>
+              <Badge>{selectedVisibility.label}</Badge>
             </div>
             <div className='grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8'>
               <div className='grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8'>
                 <Card
                   x-chunk='dashboard-07-chunk-1'
-                  className=' border bg-card p-2'
+                  className='border bg-card p-2 max-w-full overflow-hidden'
                 >
-                  <CardContent className='flex flex-col justify-between items-stretch gap-1 p-0 '>
+                  <CardContent className='flex flex-col justify-between items-stretch gap-1 p-0 w-full '>
                     <Input className='' placeholder='Post Title' />
                     <RichTextEditor />
                   </CardContent>

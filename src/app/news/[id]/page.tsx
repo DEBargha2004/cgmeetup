@@ -1,9 +1,7 @@
 import {
   FeaturedNewsCard,
   MaterialSymbolIcon,
-  ProfileInfoOverView,
-  RichTextEditor,
-  SimilarNewsCard
+  ProfileInfoOverView
 } from '@/components/custom'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
@@ -21,6 +19,7 @@ import { HTMLProps } from 'react'
 import avatar from '@/../public/images/profile-1.jpg'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
+import { EditorContentComponent } from '@/components/custom/editor'
 
 export default function NewsPage ({
   params: { id }
@@ -70,7 +69,7 @@ border-none bg-transparent'
             </div>
           </div>
           <div className='border-b pb-2'>
-            <RichTextEditor />
+            <EditorContentComponent />
           </div>
           <div className='border-b pb-2'>
             <ProfileInfoOverView className=''>

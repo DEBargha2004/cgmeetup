@@ -34,10 +34,10 @@ export default function Sidebar ({ postId }: { postId: string }) {
 
   const [activeTab, setActiveTab] = useState<'comment' | 'creator'>('comment')
   return (
-    <div className='w-full xl:w-[26%] lg:w-[30%] h-full overflow-y-auto px-1 scroller pt-2'>
+    <div className='w-full xl:w-[26%] lg:w-[30%] h-full lg:overflow-y-auto px-1 scroller pt-2'>
       <div
         className={cn(
-          ' space-y-3 overflow-y-auto scroller',
+          ' space-y-3 lg:overflow-y-auto scroller',
           activeTab === 'comment' ? 'h-[calc(100%-80px)]' : 'h-full'
         )}
       >
@@ -89,7 +89,7 @@ export default function Sidebar ({ postId }: { postId: string }) {
           </div>
         </div>
         <div>
-          <div className='grid grid-cols-2 w-[95%] mx-auto sticky top-0 bg-darkAccent z-10'>
+          <div className='grid grid-cols-2 w-[95%] mx-auto sticky lg:top-0  bg-darkAccent z-10'>
             <TabItem
               className={cn(
                 activeTab === 'comment' ? ' border-primary border-b-2 ' : ''
@@ -107,7 +107,14 @@ export default function Sidebar ({ postId }: { postId: string }) {
               <span>More Work</span>
             </TabItem>
           </div>
-          <div className='py-3 w-[95%] mx-auto space-y-3'>
+          <div
+            className={cn(
+              'py-3 w-[95%]  lg:h-auto mx-auto space-y-3',
+              activeTab === 'comment'
+                ? 'overflow-y-auto scroller h-[calc(100vh/2)]'
+                : ''
+            )}
+          >
             {activeTab === 'comment'
               ? Array.from({ length: 19 }, (_, i) => i).map(item => (
                   <Comment key={item} showNestedComments />

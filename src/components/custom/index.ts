@@ -22,7 +22,6 @@ import PostCreateDialog from './post-create-dialog'
 import MultiSelect from './multi-select'
 import NewsCard from './news-card'
 import FeaturedNewsCard from './featured-news-card'
-import RichTextEditor from './rich-text-editor'
 import SimilarNewsCard from './similar-news-card'
 
 export {
@@ -48,6 +47,5 @@ export {
   MultiSelect,
   NewsCard,
   FeaturedNewsCard,
-  RichTextEditor,
   SimilarNewsCard
 }
