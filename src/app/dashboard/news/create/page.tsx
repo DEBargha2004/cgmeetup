@@ -26,14 +26,18 @@ import { Label } from '@/components/ui/label'
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
-import { MaterialSymbolIcon } from '@/components/custom'
+import { MaterialSymbolIcon, MultiSelect } from '@/components/custom'
 import { Switch } from '@/components/ui/switch'
-import { gallery_post_categories } from '@/constants/categories'
+import {
+  gallery_post_categories,
+  sample_cateories
+} from '@/constants/categories'
 import {
   HTMLProps,
   forwardRef,
@@ -48,6 +52,10 @@ import Image from 'next/image'
 import { useDropzone } from 'react-dropzone'
 import { FieldType } from '@/types/field-type'
 import { RichTextEditor } from '@/components/custom/editor'
+import { FormField } from '@/components/ui/form'
+import { Combobox } from '@/components/ui/combobox'
+import { tags } from '@/constants/job-filters'
+import { FancyMultiSelect } from '@/components/ui/fancy-multi-select'
 
 const upload_types: { icon: string; title: string; description: string }[] = [
   {
@@ -74,8 +82,7 @@ const visibilityOptions: FieldType[] = [
 ]
 
 export default function Dashboard () {
-  const [selectedCategory, setSelectedCategory] = useState<string[]>([])
-  const [selectedSoftware, setSelectedSoftware] = useState<string[]>([])
+  const [selectedTags, setSelectedTags] = useState<string[]>([])
   const [selectedVisibility, setSelectedVisibility] = useState(
     visibilityOptions[0]
   )
@@ -162,6 +169,35 @@ export default function Dashboard () {
                   <CardContent className='flex flex-col justify-between items-stretch gap-1 p-0 w-full '>
                     <Input className='' placeholder='Post Title' />
                     <RichTextEditor />
+                  </CardContent>
+                </Card>
+                <Card
+                  x-chunk='dashboard-07-chunk-1'
+                  className='border bg-card p-2 max-w-full '
+                >
+                  <CardContent className='flex flex-col justify-between items-stretch gap-1 p-0 w-full '>
+                    <Select>
+                      <SelectTrigger>
+                        <SelectValue placeholder='Select Category' />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          {sample_cateories.map((item, index) => (
+                            <SelectItem
+                              key={index}
+                              value={item}
+                              // className='cursor-pointer hover:bg-darkAccent/80'
+                            >
+                              {item}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                    <FancyMultiSelect
+                      options={tags.map(tag => ({ label: tag, value: tag }))}
+                      placeholder='Select Tags'
+                    />
                   </CardContent>
                 </Card>
               </div>
