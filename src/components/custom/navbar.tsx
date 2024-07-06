@@ -51,7 +51,7 @@ export default function Navbar ({ className }: { className?: string }) {
   return (
     <header
       className={cn(
-        'top-0 flex h-16 items-center gap-4 border-b bg-lightAccent px-4 md:px-6',
+        'top-0 flex h-16 items-center md:gap-4 gap-2 border-b bg-lightAccent px-4 md:px-6',
         className
       )}
     >
@@ -122,7 +122,7 @@ export default function Navbar ({ className }: { className?: string }) {
           </nav>
         </SheetContent>
       </Sheet>
-      <div className='flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4'>
+      <div className='flex w-full items-center  md:ml-auto gap-2 lg:gap-4'>
         <form className='w-full sm:w-2/3 mr-auto ml-1/10'>
           <div className='relative'>
             <Search className='absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground' />
@@ -187,7 +187,7 @@ export default function Navbar ({ className }: { className?: string }) {
               <PopoverContent
                 side='bottom'
                 align='center'
-                className='bg-card translate-y-3 space-y-3 max-h-[600px] w-[400px] overflow-y-auto scroller'
+                className='bg-card translate-y-3 space-y-3 max-h-[600px] lg:w-[500px] overflow-y-auto scroller'
               >
                 <h1 className='text-xl font-semibold'>Notifications</h1>
                 <div className='space-y-3'>
@@ -231,7 +231,7 @@ export default function Navbar ({ className }: { className?: string }) {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <div>
-              <MaterialSymbolIcon className='text-[40px] max-w-10 inline-block'>
+              <MaterialSymbolIcon className='lg:text-[40px] text-3xl max-w-10 inline-block'>
                 account_circle
               </MaterialSymbolIcon>
             </div>

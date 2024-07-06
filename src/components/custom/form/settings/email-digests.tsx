@@ -32,14 +32,14 @@ export default function EmailDigestsForm ({
   return (
     <Form {...form}>
       <form
-        className='flex justify-start items-end gap-4'
+        className='flex md:flex-row flex-col justify-start items-end gap-4'
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <FormField
           control={form.control}
           name='options'
           render={({ field }) => (
-            <FormItem className='w-[250px]'>
+            <FormItem className=' w-full'>
               <FormLabel>Email Digests</FormLabel>
               <FormControl>
                 <Select value={field.value} onValueChange={field.onChange}>

@@ -27,8 +27,8 @@ export default function NewsPage ({
   params: { id: string }
 }) {
   return (
-    <div className='lg:w-[77%] mx-auto grid gap-4 md:gap-8 lg:grid-cols-3'>
-      <div className='col-span-2 px-2'>
+    <div className='lg:w-[77%] mx-auto grid gap-4 md:gap-8 lg:grid-cols-3 px-3'>
+      <div className='col-span-2 px-2 md:pt-0 pt-4'>
         <header className='z-30 flex md:h-14 items-center gap-4 border-b bg-background sm:static sm:h-auto sm:border-0 sm:bg-transparent'>
           <Breadcrumb className='hidden md:flex'>
             <BreadcrumbList>
@@ -64,8 +64,16 @@ border-none bg-transparent'
               <PostHeaderOptions icon='schedule' label='40m' />
             </div>
             <div className='flex justify-start gap-3 items-center'>
-              <PostHeaderOptions icon='bookmark' label='Bookmark' />
-              <PostHeaderOptions icon='share' label='Share' />
+              <PostHeaderOptions
+                icon='bookmark'
+                label='Bookmark'
+                labelClassName='sm:block hidden'
+              />
+              <PostHeaderOptions
+                icon='share'
+                label='Share'
+                labelClassName='sm:block hidden'
+              />
             </div>
           </div>
           <div className='border-b pb-2'>
@@ -112,13 +120,6 @@ border-none bg-transparent'
           </CardContent>
         </Card>
       </Card>
-      {/* <div className='col-span-3 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-3 pb-10'>
-        {Array.from({ length: 4 }, (_, i) => i).map(i => (
-          <Card key={i}>
-            <SimilarNewsCard />
-          </Card>
-        ))}
-      </div> */}
     </div>
   )
 }
@@ -127,15 +128,20 @@ function PostHeaderOptions ({
   icon,
   label,
   className,
+  labelClassName,
   ...props
-}: { icon: string; label: string } & HTMLProps<HTMLDivElement>) {
+}: {
+  icon: string
+  label: string
+  labelClassName?: string
+} & HTMLProps<HTMLDivElement>) {
   return (
     <div
       className={cn('flex justify-between items-center gap-1', className)}
       {...props}
     >
       <MaterialSymbolIcon className=''>{icon}</MaterialSymbolIcon>
-      <p className='text-sm'>{label}</p>
+      <p className={cn('text-sm', labelClassName)}>{label}</p>
     </div>
   )
 }

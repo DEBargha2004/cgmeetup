@@ -61,9 +61,13 @@ export default function NotificationsPage () {
           </MaterialSymbolIcon>
           <span>Email Notifications</span>
         </h1>
-        <div className='grid grid-cols-2 gap-4'>
-          <FormCard heading='Email Digests' subHeading='' className='rounded '>
-            <FieldsContainer className='px-2 w-full flex justify-center items-center'>
+        <div className='grid sm:grid-cols-2 gap-4 '>
+          <FormCard
+            heading='Email Digests'
+            subHeading=''
+            className='rounded w-full @container'
+          >
+            <FieldsContainer className='@sm:w-4/5 w-full px-2 max-w-[500px]'>
               <EmailDigestsForm
                 form={emailDigestsForm}
                 onSubmit={handleEmailDigestsFormSubmit}
@@ -73,9 +77,9 @@ export default function NotificationsPage () {
           <FormCard
             heading="Email Notifications on Other people's portfolio"
             subHeading=''
-            className='rounded h-full'
+            className='rounded h-full w-full @container'
           >
-            <FieldsContainer className='px-2'>
+            <FieldsContainer className='@sm:w-4/5 w-full px-2 max-w-[500px]'>
               <NotificationsForm
                 form={notificationsOnOthersActivityForm}
                 onSubmit={handleNotificationsOnOthersActivityFormSubmit}
@@ -86,9 +90,9 @@ export default function NotificationsPage () {
           <FormCard
             heading='Email Notifications on My activity'
             subHeading=''
-            className='rounded'
+            className='rounded w-full @container'
           >
-            <FieldsContainer className='w-1/2 px-2'>
+            <FieldsContainer className='@sm:w-4/5 w-full px-2 max-w-[500px]'>
               <NotificationsForm
                 form={notificationsOnProjectActivityForm}
                 onSubmit={handleNotificationsOnProjectActivityFormSubmit}
@@ -105,13 +109,13 @@ export default function NotificationsPage () {
           </MaterialSymbolIcon>
           <span>Email Subscriptions</span>
         </h1>
-        <div className='grid grid-cols-2 gap-4'>
+        <div className='grid sm:grid-cols-2 gap-4'>
           <FormCard
             heading='Announcement Emails'
             subHeading=''
-            className='rounded '
+            className='rounded w-full @container'
           >
-            <FieldsContainer className='w-1/2 px-2'>
+            <FieldsContainer className='@sm:w-4/5 w-full px-2 max-w-[500px]'>
               <NotificationsForm
                 form={notificationsOnAnnouncementsForm}
                 onSubmit={handleNotificationsOnAnnouncementsFormSubmit}
@@ -119,8 +123,12 @@ export default function NotificationsPage () {
               />
             </FieldsContainer>
           </FormCard>
-          <FormCard heading='Job' subHeading='' className='rounded'>
-            <FieldsContainer className='w-1/2 px-2'>
+          <FormCard
+            heading='Job'
+            subHeading=''
+            className='rounded w-full @container'
+          >
+            <FieldsContainer className='@sm:w-4/5 w-full px-2 max-w-[500px]'>
               <NotificationsForm
                 form={notificationsOnJobDigestsForm}
                 onSubmit={handleNotificationsOnJobDigestsFormSubmit}

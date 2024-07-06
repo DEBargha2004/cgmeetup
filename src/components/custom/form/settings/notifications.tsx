@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'
+import { cn } from '@/lib/utils'
 import { NotificationsSchemaType } from '@/schema/notifications'
 import { useForm } from 'react-hook-form'
 
@@ -8,17 +9,22 @@ export default function NotificationsForm ({
   form,
   onSubmit,
   submitLabel,
-  checkboxLabel
+  checkboxLabel,
+  className
 }: {
   form: ReturnType<typeof useForm<NotificationsSchemaType>>
   onSubmit: (data: NotificationsSchemaType) => void
   submitLabel?: string
   checkboxLabel?: string
+  className?: string
 }) {
   return (
     <Form {...form}>
       <form
-        className='flex flex-col justify-start items-stretch gap-4'
+        className={cn(
+          'flex flex-col justify-start items-stretch gap-4 mx-auto',
+          className
+        )}
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <FormField

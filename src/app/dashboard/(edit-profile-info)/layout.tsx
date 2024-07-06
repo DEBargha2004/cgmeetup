@@ -115,7 +115,9 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
           <div className='w-full flex justify-start items-center gap-0 px-3'>
             <Tabs tabs={tabs} className='md:px-4' />
           </div>
-          <div className='w-full grid grid-cols-2 gap-4 px-4'>{children}</div>
+          <div className='w-full grid md:grid-cols-2 gap-4 px-4'>
+            {children}
+          </div>
         </main>
       </div>
     </div>

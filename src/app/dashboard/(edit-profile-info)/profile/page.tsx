@@ -13,9 +13,9 @@ export default function EditProfilePage () {
       <FormCard
         subHeading='Please tell us about yourself'
         heading='Edit Profile'
-        className='flex justify-between items-start gap-3'
+        className='@container w-full'
       >
-        <FieldsContainer className='w-full pt-0'>
+        <FieldsContainer className='@sm:w-4/5 w-full px-2 max-w-[500px]'>
           <AccountCreateForm />
         </FieldsContainer>
       </FormCard>

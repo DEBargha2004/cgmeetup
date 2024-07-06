@@ -75,8 +75,8 @@ export default function AuthDialog () {
     <Dialog open={authDialogState} onOpenChange={setAuthDialogState}>
       <DialogContent className='p-0 overflow-hidden max-h-[calc(100vh-30px)] overflow-y-auto scroller-hide'>
         {showForm.phone ? (
-          <FormCard heading='Sign Up'>
-            <FieldsContainer className='w-3/5'>
+          <FormCard heading='Sign Up' className='@container'>
+            <FieldsContainer className='@sm:w-4/5 w-full px-2 max-w-[500px]'>
               <PhoneNumberForm
                 form={phoneInputForm}
                 onSubmit={handlePhoneInputFormSubmit}
@@ -86,8 +86,8 @@ export default function AuthDialog () {
           </FormCard>
         ) : null}
         {showForm.pass ? (
-          <FormCard heading='Sign Up'>
-            <FieldsContainer className='w-3/5'>
+          <FormCard heading='Sign Up' className='@container'>
+            <FieldsContainer className='@sm:w-4/5 w-full px-2 max-w-[500px]'>
               <SignInWithPassForm
                 form={signInWithPasswordForm}
                 onSubmit={handleSignInWithPasswordFormSubmit}
@@ -99,8 +99,8 @@ export default function AuthDialog () {
           </FormCard>
         ) : null}
         {showForm.otp ? (
-          <FormCard heading='Sign Up'>
-            <FieldsContainer className='w-3/5'>
+          <FormCard heading='Sign Up' className='@container'>
+            <FieldsContainer className='@sm:w-4/5 w-full px-2 max-w-[500px]'>
               <SignInWithOtpForm
                 form={signInWithOtpForm}
                 onSubmit={handleSignInWithOtpFormSubmit}
@@ -112,8 +112,8 @@ export default function AuthDialog () {
           </FormCard>
         ) : null}
         {showForm.create_acc ? (
-          <FormCard heading='Create Account'>
-            <FieldsContainer className='w-3/4'>
+          <FormCard heading='Create Account' className='@container'>
+            <FieldsContainer className='@sm:w-4/5 w-full px-2 max-w-[500px]'>
               <AccountCreateForm2 />
             </FieldsContainer>
           </FormCard>

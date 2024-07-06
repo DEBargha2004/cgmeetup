@@ -113,15 +113,15 @@ export default function JobCreateDialog () {
         </Avatar>
         <Form {...jobCreateForm}>
           <form
-            className='w-full flex flex-col justify-start items-stretch gap-4'
+            className='w-full flex flex-col justify-start items-stretch gap-4 @container'
             onSubmit={jobCreateForm.handleSubmit(handleJobCreateFormSubmit)}
           >
-            <div className='grid grid-cols-4 gap-4'>
+            <div className='grid @xs:grid-cols-4 gap-2'>
               <FormField
                 control={jobCreateForm.control}
                 name='title'
                 render={({ field }) => (
-                  <FormItem className='col-span-3'>
+                  <FormItem className='xs:col-span-3 col-span-2'>
                     <FormControl>
                       <Input {...field} placeholder='Job Title' />
                     </FormControl>
@@ -133,7 +133,7 @@ export default function JobCreateDialog () {
                 control={jobCreateForm.control}
                 name='type'
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className='xs:col-span-1 col-span-2'>
                     <FormControl>
                       <Select
                         value={field.value}
@@ -172,7 +172,7 @@ export default function JobCreateDialog () {
                 </FormItem>
               )}
             />
-            <div className='grid grid-cols-2 gap-4'>
+            <div className='grid @xs:grid-cols-2 gap-2'>
               <FormField
                 control={jobCreateForm.control}
                 name='category'
@@ -243,7 +243,7 @@ export default function JobCreateDialog () {
                 />
               )}
             />
-            <div className='grid grid-cols-3 gap-4'>
+            <div className='grid @xl:grid-cols-3 @sm:grid-cols-2 gap-2'>
               <FormField
                 control={jobCreateForm.control}
                 name='experience_level'
@@ -406,12 +406,12 @@ export default function JobCreateDialog () {
                 </PopoverContent>
               </Popover>
             </div>
-            <div className='grid grid-cols-3 gap-4'>
+            <div className='grid @xs:grid-cols-4 gap-2'>
               <FormField
                 control={jobCreateForm.control}
                 name='location'
                 render={({ field }) => (
-                  <FormItem className='col-span-2'>
+                  <FormItem className='xs:col-span-3 col-span-2'>
                     <FormControl>
                       <Select
                         value={field.value}
@@ -437,7 +437,7 @@ export default function JobCreateDialog () {
                 control={jobCreateForm.control}
                 name='visibility'
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className='xs:col-span-1 col-span-2'>
                     <FormControl>
                       <Select
                         value={field.value}

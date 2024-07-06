@@ -1,12 +1,12 @@
 import { FeaturedNewsCard, NewsCard } from '@/components/custom'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
-export default function NewsPage () {
+export default function NewsTrendingPage () {
   return (
     <div className='lg:w-[77%] mx-auto grid gap-4 md:gap-8 lg:grid-cols-3'>
       <Card
         className='xl:col-span-2 col-span-3 flex flex-col gap-4 h-fit 
-    border-none bg-transparent'
+      border-none bg-transparent'
       >
         <CardContent className='space-y-4 px-1'>
           {Array.from({ length: 15 }, (_, i) => i).map(i => (

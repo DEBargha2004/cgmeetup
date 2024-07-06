@@ -100,13 +100,13 @@ export const feedNavItems: FeedNav[] = [
     href: '/edit-profile',
     icon_name: 'edit'
   },
-  {
-    type: 'link',
-    id: 'edit-company-profile',
-    label: 'Edit Company Profile',
-    href: '/edit-profile',
-    icon_name: 'edit'
-  },
+  // {
+  //   type: 'link',
+  //   id: 'edit-company-profile',
+  //   label: 'Edit Company Profile',
+  //   href: '/edit-profile',
+  //   icon_name: 'edit'
+  // },
   // {
   //   type: 'link',
   //   id: 'edit-bio',

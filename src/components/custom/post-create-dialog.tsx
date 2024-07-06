@@ -30,6 +30,7 @@ import { categories } from '@/constants/job-categories'
 import { Switch } from '../ui/switch'
 import Cropper, { ReactCropperElement } from 'react-cropper'
 import 'cropperjs/dist/cropper.css'
+import { useWindowSize } from '@uidotdev/usehooks'
 
 type PostMedia = {
   type: 'video' | 'image'
@@ -81,6 +82,7 @@ export default function PostCreateDialog () {
     accept: { 'image/*': [] },
     multiple: false
   })
+  const windowDimension = useWindowSize()
 
   const videoUrlForm = useForm<VideoUrlSchemaType>({
     resolver: zodResolver(videoUrlSchema)
@@ -244,7 +246,7 @@ export default function PostCreateDialog () {
               </Avatar>
             </div>
           </div>
-          <div className='grid gap-2 w-full'>
+          <div className='w-full grid gap-2'>
             <Input
               className=''
               placeholder='Title'
@@ -263,11 +265,11 @@ export default function PostCreateDialog () {
                 {postDesc.length}/5000
               </p>
             </div>
-            <div className='flex justify-between items-center'>
-              <div className='flex justify-start items-center gap-4 cursor-pointer'>
+            <div className='grid xs:grid-cols-3'>
+              <div className='grid grid-cols-2 col-span-2 gap-4 cursor-pointer w-fit'>
                 <input type='file' {...imageDropzone.getInputProps()} hidden />
                 <div
-                  className='flex justify-start items-center gap-1'
+                  className='flex justify-start items-center gap-1 w-fit'
                   {...imageDropzone.getRootProps()}
                 >
                   <MaterialSymbolIcon className='cursor-pointer text-2xl opacity-100 text-success'>
@@ -276,7 +278,7 @@ export default function PostCreateDialog () {
                   <span className='text-sm'>Images</span>
                 </div>
                 <div
-                  className='flex justify-start items-center gap-1'
+                  className='flex justify-start items-center gap-1 w-fit'
                   onClick={() =>
                     setVideoUrlInput(prev => ({ ...prev, show: true }))
                   }
@@ -287,7 +289,7 @@ export default function PostCreateDialog () {
                   <span className='text-sm'>Videos</span>
                 </div>
               </div>
-              <div>
+              <div className='col-span-2 xs:col-span-1 w-fit ml-auto'>
                 <Button
                   className='h-8'
                   // disabled={!(postDesc || mediaList.length)}
@@ -315,7 +317,14 @@ export default function PostCreateDialog () {
               </div>
             )}
             {mediaList.length ? (
-              <div className='w-full overflow-hidden relative p-2 bg-darkAccent border'>
+              <div
+                className='w-full col-span-1 overflow-hidden relative p-2 bg-darkAccent border'
+                // style={{
+                //   width:
+                //     Math.min(800, windowDimension.width || 0) -
+                //     (16 * 2 + 1 * 2 + 56 + 8)
+                // }}
+              >
                 <div
                   className='flex gap-1 overflow-x-auto scroller-hide transition-all'
                   ref={mediaListRef}
@@ -357,7 +366,14 @@ export default function PostCreateDialog () {
               </div>
             ) : null}
             {thumbnail ? (
-              <div>
+              <div
+                className='col-span-1'
+                style={{
+                  width:
+                    Math.min(800, windowDimension.width || 0) -
+                    (16 * 2 + 1 * 2 + 56 + 8)
+                }}
+              >
                 <p className='text-sm'>Thumbnail</p>
                 <div
                   className='w-full h-[240px] flex justify-center items-center border 
@@ -369,7 +385,7 @@ export default function PostCreateDialog () {
                       height: '100%',
                       width: '100%'
                     }}
-                    className='object-contain cropper'
+                    className='object-contain cropper overflow-hidden'
                     aspectRatio={1}
                     src={thumbnail.url}
                     // zoomTo={0.5}
@@ -417,20 +433,20 @@ export default function PostCreateDialog () {
               </div>
             ) : null}
             {showOptions ? (
-              <div className='flex justify-between'>
-                <div className='flex justify-start items-center gap-5'>
-                  <div className='flex items-center gap-2'>
+              <div className='grid xs:grid-cols-3 gap-5'>
+                <div className='col-span-2 grid xs:grid-cols-2 gap-5'>
+                  <div className='flex items-center justify-between gap-2'>
                     <span className='text-sm'>Mature Content</span>
                     <Switch />
                   </div>
-                  <div className='flex items-center gap-2'>
+                  <div className='flex items-center justify-between gap-2'>
                     <span className='text-sm'>Created using AI</span>
                     <Switch />
                   </div>
                 </div>
                 <Badge
                   className='h-8 w-fit px-2 flex justify-between items-center gap-2
-                cursor-pointer'
+                cursor-pointer ml-auto xs:col-span-1 col-span-2'
                 >
                   <MaterialSymbolIcon className='opacity-100 text-base'>
                     delete

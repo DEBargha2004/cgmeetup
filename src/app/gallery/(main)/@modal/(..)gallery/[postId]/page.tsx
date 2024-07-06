@@ -35,10 +35,7 @@ export default function Post ({
   return (
     <Dialog open>
       <DialogContent className='h-screen max-w-full scroller p-0'>
-        <main
-          className='h-screen flex lg:flex-row 
-    flex-col justify-start items-start relative'
-        >
+        <main className='h-screen flex lg:flex-row flex-col justify-start items-start relative overflow-y-auto'>
           <div
             className='w-full xl:w-[74%] lg:w-[70%] lg:h-full  flex flex-col justify-start items-stretch 
              relative bg-darkAccent'

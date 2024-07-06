@@ -21,6 +21,10 @@ const tabs: { label: string; href: string }[] = [
   {
     label: 'About',
     href: '/@tuit/about'
+  },
+  {
+    label: 'Company',
+    href: '/@tuit/company'
   }
 ]
 

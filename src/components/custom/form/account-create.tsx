@@ -71,11 +71,11 @@ export default function AccountCreateForm ({
       <form
         onSubmit={form.handleSubmit(handleFormSubmit)}
         className={cn(
-          'flex justify-center items-start gap-4 w-full px-2',
+          'flex flex-col justify-center items-stretch gap-4 w-full px-2',
           className
         )}
       >
-        <FieldsContainer className={cn('w-1/2 mx-0')}>
+        <>
           <FormField
             control={form.control}
             name='first_name'
@@ -254,7 +254,7 @@ export default function AccountCreateForm ({
             {' '}
             {buttonLabel || 'Sign Up'}
           </Button>
-        </FieldsContainer>
+        </>
       </form>
     </Form>
   )

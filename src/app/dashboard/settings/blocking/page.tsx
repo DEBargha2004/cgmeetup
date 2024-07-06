@@ -22,28 +22,30 @@ export default function BlockingPage () {
   //submit handler end
 
   return (
-    <FormCard
-      heading='Blocking'
-      subHeading="Blocking a user prevents that user from commenting on your projects and discussion posts. Note that it does not remove the user's project from the main walls of art (Trending/Picks/etc.).
+    <div className='grid md:grid-cols-2 gap-4'>
+      <FormCard
+        heading='Blocking'
+        subHeading="Blocking a user prevents that user from commenting on your projects and discussion posts. Note that it does not remove the user's project from the main walls of art (Trending/Picks/etc.).
       @new The purpose of this feature is to prevent users from harrasing you on CGMeetup"
-      className='w-1/2'
-    >
-      <FieldsContainer className='w-1/2 px-2'>
-        <UsernameForm
-          form={form}
-          onSubmit={handleFormSubmit}
-          submitButton={
-            <Button
-              className='ml-auto h-9 w-24'
-              disabled={form.formState.isSubmitting}
-              type='submit'
-              variant={'destructive'}
-            >
-              Block
-            </Button>
-          }
-        />
-      </FieldsContainer>
-    </FormCard>
+        className='@container'
+      >
+        <FieldsContainer className='@sm:w-4/5 w-full px-2 max-w-[500px]'>
+          <UsernameForm
+            form={form}
+            onSubmit={handleFormSubmit}
+            submitButton={
+              <Button
+                className='ml-auto h-9 w-24'
+                disabled={form.formState.isSubmitting}
+                type='submit'
+                variant={'destructive'}
+              >
+                Block
+              </Button>
+            }
+          />
+        </FieldsContainer>
+      </FormCard>
+    </div>
   )
 }

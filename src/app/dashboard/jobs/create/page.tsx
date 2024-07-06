@@ -200,7 +200,7 @@ export default function Dashboard () {
               >
                 <div className='grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8'>
                   <Card x-chunk='dashboard-07-chunk-0' className='bg-card'>
-                    <div className='py-3 px-4 flex justify-between items-center w-full'>
+                    <div className='p-6 flex xs:flex-row flex-col justify-between items-stretch xs:items-center gap-3 w-full'>
                       <CardTitle className='text-xl'>
                         Post a{' '}
                         <span className='text-primary'>
@@ -224,7 +224,7 @@ export default function Dashboard () {
                                 value={field.value}
                                 onValueChange={field.onChange}
                               >
-                                <SelectTrigger className='w-[200px]'>
+                                <SelectTrigger className='xs:w-[200px] w-full'>
                                   <SelectValue
                                     className=''
                                     placeholder='Switch'
@@ -297,7 +297,7 @@ export default function Dashboard () {
                       <CardTitle className='text-xl'>Job Positions</CardTitle>
                     </CardHeader>
                     <CardContent className=''>
-                      <div className='flex items-center justify-start gap-3'>
+                      <div className='grid xs:grid-cols-2 gap-3'>
                         <FormField
                           control={form.control}
                           name='category'
@@ -306,7 +306,7 @@ export default function Dashboard () {
                               value={field.value}
                               onValueChange={field.onChange}
                             >
-                              <SelectTrigger className=' md:w-1/2 w-full'>
+                              <SelectTrigger className=' w-full'>
                                 <SelectValue placeholder='Industry' />
                               </SelectTrigger>
                               <SelectContent>
@@ -326,7 +326,7 @@ export default function Dashboard () {
                           control={form.control}
                           name='subcategory'
                           render={({ field }) => (
-                            <FormItem className='md:w-1/2 w-full'>
+                            <FormItem className='w-full'>
                               {/* <FormLabel></FormLabel> */}
                               <FormControl>
                                 <Select
@@ -484,8 +484,8 @@ export default function Dashboard () {
                         Job Requirements
                       </CardTitle>
                     </CardHeader>
-                    <CardContent>
-                      <div className='grid grid-cols-3 gap-5 w-full'>
+                    <CardContent className='@container'>
+                      <div className='grid @2xl:grid-cols-3 @lg:grid-cols-2 gap-3 w-full'>
                         <FormField
                           control={form.control}
                           name='experience_level'
@@ -724,11 +724,14 @@ export default function Dashboard () {
                       ) : null}
                     </CardContent>
                   </Card>
-                  <Card x-chunk='dashboard-07-chunk-2' className='bg-card'>
+                  <Card
+                    x-chunk='dashboard-07-chunk-2'
+                    className='bg-card @container'
+                  >
                     <CardHeader className='pb-3'>
                       <CardTitle className='text-xl'>Address</CardTitle>
                     </CardHeader>
-                    <CardContent className='grid grid-cols-2 gap-2'>
+                    <CardContent className='grid @lg:grid-cols-2 gap-3 w-full'>
                       <FormField
                         control={form.control}
                         name='location'
@@ -767,13 +770,16 @@ export default function Dashboard () {
                       </Button>
                     </CardContent>
                   </Card>
-                  <Card x-chunk='dashboard-07-chunk-2' className='bg-card'>
+                  <Card
+                    x-chunk='dashboard-07-chunk-2'
+                    className='bg-card @container'
+                  >
                     <CardHeader className='pb-3'>
                       <CardTitle className='text-xl'>
                         Assigned To Team Member
                       </CardTitle>
                     </CardHeader>
-                    <CardContent className='grid grid-cols-2 gap-2'>
+                    <CardContent className='grid @lg:grid-cols-2 gap-3 w-full'>
                       <FormField
                         control={form.control}
                         name='assigned_to'

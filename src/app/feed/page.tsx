@@ -46,9 +46,9 @@ export default function FeedPage () {
         className='w-full h-fit bottom-0 left-0 md:w-[75px] 6xl:w-[45%] 5xl:w-2/5
         4xl:w-1/3 xl:w-1/4 lg:w-1/5 z-20 md:h-full border-r  px-2 flex flex-row md:flex-col 
         justify-center md:justify-start items-center md:items-end 
-        md:overflow-y-auto scroller overflow-x-auto overflow-y-auto pt-8'
+        md:overflow-y-auto scroller overflow-x-auto overflow-y-auto md:pt-8'
       >
-        <section className='w-full max-w-[250px] flex flex-col justify-between items-center mb-10'>
+        <section className='w-full max-w-[250px] md:flex hidden flex-col justify-between items-center md:mb-10 '>
           <div className='px-2' id='profile-image'>
             <Image
               src={
@@ -57,13 +57,13 @@ export default function FeedPage () {
               alt='profile-image'
               height={100}
               width={100}
-              className='object-cover rounded-full h-[100px] w-[100px] border-2 border-white 
+              className='object-cover rounded-full lg:h-[100px] lg:w-[100px] w-10 h-10 border-2 border-white 
               box-content'
             />
           </div>
           <div
             id='profile-description'
-            className='flex flex-col justify-start items-center w-full'
+            className='lg:flex hidden flex-col justify-start items-center w-full '
           >
             <div className='flex justify-start items-center gap-2 pt-2'>
               <h1 className='text-lg font-semibold'>Narendra Kumar</h1>
@@ -157,7 +157,7 @@ export default function FeedPage () {
 
         <div
           className='w-0 lg:w-[40%] max-w-[370px]
-         my-5 feed-right-bar space-y-2'
+         my-5 feed-right-bar space-y-2 overflow-hidden'
           style={{ height: feedRef.current?.scrollHeight }}
           ref={rightSidebarRef}
         >

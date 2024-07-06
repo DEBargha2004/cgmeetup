@@ -245,14 +245,14 @@ export default function ChatPage () {
               {messages.map(message => (
                 <div
                   className={cn(
-                    'flex group',
+                    'flex group relative',
                     message.user_id === 1 ? 'justify-end ' : 'justify-start'
                   )}
                   key={message.id}
                 >
                   <div
                     className={cn(
-                      'flex max-w-[60%] gap-6 items-center',
+                      'flex max-w-[60%] gap-6 items-center relative',
                       message.user_id === 1
                         ? 'justify-end flex-row-reverse'
                         : 'justify-start'
@@ -272,22 +272,14 @@ export default function ChatPage () {
                           {format(message.time, 'h:mm a')}
                         </p>
                       </div>
-                    </div>
-                    {/* <Popover open={showReactions === message.id} onOpenChange={e => setShowReactions(e?message.id:null)}>
-                    <PopoverTrigger asChild>
-                      <div className={cn('group-hover:block hidden cursor-pointer',l.isNull(showReactions))}>
+                      <div
+                        className={cn(
+                          'group-hover:visible invisible absolute top-1/2 -translate-y-1/2  cursor-pointer',
+                          message.user_id == 1 ? '-left-10' : '-right-10'
+                        )}
+                      >
                         <MaterialSymbolIcon>mood</MaterialSymbolIcon>
                       </div>
-                    </PopoverTrigger>
-                    <PopoverContent side='top'></PopoverContent>
-                  </Popover> */}
-                    <div
-                      className={cn(
-                        'group-hover:block hidden cursor-pointer'
-                        // l.isNull(showReactions)
-                      )}
-                    >
-                      <MaterialSymbolIcon>mood</MaterialSymbolIcon>
                     </div>
                   </div>
                 </div>
@@ -298,18 +290,6 @@ export default function ChatPage () {
               className='h-[10%] w-full flex justify-between items-center gap-4 border-t px-4 bg-lightAccent'
             >
               <div className='flex justify-start items-center gap-4 shrink-0 h-10'>
-                {/* <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <MaterialSymbolIcon
-                    className='text-2xl text-[#ffff46] opacity-100 cursor-pointer 
-                  select-none inline-block'
-                  >
-                    mood
-                  </MaterialSymbolIcon>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent side='top'>jgygef</DropdownMenuContent>
-              </DropdownMenu> */}
-
                 <Popover>
                   <PopoverTrigger asChild>
                     <div className='cursor-pointer'>

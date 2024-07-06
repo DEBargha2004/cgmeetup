@@ -23,8 +23,12 @@ export default function CompanyPage () {
   const handleFormSubmit = async (data: CompanyRegistrationSchemaType) => {}
   return (
     <>
-      <FormCard heading='Edit Company' subHeading='Edit your company details.'>
-        <FieldsContainer className='w-1/2'>
+      <FormCard
+        heading='Edit Company'
+        subHeading='Edit your company details.'
+        className='@container'
+      >
+        <FieldsContainer className='@sm:w-4/5 w-full px-2 max-w-[500px]'>
           <CompanyRegistrationForm form={form} onSubmit={handleFormSubmit} />
         </FieldsContainer>
       </FormCard>

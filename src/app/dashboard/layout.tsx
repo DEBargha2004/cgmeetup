@@ -19,7 +19,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
         {dashboardSidebar.map((item, item_idx) => (
           <React.Fragment key={item_idx}>
             {item.type === 'separator' ? (
-              <div className='border-b w-full' />
+              <div className='border-b w-full md:block hidden' />
             ) : item.type === 'header' ? (
               <div
                 className='hidden lg:flex justify-start items-center p-2 
@@ -32,7 +32,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
                 <div
                   className={cn(
                     `flex justify-center lg:gap-1 lg:justify-start items-center  
-                  hover:bg-lightAccent p-2 px-3 font-semibold shrink-0 rounded`,
+                  hover:bg-lightAccent sm:p-2 sm:px-3 py-1 font-semibold shrink-0 rounded`,
                     (
                       item.catch_routes
                         ? item.catch_routes.includes(pathname)
@@ -42,7 +42,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
                       : ''
                   )}
                 >
-                  <MaterialSymbolIcon className=''>
+                  <MaterialSymbolIcon className='sm:text-lg text-sm'>
                     {item.icon_name || ''}
                   </MaterialSymbolIcon>
                   <p className='lg:block hidden whitespace-nowrap'>

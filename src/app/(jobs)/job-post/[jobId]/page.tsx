@@ -68,7 +68,7 @@ export default function JobPage ({
           </MaterialSymbolIcon>
         </div>
       </section>
-      <div className='flex justify-between items-start gap-2'>
+      <div className='flex lg:flex-row flex-col justify-between items-start gap-2'>
         <div className='w-full lg:w-[calc(100%-400px)] gap-2'>
           <section className='my-10 flex gap-5'>
             <Avatar className='h-20 w-20 rounded'>
@@ -118,7 +118,7 @@ export default function JobPage ({
             >
               <div className='flex justify-between flex-row items-center w-full'>
                 <div className='flex justify-between items-center gap-2'>
-                  <Button className='px-7'>
+                  <Button className='md:px-7 px-4'>
                     <MaterialSymbolIcon
                       variant='filled'
                       className='mr-2 opacity-100'
@@ -128,69 +128,28 @@ export default function JobPage ({
                     Apply
                   </Button>
                 </div>
-                <div className='flex justify-end items-center w-fit xl:gap-5 gap-3 mr-5'>
+                <div className='flex justify-end items-center w-fit xl:gap-5 gap-3 lg:mr-5'>
                   <div className='flex gap-3 xl:gap-6 items-center'>
                     <div className='flex justify-between items-center gap-2'>
-                      <div
-                        className='flex justify-center items-center bg-lightAccent h-8 w-8 
-                2xl:h-9 2xl:w-9 rounded-full'
-                      >
-                        <MaterialSymbolIcon
-                          variant='filled'
-                          className='2xl:text-[20px] text-base'
-                        >
-                          favorite
-                        </MaterialSymbolIcon>
-                      </div>
+                      <PostAction>favorite</PostAction>
                       <span className='font-bold opacity-90'>3</span>
                     </div>
                     <div className='flex justify-between items-center gap-2'>
-                      <div
-                        className='flex justify-center items-center bg-lightAccent h-8 w-8 
-                2xl:h-9 2xl:w-9 rounded-full'
-                      >
-                        <MaterialSymbolIcon
-                          variant='filled'
-                          className='2xl:text-[20px] text-base'
-                        >
-                          visibility
-                        </MaterialSymbolIcon>
-                      </div>
+                      <PostAction>visibility</PostAction>
                       <span className='font-bold opacity-90'>3</span>
                     </div>
                   </div>
-                  <div className='flex gap-6 items-center'>
+                  <div className='flex gap-3 xl:gap-6 items-center'>
                     <div className='flex justify-between items-center gap-2'>
-                      <div
-                        className='flex justify-center items-center bg-lightAccent h-8 w-8 
-                2xl:h-9 2xl:w-9 rounded-full'
-                      >
-                        <MaterialSymbolIcon
-                          variant='filled'
-                          className='2xl:text-[20px] text-base'
-                        >
-                          share
-                        </MaterialSymbolIcon>
-                      </div>
+                      <PostAction>share</PostAction>
                       <span className='font-bold opacity-90'>3</span>
                     </div>
                     <div className='flex justify-between items-center gap-2'>
-                      <div
-                        className='flex justify-center items-center bg-lightAccent h-8 w-8 
-                2xl:h-9 2xl:w-9 rounded-full'
-                      >
-                        <MaterialSymbolIcon
-                          variant='filled'
-                          className='2xl:text-[20px] text-base'
-                        >
-                          bookmark
-                        </MaterialSymbolIcon>
-                      </div>
+                      <PostAction>bookmark</PostAction>
                     </div>
                   </div>
                 </div>
               </div>
-              {/* <div className='h-fit w-full lg:w-1/4 lg:min-w-[400px] space-y-2 rounded shrink-0'></div> */}
             </div>
           </section>
           <section className='space-y-4 col-span-3'>
@@ -294,7 +253,7 @@ export default function JobPage ({
             </Card>
           </section>
         </div>
-        <div>
+        <div className='lg:w-[400px] w-full'>
           <section>
             {Array.from({ length: 1 }, (_, i) => i).map(i => (
               <Link
@@ -331,6 +290,22 @@ export default function JobPage ({
           </section>
         </div>
       </div>
+    </div>
+  )
+}
+
+function PostAction ({ children }: { children: string }) {
+  return (
+    <div
+      className='flex justify-center items-center bg-lightAccent md:h-8 md:w-8 
+2xl:h-9 2xl:w-9 rounded-full h-7 w-7'
+    >
+      <MaterialSymbolIcon
+        variant='filled'
+        className='2xl:text-[20px] md:text-base text-sm'
+      >
+        {children}
+      </MaterialSymbolIcon>
     </div>
   )
 }

@@ -58,66 +58,68 @@ export default function Payment () {
     setShowEditForm({ show: true, index: idx })
   }
   return (
-    <FormCard
-      heading='Payment'
-      subHeading='Add your payment method.'
-      className='rounded w-1/2'
-      extraButton={
-        <Button
-          onClick={() => {
-            setShowForm(true)
-            setShowEditForm({ show: false, index: -1 })
-          }}
-        >
-          <MaterialSymbolIcon className='mr-2'>add</MaterialSymbolIcon>
-          <span>Add Payment method</span>
-        </Button>
-      }
-    >
-      <FieldsContainer className='w-1/2'>
-        {showForm ? (
-          <>
-            <PaymentAcceptForm onSubmit={handleFormSubmit} form={form} />
-            <Separator />
-          </>
-        ) : null}
+    <div className='grid md:grid-cols-2 gap-4'>
+      <FormCard
+        heading='Payment'
+        subHeading='Add your payment method.'
+        className='rounded @container'
+        extraButton={
+          <Button
+            onClick={() => {
+              setShowForm(true)
+              setShowEditForm({ show: false, index: -1 })
+            }}
+          >
+            <MaterialSymbolIcon className='mr-2'>add</MaterialSymbolIcon>
+            <span>Add Payment method</span>
+          </Button>
+        }
+      >
+        <FieldsContainer className='@sm:w-4/5 w-full px-2 max-w-[500px]'>
+          {showForm ? (
+            <>
+              <PaymentAcceptForm onSubmit={handleFormSubmit} form={form} />
+              <Separator />
+            </>
+          ) : null}
 
-        {showEditForm.show ? (
-          <>
-            <PaymentAcceptForm
-              onSubmit={handleEditFormSubmit}
-              form={editForm}
-            />
-            <Separator />
-          </>
-        ) : null}
+          {showEditForm.show ? (
+            <>
+              <PaymentAcceptForm
+                onSubmit={handleEditFormSubmit}
+                form={editForm}
+              />
+              <Separator />
+            </>
+          ) : null}
 
-        {accounts.map((account, idx) => (
-          <div className='space-y-2 w-full' key={idx}>
-            <h1 className='text-lg text-white flex justify-between items-center'>
-              <span>{account.platform}</span>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <div className='cursor-pointer'>
-                    <MaterialSymbolIcon>more_vert</MaterialSymbolIcon>
-                  </div>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align='end'>
-                  <DropdownMenuItem onClick={() => handleEdit(idx)}>
-                    Edit
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => handleDelete(idx)}>
-                    Delete
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </h1>
-            <div className=' opacity-60'>
-              <p>{account.account_id}</p>
+          {accounts.map((account, idx) => (
+            <div className='space-y-2 w-full' key={idx}>
+              <h1 className='text-lg text-white flex justify-between items-center'>
+                <span>{account.platform}</span>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <div className='cursor-pointer'>
+                      <MaterialSymbolIcon>more_vert</MaterialSymbolIcon>
+                    </div>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align='end'>
+                    <DropdownMenuItem onClick={() => handleEdit(idx)}>
+                      Edit
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => handleDelete(idx)}>
+                      Delete
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </h1>
+              <div className=' opacity-60'>
+                <p>{account.account_id}</p>
+              </div>
             </div>
-          </div>
-        ))}
-      </FieldsContainer>
-    </FormCard>
+          ))}
+        </FieldsContainer>
+      </FormCard>
+    </div>
   )
 }

@@ -332,14 +332,14 @@ export default function Dashboard () {
                     </CardContent>
                   </Card>
                 )}
-                <p className='text-center text-sm flex justify-center items-end gap-1'>
-                  <span className='text-primary '>
+                <p className='text-center text-sm text-wrap gap-1'>
+                  <span className='text-primary'>
                     <MaterialSymbolIcon className=' text-xl relative top-[6px]'>
                       4k
                     </MaterialSymbolIcon>
-                    Upgrade your account
-                  </span>{' '}
-                  to upload images and videos in 4K
+                    &nbsp; Upgrade your account
+                  </span>
+                  &nbsp; to upload images and videos in 4K
                 </p>
                 <Card x-chunk='dashboard-07-chunk-0' className='bg-card'>
                   <CardHeader className='pb-3'>
@@ -358,20 +358,6 @@ export default function Dashboard () {
                         <Label htmlFor='description'>Description</Label>
                         <Textarea id='description' className='min-h-32' />
                       </div>
-                      {/* <div className='flex justify-center items-center gap-2'>
-                        <Button variant={'outline'} className='border-primary'>
-                          <MaterialSymbolIcon className='sm:mr-2'>
-                            image
-                          </MaterialSymbolIcon>
-                          <span>Artwork</span>
-                        </Button>
-                        <Button variant={'outline'} className='border-primary'>
-                          <MaterialSymbolIcon className='sm:mr-2'>
-                            videocam
-                          </MaterialSymbolIcon>
-                          <span>Video Link</span>
-                        </Button>
-                      </div> */}
                     </div>
                   </CardContent>
                 </Card>
@@ -585,7 +571,7 @@ export default function Dashboard () {
                     <CardTitle className='text-xl'>Other</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className='flex justify-start items-start gap-10'>
+                    <div className='grid sm:grid-cols-2 gap-x-28 gap-y-5'>
                       <div className='flex justify-between items-center gap-3'>
                         <Label>Mature Content</Label>
                         <Switch />
