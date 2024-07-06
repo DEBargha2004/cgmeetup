@@ -134,13 +134,13 @@ export default function EditorMenuBar () {
     <div className='flex flex-wrap gap-1 border-b p-2'>
       <>
         <DropdownMenu>
-          <DropdownMenuTrigger className='w-1/6   bg-transparent'>
+          <DropdownMenuTrigger className='w-1/6 min-w-[120px] bg-transparent'>
             <Button
               variant={'light_ghost'}
               className='w-full flex justify-between items-center border'
               size={'icon'}
             >
-              <p>
+              <p className=' flex justify-start'>
                 {textTypes.find(type => type.level === currentTextType)?.label}
               </p>
               <MaterialSymbolIcon className='text-sm'>
