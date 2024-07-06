@@ -9,10 +9,12 @@ export function NotificationCardProfileView () {
           <AvatarImage src='https://cdna.artstation.com/p/users/avatars/000/078/930/large/99d98b9db85095a32a74190b5b4be7d1.jpg?1669152204' />
           <AvatarFallback>{getShortendName('John Doe')}</AvatarFallback>
         </Avatar>
-        <h1 className='w-full font-medium line-clamp-2'>
-          Prashant Singh at ABC Pvt. Ltd.{' '}
+        <div>
+          <h1 className='w-full font-medium line-clamp-2'>
+            Prashant Singh at ABC Pvt. Ltd.{' '}
+          </h1>
           <p className='opacity-70 text-sm'>viewed your profile</p>
-        </h1>
+        </div>
       </div>
       <p className='text-right text-sm opacity-70'>56 days ago</p>
     </div>
@@ -27,10 +29,12 @@ export function NotificationCardOtherView () {
           <AvatarImage src='https://cdnb.artstation.com/p/assets/images/images/000/424/193/smaller_square/glenn-melenhorst-car0001.jpg?1443927098' />
           <AvatarFallback>{getShortendName('John Doe')}</AvatarFallback>
         </Avatar>
-        <h1 className='w-full font-medium line-clamp-2'>
-          Prashant Singh at ABC Pvt. Ltd.{' '}
+        <div>
+          <h1 className='w-full font-medium line-clamp-2'>
+            Prashant Singh at ABC Pvt. Ltd.{' '}
+          </h1>
           <p className='opacity-70 text-sm'>commented on your post</p>
-        </h1>
+        </div>
       </div>
       <p className='text-right text-sm opacity-70'>56 days ago</p>
     </div>

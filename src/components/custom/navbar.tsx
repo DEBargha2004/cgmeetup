@@ -35,6 +35,7 @@ import {
 } from './notification-card'
 import { usePathname } from 'next/navigation'
 import { useTheme } from 'next-themes'
+import { PopoverClose } from '@radix-ui/react-popover'
 
 export default function Navbar ({ className }: { className?: string }) {
   const {
@@ -199,9 +200,13 @@ export default function Navbar ({ className }: { className?: string }) {
                     )
                   )}
                 </div>
-                <div className='p-2 flex justify-center items-center'>
-                  View All Notifications
-                </div>
+                <Link href={'/dashboard/notifications'}>
+                  <PopoverClose className='w-full'>
+                    <div className='p-2 flex justify-center items-center rounded hover:bg-lightAccent cursor-pointer transition-all'>
+                      View All Notifications
+                    </div>
+                  </PopoverClose>
+                </Link>
               </PopoverContent>
             </Popover>
             <MaterialSymbolIcon>chat</MaterialSymbolIcon>

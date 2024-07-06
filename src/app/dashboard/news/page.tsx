@@ -62,7 +62,10 @@ export default function Gallery () {
   return (
     <div className='flex h-full w-full flex-col'>
       <div className='flex flex-col sm:gap-4 '>
-        <header className=' z-30 flex md:h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6'>
+        <header
+          className=' z-30 flex md:h-14 items-center gap-4 bg-background px-4 
+        sm:static sm:h-auto  sm:bg-transparent sm:px-6'
+        >
           <Breadcrumb className='hidden md:flex'>
             <BreadcrumbList>
               <BreadcrumbItem>
@@ -81,27 +84,32 @@ export default function Gallery () {
         </header>
         <main className='grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8'>
           <Tabs defaultValue='all'>
-            <div className='flex items-center gap-2'>
-              <TabsList className='bg-card'>
-                <TabsTrigger value='all'>All</TabsTrigger>
-                <TabsTrigger value='public'>Public</TabsTrigger>
-                <TabsTrigger value='private'>Private</TabsTrigger>
-                <TabsTrigger value='draft'>Draft</TabsTrigger>
-              </TabsList>
-              <Link href={'/dashboard/news/create'}>
-                <Button
-                  size='sm'
-                  variant={'success'}
-                  className='h-8 gap-1 rounded-sm'
+            <div className='flex sm:flex-row flex-col items-center justify-between gap-2'>
+              <div className='flex gap-2 items-center w-full'>
+                <TabsList className='bg-card'>
+                  <TabsTrigger value='all'>All</TabsTrigger>
+                  <TabsTrigger value='public'>Public</TabsTrigger>
+                  <TabsTrigger value='private'>Private</TabsTrigger>
+                  <TabsTrigger value='draft'>Draft</TabsTrigger>
+                </TabsList>
+                <Link
+                  href={'/dashboard/news/create'}
+                  className='sm:inline hidden'
                 >
-                  <PlusCircle className='h-3.5 w-3.5' />
-                  <span className='sr-only sm:not-sr-only sm:whitespace-nowrap'>
-                    Add News
-                  </span>
-                </Button>
-              </Link>
-              <div className='ml-auto flex items-center gap-2'>
-                <div className='relative ml-auto flex-1 md:grow-0'>
+                  <Button
+                    size='sm'
+                    variant={'success'}
+                    className='h-8 gap-1 rounded-sm'
+                  >
+                    <PlusCircle className='h-3.5 w-3.5' />
+                    <span className='sr-only sm:not-sr-only sm:whitespace-nowrap'>
+                      Add Post
+                    </span>
+                  </Button>
+                </Link>
+              </div>
+              <div className='flex justify-end items-center gap-2 w-full'>
+                <div className='relative flex-1 md:grow-0'>
                   <Search className='absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground' />
                   <Input
                     type='search'
@@ -109,6 +117,21 @@ export default function Gallery () {
                     className='w-full rounded-lg pl-8 md:w-[200px] lg:w-[336px] h-8'
                   />
                 </div>
+                <Link
+                  href={'/dashboard/news/create'}
+                  className='sm:hidden inline'
+                >
+                  <Button
+                    size='sm'
+                    variant={'success'}
+                    className='h-8 gap-1 rounded-sm'
+                  >
+                    <PlusCircle className='h-3.5 w-3.5' />
+                    <span className='sr-only sm:not-sr-only sm:whitespace-nowrap'>
+                      Add Post
+                    </span>
+                  </Button>
+                </Link>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant='outline' size='sm' className='h-8 gap-1'>
