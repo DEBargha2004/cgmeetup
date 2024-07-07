@@ -1,7 +1,14 @@
 'use client'
 
 import { useGlobalAppStore } from '@/store/global-app-store'
-import { Dialog, DialogContent } from '../ui/dialog'
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader
+} from '../ui/dialog'
 import MaterialSymbolIcon from './material-symbol-icon'
 import { Textarea } from '../ui/textarea'
 import {
@@ -70,6 +77,8 @@ export default function PostCreateDialog () {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
   const [selectedSoftwares, setSelectedSoftwares] = useState<string[]>([])
   const [showOptions, setShowOptions] = useState(false)
+  const [closeConfirmDialog, setCloseConfirmDialog] = useState(false)
+  const [confirmClose, setConfirmClose] = useState(false)
 
   const mediaListRef = useRef<HTMLDivElement>(null)
   const cropperRef = useRef<ReactCropperElement>(null)
@@ -186,6 +195,23 @@ export default function PostCreateDialog () {
     }
   }
 
+  const isContentAdded = useMemo(() => {
+    return title || postDesc || mediaList.length || thumbnail
+  }, [title, postDesc, mediaList, thumbnail])
+
+  const cleanData = () => {
+    setPostDesc('')
+    setMediaList([])
+    setThumbnail(null)
+    setTitle('')
+  }
+
+  const setToInitial = () => {
+    cleanData()
+    setCloseConfirmDialog(false)
+    setConfirmClose(false)
+  }
+
   useEffect(() => {
     if (mediaList.length) {
       setThumbnail(prev => {
@@ -221,244 +247,291 @@ export default function PostCreateDialog () {
     }
   }, [thumbnailDropzone.acceptedFiles])
 
+  useEffect(() => {
+    setToInitial()
+  }, [postDialogState])
+
+  console.log(isContentAdded)
+
   return (
-    <Dialog
-      open={postDialogState}
-      onOpenChange={e => {
-        setPostDesc('')
-        setMediaList([])
-        setThumbnail(null)
-        setTitle('')
-        setPostDialogState(e)
-      }}
-    >
-      <DialogContent
-        className='max-w-[800px] bg-card px-4 overflow-y-auto scroller-hide 
-        max-h-[calc(100vh-20px)] '
-        hideCloseButton
+    <>
+      <Dialog
+        open={postDialogState}
+        onOpenChange={e => {
+          if (e) {
+            setPostDialogState(e)
+          } else {
+            if (isContentAdded) {
+              if (confirmClose) {
+                setPostDialogState(false)
+              } else {
+                setCloseConfirmDialog(true)
+              }
+            } else {
+              setPostDialogState(false)
+            }
+          }
+        }}
       >
-        <div className='flex items-start justify-start gap-2'>
-          <div id='user-image'>
-            <div className='w-14 h-14 rounded-full flex justify-center items-center'>
-              <Avatar className='h-full w-full'>
-                <AvatarImage src={avatar.src} alt='profile' />
-                <AvatarFallback>{getShortendName('John Doe')}</AvatarFallback>
-              </Avatar>
+        <DialogContent
+          className='max-w-[800px] bg-card px-4 overflow-y-auto scroller-hide 
+        max-h-[calc(100vh-20px)]'
+          hideCloseButton
+        >
+          <div className='flex items-start justify-start gap-2'>
+            <div id='user-image'>
+              <div className='w-14 h-14 rounded-full flex justify-center items-center'>
+                <Avatar className='h-full w-full'>
+                  <AvatarImage src={avatar.src} alt='profile' />
+                  <AvatarFallback>{getShortendName('John Doe')}</AvatarFallback>
+                </Avatar>
+              </div>
             </div>
-          </div>
-          <div className='w-full grid gap-2'>
-            <Input
-              className=''
-              placeholder='Title'
-              value={title}
-              onChange={e => setTitle(e.target.value)}
-            />
-            <div className='relative'>
-              <Textarea
-                className='overflow-y-auto scroller pb-4'
-                rows={7}
-                placeholder='Description'
-                value={postDesc}
-                onChange={e => setPostDesc(e.target.value)}
+            <div className='w-full grid gap-2'>
+              <Input
+                className=''
+                placeholder='Title'
+                value={title}
+                onChange={e => setTitle(e.target.value)}
               />
-              <p className='text-xs opacity-70 absolute bottom-1 right-3'>
-                {postDesc.length}/5000
-              </p>
-            </div>
-            <div className='grid xs:grid-cols-3'>
-              <div className='grid grid-cols-2 col-span-2 gap-4 cursor-pointer w-fit'>
-                <input type='file' {...imageDropzone.getInputProps()} hidden />
-                <div
-                  className='flex justify-start items-center gap-1 w-fit'
-                  {...imageDropzone.getRootProps()}
-                >
-                  <MaterialSymbolIcon className='cursor-pointer text-2xl opacity-100 text-success'>
-                    imagesmode
-                  </MaterialSymbolIcon>
-                  <span className='text-sm'>Images</span>
+              <div className='relative'>
+                <Textarea
+                  className='overflow-y-auto scroller pb-4'
+                  rows={3}
+                  placeholder='Description'
+                  value={postDesc}
+                  onChange={e => setPostDesc(e.target.value)}
+                />
+                <p className='text-xs opacity-70 absolute bottom-1 right-3'>
+                  {postDesc.length}/5000
+                </p>
+              </div>
+              <div className='grid xs:grid-cols-3'>
+                <div className='grid grid-cols-2 col-span-2 gap-4 cursor-pointer w-fit'>
+                  <input
+                    type='file'
+                    {...imageDropzone.getInputProps()}
+                    hidden
+                  />
+                  <div
+                    className='flex justify-start items-center gap-1 w-fit'
+                    {...imageDropzone.getRootProps()}
+                  >
+                    <MaterialSymbolIcon className='cursor-pointer text-2xl opacity-100 text-success'>
+                      imagesmode
+                    </MaterialSymbolIcon>
+                    <span className='text-sm'>Images</span>
+                  </div>
+                  <div
+                    className='flex justify-start items-center gap-1 w-fit'
+                    onClick={() =>
+                      setVideoUrlInput(prev => ({ ...prev, show: true }))
+                    }
+                  >
+                    <MaterialSymbolIcon className='cursor-pointer text-2xl opacity-100 text-primary'>
+                      slow_motion_video
+                    </MaterialSymbolIcon>
+                    <span className='text-sm'>Videos</span>
+                  </div>
                 </div>
-                <div
-                  className='flex justify-start items-center gap-1 w-fit'
-                  onClick={() =>
-                    setVideoUrlInput(prev => ({ ...prev, show: true }))
-                  }
-                >
-                  <MaterialSymbolIcon className='cursor-pointer text-2xl opacity-100 text-primary'>
-                    slow_motion_video
-                  </MaterialSymbolIcon>
-                  <span className='text-sm'>Videos</span>
+                <div className='col-span-2 xs:col-span-1 w-fit ml-auto space-x-2'>
+                  {isContentAdded ? (
+                    <DialogClose>
+                      <Button variant={'destructive'} className='h-8'>
+                        Cancel
+                      </Button>
+                    </DialogClose>
+                  ) : null}
+                  <Button
+                    className='h-8'
+                    variant={'success'}
+                    // disabled={!(postDesc || mediaList.length)}
+                  >
+                    Post
+                  </Button>
                 </div>
               </div>
-              <div className='col-span-2 xs:col-span-1 w-fit ml-auto'>
-                <Button
-                  className='h-8'
-                  // disabled={!(postDesc || mediaList.length)}
-                >
-                  Post
-                </Button>
-              </div>
-            </div>
-            {videoInputUrl.show && (
-              <div className='flex gap-2'>
-                <VideoUrlForm form={videoUrlForm} onSubmit={handleUrlSubmit} />
-                <MaterialSymbolIcon
-                  className='opacity-100 cursor-pointer my-auto'
-                  onClick={() => {
-                    setVideoUrlInput(prev => ({
-                      ...prev,
-                      show: false,
-                      value: ''
-                    }))
-                    videoUrlForm.reset()
+              {videoInputUrl.show && (
+                <div className='flex gap-2'>
+                  <VideoUrlForm
+                    form={videoUrlForm}
+                    onSubmit={handleUrlSubmit}
+                  />
+                  <MaterialSymbolIcon
+                    className='opacity-100 cursor-pointer my-auto'
+                    onClick={() => {
+                      setVideoUrlInput(prev => ({
+                        ...prev,
+                        show: false,
+                        value: ''
+                      }))
+                      videoUrlForm.reset()
+                    }}
+                  >
+                    close
+                  </MaterialSymbolIcon>
+                </div>
+              )}
+              {mediaList.length ? (
+                <div className='w-full col-span-1 overflow-hidden relative p-2 bg-darkAccent border'>
+                  <div
+                    className='flex gap-1 overflow-x-auto scroller-hide transition-all'
+                    ref={mediaListRef}
+                  >
+                    {mediaList.map((media, index) => (
+                      <PostMedia
+                        index={index}
+                        key={media.id}
+                        {...media}
+                        onDelete={handleDeleteImage}
+                        className='w-1/4 aspect-square shrink-0'
+                      />
+                    ))}
+
+                    {mediaList.length ? (
+                      <div className='w-1/4 aspect-square grid place-content-center shrink-0'>
+                        <div
+                          className='h-14 aspect-square rounded-full border-2 border-primary 
+                      grid place-content-center cursor-pointer'
+                          {...imageDropzone.getRootProps()}
+                        >
+                          <MaterialSymbolIcon className='text-4xl opacity-100'>
+                            add
+                          </MaterialSymbolIcon>
+                        </div>
+                      </div>
+                    ) : null}
+                  </div>
+                  <Navigator
+                    icon='arrow_back_ios'
+                    className='absolute left-0 top-1/2 -translate-y-1/2 z-10 '
+                    onClick={() => handleCarouselNavigation('prev')}
+                  />
+                  <Navigator
+                    icon='arrow_forward_ios'
+                    className='absolute right-0 top-1/2 -translate-y-1/2 z-10 '
+                    onClick={() => handleCarouselNavigation('next')}
+                  />
+                </div>
+              ) : null}
+              {thumbnail ? (
+                <div
+                  className='col-span-1'
+                  style={{
+                    width:
+                      Math.min(800, windowDimension.width || 0) -
+                      (16 * 2 + 1 * 2 + 56 + 8)
                   }}
                 >
-                  close
-                </MaterialSymbolIcon>
-              </div>
-            )}
-            {mediaList.length ? (
-              <div
-                className='w-full col-span-1 overflow-hidden relative p-2 bg-darkAccent border'
-                // style={{
-                //   width:
-                //     Math.min(800, windowDimension.width || 0) -
-                //     (16 * 2 + 1 * 2 + 56 + 8)
-                // }}
-              >
-                <div
-                  className='flex gap-1 overflow-x-auto scroller-hide transition-all'
-                  ref={mediaListRef}
-                >
-                  {mediaList.map((media, index) => (
-                    <PostMedia
-                      index={index}
-                      key={media.id}
-                      {...media}
-                      onDelete={handleDeleteImage}
-                      className='w-1/3 aspect-square shrink-0'
-                    />
-                  ))}
-
-                  {mediaList.length ? (
-                    <div className='w-1/3 aspect-square grid place-content-center shrink-0'>
-                      <div
-                        className='h-14 aspect-square rounded-full border-2 border-primary 
-                      grid place-content-center cursor-pointer'
-                        {...imageDropzone.getRootProps()}
-                      >
-                        <MaterialSymbolIcon className='text-4xl opacity-100'>
-                          add
-                        </MaterialSymbolIcon>
-                      </div>
-                    </div>
-                  ) : null}
-                </div>
-                <Navigator
-                  icon='arrow_back_ios'
-                  className='absolute left-0 top-1/2 -translate-y-1/2 z-10 '
-                  onClick={() => handleCarouselNavigation('prev')}
-                />
-                <Navigator
-                  icon='arrow_forward_ios'
-                  className='absolute right-0 top-1/2 -translate-y-1/2 z-10 '
-                  onClick={() => handleCarouselNavigation('next')}
-                />
-              </div>
-            ) : null}
-            {thumbnail ? (
-              <div
-                className='col-span-1'
-                style={{
-                  width:
-                    Math.min(800, windowDimension.width || 0) -
-                    (16 * 2 + 1 * 2 + 56 + 8)
-                }}
-              >
-                <p className='text-sm'>Thumbnail</p>
-                <div
-                  className='w-full h-[240px] flex justify-center items-center border 
+                  <p className='text-sm'>Thumbnail</p>
+                  <div
+                    className='w-full h-[200px] flex justify-center items-center border 
               p-2 bg-darkAccent relative'
-                >
-                  <Cropper
-                    ref={cropperRef}
-                    style={{
-                      height: '100%',
-                      width: '100%'
-                    }}
-                    className='object-contain cropper overflow-hidden'
-                    aspectRatio={1}
-                    src={thumbnail.url}
-                    // zoomTo={0.5}
-                    initialAspectRatio={1}
-                    preview='.img-preview'
-                    viewMode={1}
-                    minCropBoxHeight={10}
-                    minCropBoxWidth={10}
-                    background={false}
-                    responsive={true}
-                    autoCropArea={1}
-                    checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
-                    guides={true}
-                  />
-                  <div className='absolute w-full bottom-0 py-2 left-0 flex justify-center items-center gap-4'>
-                    <input {...thumbnailDropzone.getInputProps()} hidden />
-                    <Badge
-                      className='h-8 w-fit px-2 flex justify-between items-center gap-2
+                  >
+                    <Cropper
+                      ref={cropperRef}
+                      style={{
+                        height: '100%',
+                        width: '100%'
+                      }}
+                      className='object-contain cropper overflow-hidden'
+                      aspectRatio={1}
+                      src={thumbnail.url}
+                      // zoomTo={0.5}
+                      initialAspectRatio={1}
+                      preview='.img-preview'
+                      viewMode={1}
+                      minCropBoxHeight={10}
+                      minCropBoxWidth={10}
+                      background={false}
+                      responsive={true}
+                      autoCropArea={1}
+                      checkOrientation={false}
+                      guides={true}
+                    />
+                    <div className='absolute w-full bottom-0 py-2 left-0 flex justify-center items-center gap-4'>
+                      <input {...thumbnailDropzone.getInputProps()} hidden />
+                      <Badge
+                        className='h-8 w-fit px-2 flex justify-between items-center gap-2
                 cursor-pointer'
-                      {...thumbnailDropzone.getRootProps()}
-                    >
-                      <MaterialSymbolIcon className='opacity-100 text-base'>
-                        upload_2
-                      </MaterialSymbolIcon>
-                      <span>Upload</span>
-                    </Badge>
+                        {...thumbnailDropzone.getRootProps()}
+                      >
+                        <MaterialSymbolIcon className='opacity-100 text-base'>
+                          upload_2
+                        </MaterialSymbolIcon>
+                        <span>Upload</span>
+                      </Badge>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ) : null}
-            {showOptions ? (
-              <div className='grid gap-2'>
-                <MultiSelect
-                  values={categories.map(({ label }) => label)}
-                  onChange={handleCategorySelect}
-                  selectedValues={selectedCategories}
-                  placeholder='Category'
-                />
-                <MultiSelect
-                  selectedValues={selectedSoftwares}
-                  values={softwares}
-                  onChange={handleSoftwareSelect}
-                  placeholder='Software Used'
-                />
-              </div>
-            ) : null}
-            {showOptions ? (
-              <div className='grid xs:grid-cols-3 gap-5'>
-                <div className='col-span-2 grid xs:grid-cols-2 gap-5'>
-                  <div className='flex items-center justify-between gap-2'>
-                    <span className='text-sm'>Mature Content</span>
-                    <Switch />
-                  </div>
-                  <div className='flex items-center justify-between gap-2'>
-                    <span className='text-sm'>Created using AI</span>
-                    <Switch />
-                  </div>
+              ) : null}
+              {showOptions ? (
+                <div className='grid gap-2'>
+                  <MultiSelect
+                    values={categories.map(({ label }) => label)}
+                    onChange={handleCategorySelect}
+                    selectedValues={selectedCategories}
+                    placeholder='Category'
+                  />
+                  <MultiSelect
+                    selectedValues={selectedSoftwares}
+                    values={softwares}
+                    onChange={handleSoftwareSelect}
+                    placeholder='Software Used'
+                  />
                 </div>
-                <Badge
-                  className='h-8 w-fit px-2 flex justify-between items-center gap-2
+              ) : null}
+              {showOptions ? (
+                <div className='grid xs:grid-cols-3 gap-5'>
+                  <div className='col-span-2 grid xs:grid-cols-2 gap-5'>
+                    <div className='flex items-center justify-between gap-2'>
+                      <span className='text-sm'>Mature Content</span>
+                      <Switch />
+                    </div>
+                    <div className='flex items-center justify-between gap-2'>
+                      <span className='text-sm'>Created using AI</span>
+                      <Switch />
+                    </div>
+                  </div>
+                  <Badge
+                    className='h-8 w-fit px-2 flex justify-between items-center gap-2
                 cursor-pointer ml-auto xs:col-span-1 col-span-2'
-                >
-                  <MaterialSymbolIcon className='opacity-100 text-base'>
-                    delete
-                  </MaterialSymbolIcon>
-                  <span>Delete</span>
-                </Badge>
-              </div>
-            ) : null}
+                  >
+                    <MaterialSymbolIcon className='opacity-100 text-base'>
+                      delete
+                    </MaterialSymbolIcon>
+                    <span>Delete</span>
+                  </Badge>
+                </div>
+              ) : null}
+            </div>
           </div>
-        </div>
-      </DialogContent>
-    </Dialog>
+        </DialogContent>
+      </Dialog>
+      <Dialog open={closeConfirmDialog} onOpenChange={setCloseConfirmDialog}>
+        <DialogContent className='flex flex-col justify-start items-center bg-card'>
+          <DialogHeader>Discard Post</DialogHeader>
+          <DialogDescription>This action cannot be undone</DialogDescription>
+          <div className='grid grid-cols-2 gap-2 w-1/2'>
+            <Button
+              variant={'destructive'}
+              onClick={() => {
+                setConfirmClose(true)
+                setPostDialogState(false)
+                setCloseConfirmDialog(false)
+              }}
+            >
+              Discard
+            </Button>
+            <DialogClose className=''>
+              <Button variant={'outline'} className='w-full'>
+                Cancel
+              </Button>
+            </DialogClose>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </>
   )
 }
 

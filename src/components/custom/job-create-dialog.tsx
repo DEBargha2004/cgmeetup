@@ -40,6 +40,7 @@ import avatar from '../../../public/images/profile-1.jpg'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import { getShortendName } from '@/functions'
 import { Badge } from '../ui/badge'
+import { Combobox } from '../ui/combobox'
 
 const locations = [
   'Lagos, Nigeria',
@@ -54,6 +55,13 @@ const locations = [
 ]
 
 const visibilityOptions: string[] = ['Job Open', 'Job Closed']
+
+const apply_options = ['Chat', 'Link', 'Email']
+const assignable_members: { label: string; value: string }[] = [
+  { label: 'Rafique', value: 'rafique' },
+  { label: 'Hamza', value: 'hamza' },
+  { label: 'Talha', value: 'talha' }
+]
 
 export default function JobCreateDialog () {
   const { setJobDialogState, jobDialogState } = useGlobalAppStore()
@@ -84,6 +92,7 @@ export default function JobCreateDialog () {
   const selectedCategory = jobCreateForm.watch('category')
   const upperLimit = parseInt(jobCreateForm.watch('salary.upper_limit') || '0')
   const lowerLimit = parseInt(jobCreateForm.watch('salary.lower_limit') || '0')
+  const apply_option = jobCreateForm.watch('apply_option')
 
   const upperLimits = useMemo(() => {
     return Array.from({ length: 200 }).map((_, i) => lowerLimit + i + 1)
@@ -406,12 +415,57 @@ export default function JobCreateDialog () {
                 </PopoverContent>
               </Popover>
             </div>
+            <div className='grid @xl:grid-cols-3 @sm:grid-cols-2 gap-2'>
+              <FormField
+                control={jobCreateForm.control}
+                name='apply_option'
+                render={({ field }) => (
+                  <FormItem className=''>
+                    <FormControl>
+                      <Select
+                        value={field.value}
+                        onValueChange={field.onChange}
+                      >
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {apply_options.map((opt, index) => (
+                            <SelectItem value={opt} key={index}>
+                              {opt}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              {['Link', 'Email'].includes(apply_option) ? (
+                <FormField
+                  control={jobCreateForm.control}
+                  name='apply_option_info'
+                  render={({ field }) => (
+                    <FormItem className='col-span-2'>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder={`Application ${apply_option}`}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              ) : null}
+            </div>
             <div className='grid @xs:grid-cols-4 gap-2'>
               <FormField
                 control={jobCreateForm.control}
                 name='location'
                 render={({ field }) => (
-                  <FormItem className='xs:col-span-3 col-span-2'>
+                  <FormItem className='xs:col-span-2 col-span-2'>
                     <FormControl>
                       <Select
                         value={field.value}
@@ -428,6 +482,22 @@ export default function JobCreateDialog () {
                           ))}
                         </SelectContent>
                       </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={jobCreateForm.control}
+                name='assigned_to'
+                render={({ field }) => (
+                  <FormItem className='w-full'>
+                    <FormControl>
+                      <Combobox
+                        value={field.value}
+                        onChange={field.onChange}
+                        options={assignable_members}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -458,14 +528,6 @@ export default function JobCreateDialog () {
                   </FormItem>
                 )}
               />
-              {/* <div className='w-full flex justify-end'>
-                <Badge className='space-x-2 cursor-pointer'>
-                  <MaterialSymbolIcon className='text-lg'>
-                    delete
-                  </MaterialSymbolIcon>
-                  <span>Delete</span>
-                </Badge>
-              </div> */}
             </div>
             <div className='flex justify-between items-center gap-2'>
               <Badge className='h-8 flex justify-start items-center gap-1 cursor-pointer'>

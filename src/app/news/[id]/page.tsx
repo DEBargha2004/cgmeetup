@@ -21,6 +21,10 @@ import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import { EditorContentComponent } from '@/components/custom/editor'
 
+const content = `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+  <img src="" alt=""/>`
+
 export default function NewsPage ({
   params: { id }
 }: {
@@ -77,7 +81,7 @@ border-none bg-transparent'
             </div>
           </div>
           <div className='border-b pb-2'>
-            <EditorContentComponent />
+            <EditorContentComponent content={content} />
           </div>
           <div className='border-b pb-2'>
             <ProfileInfoOverView className=''>

@@ -209,7 +209,9 @@ export default function Navbar ({ className }: { className?: string }) {
                 </Link>
               </PopoverContent>
             </Popover>
-            <MaterialSymbolIcon>chat</MaterialSymbolIcon>
+            <Link href={'/chat'}>
+              <MaterialSymbolIcon>chat</MaterialSymbolIcon>
+            </Link>
           </>
         ) : (
           <>

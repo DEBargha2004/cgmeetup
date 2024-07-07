@@ -100,7 +100,7 @@ export default function RichTextEditor ({
   return (
     <div
       className={cn(
-        'rounded-lg focus:ring-2 focus:ring-primary',
+        'rounded-lg focus:ring-2 focus:ring-primary overflow-hidden',
         innerFocus && 'ring-2 ring-primary  ring-offset-background'
       )}
       tabIndex={0}
@@ -118,7 +118,7 @@ export default function RichTextEditor ({
         editorProps={{
           attributes: {
             class: cn(
-              'max-h-[calc(100vh-200px)] min-h-[300px] p-4 overflow-y-auto scroller-hide outline-none',
+              'max-h-[calc(100vh-200px)] min-h-[300px] p-4 overflow-y-auto scroller-hide outline-none bg-darkAccent',
               className
             )
           },

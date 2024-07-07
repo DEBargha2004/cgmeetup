@@ -23,6 +23,7 @@ import MultiSelect from './multi-select'
 import NewsCard from './news-card'
 import FeaturedNewsCard from './featured-news-card'
 import SimilarNewsCard from './similar-news-card'
+import Cropper from './cropper'
 
 export {
   AppLogo,
@@ -47,5 +48,6 @@ export {
   MultiSelect,
   NewsCard,
   FeaturedNewsCard,
-  SimilarNewsCard
+  SimilarNewsCard,
+  Cropper
 }

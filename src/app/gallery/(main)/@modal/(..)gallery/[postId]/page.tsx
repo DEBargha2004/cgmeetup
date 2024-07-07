@@ -34,14 +34,22 @@ export default function Post ({
 
   return (
     <Dialog open>
-      <DialogContent className='h-screen max-w-full scroller p-0'>
+      <DialogContent
+        className='h-screen max-w-full scroller p-0 bg-darkAccent'
+        hideCloseButton
+      >
         <main className='h-screen flex lg:flex-row flex-col justify-start items-start relative overflow-y-auto'>
           <div
             className='w-full xl:w-[74%] lg:w-[70%] lg:h-full  flex flex-col justify-start items-stretch 
              relative bg-darkAccent'
           >
             <div className='md:overflow-y-auto h-fit md:h-full scroller relative'>
-              <Close className='z-20 top-4 left-14  w-fit' />
+              <div
+                className='z-30 sticky h-10 w-10 rounded-full grid place-content-center left-4 
+              top-2 bg-darkAccent/50'
+              >
+                <Close className='' />
+              </div>
               {Array.from({ length: 4 }, (_, i) => i).map(item => (
                 <PostImage key={item} className='relative group'>
                   <Image
@@ -103,8 +111,8 @@ function Navigator ({
   return (
     <div
       className={cn(
-        `h-full absolute top-0 flex justify-center items-center px-4
-        hover:bg-lightAccent/20 transition-all cursor-pointer `,
+        `h-20 aspect-square absolute top-1/2 -translate-y-1/2 flex justify-center items-center px-4
+        hover:bg-lightAccent/20 transition-all cursor-pointer`,
         className
       )}
       {...props}

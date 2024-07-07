@@ -31,7 +31,7 @@ import {
   SelectValue
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
-import { MaterialSymbolIcon } from '@/components/custom'
+import { Cropper, MaterialSymbolIcon } from '@/components/custom'
 import { Switch } from '@/components/ui/switch'
 import { gallery_post_categories } from '@/constants/categories'
 import { useEffect, useMemo, useRef, useState } from 'react'
@@ -54,6 +54,7 @@ import {
   DialogTrigger
 } from '@/components/ui/dialog'
 import { FieldType } from '@/types/field-type'
+import { ReactCropperElement } from 'react-cropper'
 
 const upload_types: { icon: string; title: string; description: string }[] = [
   {
@@ -94,6 +95,7 @@ export default function Dashboard () {
     type: string
     caption: string
     custom: boolean
+    crop: boolean
   } | null>()
 
   const videoDomains = ['youtube.com/watch?v=', 'vimeo.com']
@@ -103,10 +105,16 @@ export default function Dashboard () {
   }, [videoUrl])
 
   const mainFeedDropzone = useDropzone()
-  const thumbnailDropzone = useDropzone()
+  const thumbnailDropzone = useDropzone({
+    multiple: false,
+    accept: {
+      'image/*': []
+    }
+  })
 
   const thumbnailRef = useRef<HTMLInputElement>(null)
   const mainUploaderRef = useRef<HTMLInputElement>(null)
+  const cropperRef = useRef<ReactCropperElement>(null)
 
   const handleImageChange = (files: File[] | null) => {
     if (files) {
@@ -144,7 +152,7 @@ export default function Dashboard () {
   }
 
   const handleCustomThumbnailChange = (files: File[] | null) => {
-    if (files) {
+    if (files?.length) {
       const reader = new FileReader()
       reader.readAsDataURL(files[0])
 
@@ -154,21 +162,29 @@ export default function Dashboard () {
           url: reader.result as string,
           type: files[0].type,
           caption: '',
-          custom: true
+          custom: true,
+          crop: false
         })
-        console.log(thumbnailRef.current)
-        if (thumbnailRef.current) {
-          console.log(thumbnailRef.current)
-          thumbnailRef.current.value = ''
-        }
       }
+    }
+  }
+
+  const handleCrop = () => {
+    if (typeof cropperRef.current?.cropper !== 'undefined') {
+      //@ts-ignore
+      setThumbnail(prev => ({
+        ...prev,
+        url: cropperRef.current?.cropper
+          .getCroppedCanvas()
+          .toDataURL() as string
+      }))
     }
   }
 
   useEffect(() => {
     setThumbnail(prev => {
       if (prev?.custom) return prev
-      return images.length ? { ...images[0], custom: false } : null
+      return images.length ? { ...images[0], custom: false, crop: false } : null
     })
   }, [images])
 
@@ -179,9 +195,7 @@ export default function Dashboard () {
   }, [mainFeedDropzone.acceptedFiles])
 
   useEffect(() => {
-    if (thumbnailDropzone.acceptedFiles.length) {
-      handleCustomThumbnailChange(thumbnailDropzone.acceptedFiles)
-    }
+    handleCustomThumbnailChange(thumbnailDropzone.acceptedFiles)
   }, [thumbnailDropzone.acceptedFiles])
 
   return (
@@ -468,7 +482,6 @@ export default function Dashboard () {
                   <CardContent>
                     <div className='grid gap-6'>
                       <div className='grid gap-3'>
-                        {/* <Label htmlFor='category'>Category</Label> */}
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
                             <div
@@ -557,12 +570,6 @@ export default function Dashboard () {
                           ))}
                         </div>
                       </div>
-                      {/* <div className='grid gap-3'>
-                        <Label htmlFor='subcategory'>
-                          Subcategory (optional)
-                        </Label>
-                        <Switch />
-                      </div> */}
                     </div>
                   </CardContent>
                 </Card>
@@ -595,14 +602,6 @@ export default function Dashboard () {
                   <CardContent>
                     <div className='grid gap-6'>
                       <div className='grid gap-3'>
-                        {/* <Label htmlFor='status'>
-                          <span className='opacity-70'>Status :</span>{' '}
-                          <span>Draft</span>
-                        </Label>
-                        <Label htmlFor='status'>
-                          <span className='opacity-70'>Visibility :</span>{' '}
-                          <span>{selectedVisibility}</span>
-                        </Label> */}
                         <Select
                           value={selectedVisibility.value}
                           onValueChange={e => {
@@ -652,27 +651,47 @@ export default function Dashboard () {
                       type='file'
                       id='thumbnail'
                       ref={thumbnailRef}
-                      onChange={e =>
-                        // @ts-ignore
-                        handleCustomThumbnailChange(e.target.files)
-                      }
-                      accept='image/*'
                       {...thumbnailDropzone.getInputProps()}
                     />
                     <div
                       className='w-full aspect-square border-2 border-dashed bg-darkAccent'
-                      {...thumbnailDropzone.getRootProps()}
+                      {...(!thumbnail?.crop &&
+                        thumbnailDropzone.getRootProps())}
                     >
                       {thumbnail ? (
-                        <div className='h-full w-full flex justify-center items-center'>
-                          <Image
+                        thumbnail.crop ? (
+                          <Cropper
+                            ref={cropperRef}
+                            style={{
+                              height: '100%',
+                              width: '100%'
+                            }}
+                            className='object-contain cropper overflow-hidden'
+                            aspectRatio={1}
                             src={thumbnail.url}
-                            alt='thumbnail'
-                            width={300}
-                            height={300}
-                            className='h-full w-full object-cover'
+                            // zoomTo={0.5}
+                            initialAspectRatio={1}
+                            preview='.img-preview'
+                            viewMode={1}
+                            minCropBoxHeight={10}
+                            minCropBoxWidth={10}
+                            background={false}
+                            responsive={true}
+                            autoCropArea={1}
+                            checkOrientation={false}
+                            guides={true}
                           />
-                        </div>
+                        ) : (
+                          <div className='h-full w-full flex justify-center items-center'>
+                            <Image
+                              src={thumbnail.url}
+                              alt='thumbnail'
+                              width={300}
+                              height={300}
+                              className='h-full w-full object-cover'
+                            />
+                          </div>
+                        )
                       ) : (
                         <div className='h-full w-full flex flex-col justify-center items-center'>
                           <MaterialSymbolIcon>image</MaterialSymbolIcon>
@@ -687,6 +706,16 @@ export default function Dashboard () {
                         <Badge
                           variant={'outline'}
                           className='cursor-pointer hover:bg-darkAccent/80'
+                          onClick={() => {
+                            if (thumbnail.crop) {
+                              handleCrop()
+                            }
+                            //@ts-ignore
+                            setThumbnail(prev => ({
+                              ...prev,
+                              crop: !prev?.crop
+                            }))
+                          }}
                         >
                           <MaterialSymbolIcon className='mr-2 text-primary opacity-100'>
                             crop
@@ -716,7 +745,7 @@ export default function Dashboard () {
                               thumbnailDropzone.inputRef.current.value = ''
                             setThumbnail(
                               images.length
-                                ? { ...images[0], custom: false }
+                                ? { ...images[0], custom: false, crop: false }
                                 : null
                             )
                           }}
@@ -724,7 +753,7 @@ export default function Dashboard () {
                           <MaterialSymbolIcon className='mr-2'>
                             delete
                           </MaterialSymbolIcon>
-                          <span>Remove custom thumbnail</span>
+                          <span>Remove thumbnail</span>
                         </Button>
                       </div>
                     )}

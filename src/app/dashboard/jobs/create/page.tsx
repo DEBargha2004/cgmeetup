@@ -30,7 +30,7 @@ import {
   SelectValue
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
-import { MaterialSymbolIcon } from '@/components/custom'
+import { Cropper, MaterialSymbolIcon } from '@/components/custom'
 import { Switch } from '@/components/ui/switch'
 import { gallery_post_categories } from '@/constants/categories'
 import { useEffect, useMemo, useRef, useState } from 'react'
@@ -71,6 +71,8 @@ import {
 import logo from '../../../../../public/images/company-logo.jpg'
 import _ from 'lodash'
 import { Combobox } from '@/components/ui/combobox'
+import { useDropzone } from 'react-dropzone'
+import { ReactCropperElement } from 'react-cropper'
 
 const visibilityOptions: string[] = ['Open', 'Closed']
 
@@ -101,15 +103,18 @@ export default function Dashboard () {
   const [images, setImages] = useState<
     { id: string; url: string; type: string; caption: string }[]
   >([])
-  const [thumbnail, setThumbnail] = useState<{
+  const [logo, setLogo] = useState<{
     id: string
     url: string
     type: string
     caption: string
     custom: boolean
+    crop: boolean
   } | null>()
 
   const salaryTriggerRef = useRef<HTMLDivElement>(null)
+  const cropperRef = useRef<ReactCropperElement>(null)
+
   const [salaryPopoverWidth, setSalaryPopoverWidth] = useState(0)
 
   const form = useForm<JobPostSchemaType>({
@@ -127,8 +132,41 @@ export default function Dashboard () {
       location: addresses[0]
     }
   })
+  const logoDropzone = useDropzone({
+    accept: {
+      'image/*': []
+    }
+  })
 
   const handleFormSubmit = async (e: JobPostSchemaType) => {}
+  const handleCrop = () => {
+    if (typeof cropperRef.current?.cropper !== 'undefined') {
+      //@ts-ignore
+      setLogo(prev => ({
+        ...prev,
+        url: cropperRef.current?.cropper
+          .getCroppedCanvas()
+          .toDataURL() as string
+      }))
+    }
+  }
+  const handleLogoChange = (files: File[] | null) => {
+    if (files?.length) {
+      const reader = new FileReader()
+      reader.readAsDataURL(files[0])
+
+      reader.onloadend = () => {
+        setLogo({
+          id: crypto.randomUUID(),
+          url: reader.result as string,
+          type: files[0].type,
+          caption: '',
+          custom: true,
+          crop: false
+        })
+      }
+    }
+  }
 
   const upperLimit = parseInt(form.watch('salary.upper_limit') || '0')
   const lowerLimit = parseInt(form.watch('salary.lower_limit') || '0')
@@ -153,6 +191,10 @@ export default function Dashboard () {
       ro.disconnect()
     }
   }, [])
+
+  useEffect(() => {
+    handleLogoChange(logoDropzone.acceptedFiles)
+  }, [logoDropzone.acceptedFiles])
 
   return (
     <div className='flex h-full w-full flex-col'>
@@ -846,38 +888,116 @@ export default function Dashboard () {
                       <CardTitle className='text-xl'>Logo</CardTitle>
                     </CardHeader>
                     <CardContent className='space-y-2 px-0 pb-0'>
-                      <div className='w-full aspect-square bg-darkAccent'>
-                        <Image
-                          src={logo}
-                          alt='company-logo'
-                          height={300}
-                          width={300}
-                          className='w-full aspect-square object-cover'
-                        />
+                      <input
+                        hidden
+                        type='file'
+                        id='logo'
+                        {...logoDropzone.getInputProps()}
+                      />
+                      <div
+                        className='w-full aspect-square border-2 border-dashed bg-darkAccent'
+                        {...(!logo?.crop && logoDropzone.getRootProps())}
+                      >
+                        {logo ? (
+                          logo.crop ? (
+                            <Cropper
+                              ref={cropperRef}
+                              style={{
+                                height: '100%',
+                                width: '100%'
+                              }}
+                              className='object-contain cropper overflow-hidden'
+                              aspectRatio={1}
+                              src={logo.url}
+                              // zoomTo={0.5}
+                              initialAspectRatio={1}
+                              preview='.img-preview'
+                              viewMode={1}
+                              minCropBoxHeight={10}
+                              minCropBoxWidth={10}
+                              background={false}
+                              responsive={true}
+                              autoCropArea={1}
+                              checkOrientation={false}
+                              guides={true}
+                            />
+                          ) : (
+                            <div className='h-full w-full flex justify-center items-center'>
+                              <Image
+                                src={logo.url}
+                                alt='logo'
+                                width={300}
+                                height={300}
+                                className='h-full w-full object-cover'
+                              />
+                            </div>
+                          )
+                        ) : (
+                          <div className='h-full w-full flex flex-col justify-center items-center'>
+                            <MaterialSymbolIcon>image</MaterialSymbolIcon>
+                            <p className='text-sm text-white opacity-70 text-center'>
+                              Upload or drag & drop image
+                            </p>
+                          </div>
+                        )}
                       </div>
+                      <div className=' w-full flex justify-center items-center gap-3'>
+                        {logo && (
+                          <Badge
+                            variant={'outline'}
+                            className='cursor-pointer hover:bg-darkAccent/80'
+                            onClick={() => {
+                              if (logo.crop) {
+                                handleCrop()
+                              }
+                              //@ts-ignore
+                              setLogo(prev => ({
+                                ...prev,
+                                crop: !prev?.crop
+                              }))
+                            }}
+                          >
+                            <MaterialSymbolIcon className='mr-2 text-primary opacity-100'>
+                              crop
+                            </MaterialSymbolIcon>
+                            <span>Crop</span>
+                          </Badge>
+                        )}
+
+                        <Badge
+                          variant={'outline'}
+                          className='cursor-pointer hover:bg-darkAccent/80'
+                          {...logoDropzone.getRootProps()}
+                        >
+                          <MaterialSymbolIcon className='mr-2 text-primary opacity-100'>
+                            upload_2
+                          </MaterialSymbolIcon>
+                          <span>Upload</span>
+                        </Badge>
+                      </div>
+                      {logo?.custom && (
+                        <div className='flex justify-center items-center'>
+                          <Button
+                            variant={'destructive'}
+                            className=''
+                            onClick={() => {
+                              if (logoDropzone.inputRef.current)
+                                logoDropzone.inputRef.current.value = ''
+                              setLogo(
+                                images.length
+                                  ? { ...images[0], custom: false, crop: false }
+                                  : null
+                              )
+                            }}
+                          >
+                            <MaterialSymbolIcon className='mr-2'>
+                              delete
+                            </MaterialSymbolIcon>
+                            <span>Remove Logo</span>
+                          </Button>
+                        </div>
+                      )}
                     </CardContent>
-                    <CardFooter className='grid grid-cols-2 gap-2 px-0'>
-                      <Button
-                        className='w-full rounded  bg-transparent hover:bg-darkAccent/80'
-                        variant={'outline'}
-                        type='button'
-                      >
-                        <MaterialSymbolIcon className='mr-2 text-primary'>
-                          crop
-                        </MaterialSymbolIcon>
-                        Crop
-                      </Button>
-                      <Button
-                        className='w-full rounded  bg-transparent hover:bg-darkAccent/80'
-                        variant={'outline'}
-                        type='button'
-                      >
-                        <MaterialSymbolIcon className='mr-2 text-primary'>
-                          upload_2
-                        </MaterialSymbolIcon>
-                        Upload
-                      </Button>
-                    </CardFooter>
                   </Card>
                   <Card className='p-4 space-y-3 xl:w-[60%] lg:w-4/5 bg-card'>
                     <CardHeader className='px-0 pb-2 pt-0'>

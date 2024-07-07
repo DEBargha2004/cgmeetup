@@ -32,7 +32,7 @@ import {
   SelectValue
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
-import { MaterialSymbolIcon, MultiSelect } from '@/components/custom'
+import { Cropper, MaterialSymbolIcon, MultiSelect } from '@/components/custom'
 import { Switch } from '@/components/ui/switch'
 import {
   gallery_post_categories,
@@ -52,10 +52,10 @@ import Image from 'next/image'
 import { useDropzone } from 'react-dropzone'
 import { FieldType } from '@/types/field-type'
 import { RichTextEditor } from '@/components/custom/editor'
-import { FormField } from '@/components/ui/form'
-import { Combobox } from '@/components/ui/combobox'
 import { tags } from '@/constants/job-filters'
 import { FancyMultiSelect } from '@/components/ui/fancy-multi-select'
+import { ReactCropperElement } from 'react-cropper'
+import { Combobox } from '@/components/ui/combobox'
 
 const upload_types: { icon: string; title: string; description: string }[] = [
   {
@@ -95,16 +95,18 @@ export default function Dashboard () {
     type: string
     caption: string
     custom: boolean
+    crop: boolean
   } | null>()
 
   const thumbnailDropzone = useDropzone()
 
   const thumbnailRef = useRef<HTMLInputElement>(null)
+  const cropperRef = useRef<ReactCropperElement>(null)
 
   // const onDragEnd = e => {}
 
   const handleCustomThumbnailChange = (files: File[] | null) => {
-    if (files) {
+    if (files?.length) {
       const reader = new FileReader()
       reader.readAsDataURL(files[0])
 
@@ -114,16 +116,28 @@ export default function Dashboard () {
           url: reader.result as string,
           type: files[0].type,
           caption: '',
-          custom: true
+          custom: true,
+          crop: false
         })
-        console.log(thumbnailRef.current)
-        if (thumbnailRef.current) {
-          console.log(thumbnailRef.current)
-          thumbnailRef.current.value = ''
-        }
       }
     }
   }
+
+  const handleCrop = () => {
+    if (typeof cropperRef.current?.cropper !== 'undefined') {
+      //@ts-ignore
+      setThumbnail(prev => ({
+        ...prev,
+        url: cropperRef.current?.cropper
+          .getCroppedCanvas()
+          .toDataURL() as string
+      }))
+    }
+  }
+
+  useEffect(() => {
+    handleCustomThumbnailChange(thumbnailDropzone.acceptedFiles)
+  }, [thumbnailDropzone.acceptedFiles])
 
   return (
     <div className='flex h-full w-full flex-col'>
@@ -167,37 +181,36 @@ export default function Dashboard () {
                   className='border bg-card p-2 max-w-full overflow-hidden'
                 >
                   <CardContent className='flex flex-col justify-between items-stretch gap-1 p-0 w-full '>
-                    <Input className='' placeholder='Post Title' />
+                    <div className='space-y-2'>
+                      <p className='text-sm'>Title</p>
+                      <Input className='' placeholder='Post Title' />
+                    </div>
                     <RichTextEditor />
                   </CardContent>
                 </Card>
                 <Card
                   x-chunk='dashboard-07-chunk-1'
-                  className='border bg-card p-2 max-w-full '
+                  className='border bg-card p-2 max-w-full'
                 >
-                  <CardContent className='flex flex-col justify-between items-stretch gap-1 p-0 w-full '>
-                    <Select>
-                      <SelectTrigger>
-                        <SelectValue placeholder='Select Category' />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          {sample_cateories.map((item, index) => (
-                            <SelectItem
-                              key={index}
-                              value={item}
-                              // className='cursor-pointer hover:bg-darkAccent/80'
-                            >
-                              {item}
-                            </SelectItem>
-                          ))}
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                    <FancyMultiSelect
-                      options={tags.map(tag => ({ label: tag, value: tag }))}
-                      placeholder='Select Tags'
-                    />
+                  <CardContent className='flex flex-col justify-between items-stretch gap-4 p-0 w-full '>
+                    <div className='space-y-2'>
+                      <p className='text-sm'>Category</p>
+
+                      <FancyMultiSelect
+                        options={sample_cateories.map(cat => ({
+                          label: cat,
+                          value: cat
+                        }))}
+                        placeholder='Select Category'
+                      />
+                    </div>
+                    <div className='space-y-2'>
+                      <p className='text-sm'>Tags</p>
+                      <FancyMultiSelect
+                        options={tags.map(tag => ({ label: tag, value: tag }))}
+                        placeholder='Select Tags'
+                      />
+                    </div>
                   </CardContent>
                 </Card>
               </div>
@@ -242,10 +255,7 @@ export default function Dashboard () {
                   x-chunk='dashboard-07-chunk-5'
                   className='p-4 space-y-3 xl:w-[60%] lg:w-4/5 bg-card'
                 >
-                  <CardHeader
-                    className='p-0
-                  '
-                  >
+                  <CardHeader className='p-0'>
                     <CardTitle className='text-xl'>Thumbnail</CardTitle>
                   </CardHeader>
                   <CardContent className='space-y-2 px-0 pb-0'>
@@ -254,27 +264,47 @@ export default function Dashboard () {
                       type='file'
                       id='thumbnail'
                       ref={thumbnailRef}
-                      onChange={e =>
-                        // @ts-ignore
-                        handleCustomThumbnailChange(e.target.files)
-                      }
-                      accept='image/*'
                       {...thumbnailDropzone.getInputProps()}
                     />
                     <div
-                      className='w-full aspect-square border-2 border-dashed bg-darkAccent'
-                      {...thumbnailDropzone.getRootProps()}
+                      className='w-full aspect-video border-2 border-dashed bg-darkAccent'
+                      {...(!thumbnail?.crop &&
+                        thumbnailDropzone.getRootProps())}
                     >
                       {thumbnail ? (
-                        <div className='h-full w-full flex justify-center items-center'>
-                          <Image
+                        thumbnail.crop ? (
+                          <Cropper
+                            ref={cropperRef}
+                            style={{
+                              height: '100%',
+                              aspectRatio: 16 / 9
+                            }}
+                            className='object-contain cropper overflow-hidden'
+                            aspectRatio={16 / 9}
                             src={thumbnail.url}
-                            alt='thumbnail'
-                            width={300}
-                            height={300}
-                            className='h-full w-full object-cover'
+                            // zoomTo={0.5}
+                            initialAspectRatio={16 / 9}
+                            preview='.img-preview'
+                            viewMode={1}
+                            minCropBoxHeight={10}
+                            minCropBoxWidth={10}
+                            background={false}
+                            responsive={true}
+                            autoCropArea={1}
+                            checkOrientation={false}
+                            guides={true}
                           />
-                        </div>
+                        ) : (
+                          <div className='h-full w-full flex justify-center items-center'>
+                            <Image
+                              src={thumbnail.url}
+                              alt='thumbnail'
+                              width={300}
+                              height={300}
+                              className='h-full w-full object-cover'
+                            />
+                          </div>
+                        )
                       ) : (
                         <div className='h-full w-full flex flex-col justify-center items-center'>
                           <MaterialSymbolIcon>image</MaterialSymbolIcon>
@@ -289,6 +319,16 @@ export default function Dashboard () {
                         <Badge
                           variant={'outline'}
                           className='cursor-pointer hover:bg-darkAccent/80'
+                          onClick={() => {
+                            if (thumbnail.crop) {
+                              handleCrop()
+                            }
+                            //@ts-ignore
+                            setThumbnail(prev => ({
+                              ...prev,
+                              crop: !prev?.crop
+                            }))
+                          }}
                         >
                           <MaterialSymbolIcon className='mr-2 text-primary opacity-100'>
                             crop
@@ -318,7 +358,7 @@ export default function Dashboard () {
                               thumbnailDropzone.inputRef.current.value = ''
                             setThumbnail(
                               images.length
-                                ? { ...images[0], custom: false }
+                                ? { ...images[0], custom: false, crop: false }
                                 : null
                             )
                           }}
@@ -326,7 +366,7 @@ export default function Dashboard () {
                           <MaterialSymbolIcon className='mr-2'>
                             delete
                           </MaterialSymbolIcon>
-                          <span>Remove custom thumbnail</span>
+                          <span>Remove thumbnail</span>
                         </Button>
                       </div>
                     )}

@@ -42,15 +42,6 @@ export default function Sidebar ({ postId }: { postId: string }) {
         )}
       >
         <Card className='rounded bg-lightAccent relative'>
-          {/* <div className='flex justify-end gap-2 items-center absolute top-0 right-0 w-full pt-[6px]'>
-            <MaterialSymbolIcon
-              variant='filled'
-              className='opacity-100 hover:text-primary text-[20px] cursor-pointer'
-            >
-              more_vert
-            </MaterialSymbolIcon>
-            <Close className='lg:block lg:relative hidden text-[20px] opacity-100 hover:text-primary' />
-          </div> */}
           <CardContent id='user-profile' className='space-y-6 py-3 pr-5'>
             <ProfileInfoOverView
               heading='text-[14px] xl:text-[16px]'
