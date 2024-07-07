@@ -10,7 +10,7 @@ export function NotificationCardProfileView () {
           <AvatarFallback>{getShortendName('John Doe')}</AvatarFallback>
         </Avatar>
         <div>
-          <h1 className='w-full font-medium line-clamp-2'>
+          <h1 className='w-full font-medium line-clamp-2 text-base'>
             Prashant Singh at ABC Pvt. Ltd.{' '}
           </h1>
           <p className='opacity-70 text-sm'>viewed your profile</p>
@@ -30,7 +30,7 @@ export function NotificationCardOtherView () {
           <AvatarFallback>{getShortendName('John Doe')}</AvatarFallback>
         </Avatar>
         <div>
-          <h1 className='w-full font-medium line-clamp-2'>
+          <h1 className='w-full font-medium line-clamp-2 text-base'>
             Prashant Singh at ABC Pvt. Ltd.{' '}
           </h1>
           <p className='opacity-70 text-sm'>commented on your post</p>
