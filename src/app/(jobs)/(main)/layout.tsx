@@ -51,6 +51,7 @@ import { Search } from 'lucide-react'
 import { Roboto } from 'next/font/google'
 import { useState } from 'react'
 import Filter from './_components/filter'
+import Link from 'next/link'
 
 const tabList1: TabItem[] = [
   { label: 'Jobs', href: '/jobs', icon: 'work' },
@@ -126,11 +127,19 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
               </SheetContent>
             </Sheet>
           </div>
-          <div>
-            <Button>
-              <span className='mr-2'>Find Talent</span>
-              <MaterialSymbolIcon>arrow_right_alt</MaterialSymbolIcon>
-            </Button>
+          <div className='flex gap-2'>
+            <Link href={'/companies'}>
+              <Button variant={'secondary'} className=''>
+                <MaterialSymbolIcon>apartment</MaterialSymbolIcon>
+                <span className='ml-2'>Studios</span>
+              </Button>
+            </Link>
+            <Link href={'/dashboard/jobs'}>
+              <Button>
+                <span className='mr-2'>Find Talent</span>
+                <MaterialSymbolIcon>arrow_right_alt</MaterialSymbolIcon>
+              </Button>
+            </Link>
           </div>
         </div>
         <div className='space-y-2'>
@@ -143,9 +152,6 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
             <div className='flex justify-start items-center'>
               <Tabs tabs={tabList1} />
             </div>
-            {/* <div className='flex justify-end items-center'>
-              <Tabs tabs={tabList2} />
-            </div> */}
           </div>
           <section className='flex justify-start items-center gap-10 px-2'>
             <Popover>

@@ -47,7 +47,7 @@ export default function Sidebar ({ postId }: { postId: string }) {
               heading='text-[14px] xl:text-[16px]'
               description='text-[11px] xl:text-[12px] text-white opacity-70'
               className='items-center'
-              image='w-14 h-14 xl:w-14 xl:h-14'
+              image='w-16 h-16'
               textContainer='justify-start gap-1'
             >
               <div
@@ -63,7 +63,7 @@ export default function Sidebar ({ postId }: { postId: string }) {
           <CardContent id='post-info' className='space-y-2 pt-0'>
             <h1 className='text-xl font-bold'>{project.title}</h1>
             <LimitText className='text-sm'>{description}</LimitText>
-            <i className='text-muted-foreground text-xs'>Posted 6 hours ago</i>
+            <i className='text-muted-foreground text-xs'>Posted 5 hours ago</i>
           </CardContent>
         </Card>
         <div className='flex justify-between items-center '>
@@ -80,7 +80,7 @@ export default function Sidebar ({ postId }: { postId: string }) {
           </div>
         </div>
         <div>
-          <div className='grid grid-cols-2 w-[95%] mx-auto sticky lg:top-0  bg-darkAccent z-10'>
+          <div className='grid grid-cols-2 w-[95%] mx-auto sticky lg:top-0 z-20 bg-darkAccent border-b'>
             <TabItem
               className={cn(
                 activeTab === 'comment' ? ' border-primary border-b-2 ' : ''
@@ -209,7 +209,7 @@ function TabItem ({
   return (
     <div
       className={cn(
-        'flex justify-center items-center py-1 cursor-pointer ',
+        'flex justify-center items-center py-1 cursor-pointer bg-transparent',
         className
       )}
       {...props}

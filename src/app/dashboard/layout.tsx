@@ -11,9 +11,9 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
 
   return (
-    <main className='flex md:flex-row flex-col-reverse justify-start items-start h-full'>
+    <main className='flex flex-row justify-start items-start h-full'>
       <div
-        className='lg:w-[160px] md:w-fit w-full h-fit md:h-full flex md:flex-col flex-row 
+        className='lg:w-[160px] w-fit  h-full flex flex-col 
       justify-start items-start border-r p-1 gap-1 z-50 bg-card'
       >
         {dashboardSidebar.map((item, item_idx) => (
@@ -32,7 +32,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
                 <div
                   className={cn(
                     `flex justify-center lg:gap-1 lg:justify-start items-center  
-                  hover:bg-lightAccent sm:p-2 sm:px-3 py-1 font-semibold shrink-0 rounded`,
+                  hover:bg-lightAccent p-2 px-3  font-semibold shrink-0 rounded`,
                     (
                       item.catch_routes
                         ? item.catch_routes.includes(pathname)
@@ -42,7 +42,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
                       : ''
                   )}
                 >
-                  <MaterialSymbolIcon className='sm:text-lg text-sm'>
+                  <MaterialSymbolIcon className='text-lg '>
                     {item.icon_name || ''}
                   </MaterialSymbolIcon>
                   <p className='lg:block hidden whitespace-nowrap'>
@@ -54,7 +54,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
           </React.Fragment>
         ))}
       </div>
-      <div className='lg:w-[calc(100%-160px)] w-full md:h-full h-[calc(100%-52px)] overflow-y-auto scroller'>
+      <div className='lg:w-[calc(100%-160px)] w-full h-[calc(100%-52px)] overflow-y-auto scroller'>
         {children}
       </div>
     </main>

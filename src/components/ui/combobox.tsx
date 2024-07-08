@@ -46,12 +46,14 @@ export function Combobox ({
   value,
   options,
   onChange,
-  placeholder = 'Select Options'
+  placeholder = 'Select Options',
+  className
 }: {
   value: string
   onChange: (value: string) => void
   placeholder?: string
   options: { label: string; value: string }[]
+  className?: string
 }) {
   const [open, setOpen] = React.useState(false)
 
@@ -62,7 +64,10 @@ export function Combobox ({
           variant='outline'
           role='combobox'
           aria-expanded={open}
-          className='w-full justify-between bg-darkAccent hover:bg-darkAccent'
+          className={cn(
+            'w-full justify-between bg-darkAccent hover:bg-darkAccent',
+            className
+          )}
         >
           {value
             ? options.find(opt => opt.value === value)?.label

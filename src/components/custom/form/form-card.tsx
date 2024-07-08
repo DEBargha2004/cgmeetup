@@ -5,13 +5,15 @@ export default function FormCard ({
   className,
   extraButton,
   heading,
-  subHeading
+  subHeading,
+  headerClass
 }: {
   children?: React.ReactNode
   className?: string
   heading?: string
   subHeading?: string
   extraButton?: React.ReactNode
+  headerClass?: string
 }) {
   return (
     <div
@@ -22,7 +24,9 @@ export default function FormCard ({
       )}
     >
       <div className='space-y-4 w-full'>
-        <div className='space-y-2 p-2 px-4 px bg-lightAccent'>
+        <div
+          className={cn('space-y-2 p-2 px-4 px bg-lightAccent', headerClass)}
+        >
           <div className='flex justify-between items-center'>
             <h1 className='text-xl font-semibold'>{heading}</h1>
             {extraButton}

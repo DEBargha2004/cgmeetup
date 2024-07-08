@@ -21,6 +21,7 @@ import { TabItem } from '@/types/tab'
 import { Search } from 'lucide-react'
 import { Roboto } from 'next/font/google'
 import Filter from './_components/filter'
+import Link from 'next/link'
 
 const tabList1: TabItem[] = [
   {
@@ -97,10 +98,14 @@ export default function Layout ({
               </Sheet>
             </div>
             <div>
-              <Button>
-                <MaterialSymbolIcon className='mr-2'>person</MaterialSymbolIcon>
-                <span>Find Artist</span>
-              </Button>
+              <Link href={'/artists'}>
+                <Button>
+                  <MaterialSymbolIcon className='mr-2'>
+                    person
+                  </MaterialSymbolIcon>
+                  <span>Find Artist</span>
+                </Button>
+              </Link>
             </div>
           </div>
           <div className='space-y-2'>

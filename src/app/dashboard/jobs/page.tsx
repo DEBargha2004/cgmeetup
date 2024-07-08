@@ -107,18 +107,17 @@ export default function Gallery () {
         </header>
         <main className='grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8'>
           <Tabs defaultValue='all'>
-            <div className='flex sm:flex-row flex-col items-center justify-between gap-2'>
-              <div className='flex gap-2 items-center w-full'>
+            <div className='flex sm:flex-row flex-col items-center justify-between gap-2 '>
+              <div className='flex gap-2 items-center justify-start sm:w-fit w-full'>
                 <TabsList className='bg-card'>
                   <TabsTrigger value='all'>All</TabsTrigger>
                   <TabsTrigger value='public'>Public</TabsTrigger>
                   <TabsTrigger value='private'>Private</TabsTrigger>
                   <TabsTrigger value='draft'>Draft</TabsTrigger>
                 </TabsList>
-                <Link
-                  href={'/dashboard/jobs/create'}
-                  className='sm:inline hidden'
-                >
+              </div>
+              <div className='flex justify-between items-center gap-2 w-full'>
+                <Link href={'/dashboard/gallery/create'} className=' inline'>
                   <Button
                     size='sm'
                     variant={'success'}
@@ -126,59 +125,47 @@ export default function Gallery () {
                   >
                     <PlusCircle className='h-3.5 w-3.5' />
                     <span className='sr-only sm:not-sr-only sm:whitespace-nowrap'>
-                      Add Job
+                      Add Post
                     </span>
                   </Button>
                 </Link>
-              </div>
-              <div className='flex justify-end items-center gap-2 w-full'>
-                <div className='relative flex-1 md:grow-0'>
+
+                <div className='relative md:grow-0 md:w-fit w-[200px] flex justify-between items-center gap-2'>
                   <Search className='absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground' />
                   <Input
                     type='search'
                     placeholder='Search...'
-                    className='rounded-lg pl-8 w-full md:w-[200px] lg:w-[336px] h-8'
+                    className='w-full rounded-lg pl-8 md:w-[200px] lg:w-[336px] h-8'
                   />
-                </div>
-                <Link
-                  href={'/dashboard/jobs/create'}
-                  className='sm:hidden inline'
-                >
-                  <Button
-                    size='sm'
-                    variant={'success'}
-                    className='h-8 gap-1 rounded-sm'
-                  >
-                    <PlusCircle className='h-3.5 w-3.5' />
-                    <span className='sr-only sm:not-sr-only sm:whitespace-nowrap'>
-                      Add Job
-                    </span>
-                  </Button>
-                </Link>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant='outline' size='sm' className='h-8 gap-1'>
-                      <ListFilter className='h-3.5 w-3.5' />
-                      <span className='sr-only sm:not-sr-only sm:whitespace-nowrap'>
-                        Filter
-                      </span>
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align='end' className='bg-darkAccent'>
-                    <DropdownMenuLabel>Filter by</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    {filter.map(item => (
-                      <DropdownMenuCheckboxItem
-                        key={item.value}
-                        onClick={() => setSelectedFilter(item.value)}
-                        checked={selectedFilter === item.value}
-                        className=''
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button
+                        variant='outline'
+                        size='sm'
+                        className='h-8 gap-1 bg-transparent'
                       >
-                        {item.label}
-                      </DropdownMenuCheckboxItem>
-                    ))}
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                        <ListFilter className='h-3.5 w-3.5' />
+                        <span className='sr-only sm:not-sr-only sm:whitespace-nowrap'>
+                          Filter
+                        </span>
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align='end' className='bg-darkAccent'>
+                      <DropdownMenuLabel>Filter by</DropdownMenuLabel>
+                      <DropdownMenuSeparator />
+                      {filter.map(item => (
+                        <DropdownMenuCheckboxItem
+                          key={item.value}
+                          onClick={() => setSelectedFilter(item.value)}
+                          checked={selectedFilter === item.value}
+                          className=''
+                        >
+                          {item.label}
+                        </DropdownMenuCheckboxItem>
+                      ))}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
               </div>
             </div>
             <TabsContent value='all'>

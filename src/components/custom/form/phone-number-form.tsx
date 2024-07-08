@@ -9,6 +9,7 @@ import {
   FormMessage
 } from '@/components/ui/form'
 import { PhoneInput } from '@/components/ui/phone-input'
+import { cn } from '@/lib/utils'
 import {
   PhoneNumberSchemaType,
   phoneNumberSchema
@@ -19,17 +20,22 @@ import { useForm } from 'react-hook-form'
 export default function PhoneNumberForm ({
   form,
   onSubmit,
-  submitLabel
+  submitLabel,
+  className
 }: {
   form: ReturnType<typeof useForm<PhoneNumberSchemaType>>
   onSubmit: (data: PhoneNumberSchemaType) => void
   submitLabel?: string
+  className?: string
 }) {
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className='flex flex-col justify-start items-stretch gap-4'
+        className={cn(
+          'flex flex-col justify-start items-stretch gap-4',
+          className
+        )}
       >
         <FormField
           control={form.control}

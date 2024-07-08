@@ -52,7 +52,7 @@ export default function Navbar ({ className }: { className?: string }) {
   return (
     <header
       className={cn(
-        'top-0 flex h-16 items-center md:gap-4 gap-2 border-b bg-lightAccent px-4 md:px-6',
+        'top-0 flex h-16 items-center md:gap-4 gap-2 border-b bg-card px-4 md:px-6',
         className
       )}
     >
@@ -69,7 +69,7 @@ export default function Navbar ({ className }: { className?: string }) {
             key={item.id}
             href={item.href}
             className={cn(
-              'transition-colors text-foreground',
+              'transition-colors text-white',
               (
                 item.catch_routes
                   ? item.catch_routes.includes(pathname)
@@ -243,29 +243,76 @@ export default function Navbar ({ className }: { className?: string }) {
               </MaterialSymbolIcon>
             </div>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align='end'>
-            {profileItems.map((item, item_idx) => (
-              <React.Fragment key={item_idx}>
-                {item.type === 'link' ? (
-                  <Link href={item.href}>
-                    <DropdownMenuItem key={item.id} className='cursor-pointer'>
-                      {item.label}
-                    </DropdownMenuItem>
-                  </Link>
-                ) : (
-                  <DropdownMenuSeparator />
-                )}
-              </React.Fragment>
-            ))}
+          <DropdownMenuContent align='end' className='translate-y-1'>
+            {profileItems
+              .slice(0, profileItems.length - 1)
+              .map((item, item_idx) => (
+                <ProfileItemLink item={item} key={item_idx}>
+                  <ProfileItemLabel item={item} />
+                </ProfileItemLink>
+              ))}
             <DropdownMenuItem
-              className='cursor-pointer'
+              className='cursor-pointer flex gap-2 w-full pl-2 '
               onClick={() => setAuthDialogState(true)}
             >
-              Auth Dialog
+              <MaterialSymbolIcon className='text-sm'>login</MaterialSymbolIcon>
+              Sign In
             </DropdownMenuItem>
+            {profileItems
+              .slice(profileItems.length - 1)
+              .map((item, item_idx) => (
+                <ProfileItemLink item={item} key={item_idx}>
+                  <ProfileItemLabel item={item} />
+                </ProfileItemLink>
+              ))}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
     </header>
+  )
+}
+
+function ProfileItemLabel ({ item }: { item: typeof profileItems[number] }) {
+  return (
+    <React.Fragment>
+      {item.type === 'separator' ? (
+        <DropdownMenuSeparator />
+      ) : (
+        <>
+          <DropdownMenuItem
+            key={item.id}
+            className='cursor-pointer flex gap-2 w-full pl-2 '
+          >
+            <MaterialSymbolIcon className='text-sm'>
+              {item.icon}
+            </MaterialSymbolIcon>
+            {item.label}
+          </DropdownMenuItem>
+        </>
+      )}
+    </React.Fragment>
+  )
+}
+
+function ProfileItemLink ({
+  item,
+  children
+}: {
+  item: typeof profileItems[number]
+  children: React.ReactNode
+}) {
+  return (
+    <React.Fragment>
+      {item.type === 'link' ? (
+        <Link
+          href={item.href}
+          className='flex justify-start items-center w-full'
+        >
+          {children}
+        </Link>
+      ) : (
+        <>{children}</>
+      )}
+    </React.Fragment>
   )
 }

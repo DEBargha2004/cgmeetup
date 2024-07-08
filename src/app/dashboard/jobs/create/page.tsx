@@ -129,7 +129,8 @@ export default function Dashboard () {
         upper_limit: '5'
       },
       apply_option: apply_options[0],
-      location: addresses[0]
+      location: addresses[0],
+      assigned_to: assignable_members[0].value
     }
   })
   const logoDropzone = useDropzone({

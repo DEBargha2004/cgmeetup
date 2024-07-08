@@ -33,18 +33,32 @@ export const navItems: NavItem[] = [
     icon: 'newspaper',
     catch_routes: ['/news']
   },
+  // {
+  //   id: 'artists',
+  //   label: 'Artists',
+  //   href: '/artists',
+  //   icon: 'person',
+  //   catch_routes: ['/artists', '/artists/latest', '/artists/trending']
+  // },
+  // {
+  //   id: 'company',
+  //   label: 'Companies',
+  //   href: '/companies',
+  //   icon: 'apartment',
+  //   catch_routes: ['/companies', '/companies/latest', '/companies/trending']
+  // }
   {
-    id: 'artists',
-    label: 'Artists',
-    href: '/artists',
-    icon: 'person',
-    catch_routes: ['/artists', '/artists/latest', '/artists/trending']
+    id: 'marketplace',
+    label: 'Marketplace',
+    href: '/marketplace',
+    icon: 'store',
+    catch_routes: ['/marketplace']
   },
   {
-    id: 'company',
-    label: 'Companies',
-    href: '/companies',
-    icon: 'apartment',
-    catch_routes: ['/companies', '/companies/latest', '/companies/trending']
+    id: 'tutorials',
+    label: 'Tutorials',
+    href: '/tutorials',
+    icon: 'book',
+    catch_routes: ['/tutorials']
   }
 ]

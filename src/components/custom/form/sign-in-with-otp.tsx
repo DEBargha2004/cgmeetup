@@ -59,7 +59,7 @@ export default function SignInWithOtpForm ({
           name='otp'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>OTP</FormLabel>
               <FormControl>
                 <InputOTP maxLength={6} {...field}>
                   <InputOTPGroup className='w-full grid grid-cols-6 gap-2'>

@@ -82,7 +82,9 @@ export default function JobCreateDialog () {
       },
       location: locations[0],
       type: job_types[0].value,
-      visibility: visibilityOptions[0]
+      visibility: visibilityOptions[0],
+      apply_option: apply_options[0],
+      assigned_to: assignable_members[0].value
     }
   })
 
@@ -465,7 +467,7 @@ export default function JobCreateDialog () {
                 control={jobCreateForm.control}
                 name='location'
                 render={({ field }) => (
-                  <FormItem className='xs:col-span-2 col-span-2'>
+                  <FormItem className=' col-span-2'>
                     <FormControl>
                       <Select
                         value={field.value}
@@ -487,16 +489,25 @@ export default function JobCreateDialog () {
                   </FormItem>
                 )}
               />
+              <Button
+                className='col-span-2 bg-transparent hover:bg-darkAccent w-fit ml-auto'
+                variant={'outline'}
+              >
+                Edit Address
+              </Button>
+            </div>
+            <div className='grid @xs:grid-cols-2 gap-2'>
               <FormField
                 control={jobCreateForm.control}
                 name='assigned_to'
                 render={({ field }) => (
-                  <FormItem className='w-full'>
+                  <FormItem className='xs:col-span-1 col-span-2'>
                     <FormControl>
                       <Combobox
                         value={field.value}
                         onChange={field.onChange}
                         options={assignable_members}
+                        placeholder='Assigned to'
                       />
                     </FormControl>
                     <FormMessage />

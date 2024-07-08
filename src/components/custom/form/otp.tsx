@@ -35,15 +35,15 @@ export default function OtpForm () {
           render={({ field }) => (
             <FormItem className='flex flex-col justify-between items-center gap-2'>
               {/* <FormLabel>Verify OTP</FormLabel> */}
-              <FormControl>
-                <InputOTP maxLength={6} {...field}>
-                  <InputOTPGroup>
-                    <InputOTPSlot index={0} />
-                    <InputOTPSlot index={1} />
-                    <InputOTPSlot index={2} />
-                    <InputOTPSlot index={3} />
-                    <InputOTPSlot index={4} />
-                    <InputOTPSlot index={5} />
+              <FormControl className='w-[200px]'>
+                <InputOTP maxLength={6} {...field} className='w-full'>
+                  <InputOTPGroup className='grid grid-cols-6 gap-2 w-full'>
+                    <InputOTPSlot index={0} className='w-full aspect-square' />
+                    <InputOTPSlot index={1} className='w-full aspect-square' />
+                    <InputOTPSlot index={2} className='w-full aspect-square' />
+                    <InputOTPSlot index={3} className='w-full aspect-square' />
+                    <InputOTPSlot index={4} className='w-full aspect-square' />
+                    <InputOTPSlot index={5} className='w-full aspect-square' />
                   </InputOTPGroup>
                 </InputOTP>
               </FormControl>
