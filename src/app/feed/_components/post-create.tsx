@@ -28,28 +28,35 @@ export default function PostCreate () {
         <div className='relative'>
           <Textarea
             className='overflow-y-auto scroller pb-4'
-            rows={7}
+            rows={4}
             placeholder='What do you like to share?'
           />
           <p className='text-xs opacity-70 absolute bottom-1 right-3'>0/5000</p>
         </div>
-        <div className='flex justify-between items-center'>
-          <div className='flex justify-start items-center gap-4'>
-            <div className='flex justify-start items-center gap-1'>
-              <MaterialSymbolIcon className='cursor-pointer text-2xl'>
+        <div className='grid xs:grid-cols-3'>
+          <div className='grid grid-cols-2 col-span-2 gap-4 cursor-pointer w-fit'>
+            <input type='file' hidden />
+            <div className='flex justify-start items-center gap-1 w-fit'>
+              <MaterialSymbolIcon className='cursor-pointer text-2xl opacity-100 text-success'>
                 imagesmode
               </MaterialSymbolIcon>
-              <span>Images</span>
+              <span className='text-sm'>Images</span>
             </div>
-            <div className='flex justify-start items-center gap-1'>
-              <MaterialSymbolIcon className='cursor-pointer text-2xl'>
+            <div className='flex justify-start items-center gap-1 w-fit'>
+              <MaterialSymbolIcon className='cursor-pointer text-2xl opacity-100 text-primary'>
                 slow_motion_video
               </MaterialSymbolIcon>
-              <span>Videos</span>
+              <span className='text-sm'>Videos</span>
             </div>
           </div>
-          <div>
-            <Button className='h-8'>Post</Button>
+          <div className='col-span-2 xs:col-span-1 w-fit ml-auto space-x-2'>
+            <Button
+              className='h-8'
+              variant={'success'}
+              // disabled={!(postDesc || mediaList.length)}
+            >
+              Post
+            </Button>
           </div>
         </div>
       </div>

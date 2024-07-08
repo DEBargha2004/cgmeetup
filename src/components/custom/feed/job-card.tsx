@@ -13,12 +13,7 @@ import Image from 'next/image'
 
 export default function JobCard ({ className }: { className?: string }) {
   return (
-    <CarouselItem
-      className={cn(
-        'basis-[100%] sm:basis-[90%] flex flex-col gap-3 justify-between items-start bg-lightAccent p-2 rounded',
-        className
-      )}
-    >
+    <>
       <div className='flex justify-start items-start gap-3 w-full'>
         <Image
           src={
@@ -61,7 +56,7 @@ export default function JobCard ({ className }: { className?: string }) {
           </div>
         </div>
       </div>
-    </CarouselItem>
+    </>
   )
 }
 

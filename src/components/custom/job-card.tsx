@@ -15,7 +15,7 @@ export default function JobCard ({ className }: { className?: string }) {
     <Card
       className={cn(
         `bg-card grid grid-cols-4 gap-x-3 gap-y-2 w-full
-    p-3 pb-3 md:pb-3 relative`,
+    p-3 pb-3 md:pb-3 relative @container`,
         className
       )}
     >
@@ -43,8 +43,8 @@ export default function JobCard ({ className }: { className?: string }) {
           </div>
           <p className='text-slate-200 opacity-70'>Ubisoft Toronto</p>
           <p className='text-sm text-slate-200'>3 - 5 Years / USD $50 - 59</p>
-          <div className='sm:flex justify-between hidden'>
-            <div className='sm:flex flex-wrap gap-2  w-[90%]'>
+          <div className='@lg:flex justify-between hidden'>
+            <div className='@lg:flex flex-wrap gap-2  w-[90%]'>
               <Badge className='text-slate-300 py-0'>
                 <MaterialSymbolIcon className='mr-2'>
                   language
@@ -74,7 +74,7 @@ export default function JobCard ({ className }: { className?: string }) {
           </div>
         </div>
       </div>
-      <div className='flex  gap-2 sm:hidden col-span-4'>
+      <div className='flex  gap-2 @lg:hidden col-span-4'>
         <div className='flex gap-2 flex-wrap'>
           <Badge className='text-slate-300'>
             <Globe className='mr-2 h-5 w-5' />

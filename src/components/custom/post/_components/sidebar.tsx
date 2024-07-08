@@ -34,15 +34,15 @@ export default function Sidebar ({ postId }: { postId: string }) {
 
   const [activeTab, setActiveTab] = useState<'comment' | 'creator'>('comment')
   return (
-    <div className='w-full xl:w-[26%] lg:w-[30%] h-full lg:overflow-y-auto px-1 scroller pt-2'>
+    <div className='w-full md:w-[400px] h-full lg:overflow-y-auto px-1 scroller pt-2'>
       <div
         className={cn(
           ' space-y-3 lg:overflow-y-auto scroller',
           activeTab === 'comment' ? 'h-[calc(100%-80px)]' : 'h-full'
         )}
       >
-        <Card className='rounded bg-lightAccent relative'>
-          <CardContent id='user-profile' className='space-y-6 py-3 pr-5'>
+        <Card className='rounded bg-card relative'>
+          <CardContent id='user-profile' className='space-y-6 py-3 pr-2'>
             <ProfileInfoOverView
               heading='text-[14px] xl:text-[16px]'
               description='text-[11px] xl:text-[12px] text-white opacity-70'
@@ -100,7 +100,7 @@ export default function Sidebar ({ postId }: { postId: string }) {
           </div>
           <div
             className={cn(
-              'py-3 w-[95%]  lg:h-auto mx-auto space-y-3',
+              'py-3  lg:h-auto mx-auto space-y-3',
               activeTab === 'comment'
                 ? 'overflow-y-auto scroller h-[calc(100vh/2)]'
                 : ''
@@ -121,7 +121,7 @@ export default function Sidebar ({ postId }: { postId: string }) {
                     </strong>
                   </CardHeader>
                   <CardContent className='grid grid-cols-3 gap-1'>
-                    {Array.from({ length: 6 }, (_, i) => i).map(item => (
+                    {Array.from({ length: 9 }, (_, i) => i).map(item => (
                       <Image
                         key={item}
                         src={project.smaller_square_cover_url}
