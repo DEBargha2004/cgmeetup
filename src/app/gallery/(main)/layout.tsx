@@ -22,6 +22,8 @@ import { Search } from 'lucide-react'
 import { Roboto } from 'next/font/google'
 import Filter from './_components/filter'
 import Link from 'next/link'
+import background from '@/../public/images/cover-image.jpg'
+import Image from 'next/image'
 
 const tabList1: TabItem[] = [
   {
@@ -46,14 +48,6 @@ const tabList1: TabItem[] = [
   }
 ]
 
-// const tabList2: TabItem[] = [
-//   {
-//     label: 'Bookmarks',
-//     href: '/dashboard/bookmarks',
-//     icon: 'bookmark'
-//   }
-// ]
-
 const roboto = Roboto({ subsets: ['cyrillic'], weight: '700' })
 
 export default function Layout ({
@@ -66,46 +60,58 @@ export default function Layout ({
   return (
     <>
       <div className='flex min-h-screen w-full flex-col'>
-        <main className='flex flex-1 flex-col py-4 md:gap-0 md:py-12'>
-          <div className='my-6 mb-10 flex flex-col justify-between items-center gap-12 text-center'>
-            <div className='space-y-4'>
-              <h1 className='text-4xl md:text-[52px] font-bold'>
-                Showcase & Discover Creative Work
-              </h1>
-              <p className='text-lg md:text-xl'>
-                for Concept Art , Visual Effects , Short Films and more.
-              </p>
-            </div>
-            <div className='w-3/4 md:w-3/5 lg:w-2/5 relative flex justify-between items-center gap-2'>
-              <Input className='pl-10' placeholder='Search' />
-              <Search className='absolute left-2 top-1/2 -translate-y-1/2' />
+        <main className='flex flex-1 flex-col md:gap-0 '>
+          <div className='relative md:pt-12'>
+            <div className='my-6 mb-10 flex flex-col justify-between items-center gap-12 text-center'>
+              <div className='space-y-4'>
+                <h1 className='text-4xl md:text-[52px] font-bold'>
+                  Showcase & Discover Creative Work
+                </h1>
+                <p className='text-lg md:text-xl'>
+                  for Concept Art , Visual Effects , Short Films and more.
+                </p>
+              </div>
+              <div className='w-3/4 md:w-3/5 lg:w-2/5 relative flex justify-between items-center gap-2'>
+                <Input className='pl-10' placeholder='Search' />
+                <Search className='absolute left-2 top-1/2 -translate-y-1/2' />
 
-              <Sheet>
-                <SheetTrigger asChild>
-                  <div className='flex items-center gap-1 cursor-pointer'>
-                    <MaterialSymbolIcon>sort</MaterialSymbolIcon>
-                    <span>Filter</span>
-                  </div>
-                </SheetTrigger>
-                <SheetContent side={'right'} className='bg-lightAccent'>
-                  <div className=' space-y-3'>
-                    <Filter />
-                    <div className='flex justify-end'>
-                      <Button className='ml-auto'>Reset</Button>
+                <Sheet>
+                  <SheetTrigger asChild>
+                    <div className='flex items-center gap-1 cursor-pointer'>
+                      <MaterialSymbolIcon>sort</MaterialSymbolIcon>
+                      <span>Filter</span>
                     </div>
-                  </div>
-                </SheetContent>
-              </Sheet>
+                  </SheetTrigger>
+                  <SheetContent side={'right'} className='bg-lightAccent'>
+                    <div className=' space-y-3'>
+                      <Filter />
+                      <div className='flex justify-end'>
+                        <Button className='ml-auto'>Reset</Button>
+                      </div>
+                    </div>
+                  </SheetContent>
+                </Sheet>
+              </div>
+              <div>
+                <Link href={'/artists'}>
+                  <Button>
+                    <MaterialSymbolIcon className='mr-2'>
+                      person
+                    </MaterialSymbolIcon>
+                    <span>Find Artist</span>
+                  </Button>
+                </Link>
+              </div>
             </div>
-            <div>
-              <Link href={'/artists'}>
-                <Button>
-                  <MaterialSymbolIcon className='mr-2'>
-                    person
-                  </MaterialSymbolIcon>
-                  <span>Find Artist</span>
-                </Button>
-              </Link>
+            <div
+              className='absolute w-full h-full top-0 left-0 object-cover -z-10 
+            bg-gradient-to-b from-transparent to-black'
+            >
+              <Image
+                src={background}
+                alt='background'
+                className='w-full h-full object-cover opacity-40 -z-20'
+              />
             </div>
           </div>
           <div className='space-y-2'>
@@ -118,9 +124,6 @@ export default function Layout ({
               <div className='flex justify-start items-center'>
                 <Tabs tabs={tabList1} />
               </div>
-              {/* <div className='flex justify-start items-center'>
-                <Tabs tabs={tabList2} />
-              </div> */}
             </div>
             <section className='flex justify-start items-center gap-10 px-2'>
               <Popover>

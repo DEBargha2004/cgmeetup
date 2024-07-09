@@ -65,7 +65,7 @@ export default function SignInWithPassForm ({
                     className='absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer'
                     onClick={() => setShowPassword(prev => !prev)}
                   >
-                    <MaterialSymbolIcon>
+                    <MaterialSymbolIcon className='opacity-50'>
                       {showPassword ? 'visibility' : 'visibility_off'}
                     </MaterialSymbolIcon>
                   </div>
@@ -82,7 +82,7 @@ export default function SignInWithPassForm ({
           </p>
         </div>
         <Button
-          className='min-w-24 mx-auto'
+          className='min-w-24 mx-auto h-8'
           type='submit'
           disabled={form.formState.isSubmitting}
         >

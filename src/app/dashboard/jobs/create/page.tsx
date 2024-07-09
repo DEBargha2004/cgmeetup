@@ -73,6 +73,7 @@ import _ from 'lodash'
 import { Combobox } from '@/components/ui/combobox'
 import { useDropzone } from 'react-dropzone'
 import { ReactCropperElement } from 'react-cropper'
+import { FancyMultiSelect } from '@/components/ui/fancy-multi-select'
 
 const visibilityOptions: string[] = ['Open', 'Closed']
 
@@ -419,74 +420,10 @@ export default function Dashboard () {
                             <FormItem>
                               <FormLabel></FormLabel>
                               <FormControl>
-                                <DropdownMenu>
-                                  <DropdownMenuTrigger asChild>
-                                    <div
-                                      className='p-2 flex justify-between items-center border rounded 
-                          h-10 bg-darkAccent md:w-1/2 w-full'
-                                    >
-                                      <span className='text-sm'>
-                                        Select Skills
-                                      </span>
-                                      <MaterialSymbolIcon className=''>
-                                        keyboard_arrow_down
-                                      </MaterialSymbolIcon>
-                                    </div>
-                                  </DropdownMenuTrigger>
-                                  <DropdownMenuContent className='  p-0'>
-                                    <div className='bg-lightAccent p-2 relative'>
-                                      <Input className='pl-7' />
-                                      <div className='absolute top-1/2 -translate-y-1/2 left-3'>
-                                        <MaterialSymbolIcon>
-                                          search
-                                        </MaterialSymbolIcon>
-                                      </div>
-                                    </div>
-                                    <div className='px-1 overflow-y-auto scroller h-[200px] w-[300px]'>
-                                      {job_skills.map(skill => (
-                                        <DropdownMenuItem
-                                          key={skill.value}
-                                          className={cn(
-                                            'flex justify-start items-center gap-1 mb-1',
-                                            field.value.includes(skill.value)
-                                              ? 'bg-lightAccent'
-                                              : ''
-                                          )}
-                                          onSelect={e => {
-                                            e.preventDefault()
-                                            if (
-                                              field.value.includes(skill.value)
-                                            ) {
-                                              field.onChange(
-                                                field.value.filter(
-                                                  s => s !== skill.value
-                                                )
-                                              )
-                                            } else {
-                                              field.onChange([
-                                                ...field.value,
-                                                skill.value
-                                              ])
-                                            }
-                                          }}
-                                        >
-                                          <span
-                                            className={cn(
-                                              field.value.includes(skill.value)
-                                                ? 'opacity-100 text-primary'
-                                                : 'opacity-0'
-                                            )}
-                                          >
-                                            <MaterialSymbolIcon>
-                                              check
-                                            </MaterialSymbolIcon>
-                                          </span>
-                                          <span>{skill.label}</span>
-                                        </DropdownMenuItem>
-                                      ))}
-                                    </div>
-                                  </DropdownMenuContent>
-                                </DropdownMenu>
+                                <FancyMultiSelect
+                                  options={job_skills}
+                                  placeholder='Select Skills'
+                                />
                               </FormControl>
                               <FormMessage />
                             </FormItem>

@@ -24,10 +24,10 @@ border-none bg-transparent'
           </Link>
         </CardContent>
       </Card>
-      <Card className='bg-transparent border-none col-span-3 xl:col-span-1 space-y-3'>
+      <Card className='bg-transparent border-none col-span-3 xl:col-span-1 space-y-3 xl:max-w-[400px] px-2'>
         <Card className='bg-card border'>
           <CardHeader className='pb-0'>
-            <CardTitle className='text-xl '>Filters</CardTitle>
+            <CardTitle className='text-xl'>Filters</CardTitle>
           </CardHeader>
           <CardContent className=''>
             <Filter />

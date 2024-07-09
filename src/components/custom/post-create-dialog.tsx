@@ -38,6 +38,7 @@ import { Switch } from '../ui/switch'
 import Cropper, { ReactCropperElement } from 'react-cropper'
 import 'cropperjs/dist/cropper.css'
 import { useWindowSize } from '@uidotdev/usehooks'
+import { FancyMultiSelect } from '../ui/fancy-multi-select'
 
 type PostMedia = {
   type: 'video' | 'image'
@@ -467,16 +468,12 @@ export default function PostCreateDialog () {
               ) : null}
               {showOptions ? (
                 <div className='grid gap-2'>
-                  <MultiSelect
-                    values={categories.map(({ label }) => label)}
-                    onChange={handleCategorySelect}
-                    selectedValues={selectedCategories}
+                  <FancyMultiSelect
+                    options={categories}
                     placeholder='Category'
                   />
-                  <MultiSelect
-                    selectedValues={selectedSoftwares}
-                    values={softwares}
-                    onChange={handleSoftwareSelect}
+                  <FancyMultiSelect
+                    options={categories}
                     placeholder='Software Used'
                   />
                 </div>
@@ -484,11 +481,11 @@ export default function PostCreateDialog () {
               {showOptions ? (
                 <div className='grid xs:grid-cols-3 gap-5'>
                   <div className='col-span-2 grid xs:grid-cols-2 gap-5'>
-                    <div className='flex items-center justify-between gap-2'>
+                    <div className='flex items-center justify-between xs:justify-start gap-2'>
                       <span className='text-sm'>Mature Content</span>
                       <Switch />
                     </div>
-                    <div className='flex items-center justify-between gap-2'>
+                    <div className='flex items-center justify-between xs:justify-start gap-2'>
                       <span className='text-sm'>Created using AI</span>
                       <Switch />
                     </div>

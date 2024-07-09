@@ -30,8 +30,10 @@ export default function JobCard ({ className }: { className?: string }) {
           className='md:h-[150px] md:w-[150px] h-[100px] w-[100px] object-cover rounded-sm'
         />
         <div className='space-y-2 w-full'>
-          <div className='text-lg md:text-xl font-semibold flex justify-between items-center'>
-            <h1>Team Lead Animator [FAR CRY Project]</h1>
+          <div className='  flex justify-between items-center'>
+            <h1 className='text-lg md:text-xl font-semibold'>
+              Team Lead Animator [FAR CRY Project]
+            </h1>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <MaterialSymbolIcon className='inline-block cursor-pointer'>

@@ -49,15 +49,15 @@ export default function FeedPage () {
   return (
     <main className='h-full flex flex-row  justify-start items-start bg-darkAccent'>
       <div
-        className='bottom-0 left-0 w-[75px] 6xl:w-[45%] 5xl:w-2/5
-        4xl:w-1/3 xl:w-1/4 lg:w-1/5 z-20 h-full border-r  px-2 flex flex-col 
+        className='bottom-0 left-0 w-[60px] 6xl:w-[45%] 5xl:w-2/5
+        4xl:w-1/3 xl:w-1/4 lg:w-1/5 z-20 h-full border-r  lg:px-2 flex flex-col 
          justify-start items-end overflow-y-auto scroller overflow-x-auto  pt-8'
       >
         <Profile />
         <FeedNav />
       </div>
       <div
-        className=' h-full w-[calc(100%-75px)] 6xl:w-[55%] 5xl:w-3/5 4xl:w-2/3 
+        className=' h-full w-[calc(100%-60px)] 6xl:w-[55%] 5xl:w-3/5 4xl:w-2/3 
          xl:w-3/4 lg:w-4/5 overflow-y-auto flex justify-center lg:justify-start items-start lg:gap-[2%] scroller'
       >
         <div

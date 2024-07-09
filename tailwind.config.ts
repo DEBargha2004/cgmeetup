@@ -30,7 +30,11 @@ const config = {
       "5xl": "2560px",
       "6xl": "3200px",
     },
+    
     extend: {
+      listStyleType:{
+        "upper-alpha":'upper-alpha'
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

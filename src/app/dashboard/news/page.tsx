@@ -94,7 +94,7 @@ export default function Gallery () {
                 </TabsList>
               </div>
               <div className='flex justify-between items-center gap-2 w-full'>
-                <Link href={'/dashboard/gallery/create'} className=' inline'>
+                <Link href={'/dashboard/news/create'} className=' inline'>
                   <Button
                     size='sm'
                     variant={'success'}

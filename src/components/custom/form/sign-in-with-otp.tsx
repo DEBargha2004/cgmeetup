@@ -83,7 +83,7 @@ export default function SignInWithOtpForm ({
           </p>
         </div>
         <Button
-          className='min-w-24 mx-auto'
+          className='min-w-24 mx-auto h-8'
           type='submit'
           disabled={form.formState.isSubmitting}
         >

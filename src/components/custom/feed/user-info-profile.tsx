@@ -31,7 +31,7 @@ export default function UserInfoProfile ({ className }: { className?: string }) 
         />
         <div className='space-y-2 w-full'>
           <div className='text-lg md:text-xl font-semibold flex justify-between items-center'>
-            <h1>Samuel Disuoza</h1>
+            <h1 className='text-lg md:text-xl font-semibold'>Samuel Disuoza</h1>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <MaterialSymbolIcon className='inline-block cursor-pointer'>
@@ -48,36 +48,6 @@ export default function UserInfoProfile ({ className }: { className?: string }) 
             description='Aug 2023 - Present'
             title='Adroit data 3D Artist'
           />
-          {/* <UserAbout icon='school' description='Aug 2023 - Present' title='Harvard' /> */}
-          {/* <div className='sm:flex justify-between hidden'>
-            <div className='sm:flex flex-wrap gap-2  w-[90%]'>
-              <Badge className='text-slate-300 py-0'>
-                <MaterialSymbolIcon className='mr-2'>
-                  language
-                </MaterialSymbolIcon>
-                Remote
-              </Badge>
-              <Badge className='text-slate-300 py-0'>
-                <MaterialSymbolIcon className='mr-2'>trip</MaterialSymbolIcon>
-                Permanent
-              </Badge>
-              <Badge className='text-slate-300 py-0'>
-                <MaterialSymbolIcon className='mr-2'>flight</MaterialSymbolIcon>
-                Relocation Asssistance
-              </Badge>
-              <Badge className='text-slate-300 py-0'>
-                <MaterialSymbolIcon className='mr-2'>
-                  location_on
-                </MaterialSymbolIcon>
-                Montreal, Canada
-              </Badge>
-            </div>
-            <div className='flex items-end'>
-              <MaterialSymbolIcon className='opacity-100'>
-                bookmark
-              </MaterialSymbolIcon>
-            </div>
-          </div> */}
           <div className='flex justify-between gap-3'>
             <Badge className='text-slate-300 py-0'>
               <MaterialSymbolIcon className='mr-2 text-base'>
@@ -139,7 +109,7 @@ function UserAbout ({
         <MaterialSymbolIcon>{icon}</MaterialSymbolIcon>
       </div>
       <div className='flex justify-start gap-2 items-center'>
-        <h1 className=' font-semibold'>{title}</h1>
+        <h1 className='text-lg font-semibold'>{title}</h1>
         <p className='text-sm'>| {description}</p>
       </div>
     </div>

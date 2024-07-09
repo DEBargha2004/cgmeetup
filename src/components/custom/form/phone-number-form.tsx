@@ -47,7 +47,7 @@ export default function PhoneNumberForm ({
                   value={field.value}
                   onChange={field.onChange}
                   international
-                  defaultCountry='IN'
+                  defaultCountry='US'
                 />
               </FormControl>
               <FormMessage />
@@ -56,7 +56,7 @@ export default function PhoneNumberForm ({
         />
 
         <Button
-          className='w-24 mx-auto mt-3'
+          className='w-24 mx-auto mt-3 h-8'
           type='submit'
           disabled={form.formState.isSubmitting}
         >

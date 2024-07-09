@@ -83,28 +83,28 @@ export const uploadButtonItems: ProfileItem[] = [
     label: 'Add Artwork',
     href: '/dashboard/gallery/create',
     type: 'link',
-    icon: 'upload'
+    icon: 'photo'
   },
   {
     type: 'link',
     id: 'add-demoreel',
     label: 'Add DemoReel',
     href: '/dashboard/gallery/create',
-    icon: 'upload'
+    icon: 'slow_motion_video'
   },
   {
     type: 'link',
     id: 'add-making-of',
     label: 'Add Making Of',
     href: '/dashboard/gallery/create',
-    icon: 'upload'
+    icon: 'slow_motion_video'
   },
   {
     type: 'link',
     id: 'add-short-film',
     label: 'Add Short Film',
     href: '/dashboard/gallery/create',
-    icon: 'upload'
+    icon: 'slow_motion_video'
   },
 
   {
@@ -115,6 +115,6 @@ export const uploadButtonItems: ProfileItem[] = [
     id: 'add-job',
     label: 'Add Job',
     href: '/dashboard/jobs/create',
-    icon: 'upload'
+    icon: 'work'
   }
 ]

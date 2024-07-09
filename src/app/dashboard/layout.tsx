@@ -54,7 +54,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
           </React.Fragment>
         ))}
       </div>
-      <div className='lg:w-[calc(100%-160px)] w-full h-[calc(100%-52px)] overflow-y-auto scroller'>
+      <div className='lg:w-[calc(100%-160px)] w-full h-full overflow-y-auto scroller'>
         {children}
       </div>
     </main>

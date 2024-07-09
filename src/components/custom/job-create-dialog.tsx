@@ -41,6 +41,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import { getShortendName } from '@/functions'
 import { Badge } from '../ui/badge'
 import { Combobox } from '../ui/combobox'
+import { FancyMultiSelect } from '../ui/fancy-multi-select'
 
 const locations = [
   'Lagos, Nigeria',
@@ -242,15 +243,15 @@ export default function JobCreateDialog () {
               control={jobCreateForm.control}
               name='skills'
               render={({ field }) => (
-                <MultiSelect
+                <FancyMultiSelect
+                  options={job_skills}
+                  values={field.value.map(
+                    s => job_skills.find(s2 => s2.value === s)!
+                  )}
+                  //@ts-ignore
+                  onChange={v => field.onChange(v.map(s => s.value))}
                   placeholder='Job Skills'
-                  values={job_skills.map(s => s.label)}
-                  selectedValues={field.value}
-                  onChange={e =>
-                    field.value?.includes(e)
-                      ? field.onChange(field.value.filter(s => s !== e))
-                      : field.onChange([...field.value, e])
-                  }
+                  {...field}
                 />
               )}
             />

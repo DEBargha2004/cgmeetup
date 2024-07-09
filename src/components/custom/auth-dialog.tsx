@@ -77,25 +77,27 @@ export default function AuthDialog () {
     <Dialog open={authDialogState} onOpenChange={setAuthDialogState}>
       <DialogContent
         className={cn(
-          `p-0 overflow-hidden max-h-[calc(100vh-30px)] 
-      overflow-y-auto scroller-hide grid md:grid-cols-2 gap-x-2 gap-y-0 bg-card`,
-          showForm.create_acc ? 'max-w-[500px]' : 'max-w-[800px]'
+          `p-0 overflow-hidden md:max-h-[calc(100vh-30px)] md:min-h-[530px] 
+      overflow-y-auto scroller-hide grid md:grid-cols-2 grid-cols-1 gap-0 bg-card`,
+          showForm.create_acc
+            ? 'max-w-[500px]'
+            : 'md:max-w-[800px] max-w-[450px] md:py-0 py-10'
         )}
         // hideCloseButton
       >
-        <div>
+        <div className='h-full md:block hidden w-full'>
           <>
             {!showForm.create_acc ? (
-              <div className='w-full h-full hidden md:flex flex-col justify-start items-center gap-4 p-5'>
-                <h1 className='text-2xl text-center py-2'>
+              <div className='w-full h-full hidden md:flex flex-col justify-start items-center gap-10 p-5 bg-primary'>
+                <h1 className='text-2xl text-center py-2 text-white'>
                   Welcome to the Professional Artist's Community
                 </h1>
                 <Image
                   src={landing_image}
-                  height={200}
-                  width={200}
+                  height={400}
+                  width={400}
                   alt='image'
-                  className='w-3/5 aspect-square object-contain'
+                  className='w-[90%] aspect-square object-contain'
                 />
               </div>
             ) : null}
@@ -104,15 +106,15 @@ export default function AuthDialog () {
         {showForm.phone ? (
           <FormCard
             // heading='Sign Up/Sign In'
-            className='@container h-full border-l border-border border-y-0 border-r-0'
+            className='@container h-full border-l border-border border-y-0 border-r-0 w-full'
             headerClass='py-0'
           >
             <div className='w-full my-auto'>
-              <FieldsContainer className='w-full px-2 max-w-[500px] '>
+              <FieldsContainer className='w-4/5 px-2 max-w-[500px] '>
                 <PhoneNumberForm
                   form={phoneInputForm}
                   onSubmit={handlePhoneInputFormSubmit}
-                  submitLabel='Verify'
+                  submitLabel='Next'
                 />
               </FieldsContainer>
             </div>
@@ -121,9 +123,9 @@ export default function AuthDialog () {
         {showForm.pass ? (
           <FormCard
             headerClass='py-0'
-            className='@container border-l border-border border-y-0 border-r-0'
+            className='@container border-l border-border border-y-0 border-r-0 h-full'
           >
-            <FieldsContainer className='@sm:w-4/5 w-full px-2 max-w-[500px]'>
+            <FieldsContainer className='@sm:w-4/5 w-full px-2 max-w-[500px] my-auto'>
               <SignInWithPassForm
                 form={signInWithPasswordForm}
                 onSubmit={handleSignInWithPasswordFormSubmit}
@@ -137,9 +139,9 @@ export default function AuthDialog () {
         {showForm.otp ? (
           <FormCard
             headerClass='py-0'
-            className='@container border-l border-border border-y-0 border-r-0'
+            className='@container border-l border-border border-y-0 border-r-0 h-full'
           >
-            <FieldsContainer className='@sm:w-4/5 w-full px-2 max-w-[500px]'>
+            <FieldsContainer className='@sm:w-4/5 w-full px-2 max-w-[500px] my-auto'>
               <SignInWithOtpForm
                 form={signInWithOtpForm}
                 onSubmit={handleSignInWithOtpFormSubmit}
@@ -157,7 +159,7 @@ export default function AuthDialog () {
             </FieldsContainer>
           </FormCard>
         ) : null}
-        <div className='flex justify-between p-2 py-0 col-span-2'>
+        <div className='flex justify-between p-2 py-0 col-span-2 h-7'>
           <p
             className='w-fit text-sm text-primary cursor-pointer'
             onClick={() => setShowForm({ create_acc: true })}

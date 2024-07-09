@@ -149,32 +149,33 @@ export default function Navbar ({ className }: { className?: string }) {
               <span className='sm:inline hidden'>Post</span>
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align='end'>
+          <DropdownMenuContent align='start' className='translate-y-2'>
             <DropdownMenuItem
-              className='cursor-pointer'
+              className='cursor-pointer flex gap-2 items-center pl-2'
               onClick={() => setPostDialogState(true)}
             >
-              Add Work
+              <MaterialSymbolIcon className='text-sm'>photo</MaterialSymbolIcon>
+              <span>Add Post</span>
             </DropdownMenuItem>
+            <DropdownMenuItem
+              className='cursor-pointer flex gap-2 items-center pl-2'
+              onClick={() => setJobDialogState(true)}
+            >
+              <MaterialSymbolIcon className='text-sm'>work</MaterialSymbolIcon>
+              <span>Add Job</span>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
             {uploadButtonItems.map((item, item_idx) => (
               <React.Fragment key={item_idx}>
                 {item.type === 'link' ? (
                   <Link href={item.href}>
-                    <DropdownMenuItem key={item.id} className='cursor-pointer'>
-                      {item.label}
-                    </DropdownMenuItem>
+                    <ProfileItemLabel item={item} />
                   </Link>
                 ) : (
                   <DropdownMenuSeparator />
                 )}
               </React.Fragment>
             ))}
-            <DropdownMenuItem
-              className='cursor-pointer'
-              onClick={() => setJobDialogState(true)}
-            >
-              Add Job
-            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
         {!signedin ? (

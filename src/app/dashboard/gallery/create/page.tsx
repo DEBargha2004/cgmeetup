@@ -33,7 +33,10 @@ import {
 import { Textarea } from '@/components/ui/textarea'
 import { Cropper, MaterialSymbolIcon } from '@/components/custom'
 import { Switch } from '@/components/ui/switch'
-import { gallery_post_categories } from '@/constants/categories'
+import {
+  gallery_post_categories,
+  sample_cateories
+} from '@/constants/categories'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import {
   DropdownMenu,
@@ -55,6 +58,7 @@ import {
 } from '@/components/ui/dialog'
 import { FieldType } from '@/types/field-type'
 import { ReactCropperElement } from 'react-cropper'
+import { FancyMultiSelect } from '@/components/ui/fancy-multi-select'
 
 const upload_types: { icon: string; title: string; description: string }[] = [
   {
@@ -381,98 +385,13 @@ export default function Dashboard () {
                     <CardTitle className='text-xl'>Category</CardTitle>
                   </CardHeader>
                   <CardContent className=''>
-                    <div className='grid gap-6'>
-                      <div className='grid gap-3'>
-                        {/* <Label htmlFor='category'>Category</Label> */}
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <div
-                              className='p-2 flex justify-between items-center border rounded 
-                          h-10 bg-darkAccent md:w-1/2 w-full'
-                            >
-                              <span>Select Category</span>
-                              <MaterialSymbolIcon className=''>
-                                keyboard_arrow_down
-                              </MaterialSymbolIcon>
-                            </div>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent
-                            className='max-h-[300px] overflow-y-auto scroller h-[200px] 
-                        w-[300px]  p-0'
-                          >
-                            <div className='bg-lightAccent p-2 relative'>
-                              <Input className='pl-7' />
-                              <div className='absolute top-1/2 -translate-y-1/2 left-3'>
-                                <MaterialSymbolIcon>search</MaterialSymbolIcon>
-                              </div>
-                            </div>
-                            <div className='px-1'>
-                              {gallery_post_categories.map(category => (
-                                <DropdownMenuItem
-                                  key={category.value}
-                                  className={cn(
-                                    'flex justify-start items-center gap-1 mb-1',
-                                    selectedCategory.includes(category.value)
-                                      ? 'bg-lightAccent'
-                                      : ''
-                                  )}
-                                  onSelect={e => {
-                                    e.preventDefault()
-                                    setSelectedCategory(prev => {
-                                      if (prev.includes(category.value)) {
-                                        return prev.filter(
-                                          tag => tag !== category.value
-                                        )
-                                      }
-                                      return [...prev, category.value]
-                                    })
-                                  }}
-                                >
-                                  <span
-                                    className={cn(
-                                      selectedCategory.includes(category.value)
-                                        ? 'opacity-100 text-primary'
-                                        : 'opacity-0'
-                                    )}
-                                  >
-                                    <MaterialSymbolIcon>
-                                      check
-                                    </MaterialSymbolIcon>
-                                  </span>
-                                  <span>{category.label}</span>
-                                </DropdownMenuItem>
-                              ))}
-                            </div>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                        <div className='flex flex-wrap gap-2'>
-                          {selectedCategory.map(category => (
-                            <Badge
-                              key={category}
-                              className='bg-lightAccent p-2 flex justify-between items-center gap-1'
-                            >
-                              <span>
-                                {
-                                  gallery_post_categories.find(
-                                    c => c.value === category
-                                  )?.label
-                                }
-                              </span>
-                              <MaterialSymbolIcon
-                                className='text-sm cursor-pointer'
-                                onClick={() => {
-                                  setSelectedCategory(prev => {
-                                    return prev.filter(c => c !== category)
-                                  })
-                                }}
-                              >
-                                close
-                              </MaterialSymbolIcon>
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
+                    <FancyMultiSelect
+                      options={sample_cateories.map(opt => ({
+                        label: opt,
+                        value: opt
+                      }))}
+                      placeholder='Select Categories'
+                    />
                   </CardContent>
                 </Card>
                 <Card x-chunk='dashboard-07-chunk-2' className='bg-card'>
@@ -480,97 +399,13 @@ export default function Dashboard () {
                     <CardTitle className='text-xl'>Software Used</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className='grid gap-6'>
-                      <div className='grid gap-3'>
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <div
-                              className='p-2 flex justify-between items-center border rounded 
-                          h-10 bg-darkAccent md:w-1/2 w-full'
-                            >
-                              <span>Select Software</span>
-                              <MaterialSymbolIcon className=''>
-                                keyboard_arrow_down
-                              </MaterialSymbolIcon>
-                            </div>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent
-                            className='max-h-[300px] overflow-y-auto scroller h-[200px] 
-                        w-[300px]  p-0'
-                          >
-                            <div className='bg-lightAccent p-2 relative'>
-                              <Input className='pl-7' />
-                              <div className='absolute top-1/2 -translate-y-1/2 left-3'>
-                                <MaterialSymbolIcon>search</MaterialSymbolIcon>
-                              </div>
-                            </div>
-                            <div className='px-1'>
-                              {gallery_post_categories.map(category => (
-                                <DropdownMenuItem
-                                  key={category.value}
-                                  className={cn(
-                                    'flex justify-start items-center gap-1 mb-1',
-                                    selectedSoftware.includes(category.value)
-                                      ? 'bg-lightAccent'
-                                      : ''
-                                  )}
-                                  onSelect={e => {
-                                    e.preventDefault()
-                                    setSelectedSoftware(prev => {
-                                      if (prev.includes(category.value)) {
-                                        return prev.filter(
-                                          tag => tag !== category.value
-                                        )
-                                      }
-                                      return [...prev, category.value]
-                                    })
-                                  }}
-                                >
-                                  <span
-                                    className={cn(
-                                      selectedSoftware.includes(category.value)
-                                        ? 'opacity-100 text-primary'
-                                        : 'opacity-0'
-                                    )}
-                                  >
-                                    <MaterialSymbolIcon>
-                                      check
-                                    </MaterialSymbolIcon>
-                                  </span>
-                                  <span>{category.label}</span>
-                                </DropdownMenuItem>
-                              ))}
-                            </div>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                        <div className='flex flex-wrap gap-2'>
-                          {selectedSoftware.map(category => (
-                            <Badge
-                              key={category}
-                              className='bg-lightAccent p-2 flex justify-between items-center gap-1'
-                            >
-                              <span>
-                                {
-                                  gallery_post_categories.find(
-                                    c => c.value === category
-                                  )?.label
-                                }
-                              </span>
-                              <MaterialSymbolIcon
-                                className='text-sm cursor-pointer'
-                                onClick={() => {
-                                  setSelectedSoftware(prev => {
-                                    return prev.filter(c => c !== category)
-                                  })
-                                }}
-                              >
-                                close
-                              </MaterialSymbolIcon>
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
+                    <FancyMultiSelect
+                      options={sample_cateories.map(opt => ({
+                        label: opt,
+                        value: opt
+                      }))}
+                      placeholder='Select Softwares'
+                    />
                   </CardContent>
                 </Card>
                 <Card x-chunk='dashboard-07-chunk-1' className='bg-card'>
@@ -579,12 +414,12 @@ export default function Dashboard () {
                   </CardHeader>
                   <CardContent>
                     <div className='grid sm:grid-cols-2 gap-x-28 gap-y-5'>
-                      <div className='flex justify-between items-center gap-3'>
-                        <Label>Mature Content</Label>
+                      <div className='flex justify-between sm:justify-start items-center gap-3'>
+                        <Label className=''>Mature Content</Label>
                         <Switch />
                       </div>
-                      <div className='flex justify-between items-center gap-3'>
-                        <Label>Created using AI</Label>
+                      <div className='flex justify-between sm:justify-start items-center gap-3'>
+                        <Label className=''>Created using AI</Label>
                         <Switch />
                       </div>
                     </div>
@@ -763,10 +598,10 @@ export default function Dashboard () {
                   <CardHeader className='px-0 pb-2 pt-0'>
                     <CardTitle className='text-xl'>Delete</CardTitle>
                   </CardHeader>
-                  <CardContent className='px-0'>
+                  <CardContent className='px-0 grid place-content-center'>
                     <Button
                       variant={'destructive'}
-                      className='w-full'
+                      className='min-w-24 '
                       type='button'
                     >
                       <MaterialSymbolIcon className='mr-2'>

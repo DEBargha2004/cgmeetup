@@ -225,7 +225,16 @@ export default function Dashboard () {
                   <CardContent>
                     <div className='grid gap-6'>
                       <div className='grid gap-3'>
-                        <Select>
+                        <Select
+                          value={selectedVisibility.value}
+                          onValueChange={e => {
+                            setSelectedVisibility(
+                              visibilityOptions.find(
+                                v => v.value === e
+                              ) as typeof selectedVisibility
+                            )
+                          }}
+                        >
                           <SelectTrigger id='status' aria-label='Select status'>
                             <SelectValue placeholder='Select status' />
                           </SelectTrigger>
@@ -376,10 +385,10 @@ export default function Dashboard () {
                   <CardHeader className='px-0 pb-2 pt-0'>
                     <CardTitle className='text-xl'>Delete</CardTitle>
                   </CardHeader>
-                  <CardContent className='px-0'>
+                  <CardContent className='px-0 grid place-content-center'>
                     <Button
                       variant={'destructive'}
-                      className='w-full'
+                      className='min-w-24 '
                       type='button'
                     >
                       <MaterialSymbolIcon className='mr-2'>
