@@ -34,12 +34,12 @@ export default function News () {
         ))}
       </div>
       <Navigator
-        icon='chevron_left'
+        icon='arrow_back_ios'
         className='rounded-full absolute top-1/2 -translate-y-1/2 left-2 bg-lightAccent/50 hover:bg-lightAccent/90'
         onClick={() => scroll('left')}
       />
       <Navigator
-        icon='chevron_right'
+        icon='arrow_forward_ios'
         className='rounded-full absolute top-1/2 -translate-y-1/2 right-2 bg-lightAccent/50 hover:bg-lightAccent/90'
         onClick={() => scroll('right')}
       />

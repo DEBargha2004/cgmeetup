@@ -1,3 +1,4 @@
+import { MaterialSymbolIcon } from '@/components/custom'
 import { ArticleContainer, MainContainer } from '../_components/container'
 import { Header, ListHeader, Paragraph } from '../_components/font'
 

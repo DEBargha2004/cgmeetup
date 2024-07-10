@@ -19,7 +19,7 @@ const tabs: TabItem[] = [
   },
   {
     label: 'Featured',
-    icon: 'featured_play_list',
+    icon: 'trophy',
     href: '/featured'
   },
   {
