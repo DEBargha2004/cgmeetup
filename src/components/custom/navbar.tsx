@@ -242,7 +242,7 @@ export default function Navbar ({ className }: { className?: string }) {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <div>
-              <MaterialSymbolIcon className='lg:text-[40px] text-3xl max-w-10 inline-block'>
+              <MaterialSymbolIcon className='lg:text-[40px] text-3xl lg:w-10 w-[30px] inline-block'>
                 account_circle
               </MaterialSymbolIcon>
             </div>
