@@ -137,15 +137,13 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
               </Link>
             </div>
           </div>
-          <div
-            className='absolute w-full h-full top-0 left-0 object-cover -z-10 
-            bg-gradient-to-b from-transparent to-black'
-          >
+          <div className='absolute w-full h-full top-0 left-0 object-cover -z-10 '>
             <Image
               src={background}
               alt='background'
               className='w-full h-full object-cover opacity-40 -z-20'
             />
+            <div className='absolute w-full h-full top-0 left-0 z-10 bg-gradient-to-t from-black/60 to-transparent' />
           </div>
         </div>
         <div className='space-y-2'>

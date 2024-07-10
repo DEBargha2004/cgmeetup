@@ -15,7 +15,7 @@ export default function AboutSectionItemsWrapper ({
 }) {
   return (
     <div
-      className='p-3 rounded-lg bg-lightAccent px-6 flex flex-col justify-between 
+      className='p-3 rounded-lg bg-card px-6 flex flex-col justify-between 
     items-center gap-4'
     >
       <div className={cn('w-full flex justify-between')}>

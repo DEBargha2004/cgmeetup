@@ -26,10 +26,10 @@ export default function Post ({
         className='w-full md:w-[calc(100%-400px)] md:h-full  flex flex-col justify-start items-stretch 
              relative'
       >
-        <div className='md:overflow-y-auto h-fit md:h-full scroller relative'>
+        <div className='md:overflow-y-auto h-fit md:h-full scroller-transition relative'>
           <div
-            className='z-30 sticky h-10 w-10 rounded-full grid place-content-center left-10
-              top-12 bg-lightAccent/80'
+            className='z-30 absolute h-10 w-10 rounded-full grid place-content-center left-8 top-5 
+            bg-lightAccent/80'
             // style={{ left: 40, top: 40 }}
           >
             <Close className='' />
@@ -65,7 +65,7 @@ export default function Post ({
             ]?.id
           }`}
         >
-          <Navigator icon='arrow_back_ios' className='left-0 ' />
+          <Navigator icon='arrow_back_ios' className='left-0' />
         </Link>
         <Link
           href={`/post/${
@@ -91,13 +91,13 @@ function Navigator ({
   return (
     <div
       className={cn(
-        `h-20 aspect-square absolute top-1/2 -translate-y-1/2 flex justify-center items-center px-4
-        hover:bg-lightAccent/20 transition-all cursor-pointer`,
+        `h-14 w-14 rounded-full absolute top-1/2 -translate-y-1/2 flex justify-center items-center px-4
+        hover:bg-lightAccent/40 bg-lightAccent/20 transition-all cursor-pointer`,
         className
       )}
       {...props}
     >
-      <MaterialSymbolIcon className='text-4xl opacity-100'>
+      <MaterialSymbolIcon className='text-xl opacity-100 w-10'>
         {icon}
       </MaterialSymbolIcon>
     </div>
@@ -111,5 +111,5 @@ function PostImage ({
   className?: string
   children?: React.ReactNode
 }) {
-  return <div className={cn(' shrink-0', className)}>{children}</div>
+  return <div className={cn('shrink-0', className)}>{children}</div>
 }

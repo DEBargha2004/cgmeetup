@@ -18,7 +18,13 @@ export default function ImageCollection ({ className }: { className?: string }) 
           scroll={false}
           className={cn('', index === 4 && 'sm:col-span-2 sm:row-span-2')}
         >
-          <GalleryImage project={project} key={project.id} className='' />
+          <GalleryImage
+            project={project}
+            key={project.id}
+            className=''
+            showArtInfo={false}
+            showUserInfo={false}
+          />
         </Link>
       ))}
       {projects.data.slice(0, 17).map((project, index) => (
@@ -28,7 +34,13 @@ export default function ImageCollection ({ className }: { className?: string }) 
           scroll={false}
           className={cn('', index === 1 && 'sm:col-span-2 sm:row-span-2')}
         >
-          <GalleryImage project={project} key={project.id} className='' />
+          <GalleryImage
+            project={project}
+            key={project.id}
+            className=''
+            showArtInfo={false}
+            showUserInfo={false}
+          />
         </Link>
       ))}
       {projects.data.slice(0, 17).map((project, index) => (
@@ -38,7 +50,13 @@ export default function ImageCollection ({ className }: { className?: string }) 
           scroll={false}
           className={cn('', index === 5 && 'sm:col-span-2 sm:row-span-2')}
         >
-          <GalleryImage project={project} key={project.id} className='' />
+          <GalleryImage
+            project={project}
+            key={project.id}
+            className=''
+            showArtInfo={false}
+            showUserInfo={false}
+          />
         </Link>
       ))}
     </div>

@@ -5,6 +5,7 @@ import Jobs from './_components/jobs'
 import News from './_components/news'
 import NewsLetter from './_components/news-letter'
 import { TabItem } from '@/types/tab'
+import Studios from './_components/studios'
 
 const tabs: TabItem[] = [
   {
@@ -39,14 +40,15 @@ export default function Layout ({
   return (
     <main className='space-y-4 py-2'>
       <News />
+      <Artists />
       <div className='space-y-4 py-3'>
         <div className='flex justify-center items-center'>
           <Tabs tabs={tabs} />
         </div>
         {children}
       </div>
-      <Artists />
       <Jobs />
+      <Studios />
       <NewsLetter />
       <Footer />
     </main>

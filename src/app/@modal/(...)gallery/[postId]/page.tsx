@@ -25,7 +25,7 @@ export default function Post ({
   return (
     <Dialog open>
       <DialogContent
-        className='h-screen max-w-full scroller p-0 bg-darkAccent'
+        className='h-screen max-w-full scroller p-0 bg-darkAccent/40'
         hideCloseButton
       >
         <PostComponent params={{ postId }} />

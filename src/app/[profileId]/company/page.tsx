@@ -136,6 +136,22 @@ export default function AboutPage () {
         </div>
       </AboutSectionItemsWrapper>
       <AboutSectionItemsWrapper
+        title='Demoreel'
+        className='opacity-100 space-y-1'
+      >
+        {Array.from({ length: 4 }).map((_, i) => {
+          return (
+            <Link
+              key={i}
+              href={'https://youtu.be/BmfXAL58iI8?si=Tu6jVRU_-cj4isCF'}
+              className='block hover:text-primary cursor-pointer transition-all'
+            >
+              https://youtu.be/BmfXAL58iI8?si=Tu6jVRU_-cj4isCF
+            </Link>
+          )
+        })}
+      </AboutSectionItemsWrapper>
+      <AboutSectionItemsWrapper
         title='Company Website'
         className='opacity-100 '
       >
@@ -143,6 +159,7 @@ export default function AboutPage () {
           www.adidas.com
         </Link>
       </AboutSectionItemsWrapper>
+
       <AboutSectionItemsWrapper
         title='Recruiters'
         className='grid grid-cols-2 gap-2 opacity-100'

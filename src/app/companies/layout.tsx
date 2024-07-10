@@ -7,6 +7,8 @@ import { TabItem } from '@/types/tab'
 import { Search } from 'lucide-react'
 import { Roboto } from 'next/font/google'
 import Filter from './_components/filter'
+import Image from 'next/image'
+import background from '@/../public/images/cover-image.jpg'
 
 const tabList1: TabItem[] = [
   {
@@ -40,42 +42,58 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
   return (
     <>
       <div className='flex min-h-screen w-full flex-col'>
-        <main className='flex flex-1 flex-col py-4 md:gap-0 md:py-12'>
-          <div className='my-6 flex flex-col justify-between items-center gap-12 text-center'>
-            <div className='space-y-4'>
-              <h1 className='text-4xl md:text-[52px] font-bold'>
-                Find Studios & Schools
-              </h1>
-              <p className='text-lg md:text-xl'>
-                3D Animation, Visual Effects, Game Studios
-              </p>
-            </div>
-            <div className='w-3/4 md:w-3/5 lg:w-2/5 relative flex justify-between items-center gap-2'>
-              <Input className='pl-10' placeholder='Search' />
-              <Search className='absolute left-2 top-1/2 -translate-y-1/2' />
+        <main className='flex flex-1 flex-col md:gap-0'>
+          <div className='relative md:pt-12'>
+            <div className='my-6 mb-10 flex flex-col justify-between items-center gap-12 text-center'>
+              <div className='space-y-4'>
+                <h1 className='text-4xl md:text-[52px] font-bold'>
+                  Find Studios & Schools
+                </h1>
+                <p className='text-lg md:text-xl'>
+                  3D Animation, Visual Effects, Game Studios
+                </p>
+              </div>
+              <div className='w-3/4 md:w-3/5 lg:w-2/5 relative flex justify-between items-center gap-2'>
+                <Input className='pl-10' placeholder='Search' />
+                <Search className='absolute left-2 top-1/2 -translate-y-1/2' />
 
-              <Sheet>
-                <SheetTrigger asChild>
-                  <div className='flex items-center gap-1 cursor-pointer'>
-                    <MaterialSymbolIcon>sort</MaterialSymbolIcon>
-                    <span>Filter</span>
-                  </div>
-                </SheetTrigger>
-                <SheetContent
-                  side={'right'}
-                  className='bg-card overflow-y-auto scroller-hide pt-10'
-                >
-                  <Filter />
-                </SheetContent>
-              </Sheet>
+                <Sheet>
+                  <SheetTrigger asChild>
+                    <div className='flex items-center gap-1 cursor-pointer'>
+                      <MaterialSymbolIcon>sort</MaterialSymbolIcon>
+                      <span>Filter</span>
+                    </div>
+                  </SheetTrigger>
+                  <SheetContent
+                    side={'right'}
+                    className='bg-card overflow-y-auto scroller-hide pt-10'
+                  >
+                    <Filter />
+                  </SheetContent>
+                </Sheet>
+              </div>
+              <div>
+                <Button>
+                  <MaterialSymbolIcon className='mr-2'>
+                    person
+                  </MaterialSymbolIcon>
+                  <span>Create Profile</span>
+                </Button>
+              </div>
             </div>
-            <div>
-              <Button>
-                <MaterialSymbolIcon className='mr-2'>person</MaterialSymbolIcon>
-                <span>Create Profile</span>
-              </Button>
+            <div
+              className='absolute w-full h-full top-0 left-0 object-cover -z-10 
+            '
+            >
+              <Image
+                src={background}
+                alt='background'
+                className='w-full h-full object-cover opacity-40 -z-20'
+              />
+              <div className='absolute w-full h-full top-0 left-0 z-10 bg-gradient-to-t from-black/60 to-transparent' />
             </div>
           </div>
+
           <div className='space-y-2'>
             <div
               className={cn(

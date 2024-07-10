@@ -1,4 +1,4 @@
-import { JobCard } from '@/components/custom'
+import { FeaturedJobCard, JobCard } from '@/components/custom'
 import Link from 'next/link'
 
 export default function Jobs ({ className }: { className?: string }) {
@@ -10,9 +10,9 @@ export default function Jobs ({ className }: { className?: string }) {
           <p className='text-sm text-primary'>View More</p>
         </Link>
       </div>
-      <div className='grid xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 gap-3'>
-        {Array.from({ length: 6 }).map((_, i) => (
-          <JobCard key={i} />
+      <div className='grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-3'>
+        {Array.from({ length: 8 }).map((_, i) => (
+          <FeaturedJobCard key={i} />
         ))}
       </div>
     </div>

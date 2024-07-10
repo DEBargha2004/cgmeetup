@@ -27,6 +27,7 @@ import {
 } from '@/schema/profile-job-preference'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { JobPreferenceForm } from '@/components/custom/form'
+import Link from 'next/link'
 
 function EditIcon ({ className, ...props }: {} & HTMLProps<HTMLDivElement>) {
   return (
@@ -166,6 +167,22 @@ export default function AboutPage () {
           </Badge>
         ))}
       </AboutSectionItemsWrapper>
+      <AboutSectionItemsWrapper
+        title='Demoreel'
+        className='opacity-100 space-y-1'
+      >
+        {Array.from({ length: 4 }).map((_, i) => {
+          return (
+            <Link
+              key={i}
+              href={'https://youtu.be/BmfXAL58iI8?si=Tu6jVRU_-cj4isCF'}
+              className='block hover:text-primary cursor-pointer transition-all'
+            >
+              https://youtu.be/BmfXAL58iI8?si=Tu6jVRU_-cj4isCF
+            </Link>
+          )
+        })}
+      </AboutSectionItemsWrapper>
       <AboutSectionItemsWrapper title='Resume' className='opacity-100'>
         <div className='flex justify-start items-center gap-5'>
           <Image src={pdf_image} alt='pdf' height={50} width={50} />
@@ -197,21 +214,6 @@ export default function AboutPage () {
           Website
           <MaterialSymbolIcon>open_in_new</MaterialSymbolIcon>
         </p>
-      </AboutSectionItemsWrapper>
-      <AboutSectionItemsWrapper
-        title='Recruiters'
-        className='grid grid-cols-2 gap-2'
-      >
-        <ProfileInfoOverView
-          className=''
-          image='h-12 w-12'
-          heading='md:text-lg'
-        />
-        <ProfileInfoOverView
-          className=''
-          image='h-12 w-12'
-          heading='md:text-lg'
-        />
       </AboutSectionItemsWrapper>
     </section>
   )

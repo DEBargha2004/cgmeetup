@@ -23,12 +23,22 @@ export default function Comment ({
   return (
     <div className='flex flex-col justify-start items-start gap-2'>
       <ProfileInfoOverView
-        heading='text-[14px] xl:text-[16px] opacity-70'
-        description='text-[11px] xl:text-[12px] text-white opacity-70'
+        heading={cn(
+          'text-[14px] xl:text-[16px] opacity-70',
+          commentContainer && 'text-[12px] xl:text-[14px]'
+        )}
+        description='text-[10px] xl:text-[12px] text-white opacity-70'
         image={avatar}
       />
       <div className={cn('w-[calc(100%-50px)] ml-auto', commentContainer)}>
-        <p className='font-semibold'>Lorem ipsum</p>
+        <p
+          className={cn(
+            'font-semibold xl:text-sm text-[12px]',
+            commentContainer && 'xl:text-[12px] text-[11px]'
+          )}
+        >
+          Lorem ipsum
+        </p>
         <div className='flex justify-start items-center gap-2 '>
           <MaterialSymbolIcon className='text-sm'>favorite</MaterialSymbolIcon>
           <i className='text-xs opacity-60'>34 hours ago</i>

@@ -8,7 +8,7 @@ export default function ProfileCard ({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        'bg-card p-3 px-5 flex flex-col justify-start items-center gap-4 rounded',
+        'bg-card p-3 px-5 flex flex-col justify-start items-center gap-4 rounded border',
         className
       )}
     >
@@ -23,9 +23,11 @@ export default function ProfileCard ({ className }: { className?: string }) {
         <h1 className='font-semibold text-lg'>Nayanika</h1>
         <p className='opacity-70 font-light'>3D Artist</p>
       </div>
-      <Button className='w-fit px-1 h-6'>
-        <span className='mr-1 font-semibold text-xs'>Follow</span>
-        <MaterialSymbolIcon className='text-xs'>person_add</MaterialSymbolIcon>
+      <Button className='w-fit h-7 px-2'>
+        <span className='mr-1 font-semibold text-sm'>Follow</span>
+        <MaterialSymbolIcon className='text-base'>
+          person_add
+        </MaterialSymbolIcon>
       </Button>
     </div>
   )

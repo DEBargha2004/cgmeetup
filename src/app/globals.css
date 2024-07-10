@@ -79,61 +79,42 @@ html {
   overflow: hidden;
 }
 
-/* .scroller {
-  scrollbar-width: thin;
-  scrollbar-color: hsl(204, 99%, 49%) transparent;
-} */
-
-/* Hides the scrollbar for Firefox */
 .scroller-hide {
   scrollbar-width: none; /* Hides the scrollbar */
 }
 
-/* For other browsers */
-/* .scroller::-webkit-scrollbar {
-  width: 3px;
-} */
+.scroller::-webkit-scrollbar {
+  width: 5px;
+}
 
-/* .scroller::-webkit-scrollbar-track {
+.scroller::-webkit-scrollbar-track {
   background-color: transparent;
-} */
+}
 
-/* .scroller::-webkit-scrollbar-thumb {
-  background-color: hsl(204, 99%, 49%);
+.scroller-transition::-webkit-scrollbar {
+  width: 5px;
+}
+
+.scroller-transition::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.scroller-transition::-webkit-scrollbar-thumb {
+  background-color: hsl(var(--primary));
   border-radius: 20px;
   background-clip: content-box;
-} */
+}
 
-.scroller-hide::-webkit-scrollbar {
-  width: 0px;
-  height: 0px;
+.scroller-transition::-webkit-scrollbar-thumb {
+  background-color: hsl(var(--light-accent));
+  border-radius: 20px;
+  background-clip: content-box;
+}
+
+.scroller-transition::-webkit-scrollbar-thumb:hover {
+  background-color: hsl(var(--primary));
 }
 
 .cropper .cropper-modal {
   background-color: transparent;
-}
-
-* {
-  scrollbar-width: thin;
-  scrollbar-color: hsl(var(--primary)) transparent;
-}
-
-/* WebKit and Chromium-based browsers (Chrome, Edge, Opera, etc) */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: hsl(var(--primary));
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #555555;
 }

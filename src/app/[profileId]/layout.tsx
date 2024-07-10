@@ -62,7 +62,7 @@ export default function ProfileLayout ({
             </AvatarFallback>
           </Avatar>
           <div
-            className='absolute h-8 w-8 rounded-full bg-[rgba(0,0,0,0.6)] bottom-5 right-0 flex 
+            className='absolute h-8 w-8 rounded-full bg-black/60 bottom-5 right-0 flex 
           justify-center items-center cursor-pointer'
           >
             <MaterialSymbolIcon className='text-primary opacity-100 text-base'>
@@ -107,7 +107,7 @@ export default function ProfileLayout ({
           </div>
         </div>
       </div>
-      <div className='my-10'>
+      <div className='my-5'>
         <div className='flex justify-center items-center gap-1 my-2 bg-lightAccent'>
           {tabs.map(tab => (
             <Link key={tab.href} href={tab.href}>

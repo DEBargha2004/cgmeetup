@@ -33,10 +33,14 @@ type ArtWork = {
 
 export default function GalleryImage ({
   project,
-  className
+  className,
+  showUserInfo = true,
+  showArtInfo = true
 }: {
   project: ArtWork
   className?: string
+  showUserInfo?: boolean
+  showArtInfo?: boolean
 }) {
   return (
     <div
@@ -54,22 +58,28 @@ export default function GalleryImage ({
         className='w-full aspect-square object-cover'
       />
       <div
-        className='absolute bottom-0 left-0 w-full h-1/2 translate-y-full 
+        className={cn(
+          `absolute bottom-0 left-0 w-full h-1/2 translate-y-full 
         bg-gradient-to-t from-black/90 to-black/0 transition-all duration-300 
-      group-hover:-translate-y-0 delay-300'
+      group-hover:-translate-y-0 delay-300`,
+          showUserInfo ? '' : 'hidden'
+        )}
       />
       <div
-        className='absolute bottom-0 translate-y-full left-0 w-full py-4 px-2
+        className={cn(
+          `absolute bottom-0 translate-y-full left-0 w-full py-4 px-2
       group-hover:translate-y-0 transition-all duration-200 delay-300 flex justify-start 
-      items-stretch gap-2'
+      items-stretch gap-2`,
+          showUserInfo ? '' : 'hidden'
+        )}
       >
-        <div className='mb-auto shrink-0 '>
+        <div className='mb-auto shrink-0'>
           <Image
             src={project.user.medium_avatar_url}
             alt={project.user.username}
             height={50}
             width={50}
-            className='@xs:w-11 @xs:h-11 h-6 w-6 rounded-full object-cover '
+            className='@xs:w-16 @xs:h-16 h-12 w-12 rounded-full object-cover '
           />
         </div>
         <div className='flex flex-col justify-start items-start'>
@@ -89,9 +99,12 @@ export default function GalleryImage ({
         </div>
       </div>
       <div
-        className='absolute top-0 -translate-y-full right-0 w-full py-2 px-2
+        className={cn(
+          `absolute top-0 -translate-y-full right-0 w-full py-2 px-2
       group-hover:translate-y-0 transition-all duration-200 delay-300 flex justify-end 
-      items-stretch gap-1'
+      items-stretch gap-1`,
+          showArtInfo ? 'flex' : 'hidden'
+        )}
       >
         <div className='h-8 w-8 rounded-full flex justify-center items-center bg-darkAccent opacity-60'>
           <MaterialSymbolIcon className='text-sm'>
