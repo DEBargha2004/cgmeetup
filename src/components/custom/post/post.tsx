@@ -23,7 +23,7 @@ export default function Post ({
   return (
     <main className='h-screen flex md:flex-row flex-col justify-start items-start relative overflow-y-auto'>
       <div
-        className='w-full md:w-[calc(100%-400px)] lg:h-full  flex flex-col justify-start items-stretch 
+        className='w-full md:w-[calc(100%-400px)] md:h-full  flex flex-col justify-start items-stretch 
              relative'
       >
         <div className='md:overflow-y-auto h-fit md:h-full scroller relative'>
@@ -41,7 +41,7 @@ export default function Post ({
                 alt={project.title}
                 height={800}
                 width={800}
-                className='md:h-full w-fit mx-auto shrink-0 object-contain '
+                className='md:h-screen w-fit mx-auto shrink-0 object-contain '
               />
               <div
                 className='px-4 py-1 rounded-lg absolute bottom-5 left-1/2 -translate-x-1/2 
@@ -65,7 +65,7 @@ export default function Post ({
             ]?.id
           }`}
         >
-          <Navigator icon='arrow_back_ios' className='left-0' />
+          <Navigator icon='arrow_back_ios' className='left-0 ' />
         </Link>
         <Link
           href={`/post/${
@@ -111,9 +111,5 @@ function PostImage ({
   className?: string
   children?: React.ReactNode
 }) {
-  return (
-    <div className={cn('lg:h-full lg:w-full  shrink-0', className)}>
-      {children}
-    </div>
-  )
+  return <div className={cn(' shrink-0', className)}>{children}</div>
 }

@@ -44,7 +44,6 @@ export default function Layout ({
           <Tabs tabs={tabs} />
         </div>
         {children}
-        {modal}
       </div>
       <Artists />
       <Jobs />

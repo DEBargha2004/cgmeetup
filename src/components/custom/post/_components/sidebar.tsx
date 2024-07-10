@@ -34,11 +34,11 @@ export default function Sidebar ({ postId }: { postId: string }) {
 
   const [activeTab, setActiveTab] = useState<'comment' | 'creator'>('comment')
   return (
-    <div className='w-full md:w-[400px] h-full lg:overflow-y-auto px-1 scroller pt-2'>
+    <div className='w-full md:w-[400px] h-screen md:h-full md:overflow-y-auto px-1 scroller pt-2'>
       <div
         className={cn(
-          ' space-y-3 lg:overflow-y-auto scroller',
-          activeTab === 'comment' ? 'h-[calc(100%-80px)]' : 'h-full'
+          ' space-y-3  md:overflow-y-auto scroller',
+          activeTab === 'comment' ? 'h-fit md:h-[calc(100%-80px)]' : 'h-full'
         )}
       >
         <Card className='rounded bg-card relative'>
@@ -66,7 +66,7 @@ export default function Sidebar ({ postId }: { postId: string }) {
             <i className='text-muted-foreground text-xs'>Posted 5 hours ago</i>
           </CardContent>
         </Card>
-        <div className='flex justify-between items-center '>
+        <div className='flex justify-between items-center'>
           <div className='flex justify-between 2xl:gap-6 gap-3 items-center w-full'>
             <div className='flex 2xl:gap-6 gap-2 items-center'>
               <PostActionsContainer icon='favorite' count={3} />
@@ -79,8 +79,8 @@ export default function Sidebar ({ postId }: { postId: string }) {
             </div>
           </div>
         </div>
-        <div>
-          <div className='grid grid-cols-2 w-[95%] mx-auto sticky lg:top-0 z-20 bg-darkAccent border-b'>
+        <div className='bg-darkAccent'>
+          <div className='grid grid-cols-2 w-full px-2 sticky top-0 z-20 bg-darkAccent border-b'>
             <TabItem
               className={cn(
                 activeTab === 'comment' ? ' border-primary border-b-2 ' : ''
@@ -100,10 +100,8 @@ export default function Sidebar ({ postId }: { postId: string }) {
           </div>
           <div
             className={cn(
-              'py-3  lg:h-auto mx-auto space-y-3',
-              activeTab === 'comment'
-                ? 'overflow-y-auto scroller h-[calc(100vh/2)]'
-                : ''
+              'py-3 md:h-auto mx-auto space-y-3',
+              activeTab === 'comment' ? 'overflow-y-auto scroller h-auto' : ''
             )}
           >
             {activeTab === 'comment'
@@ -167,7 +165,7 @@ export default function Sidebar ({ postId }: { postId: string }) {
       </div>
       <div
         className={cn(
-          'flex justify-center items-center border-t border-border',
+          'flex sticky bottom-0 justify-center items-center border-t border-border bg-darkAccent',
           activeTab === 'comment' ? 'h-[80px]' : 'hidden'
         )}
       >

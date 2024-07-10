@@ -50,13 +50,7 @@ const tabList1: TabItem[] = [
 
 const roboto = Roboto({ subsets: ['cyrillic'], weight: '700' })
 
-export default function Layout ({
-  children,
-  modal
-}: {
-  children: React.ReactNode
-  modal: React.ReactNode
-}) {
+export default function Layout ({ children }: { children: React.ReactNode }) {
   return (
     <>
       <div className='flex min-h-screen w-full flex-col'>
@@ -178,7 +172,6 @@ export default function Layout ({
               </Carousel>
             </section>
             {children}
-            {modal}
           </div>
         </main>
       </div>

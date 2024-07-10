@@ -6,7 +6,6 @@ import {
   ProfileInfoOverView
 } from '@/components/custom'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
-import Close from './close'
 import projects from '@/../public/data/projects.json'
 import CommentInput from './comment-input'
 import Comment from './comment'
