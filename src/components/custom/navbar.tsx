@@ -179,7 +179,7 @@ export default function Navbar ({ className }: { className?: string }) {
           </DropdownMenuContent>
         </DropdownMenu>
         {!signedin ? (
-          <>
+          <div className='flex justify-between items-center gap-2'>
             <Popover>
               <PopoverTrigger asChild>
                 <div className='cursor-pointer'>
@@ -213,7 +213,10 @@ export default function Navbar ({ className }: { className?: string }) {
             <Link href={'/chat'}>
               <MaterialSymbolIcon>chat</MaterialSymbolIcon>
             </Link>
-          </>
+            <Link href={''}>
+              <MaterialSymbolIcon>add_shopping_cart</MaterialSymbolIcon>
+            </Link>
+          </div>
         ) : (
           <>
             <Link href={'/sign-up'}>
@@ -235,7 +238,7 @@ export default function Navbar ({ className }: { className?: string }) {
             </Link>
           </>
         )}
-        <MaterialSymbolIcon>add_shopping_cart</MaterialSymbolIcon>
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <div>

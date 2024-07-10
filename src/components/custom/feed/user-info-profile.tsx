@@ -43,51 +43,48 @@ export default function UserInfoProfile ({ className }: { className?: string }) 
           </div>
           <p className='text-slate-200 opacity-70'>3D Modeller</p>
           <p className='text-sm text-slate-200'>3 - 5 Years / USD $50 - 59</p>
-          <UserAbout
-            icon='work'
-            description='Aug 2023 - Present'
-            title='Adroit data 3D Artist'
-          />
-          <div className='flex justify-between gap-3'>
-            <Badge className='text-slate-300 py-0'>
-              <MaterialSymbolIcon className='mr-2 text-base'>
-                location_on
-              </MaterialSymbolIcon>
-              Montreal, Canada
-            </Badge>
-            <div className='flex items-end'>
-              <MaterialSymbolIcon className='opacity-100'>
-                bookmark
-              </MaterialSymbolIcon>
+          <div className='space-y-2 sm:block hidden'>
+            <UserAbout
+              icon='work'
+              description='Aug 2023 - Present'
+              title='Adroit data 3D Artist'
+            />
+            <div className='flex justify-between gap-3'>
+              <Badge className='text-slate-300 py-0'>
+                <MaterialSymbolIcon className='mr-2 text-base'>
+                  location_on
+                </MaterialSymbolIcon>
+                Montreal, Canada
+              </Badge>
+              <div className='flex items-end'>
+                <MaterialSymbolIcon className='opacity-100'>
+                  bookmark
+                </MaterialSymbolIcon>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      {/* <div className='flex  gap-2 sm:hidden col-span-4'>
-        <div className='flex gap-2 flex-wrap'>
-          <Badge className='text-slate-300'>
-            <Globe className='mr-2 h-5 w-5' />
-            Remote
-          </Badge>
-          <Badge className='text-slate-300'>
-            <MaterialSymbolIcon className='mr-2'>work</MaterialSymbolIcon>
-            Permanent
-          </Badge>
-          <Badge className='text-slate-300'>
-            <Plane className='mr-2 h-5 w-5' />
-            Relocation Asssistance
-          </Badge>
-          <Badge className='text-slate-300'>
-            <MapPin className='mr-2 h-5 w-5' />
+      <div className='space-y-2 sm:hidden block col-span-4'>
+        <UserAbout
+          icon='work'
+          description='Aug 2023 - Present'
+          title='Adroit data 3D Artist'
+        />
+        <div className='flex justify-between gap-3'>
+          <Badge className='text-slate-300 py-0'>
+            <MaterialSymbolIcon className='mr-2 text-base'>
+              location_on
+            </MaterialSymbolIcon>
             Montreal, Canada
           </Badge>
+          <div className='flex items-end'>
+            <MaterialSymbolIcon className='opacity-100'>
+              bookmark
+            </MaterialSymbolIcon>
+          </div>
         </div>
-        <div className='flex items-end'>
-          <MaterialSymbolIcon className='opacity-100'>
-            bookmark
-          </MaterialSymbolIcon>
-        </div>
-      </div> */}
+      </div>
     </Card>
   )
 }
@@ -104,13 +101,13 @@ function UserAbout ({
   description: string
 }) {
   return (
-    <div className={cn('flex justify-start items-start gap-2', className)}>
+    <div className={cn('flex justify-start items-center gap-2', className)}>
       <div className='flex justify-start items-center gap-2'>
         <MaterialSymbolIcon>{icon}</MaterialSymbolIcon>
       </div>
       <div className='flex justify-start gap-2 items-center'>
-        <h1 className='text-lg font-semibold'>{title}</h1>
-        <p className='text-sm'>| {description}</p>
+        <h1 className='sm:text-base text-sm font-semibold'>{title}</h1>
+        <p className='sm:text-sm text-xs'>| {description}</p>
       </div>
     </div>
   )
