@@ -1,13 +1,5 @@
 'use client'
 
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTrigger
-} from '@/components/ui/dialog'
-import UploadType from '../../gallery/create/_components/upload-type'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { useMemo, useState } from 'react'

@@ -35,7 +35,7 @@ export default function NotificationsPage () {
             </BreadcrumbList>
           </Breadcrumb>
         </header>
-        <main className='px-4 md:w-3/5 lg:w-2/5 grid gap-4'>
+        <main className='px-4 md:w-3/5 lg:w-2/5 grid gap-4 mx-auto'>
           <h1 className='text-xl font-semibold '>Notifications</h1>
           <div className='space-y-3'>
             {Array.from({ length: 21 }, (_, i) => i).map(i =>

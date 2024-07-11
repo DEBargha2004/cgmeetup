@@ -153,7 +153,7 @@ export default function JobPage ({
             </div>
           </section>
           <section className='space-y-4 col-span-3'>
-            <Card className='' id='job-description'>
+            <Card className='bg-card' id='job-description'>
               <CardHeader className='text-xl font-semibold'>
                 Job Description
               </CardHeader>
@@ -193,7 +193,7 @@ export default function JobPage ({
                 <i className='text-xs opacity-60 inline-block'>34 hours ago</i>
               </CardContent>
             </Card>
-            <Card className='' id='job-skills'>
+            <Card className='bg-card' id='job-skills'>
               <CardHeader className='text-xl font-semibold'>
                 Required Skills
               </CardHeader>
@@ -205,7 +205,7 @@ export default function JobPage ({
                 ))}
               </CardContent>
             </Card>
-            <Card className=''>
+            <Card className='bg-card'>
               <CardHeader className='text-xl font-semibold'>
                 Job Summary
               </CardHeader>
@@ -218,7 +218,7 @@ export default function JobPage ({
                 ))}
               </CardContent>
             </Card>
-            <Card className='' id='about'>
+            <Card className='bg-card' id='about'>
               <CardHeader className='text-xl font-semibold text-primary pb-3'>
                 <div className='flex items-center gap-4'>
                   <p className='text-white hover:text-primary'>Ubisoft</p>
@@ -240,7 +240,7 @@ export default function JobPage ({
                 sentences is what constitutes a paragraph.
               </CardContent>
             </Card>
-            <Card>
+            <Card className='bg-card'>
               {/* <CardHeader>Tags</CardHeader> */}
               <CardContent className='flex gap-2 flex-wrap pt-6'>
                 <strong className='opacity-70'>Tags :</strong>

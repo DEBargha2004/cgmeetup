@@ -15,7 +15,7 @@ import { RecruiterSchemaType, recruiterSchema } from '@/schema/recruiter'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import pdfIcon from '../../../../../public/images/pdf.png'
+import pdfIcon from '@/../public/images/pdf.png'
 import Image from 'next/image'
 
 export default function CompanyRecruiter () {

@@ -24,6 +24,7 @@ import NewsCard from './news-card'
 import FeaturedNewsCard from './featured-news-card'
 import SimilarNewsCard from './similar-news-card'
 import Cropper from './cropper'
+import ScrollControlContainer from './scroll-control-container'
 
 export {
   AppLogo,
@@ -49,5 +50,6 @@ export {
   NewsCard,
   FeaturedNewsCard,
   SimilarNewsCard,
-  Cropper
+  Cropper,
+  ScrollControlContainer
 }

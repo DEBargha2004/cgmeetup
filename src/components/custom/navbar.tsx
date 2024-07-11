@@ -138,7 +138,7 @@ export default function Navbar ({ className }: { className?: string }) {
           <DropdownMenuTrigger asChild>
             <Button
               variant={'success'}
-              className='sm:px-3 px-2 sm:h-9 h-7 flex justify-center items-center'
+              className='sm:px-3 px-2 h-8 flex justify-center items-center'
             >
               <MaterialSymbolIcon
                 variant='filled'

@@ -44,7 +44,7 @@ export default function Sidebar ({ postId }: { postId: string }) {
         <Card className='rounded bg-card relative'>
           <CardContent id='user-profile' className='space-y-6 py-3 pr-2'>
             <ProfileInfoOverView
-              heading='text-[14px] xl:text-[16px]'
+              heading='text-[16px] xl:text-[18px]'
               description='text-[11px] xl:text-[12px] text-white opacity-70'
               className='items-center'
               image='w-16 h-16'
@@ -61,7 +61,7 @@ export default function Sidebar ({ postId }: { postId: string }) {
             </ProfileInfoOverView>
           </CardContent>
           <CardContent id='post-info' className='space-y-2 pt-0'>
-            <h1 className='text-xl font-bold'>{project.title}</h1>
+            <h1 className='text-[18px] font-bold'>{project.title}</h1>
             <LimitText className='text-sm'>{description}</LimitText>
             <i className='text-muted-foreground text-xs'>Posted 5 hours ago</i>
           </CardContent>
@@ -100,7 +100,7 @@ export default function Sidebar ({ postId }: { postId: string }) {
           </div>
           <div
             className={cn(
-              'py-3 md:h-auto mx-auto space-y-3',
+              'py-3 px-[10px] md:h-auto mx-auto space-y-3',
               activeTab === 'comment' ? 'overflow-y-auto scroller h-auto' : ''
             )}
           >
@@ -166,7 +166,7 @@ export default function Sidebar ({ postId }: { postId: string }) {
       <div
         className={cn(
           'flex sticky bottom-0 justify-center items-center border-t border-border bg-darkAccent',
-          activeTab === 'comment' ? 'h-[80px]' : 'hidden'
+          activeTab === 'comment' ? 'h-[80px] z-50' : 'hidden'
         )}
       >
         <CommentInput />

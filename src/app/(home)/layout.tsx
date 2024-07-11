@@ -1,4 +1,4 @@
-import { Tabs } from '@/components/custom'
+import { ScrollControlContainer, Tabs } from '@/components/custom'
 import Artists from './_components/artists'
 import Footer from './_components/footer'
 import Jobs from './_components/jobs'
@@ -38,19 +38,21 @@ export default function Layout ({
   modal: React.ReactNode
 }) {
   return (
-    <main className='space-y-4 py-2'>
-      <News />
-      <Artists />
-      <div className='space-y-4 py-3'>
-        <div className='flex justify-center items-center'>
-          <Tabs tabs={tabs} />
+    <ScrollControlContainer>
+      <main className='space-y-4 py-2'>
+        <News />
+        <div className='space-y-4 py-3'>
+          <div className='flex justify-center items-center'>
+            <Tabs tabs={tabs} />
+          </div>
+          {children}
         </div>
-        {children}
-      </div>
-      <Jobs />
-      <Studios />
-      <NewsLetter />
-      <Footer />
-    </main>
+        <Jobs />
+        <Artists />
+        <Studios />
+        <NewsLetter />
+        <Footer />
+      </main>
+    </ScrollControlContainer>
   )
 }

@@ -1,30 +1,11 @@
 'use client'
 
-import projects from '../../../public/data/projects.json'
-import {
-  FeedCard,
-  JobCardContainer,
-  ProfileAvatarStatus,
-  UserInfoProfile
-} from '@/components/custom/feed'
+import { JobCardContainer, UserInfoProfile } from '@/components/custom/feed'
 import { JobCard } from '@/components/custom'
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious
-} from '@/components/ui/carousel'
-import { feedNavItems } from '@/constants/feed-nav'
 import Link from 'next/link'
 import React, { useEffect, useRef } from 'react'
-import { MaterialSymbolIcon } from '@/components/custom'
 import 'react-circular-progressbar/dist/styles.css'
-import ProgressBar from '@/components/custom/progress-bar'
-import Image from 'next/image'
 import Tags from './_components/tags'
-import add1 from '../../../public/images/add_1.jpg'
-import add2 from '../../../public/images/add-2.jpg'
 import PostCreate from './_components/post-create'
 import Posts from './_components/posts'
 import ProfileCarousel from './_components/profile-carousel'
@@ -32,6 +13,7 @@ import FeedNav from './_components/feed-nav'
 import Profile from './_components/profile'
 import ProfileComplete from './_components/profile-complete'
 import Advertisements from './_components/advertisements'
+import JobPosts from './_components/job-posts'
 
 export default function FeedPage () {
   const feedRef = useRef<HTMLDivElement>(null)
@@ -47,59 +29,62 @@ export default function FeedPage () {
     resizeObserver.observe(feedRef.current!)
   }, [])
   return (
-    <main className='h-full flex flex-row  justify-start items-start bg-darkAccent'>
-      <div
-        className='bottom-0 left-0 w-[60px] 6xl:w-[45%] 5xl:w-2/5
+    <>
+      <main className='h-full flex flex-row  justify-start items-start bg-darkAccent'>
+        <div
+          className='bottom-0 left-0 w-[60px] 6xl:w-[45%] 5xl:w-2/5
         4xl:w-1/3 xl:w-1/4 lg:w-1/5 z-20 h-full border-r  lg:px-2 flex flex-col 
          justify-start items-end overflow-y-auto scroller overflow-x-auto  pt-8'
-      >
-        <Profile />
-        <FeedNav />
-      </div>
-      <div
-        className=' h-full w-[calc(100%-60px)] 6xl:w-[55%] 5xl:w-3/5 4xl:w-2/3 
+        >
+          <Profile />
+          <FeedNav />
+        </div>
+        <div
+          className=' h-full w-[calc(100%-60px)] 6xl:w-[55%] 5xl:w-3/5 4xl:w-2/3 
          xl:w-3/4 lg:w-4/5 overflow-y-auto flex justify-center lg:justify-start items-start lg:gap-[2%] scroller'
-      >
-        <div
-          className='w-full sm:max-w-[630px] lg:w-[60%] space-y-4 flex flex-col items-center 
+        >
+          <div
+            className='w-full sm:max-w-[630px] lg:w-[60%] space-y-4 flex flex-col items-center 
         px-2 py-4 border-r '
-          ref={feedRef}
-        >
-          <ProfileCarousel />
-          <PostCreate />
-          <div className='flex justify-between items-center w-full'>
-            <h1 className='text-lg'>Job Recommendation</h1>
-            <Link href={'/jobs'} className='text-primary text-sm'>
-              See All
-            </Link>
+            ref={feedRef}
+          >
+            <ProfileCarousel />
+            <PostCreate />
+            <div className='flex justify-between items-center w-full'>
+              <h1 className='text-lg'>Job Recommendation</h1>
+              <Link href={'/jobs'} className='text-primary text-sm'>
+                See All
+              </Link>
+            </div>
+            <JobCardContainer className='w-full border-none'>
+              {Array.from({ length: 9 }, (_, i) => i).map(i => (
+                <JobCard
+                  key={i}
+                  className='select-none bg-transparent border shrink-0'
+                />
+              ))}
+            </JobCardContainer>
+            <JobCardContainer className='w-full border-none'>
+              {Array.from({ length: 9 }, (_, i) => i).map(i => (
+                <UserInfoProfile key={i} className='shrink-0' />
+              ))}
+            </JobCardContainer>
+            <Tags />
+            <Posts />
+            <JobPosts />
           </div>
-          <JobCardContainer className='w-full border-none'>
-            {Array.from({ length: 9 }, (_, i) => i).map(i => (
-              <JobCard
-                key={i}
-                className='select-none bg-transparent border shrink-0'
-              />
-            ))}
-          </JobCardContainer>
-          <JobCardContainer className='w-full border-none'>
-            {Array.from({ length: 9 }, (_, i) => i).map(i => (
-              <UserInfoProfile key={i} className='shrink-0' />
-            ))}
-          </JobCardContainer>
-          <Tags />
-          <Posts />
-        </div>
 
-        <div
-          className='w-0 lg:w-[40%] max-w-[370px]
+          <div
+            className='w-0 lg:w-[40%] max-w-[370px]
          my-5 feed-right-bar space-y-2 lg:block hidden'
-          ref={rightSidebarRef}
-        >
-          <ProfileComplete />
-          <Advertisements />
-          <div className='h-[calc(100%-100vh)] ' />
+            ref={rightSidebarRef}
+          >
+            <ProfileComplete />
+            <Advertisements />
+            <div className='h-[calc(100%-100vh)] ' />
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </>
   )
 }

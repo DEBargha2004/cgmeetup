@@ -91,6 +91,12 @@ html {
   background-color: transparent;
 }
 
+.scroller::-webkit-scrollbar-thumb {
+  background-color: hsl(var(--primary));
+  border-radius: 20px;
+  background-clip: content-box;
+}
+
 .scroller-transition::-webkit-scrollbar {
   width: 5px;
 }

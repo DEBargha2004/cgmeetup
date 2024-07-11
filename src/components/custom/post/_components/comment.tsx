@@ -24,7 +24,7 @@ export default function Comment ({
     <div className='flex flex-col justify-start items-start gap-2'>
       <ProfileInfoOverView
         heading={cn(
-          'text-[14px] xl:text-[16px] opacity-70',
+          'text-[14px] xl:text-[14px]',
           commentContainer && 'text-[12px] xl:text-[14px]'
         )}
         description='text-[10px] xl:text-[12px] text-white opacity-70'
@@ -33,7 +33,7 @@ export default function Comment ({
       <div className={cn('w-[calc(100%-50px)] ml-auto', commentContainer)}>
         <p
           className={cn(
-            'font-semibold xl:text-sm text-[12px]',
+            'font-semibold xl:text-[14px] text-[12px]',
             commentContainer && 'xl:text-[12px] text-[11px]'
           )}
         >
@@ -41,9 +41,9 @@ export default function Comment ({
         </p>
         <div className='flex justify-start items-center gap-2 '>
           <MaterialSymbolIcon className='text-sm'>favorite</MaterialSymbolIcon>
-          <i className='text-xs opacity-60'>34 hours ago</i>
+          <i className='text-xs opacity-70'>34 hours ago</i>
           <p
-            className='text-sm opacity-90'
+            className='text-xs opacity-70'
             onClick={() => setShowCommentInput(true)}
           >
             Reply
@@ -84,7 +84,7 @@ export default function Comment ({
               >
                 {showMoreComments ? 'expand_less' : 'expand_more'}
               </MaterialSymbolIcon>
-              <p className='text-primary'>4 replies</p>
+              <p className='text-primary text-xs'>4 replies</p>
             </div>
 
             {showMoreComments ? (

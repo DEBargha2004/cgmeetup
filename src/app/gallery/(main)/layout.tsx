@@ -1,4 +1,8 @@
-import { MaterialSymbolIcon, Tabs } from '@/components/custom'
+import {
+  MaterialSymbolIcon,
+  ScrollControlContainer,
+  Tabs
+} from '@/components/custom'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
@@ -52,7 +56,7 @@ const roboto = Roboto({ subsets: ['cyrillic'], weight: '700' })
 
 export default function Layout ({ children }: { children: React.ReactNode }) {
   return (
-    <>
+    <ScrollControlContainer>
       <div className='flex min-h-screen w-full flex-col'>
         <main className='flex flex-1 flex-col md:gap-0 '>
           <div className='relative md:pt-12'>
@@ -176,6 +180,6 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
           </div>
         </main>
       </div>
-    </>
+    </ScrollControlContainer>
   )
 }

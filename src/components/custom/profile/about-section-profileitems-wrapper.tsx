@@ -19,7 +19,7 @@ export default function AboutSectionItemsWrapper ({
     items-center gap-4'
     >
       <div className={cn('w-full flex justify-between')}>
-        <h1 className='text-2xl font-semibold'>{title}</h1>
+        <h1 className='text-xl font-semibold'>{title}</h1>
         {edit}
       </div>
       <Separator className='bg-darkAccent opacity-40' />

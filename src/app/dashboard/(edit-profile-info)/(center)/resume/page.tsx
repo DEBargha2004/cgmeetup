@@ -4,7 +4,7 @@ import { MaterialSymbolIcon } from '@/components/custom'
 import { FieldsContainer, FormCard } from '@/components/custom/form'
 import { Button } from '@/components/ui/button'
 import { useDropzone } from 'react-dropzone'
-import pdf from '../../../../../public/images/pdf.png'
+import pdf from '@/../public/images/pdf.png'
 import Image from 'next/image'
 
 export default function ResumePage () {

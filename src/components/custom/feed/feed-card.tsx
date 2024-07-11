@@ -43,27 +43,7 @@ export default function FeedCard ({
       {...props}
     >
       <header className='px-2 w-full flex gap-3 justify-between items-center'>
-        {/* <div className='flex  gap-3'>
-          <Avatar className='border-2 border-white'>
-            <AvatarImage src={project.user.medium_avatar_url} />
-            <AvatarFallback className='uppercase'>
-              {getShortendName(project.user.full_name)}
-            </AvatarFallback>
-          </Avatar>
-          <div
-            className='flex flex-col justify-between items-start 
-          '
-          >
-            <h1 className='text-sm font-semibold'>{project.user.username}</h1>
-            <p className='text-sm text-lightAccent-foreground line-clamp-1'>
-              Some Random description about user
-            </p>
-          </div>
-        </div>
-        <div className='p-1 rounded-full hover:bg-lightAccent transition-all cursor-pointer text-lightAccent-foreground'>
-          <EllipsisVertical className='h-5 w-5' />
-        </div> */}
-        <ProfileInfoOverView>
+        <ProfileInfoOverView description='opacity-70'>
           <MaterialSymbolIcon>more_vert</MaterialSymbolIcon>
         </ProfileInfoOverView>
       </header>

@@ -13,7 +13,7 @@ export default function PostCreate () {
   const { setPostDialogState } = useGlobalAppStore()
   return (
     <div
-      className='flex items-start justify-start gap-2 w-full border-t border-b py-5'
+      className='flex items-start justify-start gap-2 w-full border-t border rounded-sm py-5 bg-card px-2'
       onClick={() => setPostDialogState(true)}
     >
       <div id='user-image'>
