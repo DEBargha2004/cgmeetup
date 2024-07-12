@@ -2,27 +2,12 @@
 
 import { useRef } from 'react'
 import NewsCard from './news-card'
-import Navigator from './navigator'
+import { Navigator } from '@/components/custom'
+import { scroll } from '@/functions/scroll'
 
 export default function News () {
   const scrollerRef = useRef<HTMLDivElement>(null)
 
-  const scroll = (direction: 'left' | 'right') => {
-    const scroller = scrollerRef.current
-    if (scroller) {
-      if (direction === 'left') {
-        scroller.scrollTo({
-          left: scroller.scrollLeft - 400,
-          behavior: 'smooth'
-        })
-      } else {
-        scroller.scrollTo({
-          left: scroller.scrollLeft + 400,
-          behavior: 'smooth'
-        })
-      }
-    }
-  }
   return (
     <div className='relative px-4'>
       <div
@@ -36,12 +21,12 @@ export default function News () {
       <Navigator
         icon='arrow_back_ios'
         className='rounded-full absolute top-1/2 -translate-y-1/2 left-2 bg-lightAccent/50 hover:bg-lightAccent/90'
-        onClick={() => scroll('left')}
+        onClick={() => scroll({ ref: scrollerRef, direction: 'left' })}
       />
       <Navigator
         icon='arrow_forward_ios'
         className='rounded-full absolute top-1/2 -translate-y-1/2 right-2 bg-lightAccent/50 hover:bg-lightAccent/90'
-        onClick={() => scroll('right')}
+        onClick={() => scroll({ ref: scrollerRef, direction: 'right' })}
       />
     </div>
   )

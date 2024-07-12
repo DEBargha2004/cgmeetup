@@ -65,15 +65,17 @@ export default function CompanyRecruiter () {
       <FormCard
         subHeading='Manage your members'
         heading='Members'
+        className='@container'
         extraButton={
           <Button
             onClick={() => {
               setShowForm(true)
               setShowEditForm({ show: false, index: -1 })
             }}
+            className='space-x-2'
           >
-            <MaterialSymbolIcon className='mr-2'>add</MaterialSymbolIcon>
-            <span>Add Member</span>
+            <MaterialSymbolIcon className=''>add</MaterialSymbolIcon>
+            <span className='@lg:inline hidden'>Add Member</span>
           </Button>
         }
       >

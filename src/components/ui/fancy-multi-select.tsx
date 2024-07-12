@@ -153,7 +153,7 @@ export function FancyMultiSelect ({
           {open && selectables.length > 0 ? (
             <div
               className='absolute top-0 z-10 w-full rounded-md border bg-darkAccent 
-            text-popover-foreground shadow-md outline-none animate-in max-h-[300px] overflow-y-auto overflow-x-hidden'
+            text-popover-foreground shadow-md outline-none animate-in max-h-[300px] overflow-y-auto overflow-x-hidden scroller'
             >
               <CommandGroup className='h-full overflow-auto'>
                 {selectables.map(framework => {

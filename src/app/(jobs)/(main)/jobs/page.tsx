@@ -13,19 +13,15 @@ export default function Dashboard () {
 border-none bg-transparent'
       >
         <CardContent className='space-y-4 px-1'>
-          <Link href={'/job-post/123'} className='inline-block w-full'>
-            <JobCard />
-          </Link>
-          <Link href={'/job-post/123'} className='inline-block w-full'>
-            <JobCard />
-          </Link>
-          <Link href={'/job-post/123'} className='inline-block w-full'>
-            <JobCard />
-          </Link>
+          {Array.from({ length: 3 }, (_, i) => i).map(i => (
+            <Link href={'/jobs/123'} className='inline-block w-full' key={i}>
+              <JobCard />
+            </Link>
+          ))}
         </CardContent>
       </Card>
       <Card className='bg-transparent border-none col-span-3 xl:col-span-1 space-y-3 xl:max-w-[400px] px-2'>
-        <Card className='bg-card border'>
+        <Card className='bg-card border xl:block hidden'>
           <CardHeader className='pb-0'>
             <CardTitle className='text-xl'>Filters</CardTitle>
           </CardHeader>
@@ -38,18 +34,11 @@ border-none bg-transparent'
             <CardTitle className='text-lg font-bold'>Featured Jobs</CardTitle>
           </CardHeader>
           <CardContent className='grid gap-4 px-1'>
-            <Link href={'/job-post/123'} className='inline-block w-full'>
-              <FeaturedJobCard />
-            </Link>
-            <Link href={'/job-post/123'} className='inline-block w-full'>
-              <FeaturedJobCard />
-            </Link>
-            <Link href={'/job-post/123'} className='inline-block w-full '>
-              <FeaturedJobCard />
-            </Link>
-            <Link href={'/job-post/123'} className='inline-block w-full'>
-              <FeaturedJobCard />
-            </Link>
+            {Array.from({ length: 3 }, (_, i) => i).map(i => (
+              <Link href={'/jobs/123'} className='inline-block w-full' key={i}>
+                <FeaturedJobCard />
+              </Link>
+            ))}
           </CardContent>
         </Card>
         <Card className='bg-transparent border-none'>

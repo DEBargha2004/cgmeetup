@@ -1,5 +1,6 @@
 'use client'
 
+import { Navigator } from '@/components/custom'
 import { Tabs } from '@/components/custom'
 import {
   Breadcrumb,
@@ -8,9 +9,10 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator
 } from '@/components/ui/breadcrumb'
+import { scroll } from '@/functions/scroll'
 import { FieldType } from '@/types/field-type'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { useRef } from 'react'
 
 const tabs: (FieldType & { icon: string; href: string })[] = [
   {
@@ -83,8 +85,8 @@ const tabs: (FieldType & { icon: string; href: string })[] = [
 ]
 
 export default function Layout ({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname()
-  console.log(pathname.split('/dashboard/edit/'))
+  const scrollRef = useRef<HTMLDivElement>(null)
+
   return (
     <div className='flex h-full w-full flex-col'>
       <div className='flex flex-col sm:gap-4 '>
@@ -106,8 +108,25 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
           </Breadcrumb>
         </header>
         <main className='flex flex-col justify-start items-center gap-2 w-full'>
-          <div className='w-full flex justify-start items-center gap-0 px-3'>
-            <Tabs tabs={tabs} className='md:px-4' />
+          <div className='w-full relative'>
+            <div
+              ref={scrollRef}
+              className='w-full flex justify-start items-center gap-0 px-3 overflow-x-auto scroller-hide'
+            >
+              <Tabs tabs={tabs} className='md:px-4' />
+            </div>
+            <Navigator
+              icon='arrow_back'
+              className='absolute left-0 top-1/2 -translate-y-1/2 bg-lightAccent/50 rounded-full h-8 w-8'
+              iconClassName='text-sm'
+              onClick={() => scroll({ ref: scrollRef, direction: 'left' })}
+            />
+            <Navigator
+              icon='arrow_forward'
+              className='absolute right-0 top-1/2 -translate-y-1/2 bg-lightAccent/50 rounded-full h-8 w-8'
+              iconClassName='text-sm'
+              onClick={() => scroll({ ref: scrollRef, direction: 'right' })}
+            />
           </div>
           <div className='w-full flex gap-4 px-4'>{children}</div>
         </main>

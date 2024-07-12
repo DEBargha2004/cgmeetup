@@ -31,7 +31,6 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import {
   Table,
   TableBody,
@@ -158,11 +157,13 @@ export default function Gallery () {
                   <Table>
                     <TableHeader>
                       <TableRow className=''>
-                        <TableHead className='hidden w-[100px] sm:table-cell'>
+                        <TableHead className='w-[100px] table-cell'>
                           <span className='sr-only'>Image</span>
                         </TableHead>
                         <TableHead>Name</TableHead>
-                        <TableHead>Status</TableHead>
+                        <TableHead className='hidden sm:table-cell'>
+                          Status
+                        </TableHead>
                         <TableHead className='hidden md:table-cell'>
                           View
                         </TableHead>
@@ -179,7 +180,7 @@ export default function Gallery () {
                     </TableHeader>
                     <TableBody>
                       <TableRow className='hover:bg-darkAccent'>
-                        <TableCell className='hidden sm:table-cell  '>
+                        <TableCell className='table-cell '>
                           <div className='lg:h-[150px] lg:w-[150px] h-[100px] w-[100px]'>
                             <Image
                               src='https://cdnb.artstation.com/p/assets/images/images/000/424/193/smaller_square/glenn-melenhorst-car0001.jpg?1443927098'
@@ -193,7 +194,7 @@ export default function Gallery () {
                         <TableCell className='font-medium '>
                           Laser Lemonade Machine
                         </TableCell>
-                        <TableCell className='max-w-[150px]'>
+                        <TableCell className='sm:table-cell hidden max-w-[150px]'>
                           <Badge variant='outline'>Draft</Badge>
                         </TableCell>
                         <TableCell className='hidden md:table-cell'>

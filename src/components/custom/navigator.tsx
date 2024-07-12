@@ -5,8 +5,9 @@ import { HTMLProps } from 'react'
 export default function Navigator ({
   icon,
   className,
+  iconClassName,
   ...props
-}: { icon: string } & HTMLProps<HTMLDivElement>) {
+}: { icon: string; iconClassName?: string } & HTMLProps<HTMLDivElement>) {
   return (
     <div
       className={cn(
@@ -16,7 +17,9 @@ export default function Navigator ({
       )}
       {...props}
     >
-      <MaterialSymbolIcon className='text-2xl opacity-100 select-none'>
+      <MaterialSymbolIcon
+        className={cn('text-2xl opacity-100 select-none', iconClassName)}
+      >
         {icon}
       </MaterialSymbolIcon>
     </div>

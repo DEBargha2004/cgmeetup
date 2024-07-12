@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import MaterialSymbolIcon from './material-symbol-icon'
 import { cn } from '@/lib/utils'
 

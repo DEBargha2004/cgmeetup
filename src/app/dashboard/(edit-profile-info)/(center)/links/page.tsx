@@ -70,17 +70,17 @@ export default function SocialsPage () {
     <FormCard
       subHeading='Add your social links.'
       heading='Links'
+      className='@container'
       extraButton={
         <Button
           onClick={() => {
             setShowForm(true)
             setShowEditForm({ show: false, index: -1 })
           }}
+          className='space-x-2'
         >
-          <MaterialSymbolIcon className='mr-2 opacity-100'>
-            add
-          </MaterialSymbolIcon>
-          <span>Add Link</span>
+          <MaterialSymbolIcon>add</MaterialSymbolIcon>
+          <span className='@lg:inline hidden'>Add Link</span>
         </Button>
       }
     >

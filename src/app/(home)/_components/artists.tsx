@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
-import Navigator from './navigator'
+import Navigator from '../../../components/custom/navigator'
 import ProfileCard from './profile-card'
 import Link from 'next/link'
 

@@ -1,8 +1,4 @@
-import {
-  FeaturedJobCard,
-  LimitText,
-  MaterialSymbolIcon
-} from '@/components/custom'
+import { FeaturedJobCard, MaterialSymbolIcon } from '@/components/custom'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import {
@@ -16,8 +12,8 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { sample_cateories } from '@/constants/categories'
 import Image from 'next/image'
 import Link from 'next/link'
-import add1 from '../../../../../public/images/add_1.jpg'
-import add2 from '../../../../../public/images/add-2.jpg'
+import add1 from '@/../public/images/add_1.jpg'
+import add2 from '@/../public/images/add-2.jpg'
 
 const job_summary = [
   {
@@ -28,14 +24,6 @@ const job_summary = [
     title: 'Job Category',
     value: 'IT and Software'
   }
-  // {
-  //   title: 'Job Category',
-  //   value: 'IT and Software'
-  // },
-  // {
-  //   title: 'Job Category',
-  //   value: 'IT and Software'
-  // }
 ]
 
 export default function JobPage ({

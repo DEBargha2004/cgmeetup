@@ -70,15 +70,17 @@ export default function ProductionsPage () {
     <FormCard
       subHeading='Please fill in your production experiences'
       heading='Production Experiences'
+      className='@container'
       extraButton={
         <Button
           onClick={() => {
             setShowForm(true)
             setShowEditForm({ show: false, index: -1 })
           }}
+          className='space-x-2'
         >
-          <MaterialSymbolIcon className='mr-2'>add</MaterialSymbolIcon>
-          <span>Add Production</span>
+          <MaterialSymbolIcon>add</MaterialSymbolIcon>
+          <span className='@lg:inline hidden'>Add Production</span>
         </Button>
       }
     >

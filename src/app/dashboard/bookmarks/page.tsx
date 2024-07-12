@@ -6,7 +6,6 @@ import {
   BreadcrumbSeparator
 } from '@/components/ui/breadcrumb'
 import Link from 'next/link'
-import BookmarkCard from '../_components/bookmark-card'
 import {
   Card,
   CardContent,
@@ -24,7 +23,6 @@ import {
   TableRow
 } from '@/components/ui/table'
 import Image from 'next/image'
-import { Badge } from '@/components/ui/badge'
 import { MaterialSymbolIcon } from '@/components/custom'
 import {
   DropdownMenu,
@@ -75,7 +73,7 @@ export default function BookmarksPage () {
               <Table>
                 <TableHeader>
                   <TableRow className=''>
-                    <TableHead className='hidden w-[100px] sm:table-cell'>
+                    <TableHead className='w-[100px]'>
                       <span className='sr-only'>Image</span>
                     </TableHead>
                     <TableHead>Name</TableHead>
@@ -95,7 +93,7 @@ export default function BookmarksPage () {
                 <TableBody>
                   {Array.from({ length: 19 }, (_, i) => i).map(i => (
                     <TableRow className='hover:bg-darkAccent' key={i}>
-                      <TableCell className='hidden sm:table-cell  '>
+                      <TableCell>
                         <div className='lg:h-[150px] lg:w-[150px] h-[100px] w-[100px]'>
                           <Image
                             src='https://cdnb.artstation.com/p/assets/images/images/000/424/193/smaller_square/glenn-melenhorst-car0001.jpg?1443927098'
@@ -109,25 +107,7 @@ export default function BookmarksPage () {
                       <TableCell className='font-medium '>
                         Laser Lemonade Machine
                       </TableCell>
-                      {/* <TableCell className='max-w-[150px]'>
-                      <Badge variant='outline'>Draft</Badge>
-                    </TableCell> */}
-                      {/* <TableCell className='hidden md:table-cell'>
-                      <div className='flex lg:flex-row flex-col justify-start items-center gap-3'>
-                        <div className='flex justify-center items-center gap-1'>
-                          <MaterialSymbolIcon>favorite</MaterialSymbolIcon>
-                          <span>2</span>
-                        </div>
-                        <div className='flex justify-center items-center gap-1'>
-                          <MaterialSymbolIcon>visibility</MaterialSymbolIcon>
-                          <span>2</span>
-                        </div>
-                        <div className='flex justify-center items-center gap-1'>
-                          <MaterialSymbolIcon>comment</MaterialSymbolIcon>
-                          <span>2</span>
-                        </div>
-                      </div>
-                    </TableCell> */}
+
                       <TableCell className='hidden md:table-cell '>
                         Jobs
                       </TableCell>

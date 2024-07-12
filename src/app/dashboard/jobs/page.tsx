@@ -2,29 +2,13 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import {
-  File,
-  Home,
-  LineChart,
-  ListFilter,
-  MoreHorizontal,
-  Package,
-  Package2,
-  PanelLeft,
-  PlusCircle,
-  Search,
-  Settings,
-  ShoppingCart,
-  Users2
-} from 'lucide-react'
-
+import { ListFilter, PlusCircle, Search } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbPage,
   BreadcrumbSeparator
 } from '@/components/ui/breadcrumb'
 import { Button } from '@/components/ui/button'
@@ -46,7 +30,6 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import {
   Table,
   TableBody,
@@ -56,13 +39,6 @@ import {
   TableRow
 } from '@/components/ui/table'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger
-} from '@/components/ui/tooltip'
-import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { MaterialSymbolIcon } from '@/components/custom'
 import { useState } from 'react'
 
@@ -180,11 +156,13 @@ export default function Gallery () {
                   <Table>
                     <TableHeader>
                       <TableRow className=''>
-                        <TableHead className='hidden w-[100px] sm:table-cell'>
+                        <TableHead className='w-[100px] table-cell'>
                           <span className='sr-only'>Image</span>
                         </TableHead>
                         <TableHead>Name</TableHead>
-                        <TableHead>Status</TableHead>
+                        <TableHead className='sm:table-cell hidden'>
+                          Status
+                        </TableHead>
                         <TableHead className='hidden md:table-cell'>
                           View
                         </TableHead>
@@ -201,7 +179,7 @@ export default function Gallery () {
                     </TableHeader>
                     <TableBody>
                       <TableRow className='hover:bg-darkAccent'>
-                        <TableCell className='hidden sm:table-cell  '>
+                        <TableCell>
                           <div className='lg:h-[150px] lg:w-[150px] h-[100px] w-[100px]'>
                             <Image
                               src='https://cdnb.artstation.com/p/assets/images/images/000/424/193/smaller_square/glenn-melenhorst-car0001.jpg?1443927098'
@@ -215,7 +193,7 @@ export default function Gallery () {
                         <TableCell className='font-medium '>
                           Laser Lemonade Machine
                         </TableCell>
-                        <TableCell className='max-w-[150px]'>
+                        <TableCell className='max-w-[150px] sm:table-cell hidden'>
                           <Badge variant='outline'>Draft</Badge>
                         </TableCell>
                         <TableCell className='hidden md:table-cell'>

@@ -41,7 +41,9 @@ export default function Tabs ({
                       {tab.icon}
                     </MaterialSymbolIcon>
                   </span>
-                  <span className='lg:block hidden'>{tab.label}</span>
+                  <span className='lg:block hidden whitespace-nowrap'>
+                    {tab.label}
+                  </span>
                 </div>
               </Link>
             </TooltipTrigger>

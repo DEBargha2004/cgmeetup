@@ -97,6 +97,20 @@ html {
   background-clip: content-box;
 }
 
+.scroller-x::-webkit-scrollbar {
+  height: 3px;
+}
+
+.scroller-x::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.scroller-x::-webkit-scrollbar-thumb {
+  background-color: hsl(var(--primary));
+  border-radius: 20px;
+  background-clip: content-box;
+}
+
 .scroller-transition::-webkit-scrollbar {
   width: 5px;
 }

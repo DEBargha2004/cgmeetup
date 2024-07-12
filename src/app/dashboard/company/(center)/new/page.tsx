@@ -28,10 +28,11 @@ export default function NewCompanyPage () {
         heading='Search Company'
         subHeading='Please provide the full name of your company that matches the official 
       registration documents. Note: Fail to do may result in verification failure'
+        className='@container'
         extraButton={
-          <Button>
-            <MaterialSymbolIcon className='mr-2'>add</MaterialSymbolIcon>
-            <span>Create Company</span>
+          <Button className='space-x-2'>
+            <MaterialSymbolIcon className=''>add</MaterialSymbolIcon>
+            <span className='@lg:inline hidden'>Create Company</span>
           </Button>
         }
       >
