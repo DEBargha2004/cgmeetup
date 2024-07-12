@@ -21,7 +21,7 @@ export default function Post ({
   const project = projects.data[project_idx] || {}
 
   return (
-    <main className='h-screen flex md:flex-row flex-col justify-start items-start relative overflow-y-auto'>
+    <main className='h-screen flex md:flex-row flex-col justify-start items-start relative overflow-y-auto scroller'>
       <div
         className='w-full md:w-[calc(100%-400px)] md:h-full  flex flex-col justify-start items-stretch 
              relative'
