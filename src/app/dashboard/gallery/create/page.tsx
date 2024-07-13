@@ -352,7 +352,7 @@ export default function Dashboard () {
                 )}
                 <p className='text-center text-sm text-wrap gap-1'>
                   <span className='text-primary'>
-                    <MaterialSymbolIcon className=' text-xl relative top-[6px]'>
+                    <MaterialSymbolIcon className=' text-xl'>
                       4k
                     </MaterialSymbolIcon>
                     &nbsp; Upgrade your account

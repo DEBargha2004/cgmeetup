@@ -11,9 +11,14 @@ import { usePathname } from 'next/navigation'
 
 const tabs: { label: string; href: string }[] = [
   {
-    label: 'Posts',
+    label: 'Portfolio',
     href: '/@tuit'
   },
+  {
+    label: 'Posts',
+    href: '/@tuit/posts'
+  },
+
   {
     label: 'Jobs',
     href: '/@tuit/jobs'

@@ -41,12 +41,16 @@ export default function Footer () {
   return (
     <div className='flex md:flex-row flex-col md:gap-0 gap-10 justify-between items-center px-10 py-4 bg-card'>
       <div className='flex md:flex-row flex-col justify-start items-center gap-6 text-center'>
-        <h2 className='text-base opacity-70'>Copyright © 2022 CGMEETUP 2022</h2>
-        {more_info_links.map((link, index) => (
-          <Link href={link.href} key={index}>
-            <h2 className='text-sm  hover:text-primary'>{link.label}</h2>
-          </Link>
-        ))}
+        <h2 className='text-base opacity-70'>
+          Copyright © {new Date().getFullYear()}- CGMEETUP
+        </h2>
+        <div className='grid xs:grid-cols-4 grid-cols-2 gap-4'>
+          {more_info_links.map((link, index) => (
+            <Link href={link.href} key={index}>
+              <h2 className='text-sm hover:text-primary'>{link.label}</h2>
+            </Link>
+          ))}
+        </div>
       </div>
       <div className='flex  justify-start items-center gap-4'>
         {social_links.map((social, index) => (

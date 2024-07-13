@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils'
 
 export default function Advertisements ({ className }: { className?: string }) {
   return (
-    <div className={cn('w-full space-y-3 sticky top-0', className)}>
+    <div className={cn('w-full space-y-3 ', className)}>
       {Array.from({ length: 2 }, (_, i) => i).map(i => (
         <Link href={'/gallery/a8'} key={i} className='inline-block w-full'>
           <Image

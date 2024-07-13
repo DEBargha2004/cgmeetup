@@ -15,17 +15,17 @@ const tabList1: TabItem[] = [
     label: 'Artists',
     href: '/artists',
     icon: 'person'
-  },
-  {
-    label: 'Trending',
-    href: '/artists/trending',
-    icon: 'trending_up'
-  },
-  {
-    label: 'Latest',
-    href: '/artists/latest',
-    icon: 'schedule'
   }
+  // {
+  //   label: 'Trending',
+  //   href: '/artists/trending',
+  //   icon: 'trending_up'
+  // },
+  // {
+  //   label: 'Latest',
+  //   href: '/artists/latest',
+  //   icon: 'schedule'
+  // }
 ]
 
 const tabList2: TabItem[] = [

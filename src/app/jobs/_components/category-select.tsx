@@ -19,7 +19,7 @@ export default function CategorySelect () {
       <PopoverTrigger asChild>
         <Button className='bg-lightAccent w-fit'>
           <MaterialSymbolIcon className='mr-2 opacity-100'>
-            explore
+            work
           </MaterialSymbolIcon>
           All Category
         </Button>

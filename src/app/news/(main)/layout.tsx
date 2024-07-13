@@ -42,9 +42,10 @@ import { Search } from 'lucide-react'
 import { Roboto } from 'next/font/google'
 import Image from 'next/image'
 import background from '@/../public/images/cover-image.jpg'
+import CategorySelect from '../_components/category-select'
 
 const tabList1: TabItem[] = [
-  { label: 'News', href: '/news', icon: 'work' },
+  { label: 'News', href: '/news', icon: 'news' },
   {
     label: 'Trending',
     href: '/news/trending',
@@ -106,36 +107,10 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
             <div className='flex justify-start items-center'>
               <Tabs tabs={tabList1} />
             </div>
-            {/* <div className='flex justify-end items-center'>
-              <Tabs tabs={tabList2} />
-            </div> */}
           </div>
-          <section className='flex justify-start items-center gap-10 px-2'>
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button className='bg-lightAccent'>Categories</Button>
-              </PopoverTrigger>
-              <PopoverContent
-                side='right'
-                className='space-y-4 bg-lightAccent rounded-sm'
-              >
-                <Input className='h-[37px] w-full' />
-                <div className='h-[300px] overflow-y-auto scroller space-y-2 w-[260px]'>
-                  {['All', ...sample_cateories].map(item => (
-                    <div
-                      key={item}
-                      className={cn(
-                        'h-10 bg-darkAccent flex justify-center items-center text-sm cursor-pointer rounded-sm',
-                        item === 'All' ? 'bg-primary' : ''
-                      )}
-                    >
-                      {item}
-                    </div>
-                  ))}
-                </div>
-              </PopoverContent>
-            </Popover>
-            <Carousel className='w-[calc(100%-180px)]'>
+          <section className='flex xs:justify-start justify-center items-center gap-10 px-2'>
+            <CategorySelect />
+            <Carousel className='w-[calc(100%-210px)] xs:block hidden'>
               <CarouselContent className=''>
                 {sample_cateories.map((cat, index) => (
                   <CarouselItem className='basis-auto' key={cat}>

@@ -15,17 +15,17 @@ const tabList1: TabItem[] = [
     label: 'Companies',
     href: '/companies',
     icon: 'apartment'
-  },
-  {
-    label: 'Trending',
-    href: '/companies/trending',
-    icon: 'trending_up'
-  },
-  {
-    label: 'Latest',
-    href: '/companies/latest',
-    icon: 'schedule'
   }
+  // {
+  //   label: 'Trending',
+  //   href: '/companies/trending',
+  //   icon: 'trending_up'
+  // },
+  // {
+  //   label: 'Latest',
+  //   href: '/companies/latest',
+  //   icon: 'schedule'
+  // }
 ]
 
 const tabList2: TabItem[] = [

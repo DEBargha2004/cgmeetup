@@ -81,8 +81,10 @@ export default function FeedCard ({
       </div>
       <div className='px-2 space-y-1'>
         <h1 className='text-lg font-bold'>{project.title}</h1>
-        <LimitText>{description}</LimitText>
-        <p className='text-lightAccent-foreground text-xs'>21 hours ago</p>
+        <LimitText className='opacity-70'>{description}</LimitText>
+        <p className='text-lightAccent-foreground text-xs opacity-60'>
+          21 hours ago
+        </p>
       </div>
     </div>
   )

@@ -15,7 +15,7 @@ export default function NewsCard ({ className }: { className?: string }) {
   return (
     <Card
       className={cn(
-        `bg-card grid grid-cols-4 gap-x-3 gap-y-2 w-full
+        `bg-card hover:bg-darkAccent/50 transition-all grid grid-cols-4 gap-x-3 gap-y-2 w-full
     p-3 pb-3 md:pb-3 relative`,
         className
       )}

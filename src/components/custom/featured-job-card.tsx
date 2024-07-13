@@ -15,7 +15,7 @@ export default function FeaturedJobCard ({
   return (
     <Card
       className={cn(
-        `bg-card flex items-stretch justify-between gap-4 w-full
+        `bg-card hover:bg-darkAccent/50 transition-all flex items-stretch justify-between gap-4 w-full
       p-3`,
         className
       )}

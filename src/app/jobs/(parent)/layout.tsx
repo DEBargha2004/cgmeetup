@@ -42,11 +42,11 @@ import { TabItem } from '@/types/tab'
 import { Search } from 'lucide-react'
 import { Roboto } from 'next/font/google'
 import { useState } from 'react'
-import Filter from './_components/filter'
+import Filter from '../_components/filter'
 import Link from 'next/link'
 import Image from 'next/image'
 import background from '@/../public/images/cover-image.jpg'
-import CategorySelect from './_components/category-select'
+import CategorySelect from '../_components/category-select'
 
 const tabList1: TabItem[] = [
   { label: 'Jobs', href: '/jobs', icon: 'work' },

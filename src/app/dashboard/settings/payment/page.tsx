@@ -62,16 +62,17 @@ export default function Payment () {
       <FormCard
         heading='Payment'
         subHeading='Add your payment method.'
-        className='rounded @container'
+        className=' @container'
         extraButton={
           <Button
             onClick={() => {
               setShowForm(true)
               setShowEditForm({ show: false, index: -1 })
             }}
+            className='space-x-2'
           >
-            <MaterialSymbolIcon className='mr-2'>add</MaterialSymbolIcon>
-            <span>Add Payment method</span>
+            <MaterialSymbolIcon>add</MaterialSymbolIcon>
+            <span className='@lg:inline hidden'>Add Payment method</span>
           </Button>
         }
       >

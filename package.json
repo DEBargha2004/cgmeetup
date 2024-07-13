@@ -64,6 +64,7 @@
     "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.51.4",
     "react-iframe": "^1.8.5",
+    "react-merge-refs": "^2.1.1",
     "react-phone-number-input": "^3.4.3",
     "recharts": "^2.12.7",
     "sharp": "^0.33.4",

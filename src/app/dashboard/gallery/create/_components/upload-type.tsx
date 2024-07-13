@@ -6,7 +6,7 @@ const UploadType = forwardRef<
   {
     icon: string
     title: string
-    supportedTypes: string
+    supportedTypes?: string
   } & HTMLProps<HTMLDivElement>
 >(({ supportedTypes, icon, title, ...props }, ref) => (
   <div
@@ -15,7 +15,7 @@ const UploadType = forwardRef<
     ref={ref}
     {...props}
   >
-    <MaterialSymbolIcon className='text-3xl text-primary opacity-100'>
+    <MaterialSymbolIcon className='text-3xl text-primary opacity-100 w-7'>
       {icon}
     </MaterialSymbolIcon>
     <h1 className='text-lg'>{title}</h1>

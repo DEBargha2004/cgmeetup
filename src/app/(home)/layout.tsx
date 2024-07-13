@@ -6,6 +6,8 @@ import News from './_components/news'
 import NewsLetter from './_components/news-letter'
 import { TabItem } from '@/types/tab'
 import Studios from './_components/studios'
+import LatestLikes from './_components/latest-likes'
+import LatestComments from './_components/latest-comments'
 
 const tabs: TabItem[] = [
   {
@@ -48,6 +50,10 @@ export default function Layout ({
           {children}
         </div>
         <Jobs />
+        <div className='grid md:grid-cols-2 gap-6 px-4'>
+          <LatestLikes />
+          <LatestComments />
+        </div>
         <Artists />
         <Studios />
         <NewsLetter />

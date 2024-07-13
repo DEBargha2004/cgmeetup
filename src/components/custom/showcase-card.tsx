@@ -15,7 +15,7 @@ export default function ShowcaseCard ({
   return (
     <Card
       className={cn(
-        ' flex md:flex-row flex-col  justify-between gap-4 items-stretch p-3',
+        'flex md:flex-row flex-col  justify-between gap-4 items-stretch p-3 bg-card hover:bg-darkAccent/50 transition-all',
         className
       )}
       {...props}

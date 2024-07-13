@@ -2,40 +2,32 @@
 
 import { cn } from '@/lib/utils'
 import AppLogo from './app-logo'
-import { navItems } from '@/constants/nav-items'
+import { extraNavItems, navItems } from '@/constants/nav-items'
 import Link from 'next/link'
 import { Input } from '../ui/input'
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuPortal,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
   DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger
 } from '../ui/dropdown-menu'
 import { profileItems, uploadButtonItems } from '@/constants/dropdown-items'
-import { CircleUser, Menu, Package2, Plus, Search } from 'lucide-react'
+import { Menu, Search } from 'lucide-react'
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
 import { Button } from '../ui/button'
-import React, { useState } from 'react'
+import React, { HTMLProps, useState } from 'react'
 import { useGlobalAppStore } from '@/store/global-app-store'
 import MaterialSymbolIcon from './material-symbol-icon'
-import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog'
-import { SignInForm, AccountCreateForm } from './form'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 import {
   NotificationCardProfileView,
   NotificationCardOtherView
 } from './notification-card'
 import { usePathname } from 'next/navigation'
-import { useTheme } from 'next-themes'
 import { PopoverClose } from '@radix-ui/react-popover'
+import ProfileInfoOverView from './profile-info-overview'
+import { Separator } from '../ui/separator'
 
 export default function Navbar ({ className }: { className?: string }) {
   const {
@@ -47,7 +39,6 @@ export default function Navbar ({ className }: { className?: string }) {
   } = useGlobalAppStore()
   const [signedin, setSignedin] = useState(false)
   const pathname = usePathname()
-  const { theme, setTheme } = useTheme()
 
   return (
     <header
@@ -64,23 +55,27 @@ export default function Navbar ({ className }: { className?: string }) {
           <AppLogo />
         </Link>
 
-        {navItems.map(item => (
-          <Link
-            key={item.id}
-            href={item.href}
-            className={cn(
-              'transition-colors text-white',
-              (
-                item.catch_routes
-                  ? item.catch_routes.includes(pathname)
-                  : pathname === item.href
-              )
-                ? 'text-primary'
-                : ''
-            )}
-          >
-            {item.label}
-          </Link>
+        {navItems.map((item, item_idx) => (
+          <React.Fragment key={item_idx}>
+            {item.type === 'item' ? (
+              <Link
+                key={item.id}
+                href={item.href}
+                className={cn(
+                  'transition-colors text-white',
+                  (
+                    item.catch_routes
+                      ? item.catch_routes.includes(pathname)
+                      : pathname === item.href
+                  )
+                    ? 'text-primary'
+                    : ''
+                )}
+              >
+                {item.label}
+              </Link>
+            ) : null}
+          </React.Fragment>
         ))}
       </nav>
       <Sheet open={sidebarState} onOpenChange={setSidebarState}>
@@ -99,40 +94,66 @@ export default function Navbar ({ className }: { className?: string }) {
               <AppLogo />
               <span className='sr-only'>Acme Inc</span>
             </Link>
-            {navItems.map(item => (
-              <Link
-                key={item.id}
-                href={item.href}
-                className={cn(
-                  'flex items-center gap-2 text-lg font-semibold',
-                  (
-                    item.catch_routes
-                      ? item.catch_routes.includes(pathname)
-                      : pathname === item.href
-                  )
-                    ? 'text-primary'
-                    : ''
+            {navItems.map((item, item_idx) => (
+              <React.Fragment key={item_idx}>
+                {item.type === 'item' ? (
+                  <Link
+                    key={item.id}
+                    href={item.href}
+                    className={cn(
+                      'flex items-center gap-2 text-lg font-semibold',
+                      (
+                        item.catch_routes
+                          ? item.catch_routes.includes(pathname)
+                          : pathname === item.href
+                      )
+                        ? 'text-primary'
+                        : ''
+                    )}
+                  >
+                    <MaterialSymbolIcon className='opacity-100'>
+                      {item.icon}
+                    </MaterialSymbolIcon>
+                    <span>{item.label}</span>
+                  </Link>
+                ) : (
+                  <Separator />
                 )}
-              >
-                <MaterialSymbolIcon className='opacity-100'>
-                  {item.icon}
-                </MaterialSymbolIcon>
-                <span>{item.label}</span>
-              </Link>
+              </React.Fragment>
+            ))}
+            {extraNavItems.map((item, item_idx) => (
+              <React.Fragment key={item_idx}>
+                {item.type === 'item' ? (
+                  <Link
+                    key={item.id}
+                    href={item.href}
+                    className={cn(
+                      'flex items-center gap-2 text-lg font-semibold',
+                      (
+                        item.catch_routes
+                          ? item.catch_routes.includes(pathname)
+                          : pathname === item.href
+                      )
+                        ? 'text-primary'
+                        : ''
+                    )}
+                  >
+                    <MaterialSymbolIcon className='opacity-100'>
+                      {item.icon}
+                    </MaterialSymbolIcon>
+                    <span>{item.label}</span>
+                  </Link>
+                ) : (
+                  <Separator orientation='horizontal' />
+                )}
+              </React.Fragment>
             ))}
           </nav>
         </SheetContent>
       </Sheet>
       <div className='flex w-full items-center  md:ml-auto gap-2 lg:gap-4'>
         <form className='w-full sm:w-2/3 mr-auto ml-1/10'>
-          <div className='relative'>
-            <Search className='absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground' />
-            <Input
-              type='search'
-              placeholder='Search...'
-              className='pl-8 sm:w-full'
-            />
-          </div>
+          <SearchInput />
         </form>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -318,5 +339,70 @@ function ProfileItemLink ({
         <>{children}</>
       )}
     </React.Fragment>
+  )
+}
+
+function SearchInput () {
+  const [showSearchFields, setShowSearchFields] = useState(false)
+  return (
+    <div className='relative'>
+      <Search className='absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground' />
+      <Input
+        type='search'
+        placeholder='Search...'
+        className='pl-8 sm:w-full'
+        onFocus={() => setShowSearchFields(true)}
+        onBlur={() => setShowSearchFields(false)}
+      />
+      <div
+        hidden={!showSearchFields}
+        className='w-full h-fit p-2 bg-card absolute left-0 top-[calc(100%+5px)] z-50 rounded space-y-1 px-1 max-h-[600px] overflow-y-auto scroller'
+      >
+        {Array.from({ length: 5 }, (_, i) => i).map(item => (
+          <SearchItem key={item}>
+            <ProfileInfoOverView
+              textContainer='justify-center'
+              description='hidden'
+              image='h-8 w-8'
+            />
+          </SearchItem>
+        ))}
+        {navItems.map((item, item_idx) => (
+          <React.Fragment key={item_idx}>
+            {item.type === 'item' ? (
+              <Link
+                href={item.href}
+                key={item.id}
+                className=' flex justify-start items-center gap-2 '
+              >
+                <SearchItem className='flex justify-start items-center gap-2'>
+                  <MaterialSymbolIcon>{item.icon}</MaterialSymbolIcon>
+                  <span>Search {item.label}</span>
+                </SearchItem>
+              </Link>
+            ) : (
+              <Separator />
+            )}
+          </React.Fragment>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function SearchItem ({
+  children,
+  className,
+  ...props
+}: { children: React.ReactNode } & HTMLProps<HTMLDivElement>) {
+  return (
+    <div
+      className={cn(
+        'p-2 transition-all hover:bg-lightAccent w-full rounded cursor-pointer',
+        className
+      )}
+    >
+      {children}
+    </div>
   )
 }

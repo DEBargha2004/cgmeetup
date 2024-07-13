@@ -1,13 +1,17 @@
-type NavItem = {
-  id: string
-  label: string
-  href: string
-  icon: string
-  catch_routes?: string[]
-}
+type NavItem =
+  | {
+      type: 'item'
+      id: string
+      label: string
+      href: string
+      icon: string
+      catch_routes?: string[]
+    }
+  | { type: 'separator' }
 
 export const navItems: NavItem[] = [
   {
+    type: 'item',
     id: 'gallery',
     label: 'Gallery',
     href: '/gallery',
@@ -20,6 +24,7 @@ export const navItems: NavItem[] = [
     ]
   },
   {
+    type: 'item',
     id: 'jobs',
     label: 'Jobs',
     href: '/jobs',
@@ -27,6 +32,7 @@ export const navItems: NavItem[] = [
     catch_routes: ['/jobs', '/jobs/latest', '/jobs/trending', '/jobs/featured']
   },
   {
+    type: 'item',
     id: 'news',
     label: 'News',
     href: '/news',
@@ -34,6 +40,7 @@ export const navItems: NavItem[] = [
     catch_routes: ['/news']
   },
   {
+    type: 'item',
     id: 'artists',
     label: 'Artists',
     href: '/artists',
@@ -41,24 +48,38 @@ export const navItems: NavItem[] = [
     catch_routes: ['/artists', '/artists/latest', '/artists/trending']
   },
   {
+    type: 'item',
     id: 'company',
     label: 'Companies',
     href: '/companies',
     icon: 'apartment',
     catch_routes: ['/companies', '/companies/latest', '/companies/trending']
   }
-  // {
-  //   id: 'marketplace',
-  //   label: 'Marketplace',
-  //   href: '/marketplace',
-  //   icon: 'store',
-  //   catch_routes: ['/marketplace']
-  // },
-  // {
-  //   id: 'tutorials',
-  //   label: 'Tutorials',
-  //   href: '/tutorials',
-  //   icon: 'book',
-  //   catch_routes: ['/tutorials']
-  // }
+]
+
+export const extraNavItems: NavItem[] = [
+  {
+    type: 'separator'
+  },
+  {
+    type: 'item',
+    id: 'notifications',
+    label: 'Notifications',
+    href: '/notifications',
+    icon: 'notifications'
+  },
+  {
+    type: 'item',
+    id: 'chat',
+    href: '/chat',
+    label: 'Chat',
+    icon: 'chat'
+  },
+  {
+    type: 'item',
+    id: 'cart',
+    href: '',
+    label: 'Cart',
+    icon: 'add_shopping_cart'
+  }
 ]

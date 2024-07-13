@@ -32,13 +32,16 @@ import { VideoUrlSchemaType, videoUrlSchema } from '@/schema/video-url'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { VideoUrlForm } from './form'
 import { Badge } from '../ui/badge'
-import MultiSelect from './multi-select'
 import { categories } from '@/constants/job-categories'
 import { Switch } from '../ui/switch'
 import Cropper, { ReactCropperElement } from 'react-cropper'
 import 'cropperjs/dist/cropper.css'
 import { useWindowSize } from '@uidotdev/usehooks'
 import { FancyMultiSelect } from '../ui/fancy-multi-select'
+import { Checkbox } from '../ui/checkbox'
+import { mergeRefs } from 'react-merge-refs'
+import { Navigator } from '@/components/custom'
+import { scroll } from '@/functions/scroll'
 
 type PostMedia = {
   type: 'video' | 'image'
@@ -46,6 +49,11 @@ type PostMedia = {
   width: number
   url: string
   id: string
+}
+
+type DropProps = {
+  source: number
+  destination: number
 }
 
 const softwares = [
@@ -80,6 +88,8 @@ export default function PostCreateDialog () {
   const [showOptions, setShowOptions] = useState(false)
   const [closeConfirmDialog, setCloseConfirmDialog] = useState(false)
   const [confirmClose, setConfirmClose] = useState(false)
+  const [showQuestionInfo, setShowQuestionInfo] = useState(false)
+  const [addToPortfolio, setAddToPortfolio] = useState(false)
 
   const mediaListRef = useRef<HTMLDivElement>(null)
   const cropperRef = useRef<ReactCropperElement>(null)
@@ -97,6 +107,17 @@ export default function PostCreateDialog () {
   const videoUrlForm = useForm<VideoUrlSchemaType>({
     resolver: zodResolver(videoUrlSchema)
   })
+
+  const handleDrop = ({ source, destination }: DropProps) => {
+    if (destination > -1 && destination !== source) {
+      const newMediaList = [...mediaList]
+      console.log({ source, destination })
+      const [removed] = newMediaList.splice(source, 1)
+      newMediaList.splice(destination, 0, removed)
+
+      setMediaList(newMediaList)
+    }
+  }
 
   const handleUrlSubmit = (data: VideoUrlSchemaType) => {
     const thumbnail_url = getYoutubeThumbnail(data.url)
@@ -252,8 +273,6 @@ export default function PostCreateDialog () {
     setToInitial()
   }, [postDialogState])
 
-  console.log(isContentAdded)
-
   return (
     <>
       <Dialog
@@ -289,12 +308,41 @@ export default function PostCreateDialog () {
               </div>
             </div>
             <div className='w-full grid gap-2'>
-              <Input
-                className=''
-                placeholder='Title'
-                value={title}
-                onChange={e => setTitle(e.target.value)}
-              />
+              <div className='grid grid-cols-4 gap-2'>
+                <Input
+                  className='md:col-span-3 col-span-4'
+                  placeholder='Title'
+                  value={title}
+                  onChange={e => setTitle(e.target.value)}
+                />
+                <div className='flex justify-start md:justify-center items-center gap-1'>
+                  <div
+                    className='flex items-center gap-1'
+                    onClick={() => setAddToPortfolio(prev => !prev)}
+                  >
+                    <Checkbox
+                      className='rounded-full'
+                      checked={addToPortfolio}
+                    />
+                    <span
+                      className={cn(
+                        'whitespace-nowrap text-sm hover:opacity-100 cursor-pointer',
+                        addToPortfolio ? 'opacity-100' : 'opacity-70 '
+                      )}
+                    >
+                      Add to Portfolio
+                    </span>
+                  </div>
+                  <div
+                    className='h-5 w-5 grid place-content-center rounded-full bg-lightAccent cursor-pointer'
+                    onClick={() => setShowQuestionInfo(true)}
+                  >
+                    <MaterialSymbolIcon className='text-xs'>
+                      question_mark
+                    </MaterialSymbolIcon>
+                  </div>
+                </div>
+              </div>
               <div className='relative'>
                 <Textarea
                   className='overflow-y-auto scroller pb-4'
@@ -307,8 +355,8 @@ export default function PostCreateDialog () {
                   {postDesc.length}/5000
                 </p>
               </div>
-              <div className='grid xs:grid-cols-3'>
-                <div className='grid grid-cols-2 col-span-2 gap-4 cursor-pointer w-fit'>
+              <div className='flex sm:flex-row flex-col justify-between gap-2 items-start w-full'>
+                <div className='flex justify-start items-center gap-4 cursor-pointer w-fit'>
                   <input
                     type='file'
                     {...imageDropzone.getInputProps()}
@@ -335,14 +383,8 @@ export default function PostCreateDialog () {
                     <span className='text-sm'>Videos</span>
                   </div>
                 </div>
-                <div className='col-span-2 xs:col-span-1 w-fit ml-auto space-x-2'>
-                  {isContentAdded ? (
-                    <DialogClose>
-                      <Button variant={'destructive'} className='h-8'>
-                        Cancel
-                      </Button>
-                    </DialogClose>
-                  ) : null}
+                <div className='flex sm:justify-start justify-between space-x-4 sm:w-fit w-full'>
+                  <div className='flex justify-start items-center gap-1'></div>
                   <Button
                     className='h-8'
                     variant={'success'}
@@ -374,7 +416,7 @@ export default function PostCreateDialog () {
                 </div>
               )}
               {mediaList.length ? (
-                <div className='w-full col-span-1 overflow-hidden relative p-2 bg-darkAccent border'>
+                <div className='w-full  overflow-hidden relative p-2 bg-darkAccent border'>
                   <div
                     className='flex gap-1 overflow-x-auto scroller-hide transition-all'
                     ref={mediaListRef}
@@ -385,7 +427,8 @@ export default function PostCreateDialog () {
                         key={media.id}
                         {...media}
                         onDelete={handleDeleteImage}
-                        className='w-1/4 aspect-square shrink-0'
+                        className='w-1/3 aspect-square shrink-0'
+                        handleDrop={handleDrop}
                       />
                     ))}
 
@@ -405,12 +448,12 @@ export default function PostCreateDialog () {
                   </div>
                   <Navigator
                     icon='arrow_back_ios'
-                    className='absolute left-0 top-1/2 -translate-y-1/2 z-10 '
+                    className='absolute left-0 top-1/2 -translate-y-1/2 z-10 h-10 w-10 rounded-full grid place-content-center'
                     onClick={() => handleCarouselNavigation('prev')}
                   />
                   <Navigator
                     icon='arrow_forward_ios'
-                    className='absolute right-0 top-1/2 -translate-y-1/2 z-10 '
+                    className='absolute right-0 top-1/2 -translate-y-1/2 z-10 h-10 w-10 rounded-full grid place-content-center'
                     onClick={() => handleCarouselNavigation('next')}
                   />
                 </div>
@@ -528,27 +571,17 @@ export default function PostCreateDialog () {
           </div>
         </DialogContent>
       </Dialog>
+      <Dialog open={showQuestionInfo} onOpenChange={setShowQuestionInfo}>
+        <DialogContent>
+          <DialogDescription>
+            <strong className='text-white'>Add to Portfolio:</strong>&nbsp;{' '}
+            <span className='opacity-70 text-white'>
+              Check to display this post in your Portfolio.
+            </span>
+          </DialogDescription>
+        </DialogContent>
+      </Dialog>
     </>
-  )
-}
-
-function Navigator ({
-  icon,
-  className,
-  ...props
-}: { icon: string } & HTMLProps<HTMLDivElement>) {
-  return (
-    <div
-      className={cn(
-        `h-10 w-10 bg-lightAccent/80 rounded-full flex justify-center items-center cursor-pointer`,
-        className
-      )}
-      {...props}
-    >
-      <MaterialSymbolIcon className='opacity-100 text-base select-none'>
-        {icon}
-      </MaterialSymbolIcon>
-    </div>
   )
 }
 
@@ -558,94 +591,90 @@ const PostMedia = forwardRef<
     HTMLProps<HTMLDivElement> & {
       index: number
       onDelete?: (id: string) => void
+      handleDrop: (params: DropProps) => void
     }
->(({ id, url, index, type, className, onDelete, ...props }, ref) => (
-  <div
-    className={cn('w-full aspect-square relative', className)}
-    {...props}
-    ref={ref}
-    draggable
-    id={id}
-    data-index={index}
-  >
-    <NextImage
-      src={url}
-      alt='post-media'
-      className='h-full aspect-square object-cover'
-      height={300}
-      width={300 * (type === 'image' ? 1 : 16 / 9)}
-    />
-    {type === 'video' ? (
+>(
+  (
+    {
+      id,
+      url,
+      type,
+      index,
+      tabIndex,
+      className,
+      onDelete,
+      handleDrop,
+      ...props
+    },
+    ref
+  ) => {
+    const [draggingOver, setDraggingOver] = useState(false)
+    return (
       <div
-        className='absolute h-10 w-10 rounded-full grid place-content-center left-1/2 top-1/2
+        className={cn(
+          'w-full aspect-square relative group cursor-pointer',
+          className,
+          draggingOver && 'opacity-60'
+        )}
+        {...props}
+        ref={ref}
+        draggable
+        id={id}
+        onDragStart={e => {
+          e.dataTransfer.setData('text/plain', index.toString())
+        }}
+        onDragOver={() => setDraggingOver(true)}
+        onDragLeave={() => setDraggingOver(false)}
+        onDrop={e => {
+          setDraggingOver(false)
+          handleDrop({
+            source: Number(e.dataTransfer.getData('text/plain')),
+            destination: index
+          })
+        }}
+      >
+        <div
+          className='absolute w-full h-full top-0 left-0 group-hover:opacity-50 bg-black/70 
+        transition-all grid place-content-center opacity-0'
+        >
+          <MaterialSymbolIcon className='text-4xl w-10'>
+            swap_horiz
+          </MaterialSymbolIcon>
+        </div>
+        <NextImage
+          src={url}
+          alt='post-media'
+          className='h-full aspect-square object-cover'
+          height={300}
+          width={300 * (type === 'image' ? 1 : 16 / 9)}
+        />
+        {type === 'video' ? (
+          <div
+            className='absolute h-10 w-10 rounded-full grid place-content-center left-1/2 top-1/2
         -translate-x-1/2 -translate-y-1/2 bg-darkAccent/50'
-      >
-        <MaterialSymbolIcon className='opacity-100 text-3xl'>
-          play_arrow
-        </MaterialSymbolIcon>
-      </div>
-    ) : null}
-    <div
-      className={cn(
-        `h-7 w-7 flex justify-center items-center bg-darkAccent/50
+          >
+            <MaterialSymbolIcon className='opacity-100 text-3xl'>
+              play_arrow
+            </MaterialSymbolIcon>
+          </div>
+        ) : null}
+        <div
+          className={cn(
+            `h-7 w-7 flex justify-center items-center bg-darkAccent/50
       absolute top-2 right-2 rounded-full cursor-pointer`,
-        !onDelete && 'hidden'
-      )}
-    >
-      <MaterialSymbolIcon
-        onClick={() => onDelete?.(id)}
-        className='opacity-100 text-base'
-      >
-        close
-      </MaterialSymbolIcon>
-    </div>
-  </div>
-))
+            !onDelete && 'hidden'
+          )}
+        >
+          <MaterialSymbolIcon
+            onClick={() => onDelete?.(id)}
+            className='opacity-100 text-base'
+          >
+            close
+          </MaterialSymbolIcon>
+        </div>
+      </div>
+    )
+  }
+)
 
 PostMedia.displayName = 'PostMedia'
-
-// const PostMedia = ({
-//   type,
-//   id,
-//   url,
-//   className,
-//   onDelete,
-//   ...props
-// }: PostMedia &
-//   HTMLProps<HTMLDivElement> & { onDelete?: (id: string) => void }) => {
-//   return (
-//     <div className={cn('w-full aspect-square relative', className)} {...props}>
-//       <Image
-//         src={url}
-//         alt='post-media'
-//         className='h-full aspect-square object-cover'
-//         height={300}
-//         width={300 * (type === 'image' ? 1 : 16 / 9)}
-//       />
-//       {type === 'video' ? (
-//         <div
-//           className='absolute h-10 w-10 rounded-full grid place-content-center left-1/2 top-1/2
-//         -translate-x-1/2 -translate-y-1/2 bg-darkAccent/50'
-//         >
-//           <MaterialSymbolIcon className='opacity-100 text-3xl'>
-//             play_arrow
-//           </MaterialSymbolIcon>
-//         </div>
-//       ) : null}
-//       <div
-//         className={cn(
-//           `h-7 w-7 flex justify-center items-center bg-darkAccent/50
-//       absolute top-2 right-2 rounded-full cursor-pointer`,
-//           !onDelete && 'hidden'
-//         )}
-//       >
-//         <MaterialSymbolIcon
-//           onClick={() => onDelete?.(id)}
-//           className='opacity-100 text-base'
-//         >
-//           close
-//         </MaterialSymbolIcon>
-//       </div>
-//     </div>
-//   )
-// }

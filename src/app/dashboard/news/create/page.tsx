@@ -55,7 +55,14 @@ import { RichTextEditor } from '@/components/custom/editor'
 import { tags } from '@/constants/job-filters'
 import { FancyMultiSelect } from '@/components/ui/fancy-multi-select'
 import { ReactCropperElement } from 'react-cropper'
-import { Combobox } from '@/components/ui/combobox'
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTrigger
+} from '@/components/ui/dialog'
+import UploadType from '../../gallery/create/_components/upload-type'
 
 const upload_types: { icon: string; title: string; description: string }[] = [
   {
@@ -97,11 +104,18 @@ export default function Dashboard () {
     custom: boolean
     crop: boolean
   } | null>()
+  const videoDomains = ['youtube.com/watch?v=', 'vimeo.com']
+  const [videoUrl, setVideoUrl] = useState('')
+  const showFrame = useMemo(() => {
+    return videoDomains.some(domain => videoUrl.includes(domain))
+  }, [videoUrl])
 
   const thumbnailDropzone = useDropzone()
+  const mainFeedDropzone = useDropzone()
 
   const thumbnailRef = useRef<HTMLInputElement>(null)
   const cropperRef = useRef<ReactCropperElement>(null)
+  const mainUploaderRef = useRef<HTMLInputElement>(null)
 
   // const onDragEnd = e => {}
 

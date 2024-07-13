@@ -14,6 +14,8 @@ import Profile from './_components/profile'
 import ProfileComplete from './_components/profile-complete'
 import Advertisements from './_components/advertisements'
 import JobPosts from './_components/job-posts'
+import LatestComments from './_components/latest-comments'
+import LatestLikes from './_components/latest-likes'
 
 export default function FeedPage () {
   const feedRef = useRef<HTMLDivElement>(null)
@@ -81,7 +83,9 @@ export default function FeedPage () {
           >
             <ProfileComplete />
             <Advertisements />
-            <div className='h-[calc(100%-100vh)] ' />
+            <LatestComments />
+            <LatestLikes />
+            {/* <div className='h-[calc(100%-100vh)] ' /> */}
           </div>
         </div>
       </main>
