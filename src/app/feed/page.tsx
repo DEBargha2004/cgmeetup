@@ -1,5 +1,3 @@
-'use client'
-
 import { JobCardContainer, UserInfoProfile } from '@/components/custom/feed'
 import { JobCard } from '@/components/custom'
 import Link from 'next/link'
@@ -18,75 +16,43 @@ import LatestComments from './_components/latest-comments'
 import LatestLikes from './_components/latest-likes'
 
 export default function FeedPage () {
-  const feedRef = useRef<HTMLDivElement>(null)
-  const rightSidebarRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const resizeObserver = new ResizeObserver(entries => {
-      if (feedRef.current && rightSidebarRef.current) {
-        rightSidebarRef.current.style.height = `${entries[0].contentRect.height}px`
-      }
-    })
-
-    resizeObserver.observe(feedRef.current!)
-  }, [])
   return (
     <>
-      <main className='h-full flex flex-row  justify-start items-start bg-darkAccent'>
-        <div
-          className='bottom-0 left-0  6xl:w-[45%] 5xl:w-2/5
-        4xl:w-1/3 xl:w-1/4 lg:w-1/5 z-20 h-full border-r  lg:px-2 lg:flex hidden flex-col 
-         justify-start items-end overflow-y-auto scroller overflow-x-auto  pt-8'
-        >
+      <main className='h-fit flex justify-center items-start bg-darkAccent'>
+        <div className='w-[200px] overflow-y-auto hidden lg:flex flex-col justify-start items-end gap-2 pt-8 sticky top-0 px-2'>
           <Profile />
           <FeedNav />
         </div>
-        <div
-          className=' h-full w-full 6xl:w-[55%] 5xl:w-3/5 4xl:w-2/3 
-         xl:w-3/4 lg:w-4/5 overflow-y-auto flex justify-center lg:justify-start items-start lg:gap-[2%] scroller'
-        >
-          <div
-            className='w-full sm:max-w-[630px] lg:w-[60%] space-y-4 flex flex-col items-center 
-        px-2 py-4 border-r '
-            ref={feedRef}
-          >
-            <ProfileCarousel />
-            <PostCreate />
-            <div className='flex justify-between items-center w-full'>
-              <h1 className='text-lg'>Job Recommendation</h1>
-              <Link href={'/jobs'} className='text-primary text-sm'>
-                See All
-              </Link>
-            </div>
-            <JobCardContainer className='w-full border-none'>
-              {Array.from({ length: 9 }, (_, i) => i).map(i => (
-                <JobCard
-                  key={i}
-                  className='select-none bg-transparent border shrink-0'
-                />
-              ))}
-            </JobCardContainer>
-            <JobCardContainer className='w-full border-none'>
-              {Array.from({ length: 9 }, (_, i) => i).map(i => (
-                <UserInfoProfile key={i} className='shrink-0' />
-              ))}
-            </JobCardContainer>
-            <Tags />
-            <Posts />
-            <JobPosts />
+        <div className='lg:w-1/3 md:w-3/5 w-full lg:min-w-[500px] flex flex-col justify-start items-center gap-4 border-x px-2'>
+          <ProfileCarousel />
+          <PostCreate />
+          <div className='flex justify-between items-center w-full'>
+            <h1 className='text-lg'>Job Recommendation</h1>
+            <Link href={'/jobs'} className='text-primary text-sm'>
+              See All
+            </Link>
           </div>
-
-          <div
-            className='w-0 lg:w-[40%] max-w-[370px]
-         my-5 feed-right-bar space-y-2 lg:block hidden'
-            ref={rightSidebarRef}
-          >
-            <ProfileComplete />
-            <Advertisements />
-            <LatestComments />
-            <LatestLikes />
-            {/* <div className='h-[calc(100%-100vh)] ' /> */}
-          </div>
+          <JobCardContainer className='w-full border-none'>
+            {Array.from({ length: 9 }, (_, i) => i).map(i => (
+              <JobCard
+                key={i}
+                className='select-none bg-transparent border shrink-0'
+              />
+            ))}
+          </JobCardContainer>
+          <JobCardContainer className='w-full border-none'>
+            {Array.from({ length: 9 }, (_, i) => i).map(i => (
+              <UserInfoProfile key={i} className='shrink-0' />
+            ))}
+          </JobCardContainer>
+          <Tags />
+          <Posts />
+        </div>
+        <div className='w-1/5 min-w-[350px] hidden lg:flex flex-col justify-start items-center gap-2 px-4 self-stretch'>
+          <ProfileComplete />
+          <Advertisements />
+          <LatestComments />
+          <LatestLikes />
         </div>
       </main>
     </>
