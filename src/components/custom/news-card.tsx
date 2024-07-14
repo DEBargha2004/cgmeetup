@@ -10,27 +10,36 @@ import {
   DropdownMenuTrigger
 } from '../ui/dropdown-menu'
 import Link from 'next/link'
+import {
+  Bookmark,
+  Favorite,
+  Message,
+  MoreVert,
+  Visibility
+} from '@mui/icons-material'
 
 export default function NewsCard ({ className }: { className?: string }) {
   return (
     <Card
       className={cn(
         `bg-card hover:bg-darkAccent/50 transition-all grid grid-cols-4 gap-x-3 gap-y-2 w-full
-    p-3 pb-3 md:pb-3 relative`,
+    p-0 pb-3 md:pb-3 md:p-3 relative`,
         className
       )}
     >
-      <div className='col-span-4 flex gap-x-4'>
-        <Image
-          src={
-            'https://cdnb.artstation.com/p/assets/images/images/000/424/193/smaller_square/glenn-melenhorst-car0001.jpg?1443927098'
-          }
-          height={200}
-          width={200}
-          alt='job-image'
-          className='md:h-[146px] md:w-[260px] h-[100px] w-[100px] object-cover shrink-0'
-        />
-        <div className='space-y-2 w-full'>
+      <div className='col-span-4 flex md:flex-row flex-col gap-4'>
+        <div className='xs:h-[146px] xs:w-[260px] w-full  shrink-0 mx-auto grow-0'>
+          <Image
+            src={
+              'https://cdnb.artstation.com/p/assets/images/images/000/424/193/smaller_square/glenn-melenhorst-car0001.jpg?1443927098'
+            }
+            height={200}
+            width={200}
+            alt='job-image'
+            className='w-full aspect-[260/146] object-cover rounded'
+          />
+        </div>
+        <div className='space-y-2 w-full p-3 md:p-0'>
           <div className='text-lg md:text-xl font-semibold flex justify-between items-center'>
             <Link href={'/news/123'}>
               <h1 className='text-lg md:text-xl font-semibold'>
@@ -39,14 +48,12 @@ export default function NewsCard ({ className }: { className?: string }) {
             </Link>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <MaterialSymbolIcon className='inline-block cursor-pointer'>
-                  more_vert
-                </MaterialSymbolIcon>
+                <MoreVert className='cursor-pointer' />
               </DropdownMenuTrigger>
               <DropdownMenuContent align='end'></DropdownMenuContent>
             </DropdownMenu>
           </div>
-          <p className='text-slate-200 opacity-70 line-clamp-2 text-sm w-[calc(100%-20px)]'>
+          <p className='text-slate-200 opacity-70 line-clamp-2 text-sm w-[calc(100%-20px)] xs:block hidden'>
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry's standard dummy text
           </p>
@@ -59,55 +66,22 @@ export default function NewsCard ({ className }: { className?: string }) {
           <div className='sm:flex justify-end hidden gap-3'>
             <div className='sm:flex justify-end gap-3  w-[90%]'>
               <div className='text-slate-300 py-0 flex justify-start items-center gap-1 border-none'>
-                <MaterialSymbolIcon className='text-sm'>
-                  favorite
-                </MaterialSymbolIcon>
+                <Favorite className='h-[14px]' />
                 <span className='text-sm'>2</span>
               </div>
               <div className='text-slate-300 py-0 flex justify-start items-center gap-1 border-none'>
-                <MaterialSymbolIcon className='text-sm'>
-                  visibility
-                </MaterialSymbolIcon>
+                <Visibility className='h-[14px]' />
                 <span className='text-sm'>2</span>
               </div>
               <div className='text-slate-300 py-0 flex justify-start items-center gap-1 border-none'>
-                <MaterialSymbolIcon className='text-sm'>
-                  message
-                </MaterialSymbolIcon>
+                <Message className='h-[14px]' />
                 <span className='text-sm'>2</span>
               </div>
             </div>
             <div className='flex items-end'>
-              <MaterialSymbolIcon className='opacity-100'>
-                bookmark
-              </MaterialSymbolIcon>
+              <Bookmark className='h-[14px]' />
             </div>
           </div>
-        </div>
-      </div>
-      <div className='flex  gap-2 sm:hidden col-span-4'>
-        <div className='flex gap-2 flex-wrap'>
-          <Badge className='text-slate-300'>
-            <Globe className='mr-2 h-5 w-5' />
-            Remote
-          </Badge>
-          <Badge className='text-slate-300'>
-            <MaterialSymbolIcon className='mr-2'>work</MaterialSymbolIcon>
-            Permanent
-          </Badge>
-          <Badge className='text-slate-300'>
-            <Plane className='mr-2 h-5 w-5' />
-            Relocation Asssistance
-          </Badge>
-          <Badge className='text-slate-300'>
-            <MapPin className='mr-2 h-5 w-5' />
-            Montreal, Canada
-          </Badge>
-        </div>
-        <div className='flex items-end'>
-          <MaterialSymbolIcon className='opacity-100'>
-            bookmark
-          </MaterialSymbolIcon>
         </div>
       </div>
     </Card>

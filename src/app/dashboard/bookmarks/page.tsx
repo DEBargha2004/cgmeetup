@@ -32,11 +32,18 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Button } from '@/components/ui/button'
 import { FieldType } from '@/types/field-type'
+import { Delete, MoreVert, Visibility } from '@mui/icons-material'
+import { OverridableComponent } from '@mui/material/OverridableComponent'
+import { SvgIconTypeMap } from '@mui/material'
 
-const info_options: (FieldType & { icon: string })[] = [
+const info_options: (FieldType & {
+  Icon: OverridableComponent<SvgIconTypeMap<{}, 'svg'>> & {
+    muiName: string
+  }
+})[] = [
   //   { label: 'Edit', value: 'edit', icon: 'edit' },
-  { label: 'View', value: 'view', icon: 'visibility' },
-  { label: 'Delete', value: 'delete', icon: 'delete' }
+  { label: 'View', value: 'view', Icon: Visibility },
+  { label: 'Delete', value: 'delete', Icon: Delete }
 ]
 export default function BookmarksPage () {
   return (
@@ -122,20 +129,13 @@ export default function BookmarksPage () {
                               size='icon'
                               variant='ghost'
                             >
-                              <MaterialSymbolIcon
-                                variant='filled'
-                                className='opacity-100'
-                              >
-                                more_vert
-                              </MaterialSymbolIcon>
+                              <MoreVert />
                             </Button>
                           </DropdownMenuTrigger>
                           <DropdownMenuContent align='end'>
                             {info_options.map(item => (
                               <DropdownMenuItem key={item.value}>
-                                <MaterialSymbolIcon className='mr-2'>
-                                  {item.icon}
-                                </MaterialSymbolIcon>
+                                <item.Icon className='mr-2' />
                                 {item.label}
                               </DropdownMenuItem>
                             ))}

@@ -6,6 +6,7 @@ import ProfileInfoOverView from '../profile-info-overview'
 import MaterialSymbolIcon from '../material-symbol-icon'
 import { HTMLProps } from 'react'
 import { cn } from '@/lib/utils'
+import { PersonAdd } from '@mui/icons-material'
 
 export default function SuggestionCard ({
   className,
@@ -36,9 +37,7 @@ export default function SuggestionCard ({
           className='w-10 h-10 cursor-pointer flex justify-center 
         items-center rounded-full bg-darkAccent shrink-0'
         >
-          <MaterialSymbolIcon className='text-primary'>
-            person_add
-          </MaterialSymbolIcon>
+          <PersonAdd className='text-primary' />
         </div>
       </ProfileInfoOverView>
       <div className=' ml-[92px] grid grid-cols-3 gap-1 w-[calc(100%-92px)]'>

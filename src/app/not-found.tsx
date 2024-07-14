@@ -39,7 +39,7 @@ export default function NotFoundPage () {
       <p className='max-w-[600px] text-center'>
         The page you are looking for is temporarily unavailable. Visit :
       </p>
-      <ul className='flex justify-center items-center gap-3 marker:hidden'>
+      <ul className='flex justify-center items-center gap-3 marker:hidden list-none'>
         {links.map(({ label, href }) => (
           <li key={label}>
             <Link href={href} className='text-primary'>

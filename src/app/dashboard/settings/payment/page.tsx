@@ -13,6 +13,7 @@ import {
 import { Separator } from '@/components/ui/separator'
 import { PaymentSchemaType, paymentSchema } from '@/schema/payment'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Add, MoreVert } from '@mui/icons-material'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -71,7 +72,7 @@ export default function Payment () {
             }}
             className='space-x-2'
           >
-            <MaterialSymbolIcon>add</MaterialSymbolIcon>
+            <Add />
             <span className='@lg:inline hidden'>Add Payment method</span>
           </Button>
         }
@@ -101,7 +102,7 @@ export default function Payment () {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <div className='cursor-pointer'>
-                      <MaterialSymbolIcon>more_vert</MaterialSymbolIcon>
+                      <MoreVert />
                     </div>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align='end'>

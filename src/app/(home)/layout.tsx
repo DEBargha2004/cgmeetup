@@ -8,27 +8,33 @@ import { TabItem } from '@/types/tab'
 import Studios from './_components/studios'
 import LatestLikes from './_components/latest-likes'
 import LatestComments from './_components/latest-comments'
+import {
+  EmojiEvents,
+  Language,
+  Schedule,
+  TrendingUp
+} from '@mui/icons-material'
 
 const tabs: TabItem[] = [
   {
     label: 'Community',
     href: '/',
-    icon: 'language'
+    Icon: Language
   },
   {
     label: 'Trending',
     href: '/trending',
-    icon: 'trending_up'
+    Icon: TrendingUp
   },
   {
     label: 'Featured',
-    icon: 'trophy',
+    Icon: EmojiEvents,
     href: '/featured'
   },
   {
     label: 'Latest',
     href: '/latest',
-    icon: 'schedule'
+    Icon: Schedule
   }
 ]
 

@@ -47,23 +47,32 @@ import Link from 'next/link'
 import Image from 'next/image'
 import background from '@/../public/images/cover-image.jpg'
 import CategorySelect from '../_components/category-select'
+import {
+  Apartment,
+  ArrowRightAlt,
+  FeaturedPlayList,
+  Schedule,
+  Sort,
+  TrendingUp,
+  Work
+} from '@mui/icons-material'
 
 const tabList1: TabItem[] = [
-  { label: 'Jobs', href: '/jobs', icon: 'work' },
+  { label: 'Jobs', href: '/jobs', Icon: Work },
   {
     label: 'Trending',
     href: '/jobs/trending',
-    icon: 'trending_up'
+    Icon: TrendingUp
   },
   {
     label: 'Featured',
-    icon: 'featured_play_list',
+    Icon: FeaturedPlayList,
     href: '/jobs/featured'
   },
   {
     label: 'Latest',
     href: '/jobs/latest',
-    icon: 'schedule'
+    Icon: Schedule
   }
   // { label: 'Studios', href: '/jobs/studios', icon: 'apartment' },
 ]
@@ -106,7 +115,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
               <Sheet>
                 <SheetTrigger asChild>
                   <div className='flex items-center gap-1 cursor-pointer'>
-                    <MaterialSymbolIcon>sort</MaterialSymbolIcon>
+                    <Sort />
                     <span>Filter</span>
                   </div>
                 </SheetTrigger>
@@ -126,14 +135,14 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
             <div className='flex gap-2'>
               <Link href={'/companies'}>
                 <Button variant={'secondary'} className=''>
-                  <MaterialSymbolIcon>apartment</MaterialSymbolIcon>
+                  <Apartment />
                   <span className='ml-2'>Studios</span>
                 </Button>
               </Link>
               <Link href={'/dashboard/jobs'}>
                 <Button>
                   <span className='mr-2'>Find Talent</span>
-                  <MaterialSymbolIcon>arrow_right_alt</MaterialSymbolIcon>
+                  <ArrowRightAlt />
                 </Button>
               </Link>
             </div>
@@ -160,7 +169,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
           </div>
           <section className='flex xs:justify-start justify-center items-center gap-10 px-2'>
             <CategorySelect />
-            <Carousel className='w-[calc(100%-210px)] xs:block hidden'>
+            <Carousel className='w-[calc(100%-220px)] xs:block hidden'>
               <CarouselContent className=''>
                 {sample_cateories.map((cat, index) => (
                   <CarouselItem className='basis-auto' key={cat}>

@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/popover'
 import { sample_cateories } from '@/constants/categories'
 import { cn } from '@/lib/utils'
+import { Explore } from '@mui/icons-material'
 import { useWindowSize } from '@uidotdev/usehooks'
 
 export default function CategorySelect () {
@@ -18,9 +19,7 @@ export default function CategorySelect () {
     <Popover>
       <PopoverTrigger asChild>
         <Button className='bg-lightAccent w-fit'>
-          <MaterialSymbolIcon className='mr-2 opacity-100'>
-            explore
-          </MaterialSymbolIcon>
+          <Explore className='mr-2' />
           All Category
         </Button>
       </PopoverTrigger>

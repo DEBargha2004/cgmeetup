@@ -1,13 +1,19 @@
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import projects from '@/../public/data/projects.json'
-import { MaterialSymbolIcon } from '@/components/custom'
 import Link from 'next/link'
 import Close from './_components/close'
 import vertical from '@/../public/images/dog-vertical.webp'
 import horizontal from '@/../public/images/dog.webp'
 import { HTMLProps } from 'react'
 import Sidebar from './_components/sidebar'
+import {
+  ArrowBackIos,
+  ArrowForwardIos,
+  Download,
+  OpenInNew
+} from '@mui/icons-material'
+import { IconType } from '@/types/icon'
 
 export default function Post ({
   params: { postId }
@@ -48,12 +54,8 @@ export default function Post ({
               bg-darkAccent flex justify-between items-center gap-6 group-hover:opacity-100 opacity-0
               transition-all'
               >
-                <MaterialSymbolIcon className='text-xl opacity-100'>
-                  download
-                </MaterialSymbolIcon>
-                <MaterialSymbolIcon className='text-xl opacity-100'>
-                  open_in_new
-                </MaterialSymbolIcon>
+                <Download className='h-5' />
+                <OpenInNew className='h-5' />
               </div>
             </PostImage>
           ))}
@@ -65,7 +67,7 @@ export default function Post ({
             ]?.id
           }`}
         >
-          <Navigator icon='arrow_back_ios' className='left-0' />
+          <Navigator Icon={ArrowBackIos} className='left-0' />
         </Link>
         <Link
           href={`/post/${
@@ -74,7 +76,7 @@ export default function Post ({
             ]?.id
           }`}
         >
-          <Navigator icon='arrow_forward_ios' className='right-0' />
+          <Navigator Icon={ArrowForwardIos} className='right-0' />
         </Link>
       </div>
 
@@ -84,10 +86,10 @@ export default function Post ({
 }
 
 function Navigator ({
-  icon,
+  Icon,
   className,
   ...props
-}: { icon: string } & HTMLProps<HTMLDivElement>) {
+}: { Icon: IconType } & HTMLProps<HTMLDivElement>) {
   return (
     <div
       className={cn(
@@ -97,9 +99,7 @@ function Navigator ({
       )}
       {...props}
     >
-      <MaterialSymbolIcon className='text-xl opacity-100 w-10'>
-        {icon}
-      </MaterialSymbolIcon>
+      <Icon className='h-5' />
     </div>
   )
 }

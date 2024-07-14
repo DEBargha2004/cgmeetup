@@ -2,6 +2,7 @@ import Image from 'next/image'
 import horizontal from '@/../public/images/dog.webp'
 import ProfileInfoOverView from './profile-info-overview'
 import MaterialSymbolIcon from './material-symbol-icon'
+import { Bookmark } from '@mui/icons-material'
 export default function SimilarNewsCard () {
   return (
     <div className='w-full'>
@@ -21,7 +22,7 @@ export default function SimilarNewsCard () {
           textContainer='justify-center'
           image='h-8 w-8'
         >
-          <MaterialSymbolIcon>bookmark</MaterialSymbolIcon>
+          <Bookmark />
         </ProfileInfoOverView>
       </div>
     </div>

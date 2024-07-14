@@ -42,9 +42,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
                       : ''
                   )}
                 >
-                  <MaterialSymbolIcon className='text-lg '>
-                    {item.icon_name || ''}
-                  </MaterialSymbolIcon>
+                  {<item.Icon />}
                   <p className='lg:block hidden whitespace-nowrap'>
                     {item.label}
                   </p>

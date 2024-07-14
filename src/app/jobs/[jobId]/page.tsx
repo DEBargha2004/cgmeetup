@@ -14,6 +14,19 @@ import Image from 'next/image'
 import Link from 'next/link'
 import add1 from '@/../public/images/add_1.jpg'
 import add2 from '@/../public/images/add-2.jpg'
+import {
+  ArrowRightAlt,
+  Bookmark,
+  Close,
+  Favorite,
+  LocationOn,
+  MoreVert,
+  PersonAdd,
+  Share,
+  Visibility,
+  Work
+} from '@mui/icons-material'
+import { IconType } from '@/types/icon'
 
 const job_summary = [
   {
@@ -42,18 +55,8 @@ export default function JobPage ({
           </BreadcrumbList>
         </Breadcrumb>
         <div className='flex justify-end gap-2 items-center w-full'>
-          <MaterialSymbolIcon
-            variant='filled'
-            className='opacity-100 hover:text-primary text-[20px] cursor-pointer'
-          >
-            more_vert
-          </MaterialSymbolIcon>
-          <MaterialSymbolIcon
-            variant='filled'
-            className='opacity-100 hover:text-primary text-[20px] cursor-pointer'
-          >
-            close
-          </MaterialSymbolIcon>
+          <MoreVert className='hover:text-primary h-5 cursor-pointer' />
+          <Close className='hover:text-primary h-5 cursor-pointer' />
         </div>
       </section>
       <div className='flex lg:flex-row flex-col justify-between items-start gap-2'>
@@ -70,21 +73,14 @@ export default function JobPage ({
                   <span>Ubisoft</span>
                 </Link>
                 <div className='xl:text-sm text-xs w-8 h-8 rounded-full bg-primary grid place-content-center'>
-                  <MaterialSymbolIcon className='opacity-100'>
-                    person_add
-                  </MaterialSymbolIcon>
+                  <PersonAdd />
                 </div>
               </div>
             </div>
           </section>
           <section className=''>
             <div className='flex gap-2 items-center '>
-              <MaterialSymbolIcon
-                variant='filled'
-                className='text-lg text-white opacity-100'
-              >
-                location_on
-              </MaterialSymbolIcon>
+              <LocationOn className='h-5' />
               <span className='text-lg'>Los Angeles, Singapore</span>
             </div>
             <div>
@@ -107,33 +103,28 @@ export default function JobPage ({
               <div className='flex justify-between flex-row items-center w-full'>
                 <div className='flex justify-between items-center gap-2'>
                   <Button className='md:px-7 px-4'>
-                    <MaterialSymbolIcon
-                      variant='filled'
-                      className='mr-2 opacity-100'
-                    >
-                      work
-                    </MaterialSymbolIcon>
+                    <Work className='mr-2' />
                     Apply
                   </Button>
                 </div>
                 <div className='flex justify-end items-center w-fit xl:gap-5 gap-3 lg:mr-5'>
                   <div className='flex gap-3 xl:gap-6 items-center'>
                     <div className='flex justify-between items-center gap-2'>
-                      <PostAction>favorite</PostAction>
+                      <PostAction Icon={Favorite} />
                       <span className='font-bold opacity-90'>3</span>
                     </div>
                     <div className='flex justify-between items-center gap-2'>
-                      <PostAction>visibility</PostAction>
+                      <PostAction Icon={Visibility} />
                       <span className='font-bold opacity-90'>3</span>
                     </div>
                   </div>
                   <div className='flex gap-3 xl:gap-6 items-center'>
                     <div className='flex justify-between items-center gap-2'>
-                      <PostAction>share</PostAction>
+                      <PostAction Icon={Share} />
                       <span className='font-bold opacity-90'>3</span>
                     </div>
                     <div className='flex justify-between items-center gap-2'>
-                      <PostAction>bookmark</PostAction>
+                      <PostAction Icon={Bookmark} />
                     </div>
                   </div>
                 </div>
@@ -214,9 +205,7 @@ export default function JobPage ({
                     <span className='group-hover:text-primary mr-2'>
                       View All Jobs
                     </span>
-                    <MaterialSymbolIcon classID=''>
-                      arrow_right_alt
-                    </MaterialSymbolIcon>
+                    <ArrowRightAlt />
                   </Button>
                 </div>
               </CardHeader>
@@ -267,9 +256,7 @@ export default function JobPage ({
               <span className='group-hover:text-primary mr-2 '>
                 View All Jobs
               </span>
-              <MaterialSymbolIcon classID=''>
-                arrow_right_alt
-              </MaterialSymbolIcon>
+              <ArrowRightAlt />
             </Button>
             <FeaturedJobCard avatar='rounded' />
             <FeaturedJobCard avatar='rounded' />
@@ -282,18 +269,13 @@ export default function JobPage ({
   )
 }
 
-function PostAction ({ children }: { children: string }) {
+function PostAction ({ Icon }: { Icon: IconType }) {
   return (
     <div
       className='flex justify-center items-center bg-lightAccent md:h-8 md:w-8 
 2xl:h-9 2xl:w-9 rounded-full h-7 w-7'
     >
-      <MaterialSymbolIcon
-        variant='filled'
-        className='2xl:text-[20px] md:text-base text-sm'
-      >
-        {children}
-      </MaterialSymbolIcon>
+      <Icon className='2xl:h-5 md:h-4 h-[14px]' />
     </div>
   )
 }

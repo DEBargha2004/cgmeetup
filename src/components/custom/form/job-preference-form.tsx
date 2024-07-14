@@ -33,6 +33,7 @@ import MaterialSymbolIcon from '../material-symbol-icon'
 import { currencies } from '@/constants/job-requirements'
 import { Button } from '@/components/ui/button'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { KeyboardArrowDown } from '@mui/icons-material'
 
 export default function JobPreferenceForm ({
   onSubmit,
@@ -199,9 +200,7 @@ export default function JobPreferenceForm ({
                           &nbsp;
                           {upperLimit ? `${upperLimit} LPA` : null}
                         </span>
-                        <MaterialSymbolIcon className='select-none'>
-                          keyboard_arrow_down
-                        </MaterialSymbolIcon>
+                        <KeyboardArrowDown />
                       </div>
                     </PopoverTrigger>
                     <PopoverContent

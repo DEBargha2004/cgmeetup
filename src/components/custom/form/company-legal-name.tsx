@@ -6,6 +6,7 @@ import MaterialSymbolIcon from '../material-symbol-icon'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { useClickAway } from '@uidotdev/usehooks'
+import { Search } from '@mui/icons-material'
 
 const list: string[] = [
   'Microsoft Corporation',
@@ -48,10 +49,7 @@ export default function CompanyLegalNameForm ({
         onClick={() => setDropdownOpen(true)}
       >
         <Input className='placeholder:text-muted-foreground pl-10' />
-        <MaterialSymbolIcon className='absolute left-2 top-1/2 -translate-y-1/2'>
-          search
-        </MaterialSymbolIcon>
-
+        <Search className='absolute left-2 top-1/2 -translate-y-1/2' />
         {dropdownOpen && (
           <div
             className={cn(

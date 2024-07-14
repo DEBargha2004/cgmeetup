@@ -20,6 +20,7 @@ import poster from '@/../public/images/poster.jpg'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import RecruiterDialogComponent from './_components/recruiter-dialog-component'
 import Link from 'next/link'
+import { Edit, OpenInNew } from '@mui/icons-material'
 
 export default function AboutPage () {
   const [bio, setBio] = useState({
@@ -65,10 +66,8 @@ export default function AboutPage () {
               className='bg-transparent hover:bg-primary text-primary hover:text-white'
               variant={'outline'}
             >
-              <MaterialSymbolIcon className='mr-2 opacity-100'>
-                edit
-              </MaterialSymbolIcon>
-              Edit Profile
+              <Edit className='mr-2' />
+              <span>Edit Profile</span>
             </Button>
           </Link>
         }
@@ -207,19 +206,19 @@ export default function AboutPage () {
       >
         <p className='flex justify-center items-center gap-1 cursor-pointer w-full shrink-0'>
           Twitter
-          <MaterialSymbolIcon>open_in_new</MaterialSymbolIcon>
+          <OpenInNew />
         </p>
         <p className='flex justify-center items-center gap-1 cursor-pointer w-full shrink-0'>
           Instagram
-          <MaterialSymbolIcon>open_in_new</MaterialSymbolIcon>
+          <OpenInNew />
         </p>
         <p className='flex justify-center items-center gap-1 cursor-pointer w-full shrink-0'>
           Youtube
-          <MaterialSymbolIcon>open_in_new</MaterialSymbolIcon>
+          <OpenInNew />
         </p>
         <p className='flex justify-center items-center gap-1 cursor-pointer w-full shrink-0'>
           Website
-          <MaterialSymbolIcon>open_in_new</MaterialSymbolIcon>
+          <OpenInNew />
         </p>
       </AboutSectionItemsWrapper>
     </section>

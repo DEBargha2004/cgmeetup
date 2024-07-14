@@ -13,6 +13,7 @@ import {
   notificationsSchema
 } from '@/schema/notifications'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Notifications } from '@mui/icons-material'
 import { useForm } from 'react-hook-form'
 
 export default function NotificationsPage () {
@@ -56,9 +57,7 @@ export default function NotificationsPage () {
     <div className='space-y-4 pb-10'>
       <div className='space-y-3'>
         <h1 className='flex justify-start items-center gap-2 text-2xl'>
-          <MaterialSymbolIcon className='opacity-100 text-primary text-2xl'>
-            notifications
-          </MaterialSymbolIcon>
+          <Notifications className='text-primary h-6' />
           <span>Email Notifications</span>
         </h1>
         <div className='grid sm:grid-cols-2 gap-4 '>
@@ -104,9 +103,7 @@ export default function NotificationsPage () {
       </div>
       <div className='space-y-3'>
         <h1 className='flex justify-start items-center gap-2 text-2xl'>
-          <MaterialSymbolIcon className='opacity-100 text-primary text-2xl'>
-            notifications
-          </MaterialSymbolIcon>
+          <Notifications className='text-primary h-6' />
           <span>Email Subscriptions</span>
         </h1>
         <div className='grid sm:grid-cols-2 gap-4'>

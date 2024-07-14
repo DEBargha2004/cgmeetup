@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import MaterialSymbolIcon from '../material-symbol-icon'
+import { PhotoLibrary, PlayCircle } from '@mui/icons-material'
 
 type ArtWork = {
   id: number | string
@@ -107,14 +108,10 @@ export default function GalleryImage ({
         )}
       >
         <div className='h-8 w-8 rounded-full flex justify-center items-center bg-darkAccent opacity-60'>
-          <MaterialSymbolIcon className='text-sm'>
-            photo_library
-          </MaterialSymbolIcon>
+          <PhotoLibrary className='h-[14px]' />
         </div>
         <div className='h-8 w-8 rounded-full flex justify-center items-center bg-darkAccent opacity-60'>
-          <MaterialSymbolIcon className='text-sm'>
-            play_circle
-          </MaterialSymbolIcon>
+          <PlayCircle className='h-[14px]' />
         </div>
       </div>
     </div>

@@ -39,9 +39,20 @@ import 'cropperjs/dist/cropper.css'
 import { useWindowSize } from '@uidotdev/usehooks'
 import { FancyMultiSelect } from '../ui/fancy-multi-select'
 import { Checkbox } from '../ui/checkbox'
-import { mergeRefs } from 'react-merge-refs'
 import { Navigator } from '@/components/custom'
-import { scroll } from '@/functions/scroll'
+import {
+  Close,
+  QuestionMark,
+  Image as ImageIcon,
+  ArrowBackIos,
+  ArrowForwardIos,
+  Add,
+  SlowMotionVideo,
+  Upload,
+  Delete,
+  SwapHoriz,
+  PlayArrow
+} from '@mui/icons-material'
 
 type PostMedia = {
   type: 'video' | 'image'
@@ -295,9 +306,17 @@ export default function PostCreateDialog () {
       >
         <DialogContent
           className='max-w-[800px] bg-card px-4 overflow-y-auto scroller-hide 
-        max-h-[calc(100vh-20px)]'
+        max-h-[calc(100vh-20px)] '
           hideCloseButton
         >
+          <DialogClose className='absolute right-2 top-2'>
+            <div
+              className='h-5 w-5 rounded-full grid place-content-center bg-lightAccent/50 hover:bg-lightAccent/90 
+           cursor-pointer'
+            >
+              <Close className='h-3 opacity-70' />
+            </div>
+          </DialogClose>
           <div className='flex items-start justify-start gap-2'>
             <div id='user-image'>
               <div className='w-14 h-14 rounded-full flex justify-center items-center'>
@@ -337,9 +356,7 @@ export default function PostCreateDialog () {
                     className='h-5 w-5 grid place-content-center rounded-full bg-lightAccent cursor-pointer'
                     onClick={() => setShowQuestionInfo(true)}
                   >
-                    <MaterialSymbolIcon className='text-xs'>
-                      question_mark
-                    </MaterialSymbolIcon>
+                    <QuestionMark className='h-3' />
                   </div>
                 </div>
               </div>
@@ -366,9 +383,7 @@ export default function PostCreateDialog () {
                     className='flex justify-start items-center gap-1 w-fit'
                     {...imageDropzone.getRootProps()}
                   >
-                    <MaterialSymbolIcon className='cursor-pointer text-2xl opacity-100 text-success'>
-                      imagesmode
-                    </MaterialSymbolIcon>
+                    <ImageIcon className='cursor-pointer h-6 text-success' />
                     <span className='text-sm'>Images</span>
                   </div>
                   <div
@@ -377,9 +392,7 @@ export default function PostCreateDialog () {
                       setVideoUrlInput(prev => ({ ...prev, show: true }))
                     }
                   >
-                    <MaterialSymbolIcon className='cursor-pointer text-2xl opacity-100 text-primary'>
-                      slow_motion_video
-                    </MaterialSymbolIcon>
+                    <SlowMotionVideo className='cursor-pointer h-6 text-success' />
                     <span className='text-sm'>Videos</span>
                   </div>
                 </div>
@@ -400,8 +413,8 @@ export default function PostCreateDialog () {
                     form={videoUrlForm}
                     onSubmit={handleUrlSubmit}
                   />
-                  <MaterialSymbolIcon
-                    className='opacity-100 cursor-pointer my-auto'
+                  <Close
+                    className='my-auto cursor-pointer'
                     onClick={() => {
                       setVideoUrlInput(prev => ({
                         ...prev,
@@ -410,9 +423,7 @@ export default function PostCreateDialog () {
                       }))
                       videoUrlForm.reset()
                     }}
-                  >
-                    close
-                  </MaterialSymbolIcon>
+                  />
                 </div>
               )}
               {mediaList.length ? (
@@ -439,20 +450,18 @@ export default function PostCreateDialog () {
                       grid place-content-center cursor-pointer'
                           {...imageDropzone.getRootProps()}
                         >
-                          <MaterialSymbolIcon className='text-4xl opacity-100'>
-                            add
-                          </MaterialSymbolIcon>
+                          <Add className='h-9' />
                         </div>
                       </div>
                     ) : null}
                   </div>
                   <Navigator
-                    icon='arrow_back_ios'
+                    Icon={ArrowBackIos}
                     className='absolute left-0 top-1/2 -translate-y-1/2 z-10 h-10 w-10 rounded-full grid place-content-center'
                     onClick={() => handleCarouselNavigation('prev')}
                   />
                   <Navigator
-                    icon='arrow_forward_ios'
+                    Icon={ArrowForwardIos}
                     className='absolute right-0 top-1/2 -translate-y-1/2 z-10 h-10 w-10 rounded-full grid place-content-center'
                     onClick={() => handleCarouselNavigation('next')}
                   />
@@ -500,9 +509,7 @@ export default function PostCreateDialog () {
                 cursor-pointer'
                         {...thumbnailDropzone.getRootProps()}
                       >
-                        <MaterialSymbolIcon className='opacity-100 text-base'>
-                          upload_2
-                        </MaterialSymbolIcon>
+                        <Upload className='h-4' />
                         <span>Upload</span>
                       </Badge>
                     </div>
@@ -537,9 +544,7 @@ export default function PostCreateDialog () {
                     className='h-8 w-fit px-2 flex justify-between items-center gap-2
                 cursor-pointer ml-auto xs:col-span-1 col-span-2'
                   >
-                    <MaterialSymbolIcon className='opacity-100 text-base'>
-                      delete
-                    </MaterialSymbolIcon>
+                    <Delete className='h-4' />
                     <span>Delete</span>
                   </Badge>
                 </div>
@@ -637,9 +642,7 @@ const PostMedia = forwardRef<
           className='absolute w-full h-full top-0 left-0 group-hover:opacity-50 bg-black/70 
         transition-all grid place-content-center opacity-0'
         >
-          <MaterialSymbolIcon className='text-4xl w-10'>
-            swap_horiz
-          </MaterialSymbolIcon>
+          <SwapHoriz className='h-9' />
         </div>
         <NextImage
           src={url}
@@ -653,9 +656,7 @@ const PostMedia = forwardRef<
             className='absolute h-10 w-10 rounded-full grid place-content-center left-1/2 top-1/2
         -translate-x-1/2 -translate-y-1/2 bg-darkAccent/50'
           >
-            <MaterialSymbolIcon className='opacity-100 text-3xl'>
-              play_arrow
-            </MaterialSymbolIcon>
+            <PlayArrow className='h-[30px]' />
           </div>
         ) : null}
         <div
@@ -665,12 +666,7 @@ const PostMedia = forwardRef<
             !onDelete && 'hidden'
           )}
         >
-          <MaterialSymbolIcon
-            onClick={() => onDelete?.(id)}
-            className='opacity-100 text-base'
-          >
-            close
-          </MaterialSymbolIcon>
+          <Close onClick={() => onDelete?.(id)} />
         </div>
       </div>
     )

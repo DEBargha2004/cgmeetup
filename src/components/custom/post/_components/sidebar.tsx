@@ -15,6 +15,15 @@ import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import { Badge } from '@/components/ui/badge'
 import { sample_cateories } from '@/constants/categories'
+import {
+  Favorite,
+  PersonAdd,
+  Visibility,
+  Comment as CommentIcon,
+  Share,
+  Bookmark
+} from '@mui/icons-material'
+import { IconType } from '@/types/icon'
 
 export default function Sidebar ({ postId }: { postId: string }) {
   const project_idx = projects.data.findIndex(
@@ -54,9 +63,7 @@ export default function Sidebar ({ postId }: { postId: string }) {
                 className='xl:text-sm text-xs h-8 w-8 bg-primary flex justify-center items-center 
               shrink-0 rounded-full'
               >
-                <MaterialSymbolIcon className='opacity-100'>
-                  person_add
-                </MaterialSymbolIcon>
+                <PersonAdd />
               </div>
             </ProfileInfoOverView>
           </CardContent>
@@ -69,13 +76,13 @@ export default function Sidebar ({ postId }: { postId: string }) {
         <div className='flex justify-between items-center'>
           <div className='flex justify-between 2xl:gap-6 gap-3 items-center w-full'>
             <div className='flex 2xl:gap-6 gap-2 items-center'>
-              <PostActionsContainer icon='favorite' count={3} />
-              <PostActionsContainer icon='visibility' count={3} />
-              <PostActionsContainer icon='comment' count={3} />
+              <PostActionsContainer Icon={Favorite} count={3} />
+              <PostActionsContainer Icon={Visibility} count={3} />
+              <PostActionsContainer Icon={CommentIcon} count={3} />
             </div>
             <div className='flex 2xl:gap-6 gap-3 items-center'>
-              <PostActionsContainer icon='share' count={3} />
-              <PostActionsContainer icon='bookmark' />
+              <PostActionsContainer Icon={Share} count={3} />
+              <PostActionsContainer Icon={Bookmark} />
             </div>
           </div>
         </div>
@@ -176,9 +183,9 @@ export default function Sidebar ({ postId }: { postId: string }) {
 }
 function PostActionsContainer ({
   count,
-  icon
+  Icon
 }: {
-  icon: string
+  Icon: IconType
   count?: number
 }) {
   return (
@@ -187,12 +194,7 @@ function PostActionsContainer ({
         className='flex justify-center items-center bg-lightAccent h-8 w-8 
                   2xl:h-9 2xl:w-9 rounded-full'
       >
-        <MaterialSymbolIcon
-          variant='filled'
-          className='2xl:text-[20px] text-base'
-        >
-          {icon}
-        </MaterialSymbolIcon>
+        <Icon className='2xl:h-[20px]' />
       </div>
       {count && <span className='font-bold opacity-90'>{count}</span>}
     </div>

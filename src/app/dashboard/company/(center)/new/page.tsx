@@ -19,6 +19,7 @@ import {
   TableHeader,
   TableRow
 } from '@/components/ui/table'
+import { Add, MoreVert } from '@mui/icons-material'
 import Link from 'next/link'
 
 export default function NewCompanyPage () {
@@ -31,7 +32,7 @@ export default function NewCompanyPage () {
         className='@container'
         extraButton={
           <Button className='space-x-2'>
-            <MaterialSymbolIcon className=''>add</MaterialSymbolIcon>
+            <Add />
             <span className='@lg:inline hidden'>Create Company</span>
           </Button>
         }
@@ -59,9 +60,7 @@ export default function NewCompanyPage () {
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <div>
-                        <MaterialSymbolIcon className='text-sm cursor-pointer'>
-                          more_vert
-                        </MaterialSymbolIcon>
+                        <MoreVert className='text-4 cursor-pointer' />
                       </div>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>

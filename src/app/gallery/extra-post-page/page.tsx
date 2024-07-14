@@ -19,9 +19,21 @@ import {
   BreadcrumbSeparator
 } from '@/components/ui/breadcrumb'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
-import vertical from '../../../../public/images/dog-vertical.webp'
-import horizontal from '../../../../public/images/dog.webp'
+import vertical from '@/../public/images/dog-vertical.webp'
+import horizontal from '@/../public/images/dog.webp'
 import Comment from './_components/comment'
+import {
+  ArrowBackIos,
+  ArrowForwardIos,
+  Favorite,
+  MoreVert,
+  PersonAdd,
+  Visibility,
+  Comment as CommentIcon,
+  Share,
+  Bookmark,
+  EmojiEmotions
+} from '@mui/icons-material'
 
 export default function Post ({
   params: { postId }
@@ -84,7 +96,7 @@ including versions of Lorem Ipsum`
             className='h-full absolute top-0 left-0 flex justify-center items-center px-8
         hover:bg-lightAccent/20 transition-all cursor-pointer'
           >
-            <MaterialSymbolIcon>arrow_back_ios</MaterialSymbolIcon>
+            <ArrowBackIos />
           </div>
         </Link>
         <Link
@@ -98,19 +110,14 @@ including versions of Lorem Ipsum`
             className='h-full absolute top-0 right-0 flex justify-center items-center px-8
           hover:bg-lightAccent/20 transition-all cursor-pointer'
           >
-            <MaterialSymbolIcon>arrow_forward_ios</MaterialSymbolIcon>
+            <ArrowForwardIos />
           </div>
         </Link>
       </div>
       <div className='w-full xl:w-[26%] lg:w-[30%] h-full overflow-y-auto px-1 scroller space-y-3 py-2'>
         <Card className='rounded bg-lightAccent relative'>
           <div className='flex justify-end gap-2 items-center absolute top-0 right-0 w-full pt-[6px]'>
-            <MaterialSymbolIcon
-              variant='filled'
-              className='opacity-100 hover:text-primary text-[20px] cursor-pointer'
-            >
-              more_vert
-            </MaterialSymbolIcon>
+            <MoreVert className='hover:text-primary h-5 cursor-pointer' />
             <Close className='lg:block lg:relative hidden text-[20px] opacity-100 hover:text-primary' />
           </div>
           <CardContent id='user-profile' className='space-y-6 pt-7 pb-3 pr-5'>
@@ -125,9 +132,7 @@ including versions of Lorem Ipsum`
                 className='xl:text-sm text-xs h-8 w-8 bg-primary flex justify-center items-center 
               shrink-0 rounded-full'
               >
-                <MaterialSymbolIcon className='opacity-100'>
-                  person_add
-                </MaterialSymbolIcon>
+                <PersonAdd />
               </div>
             </ProfileInfoOverView>
           </CardContent>
@@ -145,12 +150,7 @@ including versions of Lorem Ipsum`
                   className='flex justify-center items-center bg-lightAccent h-8 w-8 
                 2xl:h-9 2xl:w-9 rounded-full'
                 >
-                  <MaterialSymbolIcon
-                    variant='filled'
-                    className='2xl:text-[20px] text-base'
-                  >
-                    favorite
-                  </MaterialSymbolIcon>
+                  <Favorite className='2xl:h-5 h-4' />
                 </div>
                 <span className='font-bold opacity-90'>3</span>
               </div>
@@ -159,12 +159,7 @@ including versions of Lorem Ipsum`
                   className='flex justify-center items-center bg-lightAccent h-8 w-8 
                 2xl:h-9 2xl:w-9 rounded-full'
                 >
-                  <MaterialSymbolIcon
-                    variant='filled'
-                    className='2xl:text-[20px] text-base'
-                  >
-                    visibility
-                  </MaterialSymbolIcon>
+                  <Visibility className='2xl:h-5 h-4' />
                 </div>
                 <span className='font-bold opacity-90'>3</span>
               </div>
@@ -173,12 +168,7 @@ including versions of Lorem Ipsum`
                   className='flex justify-center items-center bg-lightAccent h-8 w-8 
                 2xl:h-9 2xl:w-9 rounded-full'
                 >
-                  <MaterialSymbolIcon
-                    variant='filled'
-                    className='2xl:text-[20px] text-base'
-                  >
-                    comment
-                  </MaterialSymbolIcon>
+                  <CommentIcon className='2xl:h-5 h-4' />
                 </div>
                 <span className='font-bold opacity-90'>3</span>
               </div>
@@ -191,12 +181,7 @@ including versions of Lorem Ipsum`
                 >
                   <Dialog>
                     <DialogTrigger asChild>
-                      <MaterialSymbolIcon
-                        variant='filled'
-                        className='2xl:text-[20px] text-base cursor-pointer'
-                      >
-                        share
-                      </MaterialSymbolIcon>
+                      <Share className='2xl:h-5 h-4' />
                     </DialogTrigger>
                     <DialogContent className='bg-lightAccent'></DialogContent>
                   </Dialog>
@@ -208,12 +193,7 @@ including versions of Lorem Ipsum`
                   className='flex justify-center items-center bg-lightAccent h-8 w-8 
                 2xl:h-9 2xl:w-9 rounded-full'
                 >
-                  <MaterialSymbolIcon
-                    variant='filled'
-                    className='2xl:text-[20px] text-base'
-                  >
-                    bookmark
-                  </MaterialSymbolIcon>
+                  <Bookmark className='2xl:h-5 h-4' />
                 </div>
               </div>
             </div>
@@ -239,12 +219,7 @@ including versions of Lorem Ipsum`
                 className='h-12 pl-10 pr-16 text-opacity-70'
                 placeholder='Post a comment...'
               />
-              <MaterialSymbolIcon
-                variant='filled'
-                className='absolute top-1/2 -translate-y-1/2 left-3 text-2xl'
-              >
-                emoji_emotions
-              </MaterialSymbolIcon>
+              <EmojiEmotions className='absolute top-1/2 -translate-y-1/2 left-3 h-6' />
               <span className='absolute top-1/2 -translate-y-1/2 right-3 text-primary'>
                 POST
               </span>

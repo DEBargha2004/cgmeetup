@@ -10,32 +10,34 @@ import {
 } from '@/components/ui/breadcrumb'
 import { cn } from '@/lib/utils'
 import { FieldType } from '@/types/field-type'
+import { IconType } from '@/types/icon'
+import { Block, Notifications, Payment, Person } from '@mui/icons-material'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-const tabs: (FieldType & { icon: string; href: string })[] = [
+const tabs: (FieldType & { Icon: IconType; href: string })[] = [
   {
     label: 'General',
     href: '/dashboard/settings',
-    icon: 'person',
+    Icon: Person,
     value: 'general'
   },
   {
     label: 'Notofications',
     href: '/dashboard/settings/notifications',
-    icon: 'notifications',
+    Icon: Notifications,
     value: 'notifications'
   },
   {
     label: 'Blocking',
     href: '/dashboard/settings/blocking',
-    icon: 'block',
+    Icon: Block,
     value: 'blocking'
   },
   {
     label: 'Payment & Account',
     href: '/dashboard/settings/payment',
-    icon: 'payment',
+    Icon: Payment,
     value: 'payment'
   }
 ]

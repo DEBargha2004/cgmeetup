@@ -4,6 +4,7 @@ import { MaterialSymbolIcon, ProfileInfoOverView } from '@/components/custom'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
+import { ExpandLess, ExpandMore, Favorite } from '@mui/icons-material'
 import { useState } from 'react'
 
 export default function Comment ({
@@ -40,7 +41,7 @@ export default function Comment ({
           Lorem ipsum
         </p>
         <div className='flex justify-start items-center gap-2 '>
-          <MaterialSymbolIcon className='text-sm'>favorite</MaterialSymbolIcon>
+          <Favorite className='h-[14px]' />
           <i className='text-xs opacity-70'>34 hours ago</i>
           <p
             className='text-xs opacity-70'
@@ -77,13 +78,13 @@ export default function Comment ({
         {showNestedComments ? (
           <div className='space-y-2'>
             <div className='flex justify-start items-center'>
-              <MaterialSymbolIcon
+              <div
                 className='cursor-pointer opacity-100 text-xl h-8 aspect-square rounded-full 
         flex justify-center items-center hover:bg-lightAccent/50 select-none'
                 onClick={() => setShowMoreComments(!showMoreComments)}
               >
-                {showMoreComments ? 'expand_less' : 'expand_more'}
-              </MaterialSymbolIcon>
+                {showMoreComments ? <ExpandLess /> : <ExpandMore />}
+              </div>
               <p className='text-primary text-xs'>4 replies</p>
             </div>
 

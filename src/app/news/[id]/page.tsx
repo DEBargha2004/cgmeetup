@@ -20,6 +20,16 @@ import avatar from '@/../public/images/profile-1.jpg'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import { EditorContentComponent } from '@/components/custom/editor'
+import {
+  Bookmark,
+  Comment,
+  PersonAdd,
+  Schedule,
+  Share,
+  ThumbUp,
+  Visibility
+} from '@mui/icons-material'
+import { IconType } from '@/types/icon'
 
 const content = `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
   sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
@@ -62,19 +72,19 @@ border-none bg-transparent'
         <CardContent className='space-y-2 px-2'>
           <div className='flex justify-between items-center border-b pb-2'>
             <div className='flex justify-start gap-3 items-center'>
-              <PostHeaderOptions icon='thumb_up' label='0' />
-              <PostHeaderOptions icon='visibility' label='0' />
-              <PostHeaderOptions icon='comment' label='0' />
-              <PostHeaderOptions icon='schedule' label='40m' />
+              <PostHeaderOptions Icon={ThumbUp} label='0' />
+              <PostHeaderOptions Icon={Visibility} label='0' />
+              <PostHeaderOptions Icon={Comment} label='0' />
+              <PostHeaderOptions Icon={Schedule} label='40m' />
             </div>
             <div className='flex justify-start gap-3 items-center'>
               <PostHeaderOptions
-                icon='bookmark'
+                Icon={Bookmark}
                 label='Bookmark'
                 labelClassName='sm:block hidden'
               />
               <PostHeaderOptions
-                icon='share'
+                Icon={Share}
                 label='Share'
                 labelClassName='sm:block hidden'
               />
@@ -86,9 +96,7 @@ border-none bg-transparent'
           <div className='border-b pb-2'>
             <ProfileInfoOverView className=''>
               <div className='shrink-0 w-8 h-8 rounded-full grid place-content-center bg-primary cursor-pointer'>
-                <MaterialSymbolIcon className='text-sm'>
-                  person_add
-                </MaterialSymbolIcon>
+                <PersonAdd className='h-[14px]' />
               </div>
             </ProfileInfoOverView>
           </div>
@@ -129,13 +137,13 @@ border-none bg-transparent'
 }
 
 function PostHeaderOptions ({
-  icon,
+  Icon,
   label,
   className,
   labelClassName,
   ...props
 }: {
-  icon: string
+  Icon: IconType
   label: string
   labelClassName?: string
 } & HTMLProps<HTMLDivElement>) {
@@ -144,7 +152,7 @@ function PostHeaderOptions ({
       className={cn('flex justify-between items-center gap-1', className)}
       {...props}
     >
-      <MaterialSymbolIcon className=''>{icon}</MaterialSymbolIcon>
+      <Icon />
       <p className={cn('text-sm', labelClassName)}>{label}</p>
     </div>
   )

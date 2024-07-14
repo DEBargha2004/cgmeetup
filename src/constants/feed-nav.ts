@@ -1,12 +1,21 @@
 'https://cdnb.artstation.com/p/users/covers/000/618/337/default/fac6732bc80210accc4f78774225a1a1.jpg?1659954166'
 
+import { IconType } from '@/types/icon'
+import {
+  Dashboard,
+  Edit,
+  ManageAccounts,
+  Person,
+  Settings
+} from '@mui/icons-material'
+
 type FeedNav =
   | {
       type: 'link'
       id: string
       label: string
       href: string
-      icon_name: string
+      Icon: IconType
     }
   | {
       type: 'separator'
@@ -91,14 +100,14 @@ export const feedNavItems: FeedNav[] = [
     id: 'profile',
     label: 'My Profile',
     href: '/profile',
-    icon_name: 'person'
+    Icon: Person
   },
   {
     type: 'link',
     id: 'edit-profile',
     label: 'Edit Profile',
     href: '/edit-profile',
-    icon_name: 'edit'
+    Icon: Edit
   },
   // {
   //   type: 'link',
@@ -125,21 +134,21 @@ export const feedNavItems: FeedNav[] = [
     id: 'dashboard',
     label: 'Dashboard',
     href: '/dashboard',
-    icon_name: 'dashboard'
+    Icon: Dashboard
   },
   {
     type: 'link',
     id: 'manage-posts',
     label: 'Manage Posts',
     href: '/manage-posts',
-    icon_name: 'manage_accounts'
+    Icon: ManageAccounts
   },
   {
     type: 'link',
     id: 'manage-jobs',
     label: 'Manage Jobs',
     href: '/manage-jobs',
-    icon_name: 'manage_accounts'
+    Icon: ManageAccounts
   },
   {
     type: 'separator'
@@ -150,6 +159,6 @@ export const feedNavItems: FeedNav[] = [
     id: 'settings',
     label: 'Settings',
     href: '/settings',
-    icon_name: 'settings'
+    Icon: Settings
   }
 ]

@@ -14,6 +14,7 @@ import { UsernameSchemaType, usernameSchema } from '@/schema/username'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import MaterialSymbolIcon from '../material-symbol-icon'
+import { AlternateEmail } from '@mui/icons-material'
 
 export default function UsernameForm ({
   submitLabel,
@@ -40,7 +41,7 @@ export default function UsernameForm ({
               <FormLabel>Username</FormLabel>
               <FormControl>
                 <div className='flex justify-start items-center gap-2'>
-                  <MaterialSymbolIcon>alternate_email</MaterialSymbolIcon>
+                  <AlternateEmail />
                   <Input {...field} placeholder='Username' />
                 </div>
               </FormControl>

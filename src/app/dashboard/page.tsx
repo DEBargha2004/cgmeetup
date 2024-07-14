@@ -95,7 +95,7 @@ export default function Dashboard () {
                 <CardTitle className='text-xl'>Overview</CardTitle>
               </div>
             </CardHeader>
-            <CardContent>
+            <CardContent className='xs:px-3 px-0'>
               <Overview />
             </CardContent>
           </Card>

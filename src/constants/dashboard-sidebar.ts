@@ -1,10 +1,26 @@
+import {
+  Apartment,
+  Bookmark,
+  Dashboard,
+  Image,
+  Newspaper,
+  Notifications,
+  Person,
+  Settings,
+  Work
+} from '@mui/icons-material'
+import { SvgIconTypeMap } from '@mui/material'
+import { OverridableComponent } from '@mui/material/OverridableComponent'
+
 type SidebarItem =
   | {
       type: 'link'
       id: string
       label: string
       href: string
-      icon_name: string
+      Icon: OverridableComponent<SvgIconTypeMap<{}, 'svg'>> & {
+        muiName: string
+      }
       catch_routes?: string[]
     }
   | {
@@ -21,14 +37,14 @@ export const dashboardSidebar: SidebarItem[] = [
     label: 'Dashboard',
     id: 'dashboard',
     href: '/dashboard',
-    icon_name: 'dashboard'
+    Icon: Dashboard
   },
   {
     type: 'link',
     label: 'Gallery',
     id: 'gallery',
     href: '/dashboard/gallery',
-    icon_name: 'image',
+    Icon: Image,
     catch_routes: ['/dashboard/gallery', '/dashboard/gallery/create']
   },
   {
@@ -36,7 +52,7 @@ export const dashboardSidebar: SidebarItem[] = [
     label: 'Jobs',
     id: 'jobs',
     href: '/dashboard/jobs',
-    icon_name: 'work',
+    Icon: Work,
     catch_routes: ['/dashboard/jobs', '/dashboard/jobs/create']
   },
   {
@@ -44,7 +60,7 @@ export const dashboardSidebar: SidebarItem[] = [
     label: 'News',
     id: 'news',
     href: '/dashboard/news',
-    icon_name: 'newspaper',
+    Icon: Newspaper,
     catch_routes: ['/dashboard/news', '/dashboard/news/create']
   },
   {
@@ -54,7 +70,7 @@ export const dashboardSidebar: SidebarItem[] = [
     type: 'link',
     label: 'Bookmarks',
     href: '/dashboard/bookmarks',
-    icon_name: 'bookmark',
+    Icon: Bookmark,
     id: 'bookmarks',
     catch_routes: ['/dashboard/bookmarks']
   },
@@ -62,7 +78,7 @@ export const dashboardSidebar: SidebarItem[] = [
     type: 'link',
     label: 'Notifications',
     href: '/dashboard/notifications',
-    icon_name: 'notifications',
+    Icon: Notifications,
     id: 'notifications',
     catch_routes: ['/dashboard/notifications']
   },
@@ -73,7 +89,7 @@ export const dashboardSidebar: SidebarItem[] = [
     type: 'link',
     label: 'Edit Profile',
     href: '/dashboard/profile',
-    icon_name: 'person',
+    Icon: Person,
     id: 'edit-profileprofile',
     catch_routes: [
       '/dashboard/profile',
@@ -87,7 +103,7 @@ export const dashboardSidebar: SidebarItem[] = [
     type: 'link',
     label: 'Edit Company',
     href: '/dashboard/company',
-    icon_name: 'business',
+    Icon: Apartment,
     id: 'edit-company',
     catch_routes: ['/dashboard/company', '/dashboard/company/verification']
   },
@@ -96,7 +112,7 @@ export const dashboardSidebar: SidebarItem[] = [
     label: 'Settings',
     id: 'settings',
     href: '/dashboard/settings',
-    icon_name: 'settings',
+    Icon: Settings,
     catch_routes: [
       '/dashboard/settings',
       '/dashboard/settings/notifications',

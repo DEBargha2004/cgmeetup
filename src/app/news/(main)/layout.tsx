@@ -43,18 +43,19 @@ import { Roboto } from 'next/font/google'
 import Image from 'next/image'
 import background from '@/../public/images/cover-image.jpg'
 import CategorySelect from '../_components/category-select'
+import { Newspaper, Schedule, TrendingUp } from '@mui/icons-material'
 
 const tabList1: TabItem[] = [
-  { label: 'News', href: '/news', icon: 'news' },
+  { label: 'News', href: '/news', Icon: Newspaper },
   {
     label: 'Trending',
     href: '/news/trending',
-    icon: 'trending_up'
+    Icon: TrendingUp
   },
   {
     label: 'Latest',
     href: '/news/latest',
-    icon: 'schedule'
+    Icon: Schedule
   }
 
   // { label: 'Studios', href: '/jobs/studios', icon: 'apartment' },
@@ -110,7 +111,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
           </div>
           <section className='flex xs:justify-start justify-center items-center gap-10 px-2'>
             <CategorySelect />
-            <Carousel className='w-[calc(100%-210px)] xs:block hidden'>
+            <Carousel className='w-[calc(100%-220px)] xs:block hidden'>
               <CarouselContent className=''>
                 {sample_cateories.map((cat, index) => (
                   <CarouselItem className='basis-auto' key={cat}>

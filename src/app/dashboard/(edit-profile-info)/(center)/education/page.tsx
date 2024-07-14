@@ -16,6 +16,7 @@ import {
 import { Separator } from '@/components/ui/separator'
 import { EducationSchemaType, educationSchema } from '@/schema/education'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Add, MoreVert } from '@mui/icons-material'
 import { format } from 'date-fns'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -76,7 +77,7 @@ export default function HighestEducationPage () {
           }}
           className='space-x-2'
         >
-          <MaterialSymbolIcon>add</MaterialSymbolIcon>
+          <Add />
           <span className='@lg:inline hidden'>Add Education</span>
         </Button>
       }
@@ -104,7 +105,7 @@ export default function HighestEducationPage () {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <div className='cursor-pointer'>
-                      <MaterialSymbolIcon>more_vert</MaterialSymbolIcon>
+                      <MoreVert />
                     </div>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align='end'>

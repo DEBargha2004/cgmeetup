@@ -20,14 +20,22 @@ import React, { HTMLProps, useState } from 'react'
 import { useGlobalAppStore } from '@/store/global-app-store'
 import MaterialSymbolIcon from './material-symbol-icon'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
-import {
-  NotificationCardProfileView,
-  NotificationCardOtherView
-} from './notification-card'
+import { NotificationCard } from './notification-card'
 import { usePathname } from 'next/navigation'
 import { PopoverClose } from '@radix-ui/react-popover'
 import ProfileInfoOverView from './profile-info-overview'
 import { Separator } from '../ui/separator'
+import {
+  AccountCircle,
+  Add,
+  AddShoppingCart,
+  Chat,
+  Image as ImageIcon,
+  Login,
+  Notifications,
+  Person,
+  Work
+} from '@mui/icons-material'
 
 export default function Navbar ({ className }: { className?: string }) {
   const {
@@ -111,9 +119,7 @@ export default function Navbar ({ className }: { className?: string }) {
                         : ''
                     )}
                   >
-                    <MaterialSymbolIcon className='opacity-100'>
-                      {item.icon}
-                    </MaterialSymbolIcon>
+                    <item.Icon />
                     <span>{item.label}</span>
                   </Link>
                 ) : (
@@ -138,9 +144,7 @@ export default function Navbar ({ className }: { className?: string }) {
                         : ''
                     )}
                   >
-                    <MaterialSymbolIcon className='opacity-100'>
-                      {item.icon}
-                    </MaterialSymbolIcon>
+                    <item.Icon />
                     <span>{item.label}</span>
                   </Link>
                 ) : (
@@ -161,12 +165,7 @@ export default function Navbar ({ className }: { className?: string }) {
               variant={'success'}
               className='sm:px-3 px-2 h-8 flex justify-center items-center'
             >
-              <MaterialSymbolIcon
-                variant='filled'
-                className='sm:mr-1 opacity-100'
-              >
-                add
-              </MaterialSymbolIcon>
+              <Add className='sm:mr-1' />
               <span className='sm:inline hidden'>Post</span>
             </Button>
           </DropdownMenuTrigger>
@@ -175,14 +174,14 @@ export default function Navbar ({ className }: { className?: string }) {
               className='cursor-pointer flex gap-2 items-center pl-2'
               onClick={() => setPostDialogState(true)}
             >
-              <MaterialSymbolIcon className='text-sm'>photo</MaterialSymbolIcon>
+              <ImageIcon className='h-[14px]' />
               <span>Add Post</span>
             </DropdownMenuItem>
             <DropdownMenuItem
               className='cursor-pointer flex gap-2 items-center pl-2'
               onClick={() => setJobDialogState(true)}
             >
-              <MaterialSymbolIcon className='text-sm'>work</MaterialSymbolIcon>
+              <Work className='h-[14px]' />
               <span>Add Job</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
@@ -204,27 +203,26 @@ export default function Navbar ({ className }: { className?: string }) {
             <Popover>
               <PopoverTrigger asChild>
                 <div className='cursor-pointer'>
-                  <MaterialSymbolIcon>notifications_none</MaterialSymbolIcon>
+                  <Notifications />
                 </div>
               </PopoverTrigger>
               <PopoverContent
                 side='bottom'
                 align='center'
-                className='bg-card translate-y-3 space-y-3 max-h-[600px] lg:w-[500px] overflow-y-auto scroller'
+                className='bg-card translate-y-3 space-y-4 max-h-[600px] lg:w-[500px] overflow-y-auto scroller'
               >
                 <h1 className='text-xl font-semibold'>Notifications</h1>
                 <div className='space-y-3'>
-                  {Array.from({ length: 21 }, (_, i) => i).map(i =>
-                    Math.floor(Math.random() * 2) ? (
-                      <NotificationCardOtherView key={i} />
-                    ) : (
-                      <NotificationCardProfileView key={i} />
-                    )
-                  )}
+                  {Array.from({ length: 21 }, (_, i) => i).map(i => (
+                    <NotificationCard key={i} />
+                  ))}
                 </div>
-                <Link href={'/dashboard/notifications'}>
+                <Link
+                  href={'/dashboard/notifications'}
+                  className='inline-block w-full'
+                >
                   <PopoverClose className='w-full'>
-                    <div className='p-2 flex justify-center items-center rounded hover:bg-lightAccent cursor-pointer transition-all'>
+                    <div className='p-2 flex justify-center items-center rounded hover:bg-primary text-primary hover:text-white cursor-pointer transition-all'>
                       View All Notifications
                     </div>
                   </PopoverClose>
@@ -232,28 +230,24 @@ export default function Navbar ({ className }: { className?: string }) {
               </PopoverContent>
             </Popover>
             <Link href={'/chat'}>
-              <MaterialSymbolIcon>chat</MaterialSymbolIcon>
+              <Chat />
             </Link>
             <Link href={''}>
-              <MaterialSymbolIcon>add_shopping_cart</MaterialSymbolIcon>
+              <AddShoppingCart />
             </Link>
           </div>
         ) : (
           <>
             <Link href={'/sign-up'}>
               <Button variant={'success'} className='h-9'>
-                <MaterialSymbolIcon className='sm:mr-1'>
-                  person
-                </MaterialSymbolIcon>
+                <Person className='sm:mr-1' />
                 <span className='md:inline hidden'>Sign Up</span>
               </Button>
             </Link>
 
             <Link href={'/sign-in'}>
               <Button className='h-9'>
-                <MaterialSymbolIcon className='sm:mr-1'>
-                  login
-                </MaterialSymbolIcon>
+                <Login className='sm:mr-1' />
                 <span className='md:inline hidden'>Sign In</span>
               </Button>
             </Link>
@@ -263,9 +257,7 @@ export default function Navbar ({ className }: { className?: string }) {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <div>
-              <MaterialSymbolIcon className='lg:text-[40px] text-3xl lg:w-10 w-[30px] inline-block'>
-                account_circle
-              </MaterialSymbolIcon>
+              <AccountCircle fontSize='large' />
             </div>
           </DropdownMenuTrigger>
           <DropdownMenuContent align='end' className='translate-y-1'>
@@ -280,7 +272,7 @@ export default function Navbar ({ className }: { className?: string }) {
               className='cursor-pointer flex gap-2 w-full pl-2 '
               onClick={() => setAuthDialogState(true)}
             >
-              <MaterialSymbolIcon className='text-sm'>login</MaterialSymbolIcon>
+              <Login className='h-[14px]' />
               Sign In
             </DropdownMenuItem>
             {profileItems
@@ -308,9 +300,7 @@ function ProfileItemLabel ({ item }: { item: typeof profileItems[number] }) {
             key={item.id}
             className='cursor-pointer flex gap-2 w-full pl-2 '
           >
-            <MaterialSymbolIcon className='text-sm'>
-              {item.icon}
-            </MaterialSymbolIcon>
+            <item.Icon className='h-[14px]' />
             {item.label}
           </DropdownMenuItem>
         </>
@@ -376,7 +366,7 @@ function SearchInput () {
                 className=' flex justify-start items-center gap-2 '
               >
                 <SearchItem className='flex justify-start items-center gap-2'>
-                  <MaterialSymbolIcon>{item.icon}</MaterialSymbolIcon>
+                  <item.Icon />
                   <span>Search {item.label}</span>
                 </SearchItem>
               </Link>

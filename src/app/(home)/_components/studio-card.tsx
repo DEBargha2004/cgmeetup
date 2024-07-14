@@ -4,6 +4,7 @@ import profile from '@/../public/images/profile-1.jpg'
 import { cn } from '@/lib/utils'
 import { MaterialSymbolIcon } from '@/components/custom'
 import { Button } from '@/components/ui/button'
+import { LocationOn, PersonAdd, Work } from '@mui/icons-material'
 
 export default function StudioCard ({ className }: { className?: string }) {
   return (
@@ -26,23 +27,19 @@ export default function StudioCard ({ className }: { className?: string }) {
           <p className='text-sm opacity-70'>VFX Studio</p>
         </div>
         <div className='flex items-center justify-center gap-2'>
-          <MaterialSymbolIcon className='text-sm'>
-            location_on
-          </MaterialSymbolIcon>
+          <LocationOn className='h-[14px]' />
           <p className='text-sm opacity-70'>Canada</p>
         </div>
         <Button
           variant={'outline'}
           className='flex justify-center items-center gap-2 bg-transparent hover:bg-darkAccent'
         >
-          <MaterialSymbolIcon>work</MaterialSymbolIcon>
+          <Work />
           <span>39 Jobs Open</span>
         </Button>
         <Button className='w-fit h-7 px-2 mt-3'>
           <span className='mr-1 font-semibold text-sm'>Follow</span>
-          <MaterialSymbolIcon className='text-base'>
-            person_add
-          </MaterialSymbolIcon>
+          <PersonAdd className='h-[16px]' />
         </Button>
       </div>
     </Card>

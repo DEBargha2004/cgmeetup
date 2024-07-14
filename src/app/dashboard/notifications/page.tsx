@@ -1,7 +1,4 @@
-import {
-  NotificationCardOtherView,
-  NotificationCardProfileView
-} from '@/components/custom'
+import { NotificationCard } from '@/components/custom'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -38,13 +35,9 @@ export default function NotificationsPage () {
         <main className='px-4 md:w-3/5 lg:w-2/5 grid gap-4 mx-auto'>
           <h1 className='text-xl font-semibold '>Notifications</h1>
           <div className='space-y-3'>
-            {Array.from({ length: 21 }, (_, i) => i).map(i =>
-              Math.floor(Math.random() * 2) ? (
-                <NotificationCardOtherView key={i} />
-              ) : (
-                <NotificationCardProfileView key={i} />
-              )
-            )}
+            {Array.from({ length: 21 }, (_, i) => i).map(i => (
+              <NotificationCard key={i} postImageClassName='sm:h-14 sm:w-14' />
+            ))}
           </div>
         </main>
       </div>

@@ -13,74 +13,87 @@ import Link from 'next/link'
 import { useRef } from 'react'
 import { Navigator } from '@/components/custom'
 import { scroll } from '@/functions/scroll'
+import {
+  Apartment,
+  ArrowBack,
+  ArrowForward,
+  Info,
+  Movie,
+  Link as LinkIcon,
+  Code,
+  Map,
+  People,
+  Verified
+} from '@mui/icons-material'
+import { IconType } from '@/types/icon'
 
-const tabs: (FieldType & { icon: string; href: string })[] = [
+const tabs: (FieldType & { Icon: IconType; href: string })[] = [
   {
     label: 'Edit Company Profile',
     value: 'edit-profile',
-    icon: 'apartment',
+    Icon: Apartment,
     href: '/dashboard/company'
   },
   {
     label: 'Bio',
     href: '/dashboard/company/bio',
     value: 'bio',
-    icon: 'info'
+    Icon: Info
   },
   {
     label: 'Productions',
     href: '/dashboard/company/productions',
     value: 'productions',
-    icon: 'movie'
+    Icon: Movie
   },
 
   {
     label: 'DemoReel',
     href: '/dashboard/company/demoreel',
     value: 'demoreel',
-    icon: 'movie'
+    Icon: Movie
   },
   {
     label: 'Links',
     href: '/dashboard/company/links',
     value: 'links',
-    icon: 'link'
+    Icon: LinkIcon
   },
   {
     label: 'Skills',
     href: '/dashboard/company/skills',
     value: 'skills',
-    icon: 'code'
+    Icon: Code
   },
   {
     label: 'Softwares',
     href: '/dashboard/company/softwares',
     value: 'softwares',
-    icon: 'code'
+    Icon: Code
   },
   {
     label: 'Address',
     href: '/dashboard/company/address',
     value: 'address',
-    icon: 'map'
+    Icon: Map
   },
   {
     label: 'Members',
     href: '/dashboard/company/recruiters',
     value: 'recruiters',
-    icon: 'people'
+    Icon: People
   },
   {
     label: 'Company',
     href: '/dashboard/company/new',
-    icon: 'apartment',
+    Icon: Apartment,
     value: 'new-company'
   },
   {
     label: 'Verification',
     href: '/dashboard/company/verification',
     value: 'verification',
-    icon: 'verified'
+    Icon: Verified
   }
 ]
 
@@ -115,13 +128,13 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
               <Tabs tabs={tabs} className='md:px-4' />
             </div>
             <Navigator
-              icon='arrow_back'
+              Icon={ArrowBack}
               className='absolute left-0 top-1/2 -translate-y-1/2 bg-lightAccent/50 rounded-full h-8 w-8'
               iconClassName='text-sm'
               onClick={() => scroll({ ref: scrollerRef, direction: 'left' })}
             />
             <Navigator
-              icon='arrow_forward'
+              Icon={ArrowForward}
               className='absolute right-0 top-1/2 -translate-y-1/2 bg-lightAccent/50 rounded-full h-8 w-8'
               iconClassName='text-sm'
               onClick={() => scroll({ ref: scrollerRef, direction: 'right' })}

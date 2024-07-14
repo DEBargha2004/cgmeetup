@@ -29,27 +29,35 @@ import Link from 'next/link'
 import background from '@/../public/images/cover-image.jpg'
 import Image from 'next/image'
 import CategorySelect from './_components/category-select'
+import {
+  FeaturedPlayList,
+  Language,
+  Person,
+  Schedule,
+  Sort,
+  TrendingUp
+} from '@mui/icons-material'
 
 const tabList1: TabItem[] = [
   {
     label: 'Community',
     href: '/gallery',
-    icon: 'language'
+    Icon: Language
   },
   {
     label: 'Trending',
     href: '/gallery/trending',
-    icon: 'trending_up'
+    Icon: TrendingUp
   },
   {
     label: 'Featured',
-    icon: 'featured_play_list',
+    Icon: FeaturedPlayList,
     href: '/gallery/featured'
   },
   {
     label: 'Latest',
     href: '/gallery/latest',
-    icon: 'schedule'
+    Icon: Schedule
   }
 ]
 
@@ -77,7 +85,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
                 <Sheet>
                   <SheetTrigger asChild>
                     <div className='flex items-center gap-1 cursor-pointer'>
-                      <MaterialSymbolIcon>sort</MaterialSymbolIcon>
+                      <Sort />
                       <span>Filter</span>
                     </div>
                   </SheetTrigger>
@@ -94,9 +102,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
               <div>
                 <Link href={'/artists'}>
                   <Button>
-                    <MaterialSymbolIcon className='mr-2'>
-                      person
-                    </MaterialSymbolIcon>
+                    <Person className='mr-2' />
                     <span>Find Artist</span>
                   </Button>
                 </Link>
@@ -127,7 +133,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
             </div>
             <section className='flex xs:justify-start justify-center items-center gap-10 px-2'>
               <CategorySelect />
-              <Carousel className='w-[calc(100%-210px)] xs:block hidden'>
+              <Carousel className='w-[calc(100%-220px)] xs:block hidden'>
                 <CarouselContent className=''>
                   {sample_cateories.map((cat, index) => (
                     <CarouselItem className='basis-auto' key={cat}>

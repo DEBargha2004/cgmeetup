@@ -1,6 +1,8 @@
 'use client'
 
 import { useGlobalAppStore } from '@/store/global-app-store'
+import { IconType } from '@/types/icon'
+import { Bookmark, Chat, Dashboard, Edit, Image, Logout, Notifications, Person, SlowMotionVideo, Smartphone, Work } from '@mui/icons-material'
 
 type ProfileItem =
   | {
@@ -8,7 +10,7 @@ type ProfileItem =
       label: string
       href: string
       type: 'link'
-      icon: string
+      Icon: IconType
     }
   | { type: 'separator' }
 
@@ -18,28 +20,28 @@ export const profileItems: ProfileItem[] = [
     label: 'Profile',
     href: '/@tuit',
     type: 'link',
-    icon: 'person'
+    Icon: Person
   },
   {
     type: 'link',
     id: 'edit-profile',
     label: 'Edit Profile',
     href: '/dashboard/profile',
-    icon: 'edit'
+    Icon: Edit
   },
   {
     id: 'dashboard',
     label: 'Dashboard',
     href: '/dashboard',
     type: 'link',
-    icon: 'dashboard'
+    Icon: Dashboard
   },
   {
     type: 'link',
     id: 'feed',
     label: 'Feed',
     href: '/feed',
-    icon: 'smartphone'
+    Icon: Smartphone
   },
   {
     type: 'separator'
@@ -49,21 +51,21 @@ export const profileItems: ProfileItem[] = [
     id: 'chat',
     label: 'Chat',
     href: '/chat',
-    icon: 'chat'
+    Icon: Chat
   },
   {
     type: 'link',
     label: 'Bookmarks',
     id: 'bookmarks',
     href: '/dashboard/bookmarks',
-    icon: 'bookmark'
+    Icon: Bookmark
   },
   {
     type: 'link',
     id: 'notifications',
     href: '/dashboard/notifications',
     label: 'Notifications',
-    icon: 'notifications'
+    Icon: Notifications
   },
   {
     type: 'separator'
@@ -73,7 +75,7 @@ export const profileItems: ProfileItem[] = [
     label: 'Logout',
     href: '/logout',
     type: 'link',
-    icon: 'logout'
+    Icon: Logout
   }
 ]
 
@@ -83,28 +85,28 @@ export const uploadButtonItems: ProfileItem[] = [
     label: 'Add Artwork',
     href: '/dashboard/gallery/create',
     type: 'link',
-    icon: 'photo'
+    Icon: Image
   },
   {
     type: 'link',
     id: 'add-demoreel',
     label: 'Add DemoReel',
     href: '/dashboard/gallery/create',
-    icon: 'slow_motion_video'
+    Icon: SlowMotionVideo
   },
   {
     type: 'link',
     id: 'add-making-of',
     label: 'Add Making Of',
     href: '/dashboard/gallery/create',
-    icon: 'slow_motion_video'
+    Icon: SlowMotionVideo
   },
   {
     type: 'link',
     id: 'add-short-film',
     label: 'Add Short Film',
     href: '/dashboard/gallery/create',
-    icon: 'slow_motion_video'
+    Icon: SlowMotionVideo
   },
 
   {
@@ -115,6 +117,6 @@ export const uploadButtonItems: ProfileItem[] = [
     id: 'add-job',
     label: 'Add Job',
     href: '/dashboard/jobs/create',
-    icon: 'work'
+    Icon: Work
   }
 ]

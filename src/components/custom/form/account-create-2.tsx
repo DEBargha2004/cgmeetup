@@ -30,6 +30,7 @@ import {
   InputOTPSlot
 } from '@/components/ui/input-otp'
 import { Button } from '@/components/ui/button'
+import { Edit, Visibility, VisibilityOff } from '@mui/icons-material'
 
 const userType = ['Artist', 'Bussiness']
 
@@ -111,9 +112,7 @@ export default function AccountCreateForm2 ({}: {}) {
             flex justify-center items-center cursor-pointer'
               {...profileDropZone.getRootProps()}
             >
-              <MaterialSymbolIcon className='opacity-100 text-base text-primary'>
-                edit
-              </MaterialSymbolIcon>
+              <Edit className='text-primary' />
             </div>
           </div>
         </div>
@@ -149,9 +148,7 @@ export default function AccountCreateForm2 ({}: {}) {
                       className='absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer'
                       onClick={() => setShowPassword(prev => !prev)}
                     >
-                      <MaterialSymbolIcon>
-                        {showPassword ? 'visibility' : 'visibility_off'}
-                      </MaterialSymbolIcon>
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
                     </div>
                   </div>
                 </FormControl>

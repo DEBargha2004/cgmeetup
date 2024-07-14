@@ -1,10 +1,22 @@
+import { IconType } from '@/types/icon'
+import {
+  AddShoppingCart,
+  Apartment,
+  Chat,
+  Image,
+  Newspaper,
+  Notifications,
+  Person,
+  Work
+} from '@mui/icons-material'
+
 type NavItem =
   | {
       type: 'item'
       id: string
       label: string
       href: string
-      icon: string
+      Icon: IconType
       catch_routes?: string[]
     }
   | { type: 'separator' }
@@ -15,7 +27,7 @@ export const navItems: NavItem[] = [
     id: 'gallery',
     label: 'Gallery',
     href: '/gallery',
-    icon: 'imagesmode',
+    Icon: Image,
     catch_routes: [
       '/gallery/trending',
       '/gallery/latest',
@@ -28,7 +40,7 @@ export const navItems: NavItem[] = [
     id: 'jobs',
     label: 'Jobs',
     href: '/jobs',
-    icon: 'work',
+    Icon: Work,
     catch_routes: ['/jobs', '/jobs/latest', '/jobs/trending', '/jobs/featured']
   },
   {
@@ -36,7 +48,7 @@ export const navItems: NavItem[] = [
     id: 'news',
     label: 'News',
     href: '/news',
-    icon: 'newspaper',
+    Icon: Newspaper,
     catch_routes: ['/news']
   },
   {
@@ -44,7 +56,7 @@ export const navItems: NavItem[] = [
     id: 'artists',
     label: 'Artists',
     href: '/artists',
-    icon: 'person',
+    Icon: Person,
     catch_routes: ['/artists', '/artists/latest', '/artists/trending']
   },
   {
@@ -52,7 +64,7 @@ export const navItems: NavItem[] = [
     id: 'company',
     label: 'Companies',
     href: '/companies',
-    icon: 'apartment',
+    Icon: Apartment,
     catch_routes: ['/companies', '/companies/latest', '/companies/trending']
   }
 ]
@@ -66,20 +78,20 @@ export const extraNavItems: NavItem[] = [
     id: 'notifications',
     label: 'Notifications',
     href: '/notifications',
-    icon: 'notifications'
+    Icon: Notifications
   },
   {
     type: 'item',
     id: 'chat',
     href: '/chat',
     label: 'Chat',
-    icon: 'chat'
+    Icon: Chat
   },
   {
     type: 'item',
     id: 'cart',
     href: '',
     label: 'Cart',
-    icon: 'add_shopping_cart'
+    Icon: AddShoppingCart
   }
 ]

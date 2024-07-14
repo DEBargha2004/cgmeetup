@@ -16,6 +16,10 @@ import { useForm } from 'react-hook-form'
 import MaterialSymbolIcon from '../material-symbol-icon'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
+import {
+  VisibilityOff,
+  Visibility as VisibilityIcon
+} from '@mui/icons-material'
 
 export default function PasswordForm () {
   const form = useForm<PasswordSchemaType>({
@@ -111,11 +115,7 @@ function Visibility ({
 }: { visibility: boolean } & HTMLProps<HTMLDivElement>) {
   return (
     <div {...props} className={cn('select-none cursor-pointer', className)}>
-      {visibility ? (
-        <MaterialSymbolIcon>visibility</MaterialSymbolIcon>
-      ) : (
-        <MaterialSymbolIcon>visibility_off</MaterialSymbolIcon>
-      )}
+      {visibility ? <VisibilityIcon /> : <VisibilityOff />}
     </div>
   )
 }

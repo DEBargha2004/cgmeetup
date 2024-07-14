@@ -4,6 +4,7 @@ import { Badge } from '../ui/badge'
 import { MapPin } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import MaterialSymbolIcon from './material-symbol-icon'
+import { LocationOn } from '@mui/icons-material'
 
 export default function FeaturedJobCard ({
   className,
@@ -35,7 +36,7 @@ export default function FeaturedJobCard ({
         </h1>
         <h2 className='text-xs opacity-70'>Ubisoft Studio</h2>
         <Badge className='text-xs space-x-1 border-none px-0'>
-          <MaterialSymbolIcon classID='mr-2'>location_on</MaterialSymbolIcon>
+          <LocationOn className='mr-2' />
           <span className='text-xs opacity-70'>Los Angeles, USA</span>
         </Badge>
       </div>

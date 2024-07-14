@@ -15,6 +15,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import MaterialSymbolIcon from '../material-symbol-icon'
+import { Login } from '@mui/icons-material'
 
 export default function SignInForm () {
   const form = useForm<SignInSchemaType>({
@@ -54,9 +55,7 @@ export default function SignInForm () {
           )}
         />
         <Button className='w-28 mx-auto'>
-          <MaterialSymbolIcon className='mr-2 opacity-100'>
-            login
-          </MaterialSymbolIcon>
+          <Login className='mr-2' />
           Sign In
         </Button>
         <div className='text-center'>

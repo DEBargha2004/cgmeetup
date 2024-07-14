@@ -7,6 +7,7 @@ import {
   DropdownMenuTrigger
 } from '../ui/dropdown-menu'
 import MaterialSymbolIcon from './material-symbol-icon'
+import { Check } from '@mui/icons-material'
 
 export default function MultiSelect ({
   values,
@@ -58,7 +59,7 @@ export default function MultiSelect ({
                 selectedValues.includes(value) ? '' : 'opacity-0'
               )}
             >
-              <MaterialSymbolIcon>check</MaterialSymbolIcon>
+              <Check />
             </div>
             {value}
           </DropdownMenuItem>

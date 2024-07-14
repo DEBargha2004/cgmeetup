@@ -6,6 +6,7 @@ import profile from '@/../public/images/profile-1.jpg'
 import { MaterialSymbolIcon } from '@/components/custom'
 import Link from 'next/link'
 import { DialogClose } from '@/components/ui/dialog'
+import { Close, Edit } from '@mui/icons-material'
 
 export default function RecruiterDialogComponent () {
   return (
@@ -18,9 +19,7 @@ export default function RecruiterDialogComponent () {
         <div className='flex justify-center items-center gap-1'>
           <h1 className='text-lg'>John Doe</h1>
           <Link href={'/dashboard/profile'}>
-            <MaterialSymbolIcon className='text-sm text-primary'>
-              edit
-            </MaterialSymbolIcon>
+            <Edit className='text-primary h-4' />
           </Link>
         </div>
         <p className='text-xs'>Recruiter</p>
@@ -49,7 +48,7 @@ export default function RecruiterDialogComponent () {
       </div>
       <DialogClose className='absolute top-2 right-2'>
         <div className='h-8 w-8 rounded-full bg-lightAccent/70 grid place-content-center'>
-          <MaterialSymbolIcon className='text-sm'>close</MaterialSymbolIcon>
+          <Close className='h-4' />
         </div>
       </DialogClose>
     </div>

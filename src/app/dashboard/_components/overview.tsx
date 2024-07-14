@@ -56,7 +56,7 @@ const data = [
 export function Overview () {
   return (
     <ResponsiveContainer width='100%' height={350}>
-      <BarChart data={data}>
+      <BarChart data={data} className='barchart'>
         <XAxis
           dataKey='name'
           stroke='#888888'

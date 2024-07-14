@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import { ChevronLeft, PlusCircle } from 'lucide-react'
 
 import { Badge } from '@/components/ui/badge'
 import {
@@ -13,14 +12,7 @@ import {
   BreadcrumbSeparator
 } from '@/components/ui/breadcrumb'
 import { Button } from '@/components/ui/button'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle
-} from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import {
@@ -33,22 +25,12 @@ import {
 import { Textarea } from '@/components/ui/textarea'
 import { Cropper, MaterialSymbolIcon } from '@/components/custom'
 import { Switch } from '@/components/ui/switch'
-import {
-  gallery_post_categories,
-  sample_cateories
-} from '@/constants/categories'
+import { sample_cateories } from '@/constants/categories'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu'
-import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import PostImage from './_components/post-image'
 import { useDropzone } from 'react-dropzone'
-import UploadType from './_components/upload-type'
+import { UploadType } from '@/components/custom'
 import {
   Dialog,
   DialogContent,
@@ -59,6 +41,16 @@ import {
 import { FieldType } from '@/types/field-type'
 import { ReactCropperElement } from 'react-cropper'
 import { FancyMultiSelect } from '@/components/ui/fancy-multi-select'
+import {
+  FourK,
+  Rocket,
+  Upload,
+  Image as ImageIcon,
+  Crop,
+  Delete,
+  PhotoLibrary,
+  SlowMotionVideo
+} from '@mui/icons-material'
 
 const upload_types: { icon: string; title: string; description: string }[] = [
   {
@@ -255,7 +247,7 @@ export default function Dashboard () {
                         // title='Images'
                         // supportedTypes='JPG, PNG, GIF'
                         {...mainFeedDropzone.getRootProps({
-                          icon: 'photo_library',
+                          Icon: PhotoLibrary,
                           title: 'Images',
                           supportedTypes: 'JPG, PNG, GIF'
                         })}
@@ -266,7 +258,7 @@ export default function Dashboard () {
                           <UploadType
                             title='Video'
                             supportedTypes='Youtube, Vimeo'
-                            icon='slow_motion_video'
+                            Icon={SlowMotionVideo}
                           />
                         </DialogTrigger>
                         <DialogContent className='p-0 space-y-0 bg-darkAccent max-w-[600px]'>
@@ -323,9 +315,7 @@ export default function Dashboard () {
                         variant='outline'
                         className='cursor-pointer hover:bg-lightAccent/70'
                       >
-                        <MaterialSymbolIcon className='mr-2'>
-                          upload_2
-                        </MaterialSymbolIcon>
+                        <Upload className='mr-2' />
                         <span>Upload Media files</span>
                       </Badge>
 
@@ -352,9 +342,7 @@ export default function Dashboard () {
                 )}
                 <p className='text-center text-sm text-wrap gap-1'>
                   <span className='text-primary'>
-                    <MaterialSymbolIcon className=' text-xl'>
-                      4k
-                    </MaterialSymbolIcon>
+                    <FourK className='h-5' />
                     &nbsp; Upgrade your account
                   </span>
                   &nbsp; to upload images and videos in 4K
@@ -461,9 +449,7 @@ export default function Dashboard () {
                           </SelectContent>
                         </Select>
                         <Button variant={'success'}>
-                          <MaterialSymbolIcon className='mr-2'>
-                            rocket
-                          </MaterialSymbolIcon>
+                          <Rocket className='mr-2'>rocket</Rocket>
                           Publish
                         </Button>
                       </div>
@@ -529,7 +515,7 @@ export default function Dashboard () {
                         )
                       ) : (
                         <div className='h-full w-full flex flex-col justify-center items-center'>
-                          <MaterialSymbolIcon>image</MaterialSymbolIcon>
+                          <ImageIcon />
                           <p className='text-sm text-white opacity-70 text-center'>
                             Upload or drag & drop image
                           </p>
@@ -552,9 +538,7 @@ export default function Dashboard () {
                             }))
                           }}
                         >
-                          <MaterialSymbolIcon className='mr-2 text-primary opacity-100'>
-                            crop
-                          </MaterialSymbolIcon>
+                          <Crop className='mr-2 text-primary' />
                           <span>Crop</span>
                         </Badge>
                       )}
@@ -564,9 +548,7 @@ export default function Dashboard () {
                         className='cursor-pointer hover:bg-darkAccent/80'
                         {...thumbnailDropzone.getRootProps()}
                       >
-                        <MaterialSymbolIcon className='mr-2 text-primary opacity-100'>
-                          upload_2
-                        </MaterialSymbolIcon>
+                        <Upload className='mr-2 text-primary' />
                         <span>Upload</span>
                       </Badge>
                     </div>
@@ -585,9 +567,7 @@ export default function Dashboard () {
                             )
                           }}
                         >
-                          <MaterialSymbolIcon className='mr-2'>
-                            delete
-                          </MaterialSymbolIcon>
+                          <Delete className='mr-2' />
                           <span>Remove thumbnail</span>
                         </Button>
                       </div>
@@ -604,9 +584,7 @@ export default function Dashboard () {
                       className='min-w-24 '
                       type='button'
                     >
-                      <MaterialSymbolIcon className='mr-2'>
-                        delete
-                      </MaterialSymbolIcon>
+                      <Delete className='mr-2' />
                       Delete Post
                     </Button>
                   </CardContent>

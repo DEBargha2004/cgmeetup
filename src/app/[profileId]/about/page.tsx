@@ -26,6 +26,13 @@ import {
 import resume from '@/../public/images/resume.jpg'
 import poster from '@/../public/images/poster.jpg'
 import Link from 'next/link'
+import {
+  Close,
+  Download,
+  Edit,
+  OpenInNew,
+  Visibility
+} from '@mui/icons-material'
 
 function EditIcon ({ className, ...props }: {} & HTMLProps<HTMLDivElement>) {
   return (
@@ -36,9 +43,7 @@ function EditIcon ({ className, ...props }: {} & HTMLProps<HTMLDivElement>) {
       )}
       {...props}
     >
-      <MaterialSymbolIcon className='opacity-100 text-primary'>
-        edit
-      </MaterialSymbolIcon>
+      <Edit className='text-primary' />
     </div>
   )
 }
@@ -87,10 +92,8 @@ export default function AboutPage () {
               className='bg-transparent hover:bg-primary text-primary hover:text-white'
               variant={'outline'}
             >
-              <MaterialSymbolIcon className='mr-2 opacity-100'>
-                edit
-              </MaterialSymbolIcon>
-              Edit Profile
+              <Edit className='mr-2' />
+              <span>Edit Profile</span>
             </Button>
           </Link>
         }
@@ -229,7 +232,7 @@ export default function AboutPage () {
           <Dialog>
             <DialogTrigger asChild>
               <div className='flex justify-start items-center gap-2 cursor-pointer'>
-                <MaterialSymbolIcon>visibility</MaterialSymbolIcon>
+                <Visibility />
                 <p className='opacity-60 hover:opacity-100 transition-all cursor-pointer'>
                   View Resume
                 </p>
@@ -249,14 +252,14 @@ export default function AboutPage () {
                 />
                 <DialogClose className='absolute top-3 right-3'>
                   <div className='h-8 w-8 rounded-full bg-lightAccent/70 hover:bg-lightAccent/90 grid place-content-center shrink-0'>
-                    <MaterialSymbolIcon>close</MaterialSymbolIcon>
+                    <Close />
                   </div>
                 </DialogClose>
               </div>
             </DialogContent>
           </Dialog>
           <div className='flex justify-start items-center gap-2 cursor-pointer'>
-            <MaterialSymbolIcon>download</MaterialSymbolIcon>
+            <Download />
             <p className='opacity-60 hover:opacity-100 transition-all cursor-pointer'>
               Download Resume
             </p>
@@ -269,19 +272,19 @@ export default function AboutPage () {
       >
         <p className='flex justify-center items-center gap-1 cursor-pointer w-full shrink-0'>
           Twitter
-          <MaterialSymbolIcon>open_in_new</MaterialSymbolIcon>
+          <OpenInNew />
         </p>
         <p className='flex justify-center items-center gap-1 cursor-pointer w-full shrink-0'>
           Instagram
-          <MaterialSymbolIcon>open_in_new</MaterialSymbolIcon>
+          <OpenInNew />
         </p>
         <p className='flex justify-center items-center gap-1 cursor-pointer w-full shrink-0'>
           Youtube
-          <MaterialSymbolIcon>open_in_new</MaterialSymbolIcon>
+          <OpenInNew />
         </p>
         <p className='flex justify-center items-center gap-1 cursor-pointer w-full shrink-0'>
           Website
-          <MaterialSymbolIcon>open_in_new</MaterialSymbolIcon>
+          <OpenInNew />
         </p>
       </AboutSectionItemsWrapper>
     </section>

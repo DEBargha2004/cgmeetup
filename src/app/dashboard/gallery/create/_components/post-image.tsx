@@ -3,6 +3,8 @@ import { Textarea } from '@/components/ui/textarea'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import { HTMLProps, forwardRef } from 'react'
+import ImageIcon from '@mui/icons-material/Image'
+import { Delete } from '@mui/icons-material'
 
 type PostImage = { id: string; url: string; type: string; caption: string }
 
@@ -27,17 +29,14 @@ const PostImage = forwardRef<
       <div className='absolute w-full h-8 top-2 left-0 flex justify-between items-center p-2'>
         <div className='flex justify-between items-center gap-3'>
           <div className='h-8 w-8 rounded-full flex justify-center items-center bg-darkAccent/50'>
-            <MaterialSymbolIcon className='text-sm'>image</MaterialSymbolIcon>
+            <ImageIcon className='h-4' />
           </div>
         </div>
         <div className='h-8 w-8 rounded-full flex justify-center items-center bg-darkAccent/50'>
-          <MaterialSymbolIcon
-            variant='filled'
-            className=' text-red-500 opacity-100 cursor-pointer text-sm'
+          <Delete
+            className='text-red-500 cursor-pointer h-4'
             onClick={() => onDelete(image.id)}
-          >
-            delete
-          </MaterialSymbolIcon>
+          />
         </div>
       </div>
     </div>

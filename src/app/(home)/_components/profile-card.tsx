@@ -3,6 +3,7 @@ import avatar from '@/../public/images/profile-1.jpg'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { MaterialSymbolIcon } from '@/components/custom'
+import { PersonAdd } from '@mui/icons-material'
 
 export default function ProfileCard ({ className }: { className?: string }) {
   return (
@@ -25,9 +26,7 @@ export default function ProfileCard ({ className }: { className?: string }) {
       </div>
       <Button className='w-fit h-7 px-2'>
         <span className='mr-1 font-semibold text-sm'>Follow</span>
-        <MaterialSymbolIcon className='text-base'>
-          person_add
-        </MaterialSymbolIcon>
+        <PersonAdd className='text-base' />
       </Button>
     </div>
   )

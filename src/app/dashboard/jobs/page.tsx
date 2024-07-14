@@ -41,6 +41,15 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { MaterialSymbolIcon } from '@/components/custom'
 import { useState } from 'react'
+import {
+  Comment,
+  Delete,
+  Edit,
+  Favorite,
+  MoreVert,
+  Visibility
+} from '@mui/icons-material'
+import { IconType } from '@/types/icon'
 
 type FieldType = { label: string; value: string }
 
@@ -50,10 +59,10 @@ const filter: FieldType[] = [
   { label: 'Oldest', value: 'oldest' }
 ]
 
-const info_options: (FieldType & { icon: string })[] = [
-  { label: 'Edit', value: 'edit', icon: 'edit' },
-  { label: 'View', value: 'view', icon: 'visibility' },
-  { label: 'Delete', value: 'delete', icon: 'delete' }
+const info_options: (FieldType & { Icon: IconType })[] = [
+  { label: 'Edit', value: 'edit', Icon: Edit },
+  { label: 'View', value: 'view', Icon: Visibility },
+  { label: 'Delete', value: 'delete', Icon: Delete }
 ]
 
 export default function Gallery () {
@@ -199,17 +208,15 @@ export default function Gallery () {
                         <TableCell className='hidden md:table-cell'>
                           <div className='flex lg:flex-row flex-col justify-start items-center gap-3'>
                             <div className='flex justify-center items-center gap-1'>
-                              <MaterialSymbolIcon>favorite</MaterialSymbolIcon>
+                              <Favorite />
                               <span>2</span>
                             </div>
                             <div className='flex justify-center items-center gap-1'>
-                              <MaterialSymbolIcon>
-                                visibility
-                              </MaterialSymbolIcon>
+                              <Visibility />
                               <span>2</span>
                             </div>
                             <div className='flex justify-center items-center gap-1'>
-                              <MaterialSymbolIcon>comment</MaterialSymbolIcon>
+                              <Comment />
                               <span>2</span>
                             </div>
                           </div>
@@ -228,20 +235,13 @@ export default function Gallery () {
                                 size='icon'
                                 variant='ghost'
                               >
-                                <MaterialSymbolIcon
-                                  variant='filled'
-                                  className='opacity-100'
-                                >
-                                  more_vert
-                                </MaterialSymbolIcon>
+                                <MoreVert />
                               </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align='end'>
                               {info_options.map(item => (
                                 <DropdownMenuItem key={item.value}>
-                                  <MaterialSymbolIcon className='mr-2'>
-                                    {item.icon}
-                                  </MaterialSymbolIcon>
+                                  <item.Icon className='mr-2' />
                                   {item.label}
                                 </DropdownMenuItem>
                               ))}

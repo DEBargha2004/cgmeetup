@@ -1,13 +1,14 @@
 import { MaterialSymbolIcon } from '@/components/custom'
 import { cn } from '@/lib/utils'
+import { IconType } from '@/types/icon'
 import { HTMLProps } from 'react'
 
 export default function Navigator ({
-  icon,
+  Icon,
   className,
   iconClassName,
   ...props
-}: { icon: string; iconClassName?: string } & HTMLProps<HTMLDivElement>) {
+}: { Icon: IconType; iconClassName?: string } & HTMLProps<HTMLDivElement>) {
   return (
     <div
       className={cn(
@@ -17,11 +18,7 @@ export default function Navigator ({
       )}
       {...props}
     >
-      <MaterialSymbolIcon
-        className={cn('text-2xl opacity-100 select-none', iconClassName)}
-      >
-        {icon}
-      </MaterialSymbolIcon>
+      <Icon className={cn('h-8e', iconClassName)} />
     </div>
   )
 }

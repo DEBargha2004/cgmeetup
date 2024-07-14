@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { MaterialSymbolIcon } from '@/components/custom'
 import postimage from '@/../public/images/dog-vertical.webp'
 import { cn } from '@/lib/utils'
+import { Favorite } from '@mui/icons-material'
 export default function LatestLikes ({ className }: { className?: string }) {
   return (
     <LatestSectionContainer className={cn('border', className)}>
@@ -31,7 +32,7 @@ export default function LatestLikes ({ className }: { className?: string }) {
                 </span>
               </div>
               <div className='flex justify-start items-center gap-2 opacity-70'>
-                <MaterialSymbolIcon>favorite</MaterialSymbolIcon>
+                <Favorite fontSize='small' />
                 <span>3</span>
               </div>
             </div>

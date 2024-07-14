@@ -33,6 +33,24 @@ import {
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useDropzone } from 'react-dropzone'
+import {
+  ArrowDropDown,
+  FormatAlignCenter,
+  FormatAlignJustify,
+  FormatAlignLeft,
+  FormatAlignRight,
+  FormatBold,
+  FormatItalic,
+  FormatListBulleted,
+  FormatListNumbered,
+  FormatStrikethrough,
+  FormatUnderlined,
+  Subscript,
+  Superscript,
+  Image as ImageIcon,
+  Videocam
+} from '@mui/icons-material'
+import { IconType } from '@/types/icon'
 
 type TextType = { element: JSX.Element; level: number; label: string }
 export default function EditorMenuBar () {
@@ -143,9 +161,7 @@ export default function EditorMenuBar () {
               <p className=' flex justify-start'>
                 {textTypes.find(type => type.level === currentTextType)?.label}
               </p>
-              <MaterialSymbolIcon className='text-sm'>
-                arrow_drop_down
-              </MaterialSymbolIcon>
+              <ArrowDropDown className='h-[14px]' />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
@@ -177,7 +193,7 @@ export default function EditorMenuBar () {
           onClick={() => editor.chain().focus().toggleBold().run()}
           size={'icon'}
         >
-          <MaterialSymbolIcon>format_bold</MaterialSymbolIcon>
+          <FormatBold />
         </Button>
         <Button
           variant={editor.isActive('italic') ? 'secondary' : 'light_ghost'}
@@ -185,7 +201,7 @@ export default function EditorMenuBar () {
           onClick={() => editor.chain().focus().toggleItalic().run()}
           size={'icon'}
         >
-          <MaterialSymbolIcon>format_italic</MaterialSymbolIcon>
+          <FormatItalic />
         </Button>
         <Button
           variant={editor.isActive('underline') ? 'secondary' : 'light_ghost'}
@@ -193,7 +209,7 @@ export default function EditorMenuBar () {
           onClick={() => editor.chain().focus().toggleUnderline().run()}
           size={'icon'}
         >
-          <MaterialSymbolIcon>format_underlined</MaterialSymbolIcon>
+          <FormatUnderlined />
         </Button>
         <Button
           variant={editor.isActive('strike') ? 'secondary' : 'light_ghost'}
@@ -201,7 +217,7 @@ export default function EditorMenuBar () {
           onClick={() => editor.chain().focus().toggleStrike().run()}
           size={'icon'}
         >
-          <MaterialSymbolIcon>format_strikethrough</MaterialSymbolIcon>
+          <FormatStrikethrough />
         </Button>
         <Button
           variant={editor.isActive('subscript') ? 'secondary' : 'light_ghost'}
@@ -209,7 +225,7 @@ export default function EditorMenuBar () {
           onClick={() => editor.chain().focus().toggleSubscript().run()}
           size={'icon'}
         >
-          <MaterialSymbolIcon>subscript</MaterialSymbolIcon>
+          <Subscript />
         </Button>
         <Button
           variant={editor.isActive('superscript') ? 'secondary' : 'light_ghost'}
@@ -217,7 +233,7 @@ export default function EditorMenuBar () {
           onClick={() => editor.chain().focus().toggleSuperscript().run()}
           size={'icon'}
         >
-          <MaterialSymbolIcon>superscript</MaterialSymbolIcon>
+          <Superscript />
         </Button>
       </>
       <Separator orientation='vertical' className='h-10' />
@@ -250,9 +266,7 @@ export default function EditorMenuBar () {
           <Popover>
             <PopoverTrigger asChild>
               <div className='h-10 p-[1px] hover:bg-lightAccent grid place-content-center cursor-pointer rounded'>
-                <MaterialSymbolIcon className='text-sm'>
-                  arrow_drop_down
-                </MaterialSymbolIcon>
+                <ArrowDropDown />
               </div>
             </PopoverTrigger>
             <PopoverContent className='bg-darkAccent p-1 grid gap-2 w-[240px]'>
@@ -302,7 +316,7 @@ export default function EditorMenuBar () {
           onClick={() => editor.chain().focus().toggleBulletList().run()}
           disabled={!editor.can().toggleBulletList()}
         >
-          <MaterialSymbolIcon>format_list_bulleted</MaterialSymbolIcon>
+          <FormatListBulleted />
         </Button>
         <Button
           variant={editor.isActive('orderedList') ? 'secondary' : 'light_ghost'}
@@ -310,7 +324,7 @@ export default function EditorMenuBar () {
           onClick={() => editor.chain().focus().toggleOrderedList().run()}
           disabled={!editor.can().toggleOrderedList()}
         >
-          <MaterialSymbolIcon>format_list_numbered</MaterialSymbolIcon>
+          <FormatListNumbered />
         </Button>
       </>
       <Separator orientation='vertical' className='h-10' />
@@ -318,7 +332,7 @@ export default function EditorMenuBar () {
         <Popover>
           <PopoverTrigger asChild>
             <Button size={'icon'} variant={'light_ghost'}>
-              <MaterialSymbolIcon>format_align_justify</MaterialSymbolIcon>
+              <FormatAlignJustify />
             </Button>
           </PopoverTrigger>
           <PopoverContent
@@ -340,9 +354,7 @@ export default function EditorMenuBar () {
                     editor.chain().focus().setTextAlign(type.value).run()
                   }
                 >
-                  <MaterialSymbolIcon className='text-base'>
-                    {type.icon}
-                  </MaterialSymbolIcon>
+                  <type.Icon />
                 </Button>
               ))}
             </div>
@@ -351,7 +363,7 @@ export default function EditorMenuBar () {
         <Popover>
           <PopoverTrigger asChild>
             <Button size={'icon'} variant={'light_ghost'}>
-              <MaterialSymbolIcon>image</MaterialSymbolIcon>
+              <ImageIcon />
             </Button>
           </PopoverTrigger>
           <PopoverContent className='bg-darkAccent'>
@@ -402,7 +414,7 @@ export default function EditorMenuBar () {
         <Popover>
           <PopoverTrigger asChild>
             <Button size={'icon'} variant={'light_ghost'}>
-              <MaterialSymbolIcon>videocam</MaterialSymbolIcon>
+              <Videocam />
             </Button>
           </PopoverTrigger>
           <PopoverContent className='bg-darkAccent'>
@@ -526,11 +538,11 @@ const fontSizes = [
   96
 ]
 
-const justifyTypes: { icon: string; value: string }[] = [
-  { icon: 'format_align_left', value: 'left' },
-  { icon: 'format_align_center', value: 'center' },
-  { icon: 'format_align_right', value: 'right' },
-  { icon: 'format_align_justify', value: 'justify' }
+const justifyTypes: { Icon: IconType; value: string }[] = [
+  { Icon: FormatAlignLeft, value: 'left' },
+  { Icon: FormatAlignCenter, value: 'center' },
+  { Icon: FormatAlignRight, value: 'right' },
+  { Icon: FormatAlignJustify, value: 'justify' }
 ]
 
 const color_hex = [

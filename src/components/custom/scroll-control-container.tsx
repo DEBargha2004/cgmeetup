@@ -3,6 +3,7 @@
 import { useRef, useState } from 'react'
 import MaterialSymbolIcon from './material-symbol-icon'
 import { cn } from '@/lib/utils'
+import { ArrowUpward } from '@mui/icons-material'
 
 export default function ScrollControlContainer ({
   children
@@ -42,7 +43,7 @@ export default function ScrollControlContainer ({
         )}
         onClick={scrollToTop}
       >
-        <MaterialSymbolIcon>arrow_upward</MaterialSymbolIcon>
+        <ArrowUpward />
       </div>
     </div>
   )

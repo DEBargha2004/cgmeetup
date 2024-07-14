@@ -1,7 +1,7 @@
 'use client'
 
 import { useGlobalAppStore } from '@/store/global-app-store'
-import { Dialog, DialogContent } from '../ui/dialog'
+import { Dialog, DialogClose, DialogContent } from '../ui/dialog'
 import { useForm } from 'react-hook-form'
 import { JobPostSchemaType, jobPostSchema } from '@/schema/job-post'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -42,6 +42,7 @@ import { getShortendName } from '@/functions'
 import { Badge } from '../ui/badge'
 import { Combobox } from '../ui/combobox'
 import { FancyMultiSelect } from '../ui/fancy-multi-select'
+import { Close, Delete, KeyboardArrowDown } from '@mui/icons-material'
 
 const locations = [
   'Lagos, Nigeria',
@@ -119,6 +120,14 @@ export default function JobCreateDialog () {
         max-h-[calc(100vh-20px)] flex justify-start items-start gap-2'
         hideCloseButton
       >
+        <DialogClose className='absolute right-1 top-1'>
+          <div
+            className='h-5 w-5 rounded-full grid place-content-center bg-lightAccent/50 hover:bg-lightAccent/90 
+           cursor-pointer'
+          >
+            <Close className='h-3 opacity-70' />
+          </div>
+        </DialogClose>
         <Avatar className='h-14 w-14'>
           <AvatarImage src={avatar.src} />
           <AvatarFallback>{getShortendName('John Doe')}</AvatarFallback>
@@ -321,9 +330,7 @@ export default function JobCreateDialog () {
                       &nbsp;
                       {!_.isNull(upperLimit) ? `${upperLimit} LPA` : null}
                     </span>
-                    <MaterialSymbolIcon className='select-none'>
-                      keyboard_arrow_down
-                    </MaterialSymbolIcon>
+                    <KeyboardArrowDown />
                   </div>
                 </PopoverTrigger>
                 <PopoverContent
@@ -543,9 +550,7 @@ export default function JobCreateDialog () {
             </div>
             <div className='flex justify-between items-center gap-2'>
               <Badge className='h-8 flex justify-start items-center gap-1 cursor-pointer'>
-                <MaterialSymbolIcon className='text-sm opacity-100'>
-                  delete
-                </MaterialSymbolIcon>
+                <Delete className='h-3' />
                 <span>Delete</span>
               </Badge>
               <Button type='submit' className='h-8'>

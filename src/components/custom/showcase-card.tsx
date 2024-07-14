@@ -7,6 +7,7 @@ import { Badge } from '../ui/badge'
 import { Button } from '../ui/button'
 import MaterialSymbolIcon from './material-symbol-icon'
 import { Card } from '../ui/card'
+import { PersonAdd } from '@mui/icons-material'
 
 export default function ShowcaseCard ({
   className,
@@ -46,9 +47,7 @@ export default function ShowcaseCard ({
                   <p className='text-sm opacity-70'>Rome,Italy</p>
                 </div>
                 <Button className='shrink-0 text-xs h-6 w-6 rounded-full p-0'>
-                  <MaterialSymbolIcon className='text-sm opacity-100'>
-                    person_add
-                  </MaterialSymbolIcon>
+                  <PersonAdd className='h-3' />
                 </Button>
               </div>
             </div>

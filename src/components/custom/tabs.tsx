@@ -37,9 +37,7 @@ export default function Tabs ({
                   )}
                 >
                   <span className='flex items-center'>
-                    <MaterialSymbolIcon className={cn('opacity-100')}>
-                      {tab.icon}
-                    </MaterialSymbolIcon>
+                    <tab.Icon />
                   </span>
                   <span className='lg:block hidden whitespace-nowrap'>
                     {tab.label}

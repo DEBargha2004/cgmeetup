@@ -7,6 +7,7 @@ import {
   PopoverContent,
   PopoverTrigger
 } from '@/components/ui/popover'
+import { EmojiEmotions } from '@mui/icons-material'
 import EmojiPicker from 'emoji-picker-react'
 
 export default function CommentInput () {
@@ -20,12 +21,7 @@ export default function CommentInput () {
         <Popover>
           <PopoverTrigger asChild>
             <div className='cursor-pointer'>
-              <MaterialSymbolIcon
-                variant='filled'
-                className='absolute top-1/2 -translate-y-1/2 left-3 text-2xl'
-              >
-                emoji_emotions
-              </MaterialSymbolIcon>
+              <EmojiEmotions className='absolute top-1/2 -translate-y-1/2 left-3 h-6' />
             </div>
           </PopoverTrigger>
           <PopoverContent

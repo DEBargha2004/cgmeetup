@@ -18,7 +18,6 @@ import {
 } from '@/components/custom/form'
 import CompanyRegistrationForm from '@/components/custom/form/company-registration'
 import { Button } from '@/components/ui/button'
-import { PhoneInput } from '@/components/ui/phone-input'
 import { cn } from '@/lib/utils'
 import { BioSchemaType, bioSchema } from '@/schema/bio'
 import {
@@ -46,6 +45,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
 import { HTMLProps, useEffect, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { Add } from '@mui/icons-material'
 
 const signUpFlow = [
   {
@@ -370,9 +370,7 @@ export default function SignUpPage () {
               subHeading='Introduce yourself to the candidates'
               extraButton={
                 <Button onClick={goNext}>
-                  <MaterialSymbolIcon className='mr-2 opacity-100'>
-                    add
-                  </MaterialSymbolIcon>
+                  <Add className='mr-2' />
                   <span>Add Company</span>
                 </Button>
               }

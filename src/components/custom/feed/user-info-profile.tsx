@@ -9,6 +9,8 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger
 } from '../../ui/dropdown-menu'
+import { Bookmark, LocationOn, MoreVert, Work } from '@mui/icons-material'
+import { IconType } from '@/types/icon'
 
 export default function UserInfoProfile ({ className }: { className?: string }) {
   return (
@@ -34,9 +36,7 @@ export default function UserInfoProfile ({ className }: { className?: string }) 
             <h1 className='text-lg md:text-xl font-semibold'>Samuel Disuoza</h1>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <MaterialSymbolIcon className='inline-block cursor-pointer'>
-                  more_vert
-                </MaterialSymbolIcon>
+                <MoreVert className='cursor-pointer' />
               </DropdownMenuTrigger>
               <DropdownMenuContent align='end'></DropdownMenuContent>
             </DropdownMenu>
@@ -45,21 +45,17 @@ export default function UserInfoProfile ({ className }: { className?: string }) 
           <p className='text-sm text-slate-200'>3 - 5 Years / USD $50 - 59</p>
           <div className='space-y-2 sm:block hidden'>
             <UserAbout
-              icon='work'
+              Icon={Work}
               description='Aug 2023 - Present'
               title='Adroit data 3D Artist'
             />
             <div className='flex justify-between gap-3'>
-              <Badge className='text-slate-300 py-0'>
-                <MaterialSymbolIcon className='mr-2 text-base'>
-                  location_on
-                </MaterialSymbolIcon>
+              <Badge className='text-slate-300'>
+                <LocationOn className='mr-2' fontSize='small' />
                 Montreal, Canada
               </Badge>
               <div className='flex items-end'>
-                <MaterialSymbolIcon className='opacity-100'>
-                  bookmark
-                </MaterialSymbolIcon>
+                <Bookmark />
               </div>
             </div>
           </div>
@@ -67,21 +63,17 @@ export default function UserInfoProfile ({ className }: { className?: string }) 
       </div>
       <div className='space-y-2 sm:hidden block col-span-4'>
         <UserAbout
-          icon='work'
+          Icon={Work}
           description='Aug 2023 - Present'
           title='Adroit data 3D Artist'
         />
         <div className='flex justify-between gap-3'>
           <Badge className='text-slate-300 py-0'>
-            <MaterialSymbolIcon className='mr-2 text-base'>
-              location_on
-            </MaterialSymbolIcon>
+            <LocationOn className='mr-2' />
             Montreal, Canada
           </Badge>
           <div className='flex items-end'>
-            <MaterialSymbolIcon className='opacity-100'>
-              bookmark
-            </MaterialSymbolIcon>
+            <Bookmark />
           </div>
         </div>
       </div>
@@ -92,18 +84,18 @@ export default function UserInfoProfile ({ className }: { className?: string }) 
 function UserAbout ({
   className,
   description,
-  icon,
+  Icon,
   title
 }: {
   className?: string
-  icon: string
+  Icon: IconType
   title: string
   description: string
 }) {
   return (
     <div className={cn('flex justify-start items-center gap-2', className)}>
       <div className='flex justify-start items-center gap-2'>
-        <MaterialSymbolIcon>{icon}</MaterialSymbolIcon>
+        <Icon />
       </div>
       <div className='flex justify-start gap-2 items-center'>
         <h1 className='sm:text-base text-sm font-semibold'>{title}</h1>

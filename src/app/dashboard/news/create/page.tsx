@@ -1,8 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import { ChevronLeft, PlusCircle } from 'lucide-react'
-
 import { Badge } from '@/components/ui/badge'
 import {
   Breadcrumb,
@@ -13,31 +11,17 @@ import {
   BreadcrumbSeparator
 } from '@/components/ui/breadcrumb'
 import { Button } from '@/components/ui/button'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle
-} from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
-import { Textarea } from '@/components/ui/textarea'
-import { Cropper, MaterialSymbolIcon, MultiSelect } from '@/components/custom'
-import { Switch } from '@/components/ui/switch'
-import {
-  gallery_post_categories,
-  sample_cateories
-} from '@/constants/categories'
+import { Cropper, MaterialSymbolIcon } from '@/components/custom'
+import { sample_cateories } from '@/constants/categories'
 import {
   HTMLProps,
   forwardRef,
@@ -46,7 +30,6 @@ import {
   useRef,
   useState
 } from 'react'
-
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import { useDropzone } from 'react-dropzone'
@@ -56,26 +39,12 @@ import { tags } from '@/constants/job-filters'
 import { FancyMultiSelect } from '@/components/ui/fancy-multi-select'
 import { ReactCropperElement } from 'react-cropper'
 import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTrigger
-} from '@/components/ui/dialog'
-import UploadType from '../../gallery/create/_components/upload-type'
-
-const upload_types: { icon: string; title: string; description: string }[] = [
-  {
-    icon: 'photo_library',
-    title: 'Images',
-    description: 'JPG, PNG, GIF'
-  },
-  {
-    icon: 'slow_motion_video',
-    title: 'Video',
-    description: 'Youtube, Vimeo'
-  }
-]
+  Rocket,
+  Image as ImageIcon,
+  Crop,
+  Upload,
+  Delete
+} from '@mui/icons-material'
 
 const visibilityOptions: FieldType[] = [
   {
@@ -265,9 +234,7 @@ export default function Dashboard () {
                           </SelectContent>
                         </Select>
                         <Button variant={'success'}>
-                          <MaterialSymbolIcon className='mr-2'>
-                            rocket
-                          </MaterialSymbolIcon>
+                          <Rocket className='mr-2' />
                           Publish
                         </Button>
                       </div>
@@ -330,7 +297,7 @@ export default function Dashboard () {
                         )
                       ) : (
                         <div className='h-full w-full flex flex-col justify-center items-center'>
-                          <MaterialSymbolIcon>image</MaterialSymbolIcon>
+                          <ImageIcon />
                           <p className='text-sm text-white opacity-70 text-center'>
                             Upload or drag & drop image
                           </p>
@@ -353,9 +320,7 @@ export default function Dashboard () {
                             }))
                           }}
                         >
-                          <MaterialSymbolIcon className='mr-2 text-primary opacity-100'>
-                            crop
-                          </MaterialSymbolIcon>
+                          <Crop className='mr-2 text-primary' />
                           <span>Crop</span>
                         </Badge>
                       )}
@@ -365,9 +330,7 @@ export default function Dashboard () {
                         className='cursor-pointer hover:bg-darkAccent/80'
                         {...thumbnailDropzone.getRootProps()}
                       >
-                        <MaterialSymbolIcon className='mr-2 text-primary opacity-100'>
-                          upload_2
-                        </MaterialSymbolIcon>
+                        <Upload className='mr-2 text-primary' />
                         <span>Upload</span>
                       </Badge>
                     </div>
@@ -386,9 +349,7 @@ export default function Dashboard () {
                             )
                           }}
                         >
-                          <MaterialSymbolIcon className='mr-2'>
-                            delete
-                          </MaterialSymbolIcon>
+                          <Delete className='mr-2' />
                           <span>Remove thumbnail</span>
                         </Button>
                       </div>
@@ -405,9 +366,7 @@ export default function Dashboard () {
                       className='min-w-24 '
                       type='button'
                     >
-                      <MaterialSymbolIcon className='mr-2'>
-                        delete
-                      </MaterialSymbolIcon>
+                      <Delete className='mr-2' />
                       Delete Post
                     </Button>
                   </CardContent>
@@ -420,22 +379,3 @@ export default function Dashboard () {
     </div>
   )
 }
-
-const PostCreateOption = forwardRef<
-  HTMLDivElement,
-  HTMLProps<HTMLDivElement> & { icon: string; label: string }
->(({ className, icon, label, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn(
-      'flex flex-col justify-center items-center gap-2 text-primary py-6 rounded hover:bg-lightAccent cursor-pointer',
-      className
-    )}
-    {...props}
-  >
-    <MaterialSymbolIcon className='text-3xl'>{icon}</MaterialSymbolIcon>
-    <span>{label}</span>
-  </div>
-))
-
-PostCreateOption.displayName = 'PostCreateOption'

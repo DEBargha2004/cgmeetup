@@ -17,6 +17,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import pdfIcon from '@/../public/images/pdf.png'
 import Image from 'next/image'
+import { Add, Check, Close, MoreVert } from '@mui/icons-material'
 
 export default function CompanyRecruiter () {
   const [showForm, setShowForm] = useState(false)
@@ -74,7 +75,7 @@ export default function CompanyRecruiter () {
             }}
             className='space-x-2'
           >
-            <MaterialSymbolIcon className=''>add</MaterialSymbolIcon>
+            <Add />
             <span className='@lg:inline hidden'>Add Member</span>
           </Button>
         }
@@ -115,18 +116,14 @@ export default function CompanyRecruiter () {
                     </div>
                     <p className='text-orange-500'>Pending</p>
                     <div className='flex justify-center items-center gap-3'>
-                      <MaterialSymbolIcon className='opacity-100 cursor-pointer text-destructive'>
-                        close
-                      </MaterialSymbolIcon>
-                      <MaterialSymbolIcon className='opacity-100 cursor-pointer text-success'>
-                        check
-                      </MaterialSymbolIcon>
+                      <Close className='cursor-pointer text-destructive' />
+                      <Check className='cursor-pointer text-success' />
                     </div>
                   </div>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <div className='cursor-pointer'>
-                        <MaterialSymbolIcon>more_vert</MaterialSymbolIcon>
+                        <MoreVert />
                       </div>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align='end'>

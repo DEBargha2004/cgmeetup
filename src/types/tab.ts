@@ -1,5 +1,7 @@
+import { IconType } from './icon'
+
 export type TabItem = {
   label: string
   href: string
-  icon: string
+  Icon: IconType
 }

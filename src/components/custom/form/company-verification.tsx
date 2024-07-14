@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import Image from 'next/image'
 import pdf from '../../../../public/images/pdf.png'
+import { CheckCircle, RemoveRedEye, Upload } from '@mui/icons-material'
 
 type FileInfo = {
   name: string
@@ -46,24 +47,17 @@ export default function CompanyVerificationForm () {
             </div>
           </Link>
           <div className='py-4 flex flex-col justify-center items-center border bg-lightAccent rounded'>
-            <MaterialSymbolIcon className='text-2xl text-primary'>
-              upload_2
-            </MaterialSymbolIcon>
+            <Upload className='h-6 text-primary' />
             <p className='text-primary'>Documented Submitted Successfully</p>
           </div>
           <div className='py-4 flex flex-col justify-center items-center border bg-lightAccent rounded'>
-            <MaterialSymbolIcon className='text-2xl text-yellow-500 opacity-100'>
-              remove_red_eye
-            </MaterialSymbolIcon>
-
+            <RemoveRedEye className='h-6 text-yellow-500' />
             <p className='text-yellow-500'>
               Account Status: You Account is under review
             </p>
           </div>
           <div className='py-4 flex flex-col justify-center items-center border bg-lightAccent rounded'>
-            <MaterialSymbolIcon className='text-2xl text-success'>
-              check_circle
-            </MaterialSymbolIcon>
+            <CheckCircle className='h-6 text-success' />
             <p className='text-success'>Verified Successfully</p>
           </div>
         </>
@@ -101,7 +95,7 @@ function VerificationForm ({
   return (
     <div className='p-3 bg-lightAccent rounded space-y-4'>
       <div className='flex justify-start items-center gap-2'>
-        <MaterialSymbolIcon>check_circle</MaterialSymbolIcon>
+        <CheckCircle />
         <h1 className='text-lg'>{heading}</h1>
       </div>
       <article className='opacity-70'>

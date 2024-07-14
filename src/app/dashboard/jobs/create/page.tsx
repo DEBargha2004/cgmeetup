@@ -68,12 +68,21 @@ import {
   PopoverContent,
   PopoverTrigger
 } from '@/components/ui/popover'
-import logo from '../../../../../public/images/company-logo.jpg'
 import _ from 'lodash'
 import { Combobox } from '@/components/ui/combobox'
 import { useDropzone } from 'react-dropzone'
 import { ReactCropperElement } from 'react-cropper'
 import { FancyMultiSelect } from '@/components/ui/fancy-multi-select'
+import {
+  Close,
+  Crop,
+  Delete,
+  Edit,
+  KeyboardArrowDown,
+  Rocket,
+  Upload
+} from '@mui/icons-material'
+import ImageIcon from '@mui/icons-material/Image'
 
 const visibilityOptions: string[] = ['Open', 'Closed']
 
@@ -438,8 +447,8 @@ export default function Dashboard () {
                               <span>
                                 {job_skills.find(s => s.value === skill)?.label}
                               </span>
-                              <MaterialSymbolIcon
-                                className='text-sm cursor-pointer'
+                              <Close
+                                className='h-4 cursor-pointer'
                                 onClick={() => {
                                   form.setValue(
                                     'skills',
@@ -448,9 +457,7 @@ export default function Dashboard () {
                                       .filter(s => s !== skill)
                                   )
                                 }}
-                              >
-                                close
-                              </MaterialSymbolIcon>
+                              />
                             </Badge>
                           ))}
                         </div>
@@ -544,9 +551,7 @@ export default function Dashboard () {
                                   ? `${upperLimit} LPA`
                                   : null}
                               </span>
-                              <MaterialSymbolIcon className='select-none'>
-                                keyboard_arrow_down
-                              </MaterialSymbolIcon>
+                              <KeyboardArrowDown />
                             </div>
                           </PopoverTrigger>
                           <PopoverContent
@@ -743,9 +748,7 @@ export default function Dashboard () {
                         variant={'outline'}
                         type='button'
                       >
-                        <MaterialSymbolIcon className='mr-2 text-primary'>
-                          edit
-                        </MaterialSymbolIcon>
+                        <Edit className='mr-2 text-primary' />
                         Edit Address Here
                       </Button>
                     </CardContent>
@@ -809,9 +812,7 @@ export default function Dashboard () {
                           </SelectContent>
                         </Select>
                         <Button variant={'success'}>
-                          <MaterialSymbolIcon className='mr-2'>
-                            rocket
-                          </MaterialSymbolIcon>
+                          <Rocket className='mr-2' />
                           Publish
                         </Button>
                       </div>
@@ -872,7 +873,7 @@ export default function Dashboard () {
                           )
                         ) : (
                           <div className='h-full w-full flex flex-col justify-center items-center'>
-                            <MaterialSymbolIcon>image</MaterialSymbolIcon>
+                            <ImageIcon />
                             <p className='text-sm text-white opacity-70 text-center'>
                               Upload or drag & drop image
                             </p>
@@ -895,9 +896,7 @@ export default function Dashboard () {
                               }))
                             }}
                           >
-                            <MaterialSymbolIcon className='mr-2 text-primary opacity-100'>
-                              crop
-                            </MaterialSymbolIcon>
+                            <Crop className='mr-2 text-primary' />
                             <span>Crop</span>
                           </Badge>
                         )}
@@ -907,9 +906,7 @@ export default function Dashboard () {
                           className='cursor-pointer hover:bg-darkAccent/80'
                           {...logoDropzone.getRootProps()}
                         >
-                          <MaterialSymbolIcon className='mr-2 text-primary opacity-100'>
-                            upload_2
-                          </MaterialSymbolIcon>
+                          <Upload className='mr-2 text-primary' />
                           <span>Upload</span>
                         </Badge>
                       </div>
@@ -928,9 +925,7 @@ export default function Dashboard () {
                               )
                             }}
                           >
-                            <MaterialSymbolIcon className='mr-2'>
-                              delete
-                            </MaterialSymbolIcon>
+                            <Delete className='mr-2' />
                             <span>Remove Logo</span>
                           </Button>
                         </div>
@@ -947,9 +942,7 @@ export default function Dashboard () {
                         className='min-w-24 '
                         type='button'
                       >
-                        <MaterialSymbolIcon className='mr-2'>
-                          delete
-                        </MaterialSymbolIcon>
+                        <Delete className='mr-2' />
                         Delete Post
                       </Button>
                     </CardContent>

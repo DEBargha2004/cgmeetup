@@ -1,13 +1,13 @@
 'use client'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { getShortendName } from '@/functions'
 import avatar from '../../../../public/images/profile-1.jpg'
 import { MaterialSymbolIcon } from '@/components/custom'
 import { Button } from '@/components/ui/button'
 import { useGlobalAppStore } from '@/store/global-app-store'
+import { Image as ImageIcon, SlowMotionVideo } from '@mui/icons-material'
 
 export default function PostCreate () {
   const { setPostDialogState } = useGlobalAppStore()
@@ -37,15 +37,11 @@ export default function PostCreate () {
           <div className='grid grid-cols-2 col-span-2 gap-4 cursor-pointer w-fit'>
             <input type='file' hidden />
             <div className='flex justify-start items-center gap-1 w-fit'>
-              <MaterialSymbolIcon className='cursor-pointer text-2xl opacity-100 text-success'>
-                imagesmode
-              </MaterialSymbolIcon>
+              <ImageIcon className='cursor-pointer h-6 text-success' />
               <span className='text-sm'>Images</span>
             </div>
             <div className='flex justify-start items-center gap-1 w-fit'>
-              <MaterialSymbolIcon className='cursor-pointer text-2xl opacity-100 text-primary'>
-                slow_motion_video
-              </MaterialSymbolIcon>
+              <SlowMotionVideo className='cursor-pointer h-6 text-primary' />
               <span className='text-sm'>Videos</span>
             </div>
           </div>

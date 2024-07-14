@@ -36,6 +36,7 @@ import {
   tags
 } from '@/constants/job-filters'
 import { cn } from '@/lib/utils'
+import { Check, Close, KeyboardArrowDown } from '@mui/icons-material'
 import { useState } from 'react'
 
 export default function Filter () {
@@ -106,9 +107,7 @@ export default function Filter () {
                 >
                   <div className='flex justify-start items-center gap-2'>
                     <div className='w-4 h-4 flex justify-center items-center'>
-                      {selectedIndustries.includes(item) ? (
-                        <MaterialSymbolIcon>check</MaterialSymbolIcon>
-                      ) : null}
+                      {selectedIndustries.includes(item) ? <Check /> : null}
                     </div>
                     {item}
                   </div>
@@ -123,17 +122,14 @@ export default function Filter () {
                 className='bg-lightAccent p-2 flex justify-between items-center gap-1'
               >
                 <span>{item}</span>
-                <MaterialSymbolIcon
-                  variant='filled'
-                  className='text-sm cursor-pointer'
+                <Close
+                  className='cursor-pointer h-[14px]'
                   onClick={() => {
                     setSelectedIndustries(prev => {
                       return prev.filter(tag => tag !== item)
                     })
                   }}
-                >
-                  close
-                </MaterialSymbolIcon>
+                />
               </Badge>
             ))}
           </div>
@@ -161,9 +157,7 @@ export default function Filter () {
                 >
                   <div className='flex justify-start items-center gap-2'>
                     <div className='w-4 h-4 flex justify-center items-center'>
-                      {selectedSkills.includes(item) ? (
-                        <MaterialSymbolIcon>check</MaterialSymbolIcon>
-                      ) : null}
+                      {selectedSkills.includes(item) ? <Check /> : null}
                     </div>
                     {item}
                   </div>
@@ -178,17 +172,14 @@ export default function Filter () {
                 className='bg-lightAccent p-2 flex justify-between items-center gap-1'
               >
                 <span>{item}</span>
-                <MaterialSymbolIcon
-                  variant='filled'
-                  className='text-sm cursor-pointer'
+                <Close
+                  className='cursor-pointer h-[14px]'
                   onClick={() => {
                     setSelectedSkills(prev => {
                       return prev.filter(tag => tag !== item)
                     })
                   }}
-                >
-                  close
-                </MaterialSymbolIcon>
+                />
               </Badge>
             ))}
           </div>
@@ -204,9 +195,7 @@ export default function Filter () {
                           h-10 bg-darkAccent'
               >
                 <span>Software</span>
-                <MaterialSymbolIcon className=''>
-                  keyboard_arrow_down
-                </MaterialSymbolIcon>
+                <KeyboardArrowDown />
               </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent
@@ -237,7 +226,7 @@ export default function Filter () {
                         : 'opacity-0'
                     )}
                   >
-                    <MaterialSymbolIcon>check</MaterialSymbolIcon>
+                    <Check />
                   </span>
                   <span>{item}</span>
                 </DropdownMenuItem>
@@ -251,17 +240,14 @@ export default function Filter () {
                 className='bg-lightAccent p-2 flex justify-between items-center gap-1'
               >
                 <span>{item}</span>
-                <MaterialSymbolIcon
-                  variant='filled'
-                  className='text-sm cursor-pointer'
+                <Close
+                  className='cursor-pointer h-[14px]'
                   onClick={() => {
                     setSelectedSoftwares(prev => {
                       return prev.filter(tag => tag !== item)
                     })
                   }}
-                >
-                  close
-                </MaterialSymbolIcon>
+                />
               </Badge>
             ))}
           </div>

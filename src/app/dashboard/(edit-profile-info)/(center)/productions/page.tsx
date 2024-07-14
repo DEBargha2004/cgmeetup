@@ -19,6 +19,7 @@ import {
   productionExperienceSchema
 } from '@/schema/production'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Add, MoreVert } from '@mui/icons-material'
 import Image from 'next/image'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -79,7 +80,7 @@ export default function ProductionsPage () {
           }}
           className='space-x-2'
         >
-          <MaterialSymbolIcon>add</MaterialSymbolIcon>
+          <Add />
           <span className='@lg:inline hidden'>Add Production</span>
         </Button>
       }
@@ -120,7 +121,7 @@ export default function ProductionsPage () {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <div className='cursor-pointer'>
-                    <MaterialSymbolIcon>more_vert</MaterialSymbolIcon>
+                    <MoreVert />
                   </div>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align='end'>

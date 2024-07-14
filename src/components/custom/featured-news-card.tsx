@@ -4,6 +4,7 @@ import { Badge } from '../ui/badge'
 import { MapPin } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import MaterialSymbolIcon from './material-symbol-icon'
+import { Favorite, Message, Visibility } from '@mui/icons-material'
 
 export default function FeaturedNewsCard ({
   className,
@@ -38,19 +39,15 @@ export default function FeaturedNewsCard ({
         </h2>
         <div className='sm:flex justify-start gap-3  w-[90%]'>
           <div className='text-slate-300 py-0 flex justify-start items-center gap-1 border-none'>
-            <MaterialSymbolIcon className='text-sm'>
-              favorite
-            </MaterialSymbolIcon>
+            <Favorite className='h-[14px]' />
             <span className='text-xs'>2</span>
           </div>
           <div className='text-slate-300 py-0 flex justify-start items-center gap-1 border-none'>
-            <MaterialSymbolIcon className='text-sm'>
-              visibility
-            </MaterialSymbolIcon>
+            <Visibility className='h-[14px]' />
             <span className='text-xs'>2</span>
           </div>
           <div className='text-slate-300 py-0 flex justify-start items-center gap-1 border-none'>
-            <MaterialSymbolIcon className='text-sm'>message</MaterialSymbolIcon>
+            <Message className='h-[14px]' />
             <span className='text-xs'>2</span>
           </div>
         </div>

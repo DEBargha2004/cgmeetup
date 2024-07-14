@@ -11,75 +11,90 @@ import {
 } from '@/components/ui/breadcrumb'
 import { scroll } from '@/functions/scroll'
 import { FieldType } from '@/types/field-type'
+import { IconType } from '@/types/icon'
+import {
+  ArrowBack,
+  ArrowForward,
+  Code,
+  Description,
+  Info,
+  Movie,
+  Person,
+  Public,
+  School,
+  SlowMotionVideo,
+  Work,
+  WorkHistory
+} from '@mui/icons-material'
 import Link from 'next/link'
 import { useRef } from 'react'
 
-const tabs: (FieldType & { icon: string; href: string })[] = [
+const tabs: (FieldType & { Icon: IconType; href: string })[] = [
   {
     label: 'Edit Profile',
     value: 'edit-profile',
-    icon: 'person',
+    Icon: Person,
     href: '/dashboard/profile'
   },
   {
     label: 'Job Preference',
     value: 'job-preference',
-    icon: 'work',
+    Icon: Work,
     href: '/dashboard/job-preference'
   },
   {
     label: 'Work Experience',
     value: 'work-experience',
-    icon: 'work_history',
+    Icon: WorkHistory,
     href: '/dashboard/work-experience'
   },
   {
     label: 'Education',
     value: 'education',
-    icon: 'school',
+    Icon: School,
     href: '/dashboard/education'
   },
   {
     label: 'Bio',
     value: 'bio',
-    icon: 'info',
+    Icon: Info,
     href: '/dashboard/bio'
   },
   {
     label: 'Resume',
     value: 'resume',
-    icon: 'description',
+    Icon: Description,
     href: '/dashboard/resume'
   },
   {
     label: 'DemoReel',
     value: 'demoreel',
-    icon: 'slow_motion_video',
+    Icon: SlowMotionVideo,
     href: '/dashboard/demoreel'
   },
   {
     label: 'Productions',
     value: 'productions',
-    icon: 'movie',
+    Icon: Movie,
     href: '/dashboard/productions'
   },
   {
     label: 'Links',
     value: 'links',
-    icon: 'public',
+    Icon: Public,
     href: '/dashboard/links'
   },
 
   {
     label: 'Skills',
     value: 'skills',
-    icon: 'code',
+    Icon: Code,
     href: '/dashboard/skills'
   },
   {
     label: 'Softwares',
     value: 'softwares',
-    icon: 'code',
+    Icon: Code,
     href: '/dashboard/softwares'
   }
 ]
@@ -116,13 +131,13 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
               <Tabs tabs={tabs} className='md:px-4' />
             </div>
             <Navigator
-              icon='arrow_back'
+              Icon={ArrowBack}
               className='absolute left-0 top-1/2 -translate-y-1/2 bg-lightAccent/50 rounded-full h-8 w-8'
               iconClassName='text-sm'
               onClick={() => scroll({ ref: scrollRef, direction: 'left' })}
             />
             <Navigator
-              icon='arrow_forward'
+              Icon={ArrowForward}
               className='absolute right-0 top-1/2 -translate-y-1/2 bg-lightAccent/50 rounded-full h-8 w-8'
               iconClassName='text-sm'
               onClick={() => scroll({ ref: scrollRef, direction: 'right' })}

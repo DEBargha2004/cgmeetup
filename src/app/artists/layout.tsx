@@ -1,4 +1,4 @@
-import { MaterialSymbolIcon, Tabs } from '@/components/custom'
+import { Tabs } from '@/components/custom'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
@@ -9,12 +9,13 @@ import { Roboto } from 'next/font/google'
 import Filter from './_components/filter'
 import Image from 'next/image'
 import background from '@/../public/images/cover-image.jpg'
+import { Bookmark, Person, Sort } from '@mui/icons-material'
 
 const tabList1: TabItem[] = [
   {
     label: 'Artists',
     href: '/artists',
-    icon: 'person'
+    Icon: Person
   }
   // {
   //   label: 'Trending',
@@ -32,7 +33,7 @@ const tabList2: TabItem[] = [
   {
     label: 'Bookmarks',
     href: '/dashboard/bookmarks',
-    icon: 'bookmark'
+    Icon: Bookmark
   }
 ]
 
@@ -61,7 +62,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
                 <Sheet>
                   <SheetTrigger asChild>
                     <div className='flex items-center gap-1 cursor-pointer'>
-                      <MaterialSymbolIcon>sort</MaterialSymbolIcon>
+                      <Sort />
                       <span>Filter</span>
                     </div>
                   </SheetTrigger>
@@ -75,9 +76,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
               </div>
               <div>
                 <Button>
-                  <MaterialSymbolIcon className='mr-2'>
-                    person
-                  </MaterialSymbolIcon>
+                  <Person className='mr-2' />
                   <span>Create Profile</span>
                 </Button>
               </div>

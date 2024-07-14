@@ -9,10 +9,7 @@ import LimitText from './limit-text'
 import ProfileInfoOverView from './profile-info-overview'
 import Tabs from './tabs'
 import EmojiPickerElement from './emoji-picker'
-import {
-  NotificationCardProfileView,
-  NotificationCardOtherView
-} from './notification-card'
+import { NotificationCard } from './notification-card'
 import MainPageForm from './main-page-form'
 import ShowcaseCard from './showcase-card'
 import ClearButton from './clear-button'
@@ -26,6 +23,7 @@ import SimilarNewsCard from './similar-news-card'
 import Cropper from './cropper'
 import ScrollControlContainer from './scroll-control-container'
 import Navigator from './navigator'
+import UploadType from './upload-type'
 
 export {
   AppLogo,
@@ -39,8 +37,7 @@ export {
   ProfileInfoOverView,
   Tabs,
   EmojiPickerElement,
-  NotificationCardProfileView,
-  NotificationCardOtherView,
+  NotificationCard,
   MainPageForm,
   ShowcaseCard,
   ClearButton,
@@ -53,5 +50,6 @@ export {
   SimilarNewsCard,
   Cropper,
   ScrollControlContainer,
-  Navigator
+  Navigator,
+  UploadType
 }

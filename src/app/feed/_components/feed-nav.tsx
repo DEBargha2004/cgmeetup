@@ -21,9 +21,7 @@ export default function FeedNav () {
             className='flex justify-center lg:gap-2 lg:justify-start items-center rounded 
                 hover:bg-lightAccent p-2 font-semibold shrink-0'
           >
-            <MaterialSymbolIcon className=''>
-              {item.icon_name || ''}
-            </MaterialSymbolIcon>
+            <item.Icon />
             <p className='lg:block hidden'>{item.label}</p>
           </div>
         </Link>

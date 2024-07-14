@@ -23,6 +23,22 @@ import { Badge } from '@/components/ui/badge'
 import EmojiPicker from 'emoji-picker-react'
 import { FieldType } from '@/types/field-type'
 import _ from 'lodash'
+import {
+  AttachFile,
+  Bookmark,
+  Close,
+  EmojiEmotions,
+  InsertDriveFile,
+  MoreVert,
+  PersonAdd,
+  Phone,
+  PhotoLibrary,
+  Search,
+  Send,
+  SlowMotionVideo
+} from '@mui/icons-material'
+import { OverridableComponent } from '@mui/material/OverridableComponent'
+import { SvgIconTypeMap } from '@mui/material'
 
 // const EmojiPicker = dynamic(() => import('@/components/custom/emoji-picker'), {
 //   ssr: false
@@ -92,11 +108,15 @@ const messages = [
   }
 ]
 
-const attachments: (FieldType & { icon: string })[] = [
-  { label: 'Images', value: 'gallery', icon: 'photo_library' },
-  { label: 'Resume', value: 'resume', icon: 'draft' },
-  { label: 'Share Number', value: 'contacts', icon: 'phone' },
-  { label: 'Demo Reel', value: 'videos', icon: 'slow_motion_video' }
+const attachments: (Omit<FieldType, 'icon'> & {
+  Icon: OverridableComponent<SvgIconTypeMap<{}, 'svg'>> & {
+    muiName: string
+  }
+})[] = [
+  { label: 'Images', value: 'gallery', Icon: PhotoLibrary },
+  { label: 'Resume', value: 'resume', Icon: InsertDriveFile },
+  { label: 'Share Number', value: 'contacts', Icon: Phone },
+  { label: 'Demo Reel', value: 'videos', Icon: SlowMotionVideo }
 ]
 
 const badges = ['All', 'Unread', 'Groups']
@@ -131,12 +151,7 @@ export default function ChatPage () {
         </div>
         <div className='relative w-full'>
           <Input className='pl-10' placeholder='Search..' />
-          <MaterialSymbolIcon
-            variant='filled'
-            className='absolute top-1/2 -translate-y-1/2 left-3'
-          >
-            search
-          </MaterialSymbolIcon>
+          <Search className='absolute top-1/2 -translate-y-1/2 left-3' />
         </div>
         <div className='space-y-1 h-full w-full overflow-y-auto scroller'>
           {Array.from({ length: 81 }).map((_, i) => (
@@ -223,19 +238,14 @@ export default function ChatPage () {
                 </div>
               </div>
               <div className='flex justify-between items-center gap-2'>
-                <MaterialSymbolIcon className='opacity-100'>
-                  more_vert
-                </MaterialSymbolIcon>
-                <MaterialSymbolIcon
-                  variant='filled'
-                  className='opacity-100 cursor-pointer sm:hidden'
+                <MoreVert />
+                <Close
+                  className='cursor-pointer sm:hidden'
                   onClick={e => {
                     e.stopPropagation()
                     setShowChat(false)
                   }}
-                >
-                  close
-                </MaterialSymbolIcon>
+                />
               </div>
             </div>
             <div
@@ -278,7 +288,7 @@ export default function ChatPage () {
                           message.user_id == 1 ? '-left-10' : '-right-10'
                         )}
                       >
-                        <MaterialSymbolIcon>mood</MaterialSymbolIcon>
+                        <EmojiEmotions />
                       </div>
                     </div>
                   </div>
@@ -293,9 +303,7 @@ export default function ChatPage () {
                 <Popover>
                   <PopoverTrigger asChild>
                     <div className='cursor-pointer'>
-                      <MaterialSymbolIcon className='text-3xl'>
-                        mood
-                      </MaterialSymbolIcon>
+                      <EmojiEmotions className='h-8' />
                     </div>
                   </PopoverTrigger>
                   <PopoverContent className='w-fit'>
@@ -310,17 +318,14 @@ export default function ChatPage () {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <div className='cursor-pointer'>
-                      <MaterialSymbolIcon className='text-3xl'>
-                        attach_file
-                      </MaterialSymbolIcon>
+                      <AttachFile className='h-8' />
                     </div>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent side='top' className='-translate-y-5'>
                     {attachments.map(attachment => (
                       <DropdownMenuItem key={attachment.value}>
-                        <MaterialSymbolIcon className='text-2xl opacity-100 mr-2'>
-                          {attachment.icon}
-                        </MaterialSymbolIcon>
+                        <attachment.Icon className='h-7 mr-2' />
+
                         <span>{attachment.label}</span>
                       </DropdownMenuItem>
                     ))}
@@ -330,9 +335,7 @@ export default function ChatPage () {
               <Input className='w-full' />
               <div>
                 <div className='h-10 w-10 flex justify-center items-center bg-primary rounded-full'>
-                  <MaterialSymbolIcon className='text-2xl'>
-                    send
-                  </MaterialSymbolIcon>
+                  <Send className='h-7' />
                 </div>
               </div>
             </div>
@@ -349,13 +352,10 @@ export default function ChatPage () {
           >
             <div className='flex justify-between items-center'>
               <h1 className='text-xl font-semibold'>Profile</h1>
-              <MaterialSymbolIcon
-                variant='filled'
-                className='opacity-100 cursor-pointer'
+              <Close
+                className='cursor-pointer'
                 onClick={() => setShowInfo(false)}
-              >
-                close
-              </MaterialSymbolIcon>
+              />
             </div>
             <div className='flex flex-col justify-between items-center gap-4'>
               <Image
@@ -375,22 +375,17 @@ export default function ChatPage () {
               </div>
               <div className='w-full flex justify-center items-center gap-2'>
                 <Button className='w-[35%] flex justify-center gap-2 items-center'>
-                  <MaterialSymbolIcon>person_add</MaterialSymbolIcon>
+                  <PersonAdd />
                   <span>Follow</span>
                 </Button>
                 <Button
                   variant={'outline'}
                   className='w-[35%] flex justify-center gap-2 items-center'
                 >
-                  <MaterialSymbolIcon
-                    variant='filled'
-                    className={cn(
-                      'opacity-100',
-                      true ? 'text-primary' : 'text-white'
-                    )}
-                  >
-                    bookmark
-                  </MaterialSymbolIcon>
+                  <Bookmark
+                    className={cn('', true ? 'text-primary' : 'text-white')}
+                  />
+
                   <span>Bookmark</span>
                 </Button>
               </div>

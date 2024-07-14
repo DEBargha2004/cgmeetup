@@ -19,6 +19,7 @@ import {
   profileJobPreferenceSchema
 } from '@/schema/profile-job-preference'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Add, MoreVert } from '@mui/icons-material'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -77,7 +78,7 @@ export default function EditProfilePage () {
           }}
           className='space-x-2'
         >
-          <MaterialSymbolIcon>add</MaterialSymbolIcon>
+          <Add />
           <span className='@lg:inline hidden'>Add Job Preference</span>
         </Button>
       }
@@ -109,7 +110,7 @@ export default function EditProfilePage () {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <div className='cursor-pointer'>
-                    <MaterialSymbolIcon>more_vert</MaterialSymbolIcon>
+                    <MoreVert />
                   </div>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align='end'>

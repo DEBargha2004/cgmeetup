@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { useDropzone } from 'react-dropzone'
 import pdf from '@/../public/images/pdf.png'
 import Image from 'next/image'
+import { Delete, UploadFile } from '@mui/icons-material'
 
 export default function ResumePage () {
   const resumeDropZone = useDropzone({ multiple: false })
@@ -25,9 +26,7 @@ export default function ResumePage () {
           {...resumeDropZone.getRootProps()}
         >
           <Button variant={'outline'}>
-            <MaterialSymbolIcon className='mr-2'>
-              upload_file
-            </MaterialSymbolIcon>
+            <UploadFile className='mr-2' />
             <span>Upload PDF File</span>
           </Button>
           <p className='text-sm opacity-70'>or drag and drop here</p>
@@ -39,9 +38,7 @@ export default function ResumePage () {
               <div className='flex justify-between items-center w-full'>
                 <span className='text-sm'>View Resume</span>
                 <div className='flex justify-start items-center gap-1 pr-5 cursor-pointer'>
-                  <MaterialSymbolIcon className='opacity-100'>
-                    delete
-                  </MaterialSymbolIcon>
+                  <Delete />
                   <span className='text-sm'>Delete</span>
                 </div>
               </div>

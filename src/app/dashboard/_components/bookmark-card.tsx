@@ -1,4 +1,5 @@
 import { MaterialSymbolIcon } from '@/components/custom'
+import { Bookmark, Delete } from '@mui/icons-material'
 import { format } from 'date-fns'
 import Image from 'next/image'
 
@@ -21,9 +22,7 @@ export default function BookmarkCard () {
               Animals are most loving Animals Animals are most loving Animals
               are most loving
             </h1>
-            <MaterialSymbolIcon className='opacity-100'>
-              bookmark
-            </MaterialSymbolIcon>
+            <Bookmark />
           </div>
           <p className='line-clamp-1 w-[90%] opacity-70'>
             Long description of the bookmark Long description of the bookmark
@@ -33,9 +32,7 @@ export default function BookmarkCard () {
         </div>
       </div>
       <div className='flex justify-end items-center'>
-        <MaterialSymbolIcon className='opacity-100 text-red-500'>
-          delete
-        </MaterialSymbolIcon>
+        <Delete className='text-red-500' />
       </div>
     </div>
   )

@@ -5,6 +5,7 @@ import { getShortendName } from '@/functions'
 import profile from '@/../public/images/profile-1.jpg'
 import postimage from '@/../public/images/dog-vertical.webp'
 import Image from 'next/image'
+import { Chat } from '@mui/icons-material'
 
 export default function LatestComments () {
   return (
@@ -32,7 +33,7 @@ export default function LatestComments () {
                 </span>
               </div>
               <div className='flex justify-start items-center gap-2 opacity-70'>
-                <MaterialSymbolIcon>chat</MaterialSymbolIcon>
+                <Chat fontSize='small' />
                 <span>3</span>
               </div>
             </div>

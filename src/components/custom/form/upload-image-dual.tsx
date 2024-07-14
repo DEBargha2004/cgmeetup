@@ -16,6 +16,7 @@ import avatar from '../../../../public/images/profile-1.jpg'
 import { Button } from '@/components/ui/button'
 import FieldsContainer from './field-container'
 import cover from '../../../../public/images/cover-image.jpg'
+import { Upload } from '@mui/icons-material'
 
 export default function UploadImageDual () {
   const [imageUrl, setImageUrl] = useState('')
@@ -74,9 +75,7 @@ export default function UploadImageDual () {
             className='rounded min-w-24'
             variant={'success'}
           >
-            <MaterialSymbolIcon className='mr-2 opacity-100'>
-              upload_2
-            </MaterialSymbolIcon>
+            <Upload className='mr-2' />
             Upload
           </Button>
         </div>
@@ -100,9 +99,7 @@ export default function UploadImageDual () {
             className='rounded min-w-24'
             variant={'success'}
           >
-            <MaterialSymbolIcon className='mr-2 opacity-100'>
-              upload_2
-            </MaterialSymbolIcon>
+            <Upload className='mr-2' />
             Upload
           </Button>
         </div>

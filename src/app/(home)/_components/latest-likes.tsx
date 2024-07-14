@@ -5,6 +5,7 @@ import { getShortendName } from '@/functions'
 import profile from '@/../public/images/profile-1.jpg'
 import postimage from '@/../public/images/dog-vertical.webp'
 import Image from 'next/image'
+import { Favorite } from '@mui/icons-material'
 
 export default function LatestLikes () {
   return (
@@ -32,7 +33,7 @@ export default function LatestLikes () {
                 </span>
               </div>
               <div className='flex justify-start items-center gap-2 opacity-70'>
-                <MaterialSymbolIcon>favorite</MaterialSymbolIcon>
+                <Favorite fontSize='small' />
                 <span>3</span>
               </div>
             </div>

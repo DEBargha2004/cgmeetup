@@ -17,6 +17,7 @@ import { Separator } from '@/components/ui/separator'
 import { socials } from '@/constants/socials'
 import { SocialsSchemaType, socialsSchema } from '@/schema/socials'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Add, MoreVert, Public } from '@mui/icons-material'
 import Link from 'next/link'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -79,7 +80,7 @@ export default function SocialsPage () {
           }}
           className='space-x-2'
         >
-          <MaterialSymbolIcon>add</MaterialSymbolIcon>
+          <Add />
           <span className='@lg:inline hidden'>Add Link</span>
         </Button>
       }
@@ -104,9 +105,7 @@ export default function SocialsPage () {
             <div>
               <h1 className='text-lg text-white flex justify-between items-center'>
                 <div className='flex justify-start items-center gap-2 text-sm text-primary'>
-                  <MaterialSymbolIcon className='opacity-100'>
-                    globe
-                  </MaterialSymbolIcon>
+                  <Public />
                   <Link target='_blank' href={social.url} className=''>
                     {social.url}
                   </Link>
@@ -114,7 +113,7 @@ export default function SocialsPage () {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <div className='cursor-pointer'>
-                      <MaterialSymbolIcon>more_vert</MaterialSymbolIcon>
+                      <MoreVert />
                     </div>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align='end'>

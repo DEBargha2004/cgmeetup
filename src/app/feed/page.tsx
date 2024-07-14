@@ -19,7 +19,10 @@ export default function FeedPage () {
   return (
     <>
       <main className='h-fit flex justify-center items-start bg-darkAccent'>
-        <div className='w-[200px] overflow-y-auto hidden lg:flex flex-col justify-start items-end gap-2 pt-8 sticky top-0 px-2'>
+        <div
+          className='w-[200px] h-[calc(100vh-64px)] overflow-y-auto scroller
+        hidden lg:flex flex-col justify-start items-end gap-2 pt-8 sticky top-0 px-2'
+        >
           <Profile />
           <FeedNav />
         </div>

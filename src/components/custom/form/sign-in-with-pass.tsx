@@ -15,6 +15,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import MaterialSymbolIcon from '../material-symbol-icon'
 import { Button } from '@/components/ui/button'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 
 export default function SignInWithPassForm ({
   form,
@@ -65,9 +66,7 @@ export default function SignInWithPassForm ({
                     className='absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer'
                     onClick={() => setShowPassword(prev => !prev)}
                   >
-                    <MaterialSymbolIcon className='opacity-50'>
-                      {showPassword ? 'visibility' : 'visibility_off'}
-                    </MaterialSymbolIcon>
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
                   </div>
                 </div>
               </FormControl>

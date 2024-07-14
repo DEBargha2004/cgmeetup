@@ -5,6 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { getShortendName } from '@/functions'
 import { cn } from '@/lib/utils'
+import { Edit, LocationOn } from '@mui/icons-material'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -70,9 +71,7 @@ export default function ProfileLayout ({
             className='absolute h-8 w-8 rounded-full bg-black/60 bottom-5 right-0 flex 
           justify-center items-center cursor-pointer'
           >
-            <MaterialSymbolIcon className='text-primary opacity-100 text-base'>
-              edit
-            </MaterialSymbolIcon>
+            <Edit className='h-4 text-primary opacity-100' />
           </div>
         </div>
       </div>
@@ -80,10 +79,8 @@ export default function ProfileLayout ({
         <h1 className='md:text-4xl text-2xl font-bold'>Alibaba Salmon</h1>
         <div className='flex flex-col justify-between items-center gap-[6px]'>
           <p className='text-sm  opacity-60'>3D Animator</p>
-          <p className='flex justify-center items-end opacity-60 text-sm'>
-            <MaterialSymbolIcon className='text-sm'>
-              location_on
-            </MaterialSymbolIcon>
+          <p className='flex justify-center items-center opacity-60 text-sm'>
+            <LocationOn className='h-[18px]' />
             &nbsp; Florida,USA
           </p>
         </div>

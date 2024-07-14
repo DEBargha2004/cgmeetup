@@ -9,6 +9,15 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger
 } from '../ui/dropdown-menu'
+import {
+  Bookmark,
+  Flight,
+  Language,
+  LocationOn,
+  MoreVert,
+  Public,
+  Work
+} from '@mui/icons-material'
 
 export default function JobCard ({ className }: { className?: string }) {
   return (
@@ -36,9 +45,7 @@ export default function JobCard ({ className }: { className?: string }) {
             </h1>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <MaterialSymbolIcon className='inline-block cursor-pointer'>
-                  more_vert
-                </MaterialSymbolIcon>
+                <MoreVert className='cursor-pointer' />
               </DropdownMenuTrigger>
               <DropdownMenuContent align='end'></DropdownMenuContent>
             </DropdownMenu>
@@ -47,31 +54,25 @@ export default function JobCard ({ className }: { className?: string }) {
           <p className='text-sm text-slate-200'>3 - 5 Years / USD $50 - 59</p>
           <div className='@lg:flex justify-between hidden'>
             <div className='@lg:flex flex-wrap gap-2  w-[90%]'>
-              <Badge className='text-slate-300 py-0'>
-                <MaterialSymbolIcon className='mr-2'>
-                  language
-                </MaterialSymbolIcon>
+              <Badge className='text-slate-300 '>
+                <Language className='mr-2' fontSize='small' />
                 Remote
               </Badge>
-              <Badge className='text-slate-300 py-0'>
-                <MaterialSymbolIcon className='mr-2'>trip</MaterialSymbolIcon>
+              <Badge className='text-slate-300 '>
+                <Work className='mr-2' fontSize='small' />
                 Permanent
               </Badge>
-              <Badge className='text-slate-300 py-0'>
-                <MaterialSymbolIcon className='mr-2'>flight</MaterialSymbolIcon>
+              <Badge className='text-slate-300 '>
+                <Flight className='mr-2' fontSize='small' />
                 Relocation Asssistance
               </Badge>
-              <Badge className='text-slate-300 py-0'>
-                <MaterialSymbolIcon className='mr-2'>
-                  location_on
-                </MaterialSymbolIcon>
+              <Badge className='text-slate-300 '>
+                <LocationOn className='mr-2' fontSize='small' />
                 Montreal, Canada
               </Badge>
             </div>
             <div className='flex items-end'>
-              <MaterialSymbolIcon className='opacity-100'>
-                bookmark
-              </MaterialSymbolIcon>
+              <Bookmark />
             </div>
           </div>
         </div>
@@ -79,26 +80,24 @@ export default function JobCard ({ className }: { className?: string }) {
       <div className='flex  gap-2 @lg:hidden col-span-4'>
         <div className='flex gap-2 flex-wrap'>
           <Badge className='text-slate-300'>
-            <Globe className='mr-2 h-5 w-5' />
-            Remote
+            <Public className='mr-2 h-5 opacity-70' fontSize='small' />
+            <span>Remote</span>
           </Badge>
           <Badge className='text-slate-300'>
-            <MaterialSymbolIcon className='mr-2'>work</MaterialSymbolIcon>
-            Permanent
+            <Work className='mr-2 h-5 opacity-70' fontSize='small' />
+            <span>Permanent</span>
           </Badge>
           <Badge className='text-slate-300'>
-            <Plane className='mr-2 h-5 w-5' />
-            Relocation Asssistance
+            <Flight className='mr-2 h-5 opacity-70' fontSize='small' />
+            <span>Relocation</span>
           </Badge>
           <Badge className='text-slate-300'>
-            <MapPin className='mr-2 h-5 w-5' />
-            Montreal, Canada
+            <LocationOn className='mr-2 h-5 opacity-70' fontSize='small' />
+            <span>Montreal, Canada</span>
           </Badge>
         </div>
         <div className='flex items-end'>
-          <MaterialSymbolIcon className='opacity-100'>
-            bookmark
-          </MaterialSymbolIcon>
+          <Bookmark />
         </div>
       </div>
     </Card>

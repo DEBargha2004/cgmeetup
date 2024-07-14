@@ -9,12 +9,13 @@ import { Roboto } from 'next/font/google'
 import Filter from './_components/filter'
 import Image from 'next/image'
 import background from '@/../public/images/cover-image.jpg'
+import { Apartment, Bookmark, Person, Sort } from '@mui/icons-material'
 
 const tabList1: TabItem[] = [
   {
     label: 'Companies',
     href: '/companies',
-    icon: 'apartment'
+    Icon: Apartment
   }
   // {
   //   label: 'Trending',
@@ -32,7 +33,7 @@ const tabList2: TabItem[] = [
   {
     label: 'Bookmarks',
     href: '/dashboard/bookmarks',
-    icon: 'bookmark'
+    Icon: Bookmark
   }
 ]
 
@@ -60,7 +61,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
                 <Sheet>
                   <SheetTrigger asChild>
                     <div className='flex items-center gap-1 cursor-pointer'>
-                      <MaterialSymbolIcon>sort</MaterialSymbolIcon>
+                      <Sort />
                       <span>Filter</span>
                     </div>
                   </SheetTrigger>
@@ -74,9 +75,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
               </div>
               <div>
                 <Button>
-                  <MaterialSymbolIcon className='mr-2'>
-                    person
-                  </MaterialSymbolIcon>
+                  <Person className='mr-2' />
                   <span>Create Profile</span>
                 </Button>
               </div>

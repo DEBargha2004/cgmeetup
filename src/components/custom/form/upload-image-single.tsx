@@ -16,6 +16,7 @@ import avatar from '../../../../public/images/profile-1.jpg'
 import { getShortendName } from '@/functions'
 import { Button } from '@/components/ui/button'
 import FieldsContainer from './field-container'
+import { Upload } from '@mui/icons-material'
 
 export default function UploadImageSingle () {
   const [imageUrl, setImageUrl] = useState('')
@@ -56,9 +57,7 @@ export default function UploadImageSingle () {
             className='rounded min-w-24 shrink-0'
             variant={'success'}
           >
-            <MaterialSymbolIcon className='mr-2 opacity-100'>
-              upload_2
-            </MaterialSymbolIcon>
+            <Upload className='mr-2' />
             Upload
           </Button>
         </div>
