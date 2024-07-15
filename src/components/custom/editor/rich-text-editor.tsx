@@ -141,10 +141,19 @@ export function EditorContentComponent ({
     content
   })
   return (
-    <EditorContent
-      editor={editor}
-      className={className}
-      contentEditable={false}
+    <EditorProvider
+      extensions={extensions}
+      content={content}
+      editorProps={{
+        attributes: {
+          class: cn(
+            'min-h-[300px] py-4 overflow-y-auto scroller-hide outline-none bg-darkAccent min-w-[100px] w-full',
+            className
+          ),
+          spellCheck: 'false',
+          contentEditable: 'false'
+        }
+      }}
     />
   )
 }

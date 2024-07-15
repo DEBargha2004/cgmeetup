@@ -32,8 +32,7 @@ import {
 import { IconType } from '@/types/icon'
 
 const content = `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-  <img src="" alt=""/>`
+  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>`
 
 export default function NewsPage ({
   params: { id }
@@ -41,7 +40,7 @@ export default function NewsPage ({
   params: { id: string }
 }) {
   return (
-    <div className='lg:w-[77%] mx-auto grid gap-4 md:gap-8 lg:grid-cols-3 px-3'>
+    <div className='lg:w-[80%] mx-auto grid gap-4 md:gap-8 lg:grid-cols-3 px-3'>
       <div className='col-span-2 px-2 md:pt-0 pt-4'>
         <header className='z-30 flex md:h-14 items-center gap-4 border-b bg-background sm:static sm:h-auto sm:border-0 sm:bg-transparent'>
           <Breadcrumb className='hidden md:flex'>
@@ -127,7 +126,7 @@ border-none bg-transparent'
         <Card className='bg-transparent border-none'>
           <CardContent className='grid gap-4 px-1'>
             {Array.from({ length: 5 }, (_, i) => i).map(i => (
-              <FeaturedNewsCard key={i} />
+              <FeaturedNewsCard key={i} className='lg:min-w-[330px]' />
             ))}
           </CardContent>
         </Card>
