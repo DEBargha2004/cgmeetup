@@ -120,7 +120,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
               <div className='absolute w-full h-full top-0 left-0 z-10 bg-gradient-to-t from-black/60 to-transparent' />
             </div>
           </div>
-          <div className='space-y-2'>
+          <div className='flex flex-col items-stretch justify-start gap-2'>
             <div
               className={cn(
                 'w-full flex justify-center items-center gap-0',

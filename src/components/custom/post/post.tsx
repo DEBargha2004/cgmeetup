@@ -14,102 +14,93 @@ import {
   OpenInNew
 } from '@mui/icons-material'
 import { IconType } from '@/types/icon'
+import { Separator } from '@/components/ui/separator'
 
 export default function Post ({
   params: { postId }
 }: {
   params: { postId: string }
 }) {
-  const project_idx = projects.data.findIndex(
-    project => project.id === Number(postId)
-  )
-
-  const project = projects.data[project_idx] || {}
-
   return (
-    <main className='h-screen flex md:flex-row flex-col justify-start items-start relative overflow-y-auto scroller'>
-      <div
-        className='w-full md:w-[calc(100%-400px)] md:h-full  flex flex-col justify-start items-stretch 
-             relative'
-      >
-        <div className='md:overflow-y-auto h-fit md:h-full scroller-transition relative'>
-          <div
-            className='z-30 absolute h-10 w-10 rounded-full grid place-content-center left-8 top-5 
-            bg-lightAccent/80'
-            // style={{ left: 40, top: 40 }}
-          >
-            <Close className='' />
-          </div>
-          {Array.from({ length: 4 }, (_, i) => i).map(item => (
-            <PostImage key={item} className='relative group'>
-              <Image
-                src={item % 2 === 0 ? horizontal : vertical}
-                alt={project.title}
-                height={800}
-                width={800}
-                className='md:h-screen w-fit mx-auto shrink-0 object-contain '
-              />
-              <div
-                className='px-4 py-1 rounded-lg absolute bottom-5 left-1/2 -translate-x-1/2 
-              bg-darkAccent flex justify-between items-center gap-6 group-hover:opacity-100 opacity-0
-              transition-all'
-              >
-                <Download className='h-5' />
-                <OpenInNew className='h-5' />
-              </div>
-            </PostImage>
-          ))}
+    <main className='h-full w-full md:flex justify-start items-center relative overflow-y-auto md:overflow-hidden scroller'>
+      <div className='md:w-[calc(100%-400px)] w-full h-fit md:h-full md:overflow-y-auto scroller-transition relative'>
+        {Array.from({ length: 4 }).map((_, i) => (
+          <PostImageContainer key={i}>
+            <Image
+              className='md:h-full md:w-auto h-auto w-full object-contain'
+              src={i % 2 === 0 ? vertical : horizontal}
+              alt='vertical'
+              height={400}
+              width={400}
+            />
+          </PostImageContainer>
+        ))}
+        <div className='h-10 w-10 rounded-full bg-lightAccent/50 hover:bg-lightAccent/90 absolute top-4 left-4 grid place-content-center'>
+          <Close />
         </div>
         <Link
-          href={`/post/${
-            projects.data[
-              project_idx - 1 < 0 ? projects.data.length - 1 : project_idx - 1
-            ]?.id
-          }`}
+          href={'#'}
+          className='md:fixed absolute top-1/2 -translate-y-1/2 right-2 md:right-[405px] cursor-pointer'
         >
-          <Navigator Icon={ArrowBackIos} className='left-0' />
+          <NavigationElement>
+            <ArrowForwardIos />
+          </NavigationElement>
         </Link>
         <Link
-          href={`/post/${
-            projects.data[
-              project_idx + 1 >= projects.data.length ? 0 : project_idx + 1
-            ]?.id
-          }`}
+          href={'#'}
+          className='md:fixed absolute top-1/2 -translate-y-1/2 left-2 cursor-pointer'
         >
-          <Navigator Icon={ArrowForwardIos} className='right-0' />
+          <NavigationElement>
+            <ArrowBackIos />
+          </NavigationElement>
         </Link>
       </div>
-
-      <Sidebar postId={postId} />
+      <div className='bg-red-500 md:h-full md:w-[400px] h-screen w-full'>
+        <Sidebar postId={postId} />
+      </div>
     </main>
   )
 }
 
-function Navigator ({
-  Icon,
-  className,
-  ...props
-}: { Icon: IconType } & HTMLProps<HTMLDivElement>) {
+function NavigationElement ({
+  children,
+  className
+}: {
+  children: React.ReactNode
+  className?: string
+}) {
   return (
     <div
       className={cn(
-        `h-14 w-14 rounded-full absolute top-1/2 -translate-y-1/2 flex justify-center items-center px-4
-        hover:bg-lightAccent/40 bg-lightAccent/20 transition-all cursor-pointer`,
+        'w-14 h-14 rounded-full grid place-content-center bg-lightAccent/40 hover:bg-lightAccent/90 transition-all',
         className
       )}
-      {...props}
     >
-      <Icon className='h-5' />
+      {children}
     </div>
   )
 }
 
-function PostImage ({
+function PostImageContainer ({
   children,
   className
 }: {
+  children: React.ReactNode
   className?: string
-  children?: React.ReactNode
 }) {
-  return <div className={cn('shrink-0', className)}>{children}</div>
+  return (
+    <div
+      className={cn(
+        'md:h-full h-fit w-full flex justify-center group relative',
+        className
+      )}
+    >
+      {children}
+      <div className='p-2 bg-darkAccent hidden justify-center items-center gap-4 group-hover:flex absolute bottom-10 left-1/2 -translate-x-1/2 rounded-xl'>
+        <Download className='cursor-pointer' />
+        <Separator orientation='vertical' className='h-6' />
+        <OpenInNew className='cursor-pointer' />
+      </div>
+    </div>
+  )
 }

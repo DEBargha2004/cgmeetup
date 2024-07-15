@@ -43,7 +43,7 @@ export default function Sidebar ({ postId }: { postId: string }) {
 
   const [activeTab, setActiveTab] = useState<'comment' | 'creator'>('comment')
   return (
-    <div className='w-full md:w-[400px] h-screen md:h-full md:overflow-y-auto px-1 scroller pt-2 bg-darkAccent'>
+    <div className='w-full h-full md:overflow-y-auto px-1 scroller pt-2 bg-darkAccent'>
       <div
         className={cn(
           ' space-y-3  md:overflow-y-auto scroller',
@@ -63,7 +63,7 @@ export default function Sidebar ({ postId }: { postId: string }) {
                 className='xl:text-sm text-xs h-8 w-8 bg-primary flex justify-center items-center 
               shrink-0 rounded-full'
               >
-                <PersonAdd />
+                <PersonAdd fontSize='small' />
               </div>
             </ProfileInfoOverView>
           </CardContent>

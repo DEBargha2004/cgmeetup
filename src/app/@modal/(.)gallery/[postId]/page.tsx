@@ -15,7 +15,7 @@ export default function Post ({
   // if (ignoredRoutes.includes(`/gallery/${postId}`))
   //   redirect(`/gallery/${postId}`)
   return (
-    <div className='h-screen absolute -top-0 left-0 w-full scroller p-0 bg-darkAccent/80 z-40'>
+    <div className='h-full absolute -top-0 left-0 w-full scroller p-0 bg-darkAccent/80 z-40'>
       <PostComponent params={{ postId }} />
     </div>
   )
