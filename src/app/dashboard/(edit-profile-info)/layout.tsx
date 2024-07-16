@@ -104,8 +104,11 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
 
   return (
     <div className='flex h-full w-full flex-col'>
-      <div className='flex flex-col sm:gap-4 '>
-        <header className=' z-30 flex md:h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6'>
+      <div className='flex flex-col gap-4 '>
+        <header
+          className=' z-30 flex md:h-14 items-center gap-4 bg-none px-4 
+        sm:static sm:h-auto sm:bg-transparent sm:px-6'
+        >
           <Breadcrumb className='hidden md:flex'>
             <BreadcrumbList>
               <BreadcrumbItem>

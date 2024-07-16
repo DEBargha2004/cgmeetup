@@ -346,7 +346,9 @@ function SearchInput () {
       />
       <div
         hidden={!showSearchFields}
-        className='w-full min-w-[250px] h-fit p-2 bg-card absolute left-0 top-[calc(100%+5px)] z-50 rounded space-y-1 px-1 max-h-[600px] overflow-y-auto scroller'
+        className='sm:w-full w-[100vw] min-w-[400px] h-fit p-2 bg-card sm:absolute fixed 
+        top-16 left-0 sm:left-1/2 border-b sm:-translate-x-1/2 sm:top-[calc(100%+5px)] z-50 
+        rounded space-y-1 px-1 max-h-[600px] overflow-y-auto scroller '
       >
         {Array.from({ length: 5 }, (_, i) => i).map(item => (
           <SearchItem key={item}>

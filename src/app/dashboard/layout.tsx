@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent } from '@/components/ui/sheet'
 import { dashboardSidebar } from '@/constants/dashboard-sidebar'
 import { cn } from '@/lib/utils'
+import { useGlobalAppStore } from '@/store/global-app-store'
 import { FormatAlignJustify, MenuOpen, MoreVert } from '@mui/icons-material'
 import { AlignJustify } from 'lucide-react'
 import Link from 'next/link'
@@ -13,10 +14,14 @@ import React, { useState } from 'react'
 
 export default function Layout ({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
-  const [showDashboardSidebar, setShowDashboardSidebar] = useState(false)
+  const { dashboardSidebarState, setDashboardSidebarState } =
+    useGlobalAppStore()
   return (
     <main className='flex flex-row justify-start items-start h-full'>
-      <Sheet open={showDashboardSidebar} onOpenChange={setShowDashboardSidebar}>
+      <Sheet
+        open={dashboardSidebarState}
+        onOpenChange={setDashboardSidebarState}
+      >
         <SheetContent side={'left'} className='w-fit p-0 pt-10 bg-card'>
           <div
             className='lg:w-[160px] w-fit  h-full flex flex-col 
@@ -102,7 +107,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
         <div className='md:hidden flex items-center justify-start gap-2 pt-4 px-4'>
           <div
             className='h-10 w-10 rounded-full grid  place-content-center bg-lightAccent/50 cursor-pointer'
-            onClick={() => setShowDashboardSidebar(true)}
+            onClick={() => setDashboardSidebarState(true)}
           >
             <MenuOpen className='h-5' />
           </div>

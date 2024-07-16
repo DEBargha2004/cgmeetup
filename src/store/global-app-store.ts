@@ -5,6 +5,7 @@ type State = {
   authDialogState: boolean
   postDialogState: boolean
   jobDialogState: boolean
+  dashboardSidebarState: boolean
 }
 
 type Actions = {
@@ -12,6 +13,7 @@ type Actions = {
   setAuthDialogState: (state: State['authDialogState']) => void
   setPostDialogState: (state: State['postDialogState']) => void
   setJobDialogState: (state: State['jobDialogState']) => void
+  setDashboardSidebarState: (state: State['dashboardSidebarState']) => void
 }
 
 export const useGlobalAppStore = create<State & Actions>(set => ({
@@ -19,6 +21,7 @@ export const useGlobalAppStore = create<State & Actions>(set => ({
   authDialogState: false,
   postDialogState: false,
   jobDialogState: false,
+  dashboardSidebarState: false,
   setSidebarState (state) {
     set({ sidebarState: state })
   },
@@ -30,5 +33,8 @@ export const useGlobalAppStore = create<State & Actions>(set => ({
   },
   setJobDialogState (state) {
     set({ jobDialogState: state })
+  },
+  setDashboardSidebarState (state) {
+    set({ dashboardSidebarState: state })
   }
 }))

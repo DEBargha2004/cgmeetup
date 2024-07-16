@@ -90,13 +90,20 @@ export const dashboardSidebar: SidebarItem[] = [
     label: 'Edit Profile',
     href: '/dashboard/profile',
     Icon: Person,
-    id: 'edit-profileprofile',
+    id: 'edit-profile',
     catch_routes: [
       '/dashboard/profile',
       '/dashboard/job-preference',
       '/dashboard/work-experience',
-      '/dashboard/highest-education',
-      '/dashboard/bio'
+      '/dashboard/education',
+      '/dashboard/bio',
+      '/dashboard/verification',
+      '/dashboard/productions',
+      '/dashboard/resume',
+      '/dashboard/demoreel',
+      '/dashboard/links',
+      '/dashboard/skills',
+      '/dashboard/softwares'
     ]
   },
   {
@@ -105,7 +112,19 @@ export const dashboardSidebar: SidebarItem[] = [
     href: '/dashboard/company',
     Icon: Apartment,
     id: 'edit-company',
-    catch_routes: ['/dashboard/company', '/dashboard/company/verification']
+    catch_routes: [
+      '/dashboard/company',
+      '/dashboard/company/verification',
+      '/dashboard/company/productions',
+      '/dashboard/company/demoreel',
+      '/dashboard/company/links',
+      '/dashboard/company/skills',
+      '/dashboard/company/softwares',
+      '/dashboard/company/bio',
+      '/dashboard/company/address',
+      '/dashboard/company/recruiters',
+      '/dashboard/company/new'
+    ]
   },
   {
     type: 'link',

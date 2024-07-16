@@ -59,14 +59,14 @@ export default function UploadImageDual () {
   }, [backgroundImage.acceptedFiles])
   return (
     <section className='space-y-4 w-full grid gap-4 px-2'>
-      <FieldsContainer className='w-3/4'>
+      <FieldsContainer className='w-3/4 @container'>
         <input hidden {...profileImage.getInputProps()} />
         <NextImage
           src={imageUrl || avatar.src}
           height={150}
           width={150}
           alt='avatar'
-          className='md:h-[150px] h-[100px] md:w-[150px] w-[100px] object-cover rounded-full mx-auto shrink-0'
+          className='@md:h-[150px] h-[100px] @md:w-[150px] w-[100px] object-cover rounded-full mx-auto shrink-0'
         />
         <div className='flex justify-center items-center gap-3 w-full'>
           <p className='whitespace-nowrap'>Upload Avatar</p>
