@@ -48,7 +48,7 @@ export default function Sidebar ({ postId }: { postId: string }) {
 
   const [activeTab, setActiveTab] = useState<'comment' | 'creator'>('comment')
   return (
-    <div className='w-full h-full md:overflow-y-auto px-1 scroller pt-2 bg-darkAccent'>
+    <div className='w-full h-full md:overflow-y-auto px-1 scroller pt-2 bg-darkAccent relative'>
       <div
         className={cn(
           ' space-y-3  md:overflow-y-auto scroller',
@@ -78,7 +78,7 @@ export default function Sidebar ({ postId }: { postId: string }) {
             <i className='text-muted-foreground text-xs'>Posted 5 hours ago</i>
           </CardContent>
         </Card>
-        <div className='flex justify-between items-center'>
+        <div className='flex justify-between items-center '>
           <div className='flex justify-between 2xl:gap-6 gap-3 items-center w-full'>
             <div className='flex 2xl:gap-6 gap-2 items-center'>
               <PostActionsContainer
@@ -232,7 +232,7 @@ function PostActionsContainer ({
         )}
         {...props}
       >
-        <Icon className='2xl:h-[20px]' />
+        <Icon className='2xl:h-[20px]' fontSize='small' />
       </div>
       {count && <span className='font-bold opacity-90'>{count}</span>}
     </div>

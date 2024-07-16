@@ -83,22 +83,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
                 <Input className='pl-10' placeholder='Search' />
                 <Search className='absolute left-2 top-1/2 -translate-y-1/2' />
 
-                <Sheet>
-                  <SheetTrigger asChild>
-                    <div className='flex items-center gap-1 cursor-pointer'>
-                      <Sort />
-                      <span>Filter</span>
-                    </div>
-                  </SheetTrigger>
-                  <SheetContent side={'right'} className='bg-lightAccent'>
-                    <div className=' space-y-3'>
-                      <Filter />
-                      <div className='flex justify-end'>
-                        <Button className='ml-auto'>Reset</Button>
-                      </div>
-                    </div>
-                  </SheetContent>
-                </Sheet>
+                <Filter />
               </div>
               <div>
                 <Link href={'/artists'}>

@@ -1,19 +1,6 @@
 'use client'
 
-import { ClearButton, MaterialSymbolIcon } from '@/components/custom'
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger
-} from '@/components/ui/accordion'
-import { Badge } from '@/components/ui/badge'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu'
+import { ClearButton } from '@/components/custom'
 import { FancyMultiSelect } from '@/components/ui/fancy-multi-select'
 import { Input } from '@/components/ui/input'
 import {
@@ -23,9 +10,9 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { job_type, tags } from '@/constants/job-filters'
-import { cn } from '@/lib/utils'
-import { Check, Close, KeyboardArrowDown } from '@mui/icons-material'
+import { Sort } from '@mui/icons-material'
 import { useState } from 'react'
 
 const skills: string[] = []
@@ -60,54 +47,55 @@ export default function Filter () {
     string[]
   >([])
   return (
-    <Accordion
-      type='multiple'
-      defaultValue={['name', 'skills', 'software', 'location', 'availability']}
-    >
-      <AccordionItem value='name'>
-        <AccordionTrigger>Name</AccordionTrigger>
-        <AccordionContent>
+    <Sheet>
+      <SheetTrigger asChild>
+        <div className='flex items-center gap-1 cursor-pointer'>
+          <Sort />
+          <span>Filter</span>
+        </div>
+      </SheetTrigger>
+      <SheetContent
+        side={'right'}
+        className='bg-card overflow-y-auto scroller-hide pt-10'
+        onOpenAutoFocus={e => e.preventDefault()}
+      >
+        <div className='space-y-4'>
           <Input placeholder='Name' />
-        </AccordionContent>
-      </AccordionItem>
-      <AccordionItem value='software'>
-        <AccordionTrigger className=''>Software</AccordionTrigger>
-        <AccordionContent className='space-y-4 p-2'>
-          <FancyMultiSelect options={tags.map(t => ({ label: t, value: t }))} />
-          <ClearButton />
-        </AccordionContent>
-      </AccordionItem>
-      <AccordionItem value='skills'>
-        <AccordionTrigger className=''>Skills</AccordionTrigger>
-        <AccordionContent className='space-y-4 p-2'>
-          <FancyMultiSelect options={tags.map(t => ({ label: t, value: t }))} />
-          <ClearButton />
-        </AccordionContent>
-      </AccordionItem>
-      <AccordionItem value='location'>
-        <AccordionTrigger className=''>City / Country</AccordionTrigger>
-        <AccordionContent className='space-y-4 p-2'>
-          <Select>
-            <SelectTrigger>
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {cities.map(item => (
-                <SelectItem key={item} value={item}>
-                  {item}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </AccordionContent>
-      </AccordionItem>
-      <AccordionItem value='availability'>
-        <AccordionTrigger className=''>Availability</AccordionTrigger>
-        <AccordionContent className='space-y-4 p-2'>
-          <FancyMultiSelect options={tags.map(t => ({ label: t, value: t }))} />
-          <ClearButton />
-        </AccordionContent>
-      </AccordionItem>
-    </Accordion>
+          <div>
+            <FancyMultiSelect
+              options={tags.map(t => ({ label: t, value: t }))}
+              placeholder='Software'
+            />
+            <ClearButton />
+          </div>
+          <div>
+            <FancyMultiSelect
+              options={tags.map(t => ({ label: t, value: t }))}
+              placeholder='Skills'
+            />
+            <ClearButton />
+          </div>
+          <div className='space-y-2'>
+            <Select>
+              <SelectTrigger>
+                <SelectValue placeholder='City/Country' />
+              </SelectTrigger>
+              <SelectContent>
+                {cities.map(item => (
+                  <SelectItem key={item} value={item}>
+                    {item}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <FancyMultiSelect
+              options={job_type.map(t => ({ label: t, value: t }))}
+              placeholder='Availability'
+            />
+            <ClearButton />
+          </div>
+        </div>
+      </SheetContent>
+    </Sheet>
   )
 }

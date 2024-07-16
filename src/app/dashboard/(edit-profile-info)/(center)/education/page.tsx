@@ -82,7 +82,7 @@ export default function HighestEducationPage () {
         </Button>
       }
     >
-      <FieldsContainer className='w-1/2'>
+      <FieldsContainer className='md:w-1/2 sm:w-3/4 w-full px-2'>
         {showForm ? (
           <>
             <EducationForm onSubmit={handleFormSubmit} form={form} />

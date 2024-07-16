@@ -57,21 +57,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
               <div className='w-3/4 md:w-3/5 lg:w-2/5 relative flex justify-between items-center gap-2'>
                 <Input className='pl-10' placeholder='Search' />
                 <Search className='absolute left-2 top-1/2 -translate-y-1/2' />
-
-                <Sheet>
-                  <SheetTrigger asChild>
-                    <div className='flex items-center gap-1 cursor-pointer'>
-                      <Sort />
-                      <span>Filter</span>
-                    </div>
-                  </SheetTrigger>
-                  <SheetContent
-                    side={'right'}
-                    className='bg-card overflow-y-auto scroller-hide pt-10'
-                  >
-                    <Filter />
-                  </SheetContent>
-                </Sheet>
+                <Filter />
               </div>
               <div>
                 <Button>
@@ -80,10 +66,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
                 </Button>
               </div>
             </div>
-            <div
-              className='absolute w-full h-full top-0 left-0 object-cover -z-10 
-            '
-            >
+            <div className='absolute w-full h-full top-0 left-0 object-cover -z-10'>
               <Image
                 src={background}
                 alt='background'

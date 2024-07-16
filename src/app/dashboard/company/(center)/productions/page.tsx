@@ -85,7 +85,7 @@ export default function ProductionsPage () {
         </Button>
       }
     >
-      <FieldsContainer className='w-1/2'>
+      <FieldsContainer className='md:w-1/2 sm:w-3/4 w-full px-2'>
         {showForm ? (
           <>
             <ProductionsForm onSubmit={handleFormSubmit} form={form} />
@@ -102,7 +102,10 @@ export default function ProductionsPage () {
       </FieldsContainer>
       <FieldsContainer className='w-4/5'>
         {selectedProductions.map((prod, idx) => (
-          <div className='flex justify-between items-center gap-2' key={idx}>
+          <div
+            className='flex @lg:flex-row flex-col justify-between items-center gap-2'
+            key={idx}
+          >
             <Image
               src={prod.image}
               alt='cover-art'
@@ -110,29 +113,34 @@ export default function ProductionsPage () {
               width={300}
               className='w-[200px] aspect-[2/3] object-cover'
             />
-            <div className='max-w-[100px]'>
-              <p className='text-sm opacity-70'>{prod.release_year}</p>
-              <h1 className='text-xl'>{prod.title}</h1>
-              <p className='text-sm opacity-70'>{prod.type}</p>
-            </div>
-            <p className='text-sm opacity-70'>{prod.role}</p>
-            <p className='text-sm opacity-70'>{prod.company}</p>
-            <div className='self-stretch my-auto'>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <div className='cursor-pointer'>
-                    <MoreVert />
-                  </div>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align='end'>
-                  <DropdownMenuItem onClick={() => handleEdit(idx)}>
-                    Edit
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => handleDelete(idx)}>
-                    Delete
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+            <div className='flex justify-between items-center gap-2 w-full'>
+              <div className='max-w-[100px]'>
+                <span className='text-xl'>{prod.title} - </span>
+                <span className='text-sm opacity-70'>{prod.release_year}</span>
+                <p className='text-sm opacity-70 whitespace-nowrap'>
+                  {prod.type}
+                </p>
+                <p className='text-sm opacity-70'>{prod.role}</p>
+                <p className='text-sm opacity-70'>{prod.company}</p>
+              </div>
+
+              <div className='self-stretch my-auto'>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <div className='cursor-pointer'>
+                      <MoreVert />
+                    </div>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align='end'>
+                    <DropdownMenuItem onClick={() => handleEdit(idx)}>
+                      Edit
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => handleDelete(idx)}>
+                      Delete
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
             </div>
           </div>
         ))}

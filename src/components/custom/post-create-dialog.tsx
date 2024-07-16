@@ -326,7 +326,7 @@ export default function PostCreateDialog () {
                 </Avatar>
               </div>
             </div>
-            <div className='w-full grid gap-2'>
+            <div className='w-full grid gap-2 grow-0'>
               <div className=''>
                 <Input
                   className=''

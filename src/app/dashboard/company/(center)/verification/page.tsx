@@ -10,7 +10,7 @@ export default function VerificationPage () {
       heading='Company and Recruiter Verification'
       subHeading='Choose one of the following verification method:'
     >
-      <FieldsContainer className='w-[70%] space-y-4'>
+      <FieldsContainer className=' sm:w-3/4 w-full px-2'>
         <CompanyVerificationForm />
       </FieldsContainer>
     </FormCard>

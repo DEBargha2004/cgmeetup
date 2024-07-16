@@ -83,7 +83,7 @@ export default function EditProfilePage () {
         </Button>
       }
     >
-      <FieldsContainer className='w-1/2'>
+      <FieldsContainer className='md:w-1/2 sm:w-3/4 w-full px-2'>
         {showForm ? (
           <>
             <JobPreferenceForm onSubmit={handleFormSubmit} form={form} />

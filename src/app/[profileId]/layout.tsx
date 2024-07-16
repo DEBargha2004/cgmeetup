@@ -90,7 +90,7 @@ export default function ProfileLayout ({
           </p>
         </div>
         <div className='flex flex-col justify-between items-center gap-5 w-1/5 min-w-[250px]'>
-          <div className='flex justify-between items-center gap-5 w-full'>
+          <div className='flex justify-center items-center gap-5 w-full'>
             <Link href={'/@tuit'}>
               <ProfileSubSectionItem heading='234' description='Posts' />
             </Link>

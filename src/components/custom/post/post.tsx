@@ -35,12 +35,12 @@ export default function Post ({
             />
           </PostImageContainer>
         ))}
-        <div className='h-10 w-10 rounded-full bg-lightAccent/50 hover:bg-lightAccent/90 absolute top-4 left-4 grid place-content-center'>
+        <div className='h-10 w-10 rounded-full bg-lightAccent/50 hover:bg-lightAccent/90 fixed top-4 left-4 grid place-content-center'>
           <Close />
         </div>
         <Link
           href={'#'}
-          className='md:fixed absolute top-1/2 -translate-y-1/2 right-2 md:right-[405px] cursor-pointer'
+          className='fixed top-1/2 -translate-y-1/2 right-2 md:right-[405px] cursor-pointer'
         >
           <NavigationElement>
             <ArrowForwardIos />
@@ -48,14 +48,14 @@ export default function Post ({
         </Link>
         <Link
           href={'#'}
-          className='md:fixed absolute top-1/2 -translate-y-1/2 left-2 cursor-pointer'
+          className='fixed top-1/2 -translate-y-1/2 left-2 cursor-pointer'
         >
           <NavigationElement>
             <ArrowBackIos />
           </NavigationElement>
         </Link>
       </div>
-      <div className='bg-red-500 md:h-full md:w-[400px] h-screen w-full'>
+      <div className='bg-red-500 md:h-full md:w-[400px] h-screen w-full bg-darkAccent'>
         <Sidebar postId={postId} />
       </div>
     </main>
