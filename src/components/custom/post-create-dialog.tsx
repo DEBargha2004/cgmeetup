@@ -544,13 +544,15 @@ export default function PostCreateDialog () {
               ) : null}
               {showOptions ? (
                 <div className='flex justify-between items-center gap-2 w-full'>
-                  <Badge
-                    className='h-8 w-fit px-2 flex justify-between items-center gap-2
+                  <DialogClose>
+                    <Badge
+                      className='h-8 w-fit px-2 flex justify-between items-center gap-2
                 cursor-pointer xs:col-span-1 col-span-2'
-                  >
-                    <Delete className='h-4' />
-                    <span>Delete</span>
-                  </Badge>
+                    >
+                      <Delete className='h-4' />
+                      <span>Delete</span>
+                    </Badge>
+                  </DialogClose>
                   <div className='flex gap-2 '>
                     <div className='flex justify-start md:justify-center items-center gap-1'>
                       <div

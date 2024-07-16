@@ -25,7 +25,7 @@ export default function Post ({
     <main className='h-full w-full md:flex justify-start items-center relative overflow-y-auto md:overflow-hidden scroller'>
       <div className='md:w-[calc(100%-400px)] w-full h-fit md:h-full md:overflow-y-auto scroller-transition relative'>
         {Array.from({ length: 4 }).map((_, i) => (
-          <PostImageContainer key={i} className=' py-10'>
+          <PostImageContainer key={i} className='md:py-10 py-0'>
             <Image
               className='md:h-full md:w-auto h-auto w-full object-contain'
               src={i % 2 === 0 ? vertical : horizontal}

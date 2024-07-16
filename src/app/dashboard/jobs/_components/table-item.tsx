@@ -33,8 +33,8 @@ export default function TableItem () {
   const [showLiked, setShowLiked] = useState(false)
   return (
     <TableRow className='hover:bg-darkAccent'>
-      <TableCell>
-        <div className='lg:h-[150px] lg:w-[150px] h-[100px] w-[100px]'>
+      <TableCell className='sm:p-2 px-0 w-fit'>
+        <div className='lg:h-[150px] lg:w-[150px] h-[80px] w-[80px]'>
           <Image
             src='https://cdnb.artstation.com/p/assets/images/images/000/424/193/smaller_square/glenn-melenhorst-car0001.jpg?1443927098'
             height={150}
@@ -79,10 +79,15 @@ export default function TableItem () {
       <TableCell className='hidden md:table-cell'>
         2023-07-12 10:42 AM
       </TableCell>
-      <TableCell>
+      <TableCell className='px-0'>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button aria-haspopup='true' size='icon' variant='ghost'>
+            <Button
+              aria-haspopup='true'
+              size='icon'
+              variant='ghost'
+              className='px-0'
+            >
               <MoreVert />
             </Button>
           </DropdownMenuTrigger>

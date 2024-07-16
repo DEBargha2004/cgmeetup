@@ -597,10 +597,12 @@ export default function JobCreateDialog () {
                 />
               </div>
               <div className='flex justify-between items-center gap-2'>
-                <Badge className='h-8 flex justify-start items-center gap-1 cursor-pointer'>
-                  <Delete className='h-3' />
-                  <span>Delete</span>
-                </Badge>
+                <DialogClose>
+                  <Badge className='h-8 flex justify-start items-center gap-1 cursor-pointer'>
+                    <Delete className='h-3' />
+                    <span>Delete</span>
+                  </Badge>
+                </DialogClose>
                 <Button type='submit' className='h-8' variant={'success'}>
                   Post
                 </Button>
