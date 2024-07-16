@@ -11,25 +11,24 @@ export default function LatestComments () {
   return (
     <div className='space-y-4'>
       <h1 className=' text-lg'>Latest Comments</h1>
-      <LatestSectionContainer.ItemsContainer className='grid xl:grid-cols-2 gap-x-6 bg-card rounded border p-3'>
+      <LatestSectionContainer.ItemsContainer className='grid xl:grid-cols-2 gap-x-6 bg-card rounded border p-3 space-y-0'>
         {Array.from({ length: 6 }).map((_, i) => (
           <LatestSectionContainer.Item
             key={i}
-            className='flex justify-between items-start gap-4'
+            className='flex justify-between items-start gap-4 '
           >
             <Avatar>
               <AvatarImage src={profile.src} />
               <AvatarFallback>{getShortendName('John Doe')}</AvatarFallback>
             </Avatar>
-            <div className='space-y-1'>
+            <div className='space-y-1 w-full'>
               <div className='line-clamp-3 text-sm'>
                 <strong className='cursor-pointer hover:text-primary'>
                   Moon Hynters:
                 </strong>
                 &nbsp;
                 <span className='opacity-70'>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  adipisicing elit.
+                  Abs commented on Cyberpunk Car Concept art by Alex
                 </span>
               </div>
               <div className='flex justify-start items-center gap-2 opacity-70'>

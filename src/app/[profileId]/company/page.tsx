@@ -1,62 +1,26 @@
-'use client'
-
-import { MaterialSymbolIcon, ProfileInfoOverView } from '@/components/custom'
+import { ProfileInfoOverView } from '@/components/custom'
 import { AboutSectionItemsWrapper } from '@/components/custom/profile'
 import { Badge } from '@/components/ui/badge'
 import { sample_cateories } from '@/constants/categories'
 import Image from 'next/image'
-import { HTMLProps, useState } from 'react'
-import { cn } from '@/lib/utils'
 import { bioDesc } from '@/constants/profile-about'
 import { Button } from '@/components/ui/button'
-import { useForm } from 'react-hook-form'
-import {
-  ProfileJobPreferenceSchemaType,
-  profileJobPreferenceSchema
-} from '@/schema/profile-job-preference'
-import { zodResolver } from '@hookform/resolvers/zod'
 import profile from '@/../public/images/profile-1.jpg'
 import poster from '@/../public/images/poster.jpg'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import RecruiterDialogComponent from './_components/recruiter-dialog-component'
 import Link from 'next/link'
-import { Edit, OpenInNew } from '@mui/icons-material'
+import {
+  Edit,
+  Instagram,
+  Language,
+  Twitter,
+  YouTube
+} from '@mui/icons-material'
 
 export default function AboutPage () {
-  const [bio, setBio] = useState({
-    initial: bioDesc,
-    edited: bioDesc
-  })
-  const [dialog, setDialog] = useState({
-    bio: false,
-    job_preference: false,
-    work_experience: false
-  })
-
-  const [jobPreferences, setJobPreferences] = useState<
-    ProfileJobPreferenceSchemaType[]
-  >([])
-
-  /* Forms Start */
-
-  const jobPreferencesForm = useForm<ProfileJobPreferenceSchemaType>({
-    resolver: zodResolver(profileJobPreferenceSchema)
-  })
-
-  /* Forms End */
-
-  /* Forms Handlers Start */
-
-  const handleJobPreferenceFormSubmit = async (
-    data: ProfileJobPreferenceSchemaType
-  ) => {
-    setJobPreferences(prev => [...prev, data])
-  }
-
-  /* Forms Handlers End */
-
   return (
-    <section className='md:w-3/5 mx-auto space-y-8 pt-8'>
+    <section className='md:w-3/5 mx-auto space-y-8 pt-8 @container'>
       <AboutSectionItemsWrapper
         title='About'
         className=''
@@ -72,7 +36,7 @@ export default function AboutPage () {
           </Link>
         }
       >
-        {bio.initial}
+        {bioDesc}
       </AboutSectionItemsWrapper>
       <AboutSectionItemsWrapper
         title='Company Legal Name'
@@ -202,23 +166,23 @@ export default function AboutPage () {
       </AboutSectionItemsWrapper>
       <AboutSectionItemsWrapper
         title='Social Links'
-        className='opacity-100 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 p-4 w-full '
+        className='opacity-100 grid grid-cols-2 @lg:grid-cols-3 @xl:grid-cols-4 gap-2 p-4 w-full '
       >
         <p className='flex justify-center items-center gap-1 cursor-pointer w-full shrink-0'>
+          <Twitter />
           Twitter
-          <OpenInNew />
         </p>
         <p className='flex justify-center items-center gap-1 cursor-pointer w-full shrink-0'>
+          <Instagram />
           Instagram
-          <OpenInNew />
         </p>
         <p className='flex justify-center items-center gap-1 cursor-pointer w-full shrink-0'>
+          <YouTube />
           Youtube
-          <OpenInNew />
         </p>
         <p className='flex justify-center items-center gap-1 cursor-pointer w-full shrink-0'>
+          <Language />
           Website
-          <OpenInNew />
         </p>
       </AboutSectionItemsWrapper>
     </section>

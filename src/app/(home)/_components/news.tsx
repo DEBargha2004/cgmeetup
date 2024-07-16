@@ -1,9 +1,4 @@
-'use client'
-
-import { useRef } from 'react'
 import NewsCard from './news-card'
-import { Navigator } from '@/components/custom'
-import { scroll } from '@/functions/scroll'
 import {
   Carousel,
   CarouselContent,
@@ -12,8 +7,6 @@ import {
 } from '@/components/ui/carousel'
 
 export default function News () {
-  const scrollerRef = useRef<HTMLDivElement>(null)
-
   return (
     <Carousel className=''>
       <CarouselContent className='basis-0 w-full gap-2'>

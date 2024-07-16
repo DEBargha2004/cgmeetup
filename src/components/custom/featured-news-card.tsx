@@ -1,10 +1,15 @@
+'use client'
+
 import Image from 'next/image'
 import { Card } from '../ui/card'
-import { Badge } from '../ui/badge'
-import { MapPin } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import MaterialSymbolIcon from './material-symbol-icon'
-import { Favorite, Message, Visibility } from '@mui/icons-material'
+import {
+  Favorite,
+  FavoriteBorder,
+  Message,
+  Visibility
+} from '@mui/icons-material'
+import { useState } from 'react'
 
 export default function FeaturedNewsCard ({
   className,
@@ -13,6 +18,7 @@ export default function FeaturedNewsCard ({
   className?: string
   avatar?: string
 }) {
+  const [showLiked, setShowLiked] = useState(false)
   return (
     <Card
       className={cn(
@@ -37,17 +43,26 @@ export default function FeaturedNewsCard ({
         <h2 className='text-xs opacity-70 cursor-pointer hover:text-primary'>
           1 day ago
         </h2>
-        <div className='sm:flex justify-start gap-3  w-[90%]'>
+        <div className='flex justify-start gap-1 w-[90%]'>
           <div className='text-slate-300 py-0 flex justify-start items-center gap-1 border-none'>
-            <Favorite className='h-[14px]' />
+            <div
+              className='cursor-pointer flex items-start'
+              onClick={() => setShowLiked(!showLiked)}
+            >
+              {showLiked ? (
+                <Favorite className='h-[18px] text-red-600' />
+              ) : (
+                <FavoriteBorder className='h-[18px]' />
+              )}
+            </div>
             <span className='text-xs'>2</span>
           </div>
           <div className='text-slate-300 py-0 flex justify-start items-center gap-1 border-none'>
-            <Visibility className='h-[14px]' />
+            <Visibility className='h-[18px]' />
             <span className='text-xs'>2</span>
           </div>
           <div className='text-slate-300 py-0 flex justify-start items-center gap-1 border-none'>
-            <Message className='h-[14px]' />
+            <Message className='h-[18px]' />
             <span className='text-xs'>2</span>
           </div>
         </div>

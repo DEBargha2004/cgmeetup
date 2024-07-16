@@ -14,6 +14,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
+import { FancyMultiSelect } from '@/components/ui/fancy-multi-select'
 import { Input } from '@/components/ui/input'
 import {
   Select,
@@ -72,138 +73,14 @@ export default function Filter () {
       <AccordionItem value='software'>
         <AccordionTrigger className=''>Software</AccordionTrigger>
         <AccordionContent className='space-y-4 p-2'>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <div
-                className='p-2 flex justify-between items-center w-full border rounded 
-                          h-10 bg-darkAccent'
-              >
-                <span>Software</span>
-                <KeyboardArrowDown />
-              </div>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              className='max-h-[300px] overflow-y-auto scroller h-[200px] 
-                        w-full space-y-1'
-            >
-              {tags.map(item => (
-                <DropdownMenuItem
-                  key={item}
-                  className={cn(
-                    'flex justify-start items-center gap-1',
-                    selectedSoftwares.includes(item) ? 'bg-lightAccent' : ''
-                  )}
-                  onSelect={e => {
-                    e.preventDefault()
-                    setSelectedSoftwares(prev => {
-                      if (prev.includes(item)) {
-                        return prev.filter(tag => tag !== item)
-                      }
-                      return [...prev, item]
-                    })
-                  }}
-                >
-                  <span
-                    className={cn(
-                      selectedSoftwares.includes(item)
-                        ? 'opacity-100'
-                        : 'opacity-0'
-                    )}
-                  >
-                    <Check />
-                  </span>
-                  <span>{item}</span>
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-          <div className='flex flex-wrap gap-2'>
-            {selectedSoftwares.map(item => (
-              <Badge
-                key={item}
-                className='bg-lightAccent p-2 flex justify-between items-center gap-1'
-              >
-                <span>{item}</span>
-                <Close
-                  className='h-[18px] cursor-pointer'
-                  onClick={() => {
-                    setSelectedSoftwares(prev => {
-                      return prev.filter(tag => tag !== item)
-                    })
-                  }}
-                />
-              </Badge>
-            ))}
-          </div>
+          <FancyMultiSelect options={tags.map(t => ({ label: t, value: t }))} />
           <ClearButton />
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value='skills'>
         <AccordionTrigger className=''>Skills</AccordionTrigger>
         <AccordionContent className='space-y-4 p-2'>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <div
-                className='p-2 flex justify-between items-center w-full border rounded 
-                          h-10 bg-darkAccent'
-              >
-                <span>Skills</span>
-                <KeyboardArrowDown />
-              </div>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              className='max-h-[300px] overflow-y-auto scroller h-[200px] 
-                        w-full space-y-1'
-            >
-              {skills.map(item => (
-                <DropdownMenuItem
-                  key={item}
-                  className={cn(
-                    'flex justify-start items-center gap-1',
-                    skills.includes(item) ? 'bg-lightAccent' : ''
-                  )}
-                  onSelect={e => {
-                    e.preventDefault()
-                    setSelectedSkills(prev => {
-                      if (prev.includes(item)) {
-                        return prev.filter(skill => skill !== item)
-                      }
-                      return [...prev, item]
-                    })
-                  }}
-                >
-                  <span
-                    className={cn(
-                      selectedSkills.includes(item)
-                        ? 'opacity-100'
-                        : 'opacity-0'
-                    )}
-                  >
-                    <Check />
-                  </span>
-                  <span>{item}</span>
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-          <div className='flex flex-wrap gap-2'>
-            {selectedSkills.map(item => (
-              <Badge
-                key={item}
-                className='bg-lightAccent p-2 flex justify-between items-center gap-1'
-              >
-                <span>{item}</span>
-                <Close
-                  className='h-[18px] cursor-pointer'
-                  onClick={() => {
-                    setSelectedSkills(prev => {
-                      return prev.filter(skill => skill !== item)
-                    })
-                  }}
-                />
-              </Badge>
-            ))}
-          </div>
+          <FancyMultiSelect options={tags.map(t => ({ label: t, value: t }))} />
           <ClearButton />
         </AccordionContent>
       </AccordionItem>
@@ -227,71 +104,7 @@ export default function Filter () {
       <AccordionItem value='availability'>
         <AccordionTrigger className=''>Availability</AccordionTrigger>
         <AccordionContent className='space-y-4 p-2'>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <div
-                className='p-2 flex justify-between items-center w-full border rounded 
-                          h-10 bg-darkAccent'
-              >
-                <span>Availability</span>
-                <KeyboardArrowDown />
-              </div>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              className='max-h-[300px] overflow-y-auto scroller h-[200px] 
-                        w-full space-y-1'
-            >
-              {job_type.map(item => (
-                <DropdownMenuItem
-                  key={item}
-                  className={cn(
-                    'flex justify-start items-center gap-1',
-                    selectedAvailabilities.includes(item)
-                      ? 'bg-lightAccent'
-                      : ''
-                  )}
-                  onSelect={e => {
-                    e.preventDefault()
-                    setSelectedAvailabilities(prev => {
-                      if (prev.includes(item)) {
-                        return prev.filter(tag => tag !== item)
-                      }
-                      return [...prev, item]
-                    })
-                  }}
-                >
-                  <span
-                    className={cn(
-                      selectedAvailabilities.includes(item)
-                        ? 'opacity-100'
-                        : 'opacity-0'
-                    )}
-                  >
-                    <Check />
-                  </span>
-                  <span>{item}</span>
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-          <div className='flex flex-wrap gap-2'>
-            {selectedAvailabilities.map(item => (
-              <Badge
-                key={item}
-                className='bg-lightAccent p-2 flex justify-between items-center gap-1'
-              >
-                <span>{item}</span>
-                <Close
-                  className='h-[18px] cursor-pointer'
-                  onClick={() => {
-                    setSelectedAvailabilities(prev => {
-                      return prev.filter(tag => tag !== item)
-                    })
-                  }}
-                />
-              </Badge>
-            ))}
-          </div>
+          <FancyMultiSelect options={tags.map(t => ({ label: t, value: t }))} />
           <ClearButton />
         </AccordionContent>
       </AccordionItem>

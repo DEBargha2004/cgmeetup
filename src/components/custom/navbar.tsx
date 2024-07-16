@@ -93,7 +93,7 @@ export default function Navbar ({ className }: { className?: string }) {
             <span className='sr-only'>Toggle navigation menu</span>
           </Button>
         </SheetTrigger>
-        <SheetContent side='left'>
+        <SheetContent side='left' className='bg-card'>
           <nav className='grid gap-6 text-lg font-medium'>
             <Link
               href='/'
@@ -203,13 +203,13 @@ export default function Navbar ({ className }: { className?: string }) {
             <Popover>
               <PopoverTrigger asChild>
                 <div className='cursor-pointer'>
-                  <Notifications />
+                  <Notifications className='xs:block hidden' />
                 </div>
               </PopoverTrigger>
               <PopoverContent
                 side='bottom'
                 align='center'
-                className='bg-card translate-y-3 space-y-4 max-h-[600px] lg:w-[500px] overflow-y-auto scroller'
+                className='bg-card translate-y-3 space-y-4 max-h-[600px] lg:w-[500px] xs:w-fit w-[100vw] overflow-y-auto scroller'
               >
                 <h1 className='text-xl font-semibold'>Notifications</h1>
                 <div className='space-y-3'>
@@ -229,10 +229,10 @@ export default function Navbar ({ className }: { className?: string }) {
                 </Link>
               </PopoverContent>
             </Popover>
-            <Link href={'/chat'}>
+            <Link href={'/chat'} className='xs:inline hidden'>
               <Chat />
             </Link>
-            <Link href={''}>
+            <Link href={''} className='xs:inline hidden'>
               <AddShoppingCart />
             </Link>
           </div>

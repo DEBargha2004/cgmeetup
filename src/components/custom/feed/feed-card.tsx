@@ -1,22 +1,35 @@
+'use client'
+
 import Image from 'next/image'
 import projects from '../../../../public/data/projects.json'
 import Link from 'next/link'
 import LimitText from '../limit-text'
 import ProfileInfoOverView from '../profile-info-overview'
-import MaterialSymbolIcon from '../material-symbol-icon'
-import { HTMLProps } from 'react'
+import { HTMLProps, useState } from 'react'
 import { cn } from '@/lib/utils'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {
   Bookmark,
+  BookmarkBorder,
   Comment,
   Favorite,
+  FavoriteBorder,
   MoreVert,
   Share,
   Visibility
 } from '@mui/icons-material'
+
+const description = `Lorem Ipsum is simply dummy text of the printing and typesetting
+industry. Lorem Ipsum has been the industry's standard dummy text ever
+since the 1500s, when an unknown printer took a galley of type and
+scrambled it to make a type specimen book. It has survived not only
+five centuries, but also the leap into electronic typesetting,
+remaining essentially unchanged. It was popularised in the 1960s with
+the release of Letraset sheets containing Lorem Ipsum passages, and
+more recently with desktop publishing software like Aldus PageMaker
+including versions of Lorem Ipsum`
 
 export default function FeedCard ({
   project,
@@ -25,15 +38,8 @@ export default function FeedCard ({
 }: {
   project: typeof projects.data[number]
 } & HTMLProps<HTMLDivElement>) {
-  const description = `Lorem Ipsum is simply dummy text of the printing and typesetting
-  industry. Lorem Ipsum has been the industry's standard dummy text ever
-  since the 1500s, when an unknown printer took a galley of type and
-  scrambled it to make a type specimen book. It has survived not only
-  five centuries, but also the leap into electronic typesetting,
-  remaining essentially unchanged. It was popularised in the 1960s with
-  the release of Letraset sheets containing Lorem Ipsum passages, and
-  more recently with desktop publishing software like Aldus PageMaker
-  including versions of Lorem Ipsum`
+  const [showLiked, setShowLiked] = useState(false)
+  const [showBookmarked, setShowBookmarked] = useState(false)
   return (
     <div
       key={project.id}
@@ -62,7 +68,17 @@ export default function FeedCard ({
       <div className='flex justify-between items-center px-2'>
         <div className='flex gap-3 items-center'>
           <div className='flex justify-between items-center gap-1 text-lightAccent-foreground'>
-            <Favorite />3
+            <div
+              className='flex items-start cursor-pointer'
+              onClick={() => setShowLiked(!showLiked)}
+            >
+              {showLiked ? (
+                <Favorite className='text-red-600' />
+              ) : (
+                <FavoriteBorder />
+              )}
+            </div>
+            3
           </div>
           <div className='flex justify-between items-center gap-1 text-lightAccent-foreground'>
             <Visibility />3
@@ -76,7 +92,17 @@ export default function FeedCard ({
             <Share />3
           </div>
           <div className='flex justify-between items-center gap-1 text-lightAccent-foreground'>
-            <Bookmark />3
+            <div
+              className='flex items-start cursor-pointer'
+              onClick={() => setShowBookmarked(!showBookmarked)}
+            >
+              {showBookmarked ? (
+                <Bookmark className='text-primary' />
+              ) : (
+                <BookmarkBorder />
+              )}
+            </div>
+            3
           </div>
         </div>
       </div>

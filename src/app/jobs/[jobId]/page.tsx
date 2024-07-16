@@ -27,6 +27,7 @@ import {
   Work
 } from '@mui/icons-material'
 import { IconType } from '@/types/icon'
+import PostActions from './_components/post-actions'
 
 const job_summary = [
   {
@@ -70,10 +71,10 @@ export default function JobPage ({
               <h1 className='text-3xl font-black'>Lead Environment Artist</h1>
               <div className='text-sm flex items-center gap-2'>
                 <Link href={''} className='hover:text-primary'>
-                  <span>Ubisoft</span>
+                  <span className='text-base'>Ubisoft</span>
                 </Link>
                 <div className='xl:text-sm text-xs w-8 h-8 rounded-full bg-primary grid place-content-center'>
-                  <PersonAdd />
+                  <PersonAdd fontSize='small' />
                 </div>
               </div>
             </div>
@@ -107,27 +108,7 @@ export default function JobPage ({
                     Apply
                   </Button>
                 </div>
-                <div className='flex justify-end items-center w-fit xl:gap-5 gap-3 lg:mr-5'>
-                  <div className='flex gap-3 xl:gap-6 items-center'>
-                    <div className='flex justify-between items-center gap-2'>
-                      <PostAction Icon={Favorite} />
-                      <span className='font-bold opacity-90'>3</span>
-                    </div>
-                    <div className='flex justify-between items-center gap-2'>
-                      <PostAction Icon={Visibility} />
-                      <span className='font-bold opacity-90'>3</span>
-                    </div>
-                  </div>
-                  <div className='flex gap-3 xl:gap-6 items-center'>
-                    <div className='flex justify-between items-center gap-2'>
-                      <PostAction Icon={Share} />
-                      <span className='font-bold opacity-90'>3</span>
-                    </div>
-                    <div className='flex justify-between items-center gap-2'>
-                      <PostAction Icon={Bookmark} />
-                    </div>
-                  </div>
-                </div>
+                <PostActions />
               </div>
             </div>
           </section>
@@ -265,17 +246,6 @@ export default function JobPage ({
           </section>
         </div>
       </div>
-    </div>
-  )
-}
-
-function PostAction ({ Icon }: { Icon: IconType }) {
-  return (
-    <div
-      className='flex justify-center items-center bg-lightAccent md:h-8 md:w-8 
-2xl:h-9 2xl:w-9 rounded-full h-7 w-7'
-    >
-      <Icon className='2xl:h-5 md:h-4 h-[14px]' />
     </div>
   )
 }

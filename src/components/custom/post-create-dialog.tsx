@@ -306,7 +306,7 @@ export default function PostCreateDialog () {
       >
         <DialogContent
           className='max-w-[800px] bg-card px-4 overflow-y-auto scroller-hide 
-        max-h-[calc(100vh-20px)] '
+        max-h-[calc(100vh-20px)] pt-10'
           hideCloseButton
         >
           <DialogClose className='absolute right-2 top-2'>
@@ -327,38 +327,13 @@ export default function PostCreateDialog () {
               </div>
             </div>
             <div className='w-full grid gap-2'>
-              <div className='grid grid-cols-4 gap-2'>
+              <div className=''>
                 <Input
-                  className='md:col-span-3 col-span-4'
+                  className=''
                   placeholder='Title'
                   value={title}
                   onChange={e => setTitle(e.target.value)}
                 />
-                <div className='flex justify-start md:justify-center items-center gap-1'>
-                  <div
-                    className='flex items-center gap-1'
-                    onClick={() => setAddToPortfolio(prev => !prev)}
-                  >
-                    <Checkbox
-                      className='rounded-full'
-                      checked={addToPortfolio}
-                    />
-                    <span
-                      className={cn(
-                        'whitespace-nowrap text-sm hover:opacity-100 cursor-pointer',
-                        addToPortfolio ? 'opacity-100' : 'opacity-70 '
-                      )}
-                    >
-                      Add to Portfolio
-                    </span>
-                  </div>
-                  <div
-                    className='h-5 w-5 grid place-content-center rounded-full bg-lightAccent cursor-pointer'
-                    onClick={() => setShowQuestionInfo(true)}
-                  >
-                    <QuestionMark className='h-3' />
-                  </div>
-                </div>
               </div>
               <div className='relative'>
                 <Textarea
@@ -392,12 +367,37 @@ export default function PostCreateDialog () {
                       setVideoUrlInput(prev => ({ ...prev, show: true }))
                     }
                   >
-                    <SlowMotionVideo className='cursor-pointer h-6 text-success' />
+                    <SlowMotionVideo className='cursor-pointer h-6 text-primary' />
                     <span className='text-sm'>Videos</span>
                   </div>
                 </div>
                 <div className='flex sm:justify-start justify-between space-x-4 sm:w-fit w-full'>
-                  <div className='flex justify-start items-center gap-1'></div>
+                  <div className='flex justify-start md:justify-center items-center gap-1'>
+                    <div
+                      className='flex items-center gap-1'
+                      onClick={() => setAddToPortfolio(prev => !prev)}
+                    >
+                      <Checkbox
+                        className='rounded-full'
+                        checked={addToPortfolio}
+                      />
+                      <span
+                        className={cn(
+                          'whitespace-nowrap text-sm hover:opacity-100 cursor-pointer',
+                          addToPortfolio ? 'opacity-100' : 'opacity-70 '
+                        )}
+                      >
+                        Add to Portfolio
+                      </span>
+                    </div>
+                    <div
+                      className='h-5 w-5 grid place-content-center rounded-full bg-lightAccent cursor-pointer'
+                      onClick={() => setShowQuestionInfo(true)}
+                    >
+                      <QuestionMark className='h-3' />
+                    </div>
+                  </div>
+
                   <Button
                     className='h-8'
                     variant={'success'}
@@ -540,13 +540,47 @@ export default function PostCreateDialog () {
                       <Switch />
                     </div>
                   </div>
+                </div>
+              ) : null}
+              {showOptions ? (
+                <div className='flex justify-between items-center gap-2 w-full'>
                   <Badge
                     className='h-8 w-fit px-2 flex justify-between items-center gap-2
-                cursor-pointer ml-auto xs:col-span-1 col-span-2'
+                cursor-pointer xs:col-span-1 col-span-2'
                   >
                     <Delete className='h-4' />
                     <span>Delete</span>
                   </Badge>
+                  <div className='flex gap-2 '>
+                    <div className='flex justify-start md:justify-center items-center gap-1'>
+                      <div
+                        className='flex items-center gap-1'
+                        onClick={() => setAddToPortfolio(prev => !prev)}
+                      >
+                        <Checkbox
+                          className='rounded-full'
+                          checked={addToPortfolio}
+                        />
+                        <span
+                          className={cn(
+                            'whitespace-nowrap text-sm hover:opacity-100 cursor-pointer',
+                            addToPortfolio ? 'opacity-100' : 'opacity-70 '
+                          )}
+                        >
+                          Add to Portfolio
+                        </span>
+                      </div>
+                      <div
+                        className='h-5 w-5 grid place-content-center rounded-full bg-lightAccent cursor-pointer'
+                        onClick={() => setShowQuestionInfo(true)}
+                      >
+                        <QuestionMark className='h-3' />
+                      </div>
+                    </div>
+                    <Button className='h-8' variant={'success'}>
+                      Post
+                    </Button>
+                  </div>
                 </div>
               ) : null}
             </div>

@@ -3,6 +3,11 @@
 import { MaterialSymbolIcon } from '@/components/custom'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem
+} from '@/components/ui/carousel'
 import { getShortendName } from '@/functions'
 import { cn } from '@/lib/utils'
 import { Edit, LocationOn } from '@mui/icons-material'
@@ -111,18 +116,25 @@ export default function ProfileLayout ({
       </div>
       <div className='my-5'>
         <div className='flex justify-center items-center gap-1 my-2 bg-lightAccent'>
-          {tabs.map(tab => (
-            <Link key={tab.href} href={tab.href}>
-              <div
-                className={cn(
-                  'px-4 py-3 hover:bg-card cursor-pointer',
-                  pathName === tab.href && 'bg-card border-b-2 border-primary'
-                )}
-              >
-                {tab.label}
-              </div>
-            </Link>
-          ))}
+          <Carousel className='w-full'>
+            <CarouselContent className='xs:justify-center'>
+              {tabs.map(tab => (
+                <CarouselItem key={tab.href} className='basis-auto'>
+                  <Link href={tab.href}>
+                    <div
+                      className={cn(
+                        'px-4 py-3 hover:bg-card cursor-pointer',
+                        pathName === tab.href &&
+                          'bg-card border-b-2 border-primary'
+                      )}
+                    >
+                      {tab.label}
+                    </div>
+                  </Link>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
         </div>
         {children}
       </div>

@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 
 export default function NewsLetter () {
   return (
-    <div className='h-[200px] w-full overflow-hidden relative flex items-center justify-center bg-black/50'>
+    <div className='h-[250px] w-full overflow-hidden relative flex items-center justify-center bg-black/50'>
       <Image
         className='w-full h-full object-cover  absolute top-0 left-0 -z-10'
         src={background}

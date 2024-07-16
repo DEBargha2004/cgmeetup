@@ -1,21 +1,11 @@
-'use client'
-
-import { MaterialSymbolIcon, ProfileInfoOverView } from '@/components/custom'
 import { AboutSectionItemsWrapper } from '@/components/custom/profile'
 import { Badge } from '@/components/ui/badge'
 import { sample_cateories } from '@/constants/categories'
 import Image from 'next/image'
 import pdf_image from '../../../../public/images/pdf.png'
-import { HTMLProps, useState } from 'react'
-import { cn } from '@/lib/utils'
 import { bioDesc } from '@/constants/profile-about'
 import { Button } from '@/components/ui/button'
-import { useForm } from 'react-hook-form'
-import {
-  ProfileJobPreferenceSchemaType,
-  profileJobPreferenceSchema
-} from '@/schema/profile-job-preference'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { ProfileJobPreferenceSchemaType } from '@/schema/profile-job-preference'
 import profile from '@/../public/images/profile-1.jpg'
 import {
   Dialog,
@@ -30,59 +20,31 @@ import {
   Close,
   Download,
   Edit,
+  Instagram,
+  Language,
   OpenInNew,
-  Visibility
+  Visibility,
+  YouTube
 } from '@mui/icons-material'
+import { Twitter } from '@mui/icons-material'
 
-function EditIcon ({ className, ...props }: {} & HTMLProps<HTMLDivElement>) {
-  return (
-    <div
-      className={cn(
-        'rounded-full border-2 border-primary h-10 w-10 flex justify-center items-center cursor-pointer',
-        className
-      )}
-      {...props}
-    >
-      <Edit className='text-primary' />
-    </div>
-  )
-}
+const jobPreferences: ProfileJobPreferenceSchemaType[] = [
+  {
+    category: sample_cateories[0],
+    subcategory: sample_cateories[0],
+    preferred_city: 'Hyderabad',
+    expected_salary: {
+      currency: 'INR',
+      lower_limit: '50000',
+      upper_limit: '100000'
+    },
+    job_type: 'Full Time'
+  }
+]
 
 export default function AboutPage () {
-  const [bio, setBio] = useState({
-    initial: bioDesc,
-    edited: bioDesc
-  })
-  const [dialog, setDialog] = useState({
-    bio: false,
-    job_preference: false,
-    work_experience: false
-  })
-
-  const [jobPreferences, setJobPreferences] = useState<
-    ProfileJobPreferenceSchemaType[]
-  >([])
-
-  /* Forms Start */
-
-  const jobPreferencesForm = useForm<ProfileJobPreferenceSchemaType>({
-    resolver: zodResolver(profileJobPreferenceSchema)
-  })
-
-  /* Forms End */
-
-  /* Forms Handlers Start */
-
-  const handleJobPreferenceFormSubmit = async (
-    data: ProfileJobPreferenceSchemaType
-  ) => {
-    setJobPreferences(prev => [...prev, data])
-  }
-
-  /* Forms Handlers End */
-
   return (
-    <section className='md:w-3/5 mx-auto space-y-8 pt-8'>
+    <section className='md:w-3/5 mx-auto space-y-8 pt-8 @container pb-10'>
       <AboutSectionItemsWrapper
         title='My Bio'
         className=''
@@ -98,7 +60,7 @@ export default function AboutPage () {
           </Link>
         }
       >
-        {bio.initial}
+        {bioDesc}
       </AboutSectionItemsWrapper>
       <AboutSectionItemsWrapper
         title='Job Preference'
@@ -268,23 +230,23 @@ export default function AboutPage () {
       </AboutSectionItemsWrapper>
       <AboutSectionItemsWrapper
         title='Social Links'
-        className='opacity-100 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 p-4 w-full '
+        className='opacity-100 grid grid-cols-2 @lg:grid-cols-3 @xl:grid-cols-4 gap-2 p-4 w-full '
       >
         <p className='flex justify-center items-center gap-1 cursor-pointer w-full shrink-0'>
+          <Twitter />
           Twitter
-          <OpenInNew />
         </p>
         <p className='flex justify-center items-center gap-1 cursor-pointer w-full shrink-0'>
+          <Instagram />
           Instagram
-          <OpenInNew />
         </p>
         <p className='flex justify-center items-center gap-1 cursor-pointer w-full shrink-0'>
+          <YouTube />
           Youtube
-          <OpenInNew />
         </p>
         <p className='flex justify-center items-center gap-1 cursor-pointer w-full shrink-0'>
+          <Language />
           Website
-          <OpenInNew />
         </p>
       </AboutSectionItemsWrapper>
     </section>

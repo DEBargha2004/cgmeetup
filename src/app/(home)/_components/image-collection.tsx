@@ -16,7 +16,7 @@ export default function ImageCollection ({ className }: { className?: string }) 
           href={`/gallery/${project.id}`}
           key={index}
           scroll={false}
-          className={cn('', index === 4 && 'sm:col-span-2 sm:row-span-2')}
+          className={cn('', index === 4 && 'col-span-2 row-span-2')}
         >
           <GalleryImage
             project={project}
@@ -32,7 +32,7 @@ export default function ImageCollection ({ className }: { className?: string }) 
           href={`/gallery/${project.id}`}
           key={index}
           scroll={false}
-          className={cn('', index === 1 && 'sm:col-span-2 sm:row-span-2')}
+          className={cn('', index === 1 && 'col-span-2 row-span-2')}
         >
           <GalleryImage
             project={project}
@@ -48,7 +48,7 @@ export default function ImageCollection ({ className }: { className?: string }) 
           href={`/gallery/${project.id}`}
           key={index}
           scroll={false}
-          className={cn('', index === 5 && 'sm:col-span-2 sm:row-span-2')}
+          className={cn('', index === 5 && 'col-span-2 row-span-2')}
         >
           <GalleryImage
             project={project}

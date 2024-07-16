@@ -1,5 +1,6 @@
 'use client'
 
+import { useWindowSize } from '@uidotdev/usehooks'
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from 'recharts'
 
 const data = [
@@ -54,9 +55,14 @@ const data = [
 ]
 
 export function Overview () {
+  const windowDimension = useWindowSize()
   return (
-    <ResponsiveContainer width='100%' height={350}>
-      <BarChart data={data} className='barchart'>
+    <ResponsiveContainer width='100%' height={350} minWidth={200}>
+      <BarChart
+        //@ts-ignore
+        data={windowDimension?.width > 768 ? data : data.slice(6)}
+        className='barchart min-w-[200px]'
+      >
         <XAxis
           dataKey='name'
           stroke='#888888'

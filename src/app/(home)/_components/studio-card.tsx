@@ -19,7 +19,7 @@ export default function StudioCard ({ className }: { className?: string }) {
         alt='profile'
         height={100}
         width={100}
-        className='rounded-sm h-20 w-20'
+        className='rounded-sm h-[120px] w-[120px]'
       />
       <div className='text-center flex flex-col items-center justify-start gap-1 [&>button]:mt-3'>
         <h1 className='text-lg '>Ubisoft Canada</h1>

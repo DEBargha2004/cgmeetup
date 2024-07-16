@@ -11,6 +11,18 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator
 } from '@/components/ui/breadcrumb'
+import {
+  Chat,
+  Comment,
+  Favorite,
+  People,
+  Visibility
+} from '@mui/icons-material'
+import LatestSectionContainer from '@/components/custom/feed/latest-section-container'
+import Image from 'next/image'
+import { getShortendName } from '@/functions'
+import postimage from '@/../public/images/dog-vertical.webp'
+import profile from '@/../public/images/profile-1.jpg'
 
 export default function Dashboard () {
   return (
@@ -34,10 +46,8 @@ export default function Dashboard () {
         <div className='grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4'>
           <Card x-chunk='dashboard-01-chunk-0' className='bg-card'>
             <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
-              <CardTitle className='text-sm font-medium'>
-                Total Revenue
-              </CardTitle>
-              <DollarSign className='h-4 w-4 text-muted-foreground' />
+              <CardTitle className='text-sm font-medium'>Total Views</CardTitle>
+              <Visibility fontSize='small' className='opacity-60' />
             </CardHeader>
             <CardContent>
               <div className='text-2xl font-bold'>$45,231.89</div>
@@ -48,10 +58,8 @@ export default function Dashboard () {
           </Card>
           <Card x-chunk='dashboard-01-chunk-1' className='bg-card'>
             <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
-              <CardTitle className='text-sm font-medium'>
-                Subscriptions
-              </CardTitle>
-              <Users className='h-4 w-4 text-muted-foreground' />
+              <CardTitle className='text-sm font-medium'>Followers</CardTitle>
+              <People fontSize='small' className='opacity-60' />
             </CardHeader>
             <CardContent>
               <div className='text-2xl font-bold'>+2350</div>
@@ -62,8 +70,8 @@ export default function Dashboard () {
           </Card>
           <Card x-chunk='dashboard-01-chunk-2' className='bg-card'>
             <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
-              <CardTitle className='text-sm font-medium'>Sales</CardTitle>
-              <CreditCard className='h-4 w-4 text-muted-foreground' />
+              <CardTitle className='text-sm font-medium'>Likes</CardTitle>
+              <Favorite fontSize='small' className='opacity-60' />
             </CardHeader>
             <CardContent>
               <div className='text-2xl font-bold'>+12,234</div>
@@ -74,8 +82,8 @@ export default function Dashboard () {
           </Card>
           <Card x-chunk='dashboard-01-chunk-3' className='bg-card'>
             <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
-              <CardTitle className='text-sm font-medium'>Active Now</CardTitle>
-              <Activity className='h-4 w-4 text-muted-foreground' />
+              <CardTitle className='text-sm font-medium'>Comments</CardTitle>
+              <Comment fontSize='small' className='opacity-60' />
             </CardHeader>
             <CardContent>
               <div className='text-2xl font-bold'>+573</div>
@@ -104,81 +112,43 @@ export default function Dashboard () {
               <CardTitle className='text-xl'>Recent Comments</CardTitle>
             </CardHeader>
             <CardContent className='grid gap-8'>
-              <div className='flex items-center gap-4'>
-                <Avatar className='hidden h-9 w-9 sm:flex'>
-                  <AvatarImage src='/avatars/01.png' alt='Avatar' />
-                  <AvatarFallback>OM</AvatarFallback>
-                </Avatar>
-                <div className='grid gap-1'>
-                  <p className='text-sm font-medium leading-none'>
-                    Olivia Martin
-                  </p>
-                  <p className='text-sm text-muted-foreground'>
-                    olivia.martin@email.com
-                  </p>
-                </div>
-                <div className='ml-auto font-medium'>+$1,999.00</div>
-              </div>
-              <div className='flex items-center gap-4'>
-                <Avatar className='hidden h-9 w-9 sm:flex'>
-                  <AvatarImage src='/avatars/02.png' alt='Avatar' />
-                  <AvatarFallback>JL</AvatarFallback>
-                </Avatar>
-                <div className='grid gap-1'>
-                  <p className='text-sm font-medium leading-none'>
-                    Jackson Lee
-                  </p>
-                  <p className='text-sm text-muted-foreground'>
-                    jackson.lee@email.com
-                  </p>
-                </div>
-                <div className='ml-auto font-medium'>+$39.00</div>
-              </div>
-              <div className='flex items-center gap-4'>
-                <Avatar className='hidden h-9 w-9 sm:flex'>
-                  <AvatarImage src='/avatars/03.png' alt='Avatar' />
-                  <AvatarFallback>IN</AvatarFallback>
-                </Avatar>
-                <div className='grid gap-1'>
-                  <p className='text-sm font-medium leading-none'>
-                    Isabella Nguyen
-                  </p>
-                  <p className='text-sm text-muted-foreground'>
-                    isabella.nguyen@email.com
-                  </p>
-                </div>
-                <div className='ml-auto font-medium'>+$299.00</div>
-              </div>
-              <div className='flex items-center gap-4'>
-                <Avatar className='hidden h-9 w-9 sm:flex'>
-                  <AvatarImage src='/avatars/04.png' alt='Avatar' />
-                  <AvatarFallback>WK</AvatarFallback>
-                </Avatar>
-                <div className='grid gap-1'>
-                  <p className='text-sm font-medium leading-none'>
-                    William Kim
-                  </p>
-                  <p className='text-sm text-muted-foreground'>
-                    will@email.com
-                  </p>
-                </div>
-                <div className='ml-auto font-medium'>+$99.00</div>
-              </div>
-              <div className='flex items-center gap-4'>
-                <Avatar className='hidden h-9 w-9 sm:flex'>
-                  <AvatarImage src='/avatars/05.png' alt='Avatar' />
-                  <AvatarFallback>SD</AvatarFallback>
-                </Avatar>
-                <div className='grid gap-1'>
-                  <p className='text-sm font-medium leading-none'>
-                    Sofia Davis
-                  </p>
-                  <p className='text-sm text-muted-foreground'>
-                    sofia.davis@email.com
-                  </p>
-                </div>
-                <div className='ml-auto font-medium'>+$39.00</div>
-              </div>
+              {Array.from({ length: 6 }).map((_, i) => (
+                <LatestSectionContainer.Item
+                  key={i}
+                  className='flex justify-between items-start gap-4 '
+                >
+                  <Avatar className='h-12 w-12 shrink-0 sm:flex hidden'>
+                    <AvatarImage src={profile.src} />
+                    <AvatarFallback>
+                      {getShortendName('John Doe')}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className='space-y-1 w-full'>
+                    <div className='line-clamp-3 text-sm'>
+                      <strong className='cursor-pointer hover:text-primary'>
+                        Moon Hynters:
+                      </strong>
+                      &nbsp;
+                      <span className='opacity-70'>
+                        Abs commented on Cyberpunk Car Concept art by Alex
+                      </span>
+                    </div>
+                    <div className='flex justify-start items-center gap-2 opacity-70'>
+                      <Chat fontSize='small' />
+                      <span>3</span>
+                    </div>
+                  </div>
+                  <div className='h-12 w-12 rounded-md overflow-hidden shrink-0'>
+                    <Image
+                      src={postimage}
+                      alt='post'
+                      height={80}
+                      width={80}
+                      className='h-full w-full object-cover'
+                    />
+                  </div>
+                </LatestSectionContainer.Item>
+              ))}
             </CardContent>
           </Card>
         </div>

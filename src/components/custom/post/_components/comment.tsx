@@ -4,7 +4,12 @@ import { MaterialSymbolIcon, ProfileInfoOverView } from '@/components/custom'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
-import { ExpandLess, ExpandMore, Favorite } from '@mui/icons-material'
+import {
+  ExpandLess,
+  ExpandMore,
+  Favorite,
+  FavoriteBorder
+} from '@mui/icons-material'
 import { useState } from 'react'
 
 export default function Comment ({
@@ -21,6 +26,7 @@ export default function Comment ({
     value: ''
   })
   const [showMoreComments, setShowMoreComments] = useState(false)
+  const [showLiked, setShowLiked] = useState(false)
   return (
     <div className='flex flex-col justify-start items-start gap-2'>
       <ProfileInfoOverView
@@ -41,7 +47,16 @@ export default function Comment ({
           Lorem ipsum
         </p>
         <div className='flex justify-start items-center gap-2 '>
-          <Favorite className='h-[14px]' />
+          <div
+            className='flex items-start cursor-pointer'
+            onClick={() => setShowLiked(!showLiked)}
+          >
+            {showLiked ? (
+              <Favorite className='h-[14px] text-red-600' />
+            ) : (
+              <FavoriteBorder className='h-[14px]' />
+            )}
+          </div>
           <i className='text-xs opacity-70'>34 hours ago</i>
           <p
             className='text-xs opacity-70'

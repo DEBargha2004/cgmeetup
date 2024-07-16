@@ -23,6 +23,7 @@ import { EditorContentComponent } from '@/components/custom/editor'
 import {
   Bookmark,
   Comment,
+  Favorite,
   PersonAdd,
   Schedule,
   Share,
@@ -30,6 +31,8 @@ import {
   Visibility
 } from '@mui/icons-material'
 import { IconType } from '@/types/icon'
+import News from './_components/news'
+import Advertisements from '@/app/feed/_components/advertisements'
 
 const content = `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
   sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>`
@@ -71,7 +74,7 @@ border-none bg-transparent'
         <CardContent className='space-y-2 px-2'>
           <div className='flex justify-between items-center border-b pb-2'>
             <div className='flex justify-start gap-3 items-center'>
-              <PostHeaderOptions Icon={ThumbUp} label='0' />
+              <PostHeaderOptions Icon={Favorite} label='0' />
               <PostHeaderOptions Icon={Visibility} label='0' />
               <PostHeaderOptions Icon={Comment} label='0' />
               <PostHeaderOptions Icon={Schedule} label='40m' />
@@ -89,11 +92,13 @@ border-none bg-transparent'
               />
             </div>
           </div>
-          <div className='border-b pb-2'>
-            <EditorContentComponent content={content} />
+          <div className='border-b py-5 pt-3'>
+            {/* <EditorContentComponent content={content} />
+             */}
+            <News />
           </div>
           <div className='border-b pb-2'>
-            <ProfileInfoOverView className=''>
+            <ProfileInfoOverView className='w-fit gap-4'>
               <div className='shrink-0 w-8 h-8 rounded-full grid place-content-center bg-primary cursor-pointer'>
                 <PersonAdd className='h-[14px]' />
               </div>
@@ -123,6 +128,7 @@ border-none bg-transparent'
         </CardContent>
       </Card>
       <Card className='bg-transparent border-none col-span-3 xl:col-span-1'>
+        <Advertisements />
         <Card className='bg-transparent border-none'>
           <CardContent className='grid gap-4 px-1'>
             {Array.from({ length: 5 }, (_, i) => i).map(i => (

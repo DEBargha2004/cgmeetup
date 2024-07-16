@@ -601,7 +601,7 @@ export default function JobCreateDialog () {
                   <Delete className='h-3' />
                   <span>Delete</span>
                 </Badge>
-                <Button type='submit' className='h-8'>
+                <Button type='submit' className='h-8' variant={'success'}>
                   Post
                 </Button>
               </div>

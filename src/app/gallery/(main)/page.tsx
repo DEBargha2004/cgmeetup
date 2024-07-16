@@ -1,9 +1,9 @@
-import { ImageCollection } from '@/components/custom/gallery'
+import ImageCollection from '@/app/(home)/_components/image-collection'
 
 export default function GalleryPage () {
   return (
     <>
-      <ImageCollection imageScale={false} />
+      <ImageCollection />
     </>
   )
 }

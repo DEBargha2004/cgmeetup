@@ -37,7 +37,7 @@ export default function ScrollControlContainer ({
       {children}
       <div
         className={cn(
-          `fixed bottom-4 right-4 h-14 w-14 rounded-full grid place-content-center 
+          `fixed bottom-16 right-6 h-14 w-14 rounded-full grid place-content-center 
       bg-darkAccent/50 hover:bg-darkAccent/80 cursor-pointer`,
           showScrollControl ? 'grid' : 'hidden'
         )}

@@ -43,7 +43,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
   return (
     <>
       <div className='flex min-h-screen w-full flex-col'>
-        <main className='flex flex-1 flex-col md:gap-0'>
+        <main className='flex flex-1 flex-col md:gap-1'>
           <div className='relative md:pt-12'>
             <div className='my-6 mb-10 flex flex-col justify-between items-center gap-12 text-center'>
               <div className='space-y-4'>
@@ -88,9 +88,9 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
               <Image
                 src={background}
                 alt='background'
-                className='w-full h-full object-cover opacity-40 -z-20'
+                className='w-full h-full object-cover -z-20'
               />
-              <div className='absolute w-full h-full top-0 left-0 z-10 bg-gradient-to-t from-black/60 to-transparent' />
+              <div className='absolute w-full h-3/4 top-1/4 left-0 bg-gradient-to-t from-black/80 to-transparent' />
             </div>
           </div>
           <div className='space-y-2'>

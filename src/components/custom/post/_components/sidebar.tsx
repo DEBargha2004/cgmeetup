@@ -21,11 +21,16 @@ import {
   Visibility,
   Comment as CommentIcon,
   Share,
-  Bookmark
+  Bookmark,
+  FavoriteBorder,
+  BookmarkBorder
 } from '@mui/icons-material'
 import { IconType } from '@/types/icon'
+import profile from '@/../public/images/profile-1.jpg'
 
 export default function Sidebar ({ postId }: { postId: string }) {
+  const [showLiked, setShowLiked] = useState(false)
+  const [showBookmarked, setShowBookmarked] = useState(false)
   const project_idx = projects.data.findIndex(
     project => project.id === Number(postId)
   )
@@ -76,13 +81,23 @@ export default function Sidebar ({ postId }: { postId: string }) {
         <div className='flex justify-between items-center'>
           <div className='flex justify-between 2xl:gap-6 gap-3 items-center w-full'>
             <div className='flex 2xl:gap-6 gap-2 items-center'>
-              <PostActionsContainer Icon={Favorite} count={3} />
+              <PostActionsContainer
+                Icon={showLiked ? Favorite : FavoriteBorder}
+                count={3}
+                onClick={() => setShowLiked(!showLiked)}
+                className={showLiked ? 'text-red-600' : ''}
+                // className='text-red-600'
+              />
               <PostActionsContainer Icon={Visibility} count={3} />
               <PostActionsContainer Icon={CommentIcon} count={3} />
             </div>
             <div className='flex 2xl:gap-6 gap-3 items-center'>
               <PostActionsContainer Icon={Share} count={3} />
-              <PostActionsContainer Icon={Bookmark} />
+              <PostActionsContainer
+                Icon={showBookmarked ? Bookmark : BookmarkBorder}
+                onClick={() => setShowBookmarked(!showBookmarked)}
+                className={showBookmarked ? 'text-primary' : ''}
+              />
             </div>
           </div>
         </div>
@@ -139,25 +154,42 @@ export default function Sidebar ({ postId }: { postId: string }) {
                   </CardContent>
                 </Card>
                 <Card className='bg-card'>
-                  <CardContent className='flex gap-2 flex-wrap pt-6'>
+                  <CardHeader className='pb-0'>
                     <strong className='opacity-70'>Software :</strong>
-                    {sample_cateories.slice(0, 4).map(cat => (
-                      <Badge key={cat} className=' border opacity-70'>
-                        {cat}
+                  </CardHeader>
+                  <CardContent className='flex gap-2 flex-wrap pt-4'>
+                    {sample_cateories.slice(0, 4).map((category, i) => (
+                      <Badge
+                        className='text-md border flex justify-start items-center gap-1 pl-0 py-0'
+                        key={i}
+                      >
+                        <Image
+                          src={profile}
+                          alt='profile'
+                          height={30}
+                          width={30}
+                          className=''
+                        />
+                        <span className='opacity-70 text-sm inline-block max-w-[100px] truncate'>
+                          {category}
+                        </span>
                       </Badge>
                     ))}
                   </CardContent>
-                  <CardContent className='flex gap-2 flex-wrap pt-6'>
+                  <CardHeader className='pb-0'>
                     <strong className='opacity-70'>Category :</strong>
+                  </CardHeader>
+                  <CardContent className='flex gap-2 flex-wrap pt-4'>
                     {sample_cateories.slice(0, 4).map(cat => (
                       <Badge key={cat} className=' border opacity-70'>
                         {cat}
                       </Badge>
                     ))}
                   </CardContent>
-
-                  <CardContent className='flex gap-2 flex-wrap'>
+                  <CardHeader className='pb-0'>
                     <strong className='opacity-70'>Tags :</strong>
+                  </CardHeader>
+                  <CardContent className='flex gap-2 flex-wrap pt-4'>
                     {sample_cateories.slice(0, 3).map(cat => (
                       <Badge key={cat} className='border opacity-70'>
                         {cat}
@@ -183,16 +215,22 @@ export default function Sidebar ({ postId }: { postId: string }) {
 }
 function PostActionsContainer ({
   count,
-  Icon
+  Icon,
+  className,
+  ...props
 }: {
   Icon: IconType
   count?: number
-}) {
+} & HTMLProps<HTMLDivElement>) {
   return (
     <div className='flex justify-between items-center 2xl:gap-2 gap-1'>
       <div
-        className='flex justify-center items-center bg-lightAccent h-8 w-8 
-                  2xl:h-9 2xl:w-9 rounded-full'
+        className={cn(
+          `flex justify-center items-center bg-lightAccent h-8 w-8 
+                  2xl:h-9 2xl:w-9 rounded-full cursor-pointer`,
+          className
+        )}
+        {...props}
       >
         <Icon className='2xl:h-[20px]' />
       </div>

@@ -1,5 +1,5 @@
 import { JobCardContainer, UserInfoProfile } from '@/components/custom/feed'
-import { JobCard } from '@/components/custom'
+import { JobCard, ScrollControlContainer } from '@/components/custom'
 import Link from 'next/link'
 import React, { useEffect, useRef } from 'react'
 import 'react-circular-progressbar/dist/styles.css'
@@ -17,7 +17,7 @@ import LatestLikes from './_components/latest-likes'
 
 export default function FeedPage () {
   return (
-    <>
+    <ScrollControlContainer>
       <main className='h-fit flex justify-center items-start bg-darkAccent'>
         <div
           className='w-[200px] h-[calc(100vh-64px)] overflow-y-auto scroller
@@ -55,9 +55,9 @@ export default function FeedPage () {
           <ProfileComplete />
           <Advertisements />
           <LatestComments />
-          <LatestLikes />
+          <LatestLikes className='sticky top-0' />
         </div>
       </main>
-    </>
+    </ScrollControlContainer>
   )
 }

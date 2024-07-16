@@ -93,9 +93,9 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
             <Image
               src={background}
               alt='background'
-              className='w-full h-full object-cover opacity-40 -z-20'
+              className='w-full h-full object-cover -z-20'
             />
-            <div className='absolute w-full h-full top-0 left-0 z-10 bg-gradient-to-t from-black/60 to-transparent' />
+            <div className='absolute w-full h-3/4 top-1/4 left-0 bg-gradient-to-t from-black/80 to-transparent' />
           </div>
         </div>
         <div className='space-y-2'>

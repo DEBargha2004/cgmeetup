@@ -1,8 +1,8 @@
+'use client'
+
 import Image from 'next/image'
 import { Card } from '../ui/card'
 import { Badge } from '../ui/badge'
-import { Briefcase, Globe, MapPin, Plane } from 'lucide-react'
-import MaterialSymbolIcon from './material-symbol-icon'
 import { cn } from '@/lib/utils'
 import {
   DropdownMenu,
@@ -11,6 +11,7 @@ import {
 } from '../ui/dropdown-menu'
 import {
   Bookmark,
+  BookmarkBorder,
   Flight,
   Language,
   LocationOn,
@@ -18,8 +19,11 @@ import {
   Public,
   Work
 } from '@mui/icons-material'
+import { useState } from 'react'
+import Link from 'next/link'
 
 export default function JobCard ({ className }: { className?: string }) {
+  const [showBookmarked, setShowBookmarked] = useState(false)
   return (
     <Card
       className={cn(
@@ -40,9 +44,11 @@ export default function JobCard ({ className }: { className?: string }) {
         />
         <div className='space-y-2 w-full'>
           <div className='  flex justify-between items-center'>
-            <h1 className='text-lg md:text-xl font-semibold'>
-              Team Lead Animator [FAR CRY Project]
-            </h1>
+            <Link href={'/jobs/123'}>
+              <h1 className='text-lg md:text-xl font-semibold'>
+                Team Lead Animator [FAR CRY Project]
+              </h1>
+            </Link>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <MoreVert className='cursor-pointer' />
@@ -64,7 +70,7 @@ export default function JobCard ({ className }: { className?: string }) {
               </Badge>
               <Badge className='text-slate-300 '>
                 <Flight className='mr-2' fontSize='small' />
-                Relocation Asssistance
+                Relocation
               </Badge>
               <Badge className='text-slate-300 '>
                 <LocationOn className='mr-2' fontSize='small' />
@@ -72,7 +78,16 @@ export default function JobCard ({ className }: { className?: string }) {
               </Badge>
             </div>
             <div className='flex items-end'>
-              <Bookmark />
+              <div
+                onClick={() => setShowBookmarked(!showBookmarked)}
+                className='cursor-pointer'
+              >
+                {showBookmarked ? (
+                  <Bookmark className='text-primary' />
+                ) : (
+                  <BookmarkBorder />
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -97,7 +112,16 @@ export default function JobCard ({ className }: { className?: string }) {
           </Badge>
         </div>
         <div className='flex items-end'>
-          <Bookmark />
+          <div
+            onClick={() => setShowBookmarked(!showBookmarked)}
+            className='cursor-pointer'
+          >
+            {showBookmarked ? (
+              <Bookmark className='text-primary' />
+            ) : (
+              <BookmarkBorder />
+            )}
+          </div>
         </div>
       </div>
     </Card>
