@@ -57,10 +57,10 @@ const data = [
 export function Overview () {
   const windowDimension = useWindowSize()
   return (
-    <ResponsiveContainer width='100%' height={350} minWidth={200}>
+    <ResponsiveContainer width='95%' height={350}>
       <BarChart
         //@ts-ignore
-        data={windowDimension?.width > 768 ? data : data.slice(6)}
+        data={windowDimension?.width > 768 ? data : data.slice(4)}
         className='barchart min-w-[200px]'
       >
         <XAxis
