@@ -64,8 +64,8 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
         </SheetContent>
       </Sheet>
       <div
-        className='lg:w-[160px] w-fit  h-full md:flex flex-col 
-      justify-start items-start border-r p-1 gap-1 z-50 bg-card hidden'
+        className='lg:w-[180px] w-fit  h-full md:flex flex-col 
+      justify-start items-start border-r p-1 gap-1 z-50 bg-card hidden overflow-y-auto scroller-hide'
       >
         {dashboardSidebar.map((item, item_idx) => (
           <React.Fragment key={item_idx}>
