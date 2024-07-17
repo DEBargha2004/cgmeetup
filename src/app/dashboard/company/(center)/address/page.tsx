@@ -121,7 +121,7 @@ export default function WorkExperiencePage () {
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </h1>
-                <h1 className=''>{address.address}</h1>
+                <h1 className='text-sm'>{address.address}</h1>
               </div>
               <div className='opacity-60 text-base'>
                 <p>{address.email_id}</p>

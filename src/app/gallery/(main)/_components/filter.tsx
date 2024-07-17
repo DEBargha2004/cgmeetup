@@ -6,55 +6,57 @@ import { Input } from '@/components/ui/input'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { tags } from '@/constants/job-filters'
 import { Sort } from '@mui/icons-material'
-import { useState } from 'react'
+import React, { useState } from 'react'
 
-export default function Filter () {
-  const [selectedSoftwares, setSelectedSoftwares] = useState<string[]>([])
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([])
-  const [selectedSkills, setSelectedSkills] = useState<string[]>([])
+export default function FilterSheet ({
+  children
+}: {
+  children: React.ReactNode
+}) {
   return (
     <Sheet>
-      <SheetTrigger asChild>
-        <div className='flex items-center gap-1 cursor-pointer'>
-          <Sort />
-          <span>Filter</span>
-        </div>
-      </SheetTrigger>
+      <SheetTrigger asChild>{children}</SheetTrigger>
       <SheetContent
         side={'right'}
         className='bg-lightAccent'
         onOpenAutoFocus={e => e.preventDefault()}
       >
-        <div className=' space-y-3'>
-          <div className='space-y-4'>
-            <FancyMultiSelect
-              options={tags.map(t => ({ label: t, value: t }))}
-              placeholder='Category'
-            />
-            {/* <ClearButton /> */}
-
-            <FancyMultiSelect
-              options={tags.map(t => ({ label: t, value: t }))}
-              placeholder='Software'
-            />
-            {/* <ClearButton /> */}
-
-            <FancyMultiSelect
-              options={tags.map(t => ({ label: t, value: t }))}
-              placeholder='Skills'
-            />
-            {/* <ClearButton /> */}
-
-            <div className='space-y-1'>
-              <Input placeholder='Country' />
-              <Input placeholder='City' />
-            </div>
-          </div>
-          <div className='flex justify-end'>
-            <Button className='ml-auto'>Reset</Button>
-          </div>
-        </div>
+        <Filter />
       </SheetContent>
     </Sheet>
+  )
+}
+
+export function Filter () {
+  return (
+    <div className=' space-y-3'>
+      <div className='space-y-4'>
+        <FancyMultiSelect
+          options={tags.map(t => ({ label: t, value: t }))}
+          placeholder='Category'
+        />
+        {/* <ClearButton /> */}
+
+        <FancyMultiSelect
+          options={tags.map(t => ({ label: t, value: t }))}
+          placeholder='Software'
+        />
+        {/* <ClearButton /> */}
+
+        <FancyMultiSelect
+          options={tags.map(t => ({ label: t, value: t }))}
+          placeholder='Skills'
+        />
+        {/* <ClearButton /> */}
+
+        <div className='space-y-1'>
+          <Input placeholder='Country' />
+          <Input placeholder='City' />
+        </div>
+      </div>
+      <div className='flex justify-end'>
+        <Button className='ml-auto'>Reset</Button>
+      </div>
+    </div>
   )
 }

@@ -1,19 +1,9 @@
 'use client'
 
-import {
-  AccordionItemChildWrapper,
-  ClearButton,
-  MaterialSymbolIcon,
-  Tabs
-} from '@/components/custom'
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger
-} from '@/components/ui/accordion'
+import { Tabs } from '@/components/custom'
+
 import { Badge } from '@/components/ui/badge'
-import { Button, ButtonProps } from '@/components/ui/button'
+import { Button } from '@/components/ui/button'
 import {
   Carousel,
   CarouselContent,
@@ -21,28 +11,11 @@ import {
   CarouselNext,
   CarouselPrevious
 } from '@/components/ui/carousel'
-import { Checkbox } from '@/components/ui/checkbox'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu'
-import { Input } from '@/components/ui/input'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger
-} from '@/components/ui/popover'
-
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { sample_cateories } from '@/constants/categories'
 import { cn } from '@/lib/utils'
 import { TabItem } from '@/types/tab'
 import { Search } from 'lucide-react'
 import { Roboto } from 'next/font/google'
-import { useState } from 'react'
-import Filter from '../_components/filter'
 import Link from 'next/link'
 import Image from 'next/image'
 import background from '@/../public/images/cover-image.jpg'
@@ -50,14 +23,14 @@ import CategorySelect from '../_components/category-select'
 import {
   Apartment,
   ArrowRightAlt,
-  EmojiEvents,
-  FeaturedPlayList,
   FeaturedVideo,
   Schedule,
   Sort,
   TrendingUp,
   Work
 } from '@mui/icons-material'
+import FilterSheet from '../_components/filter'
+import { Input } from '@/components/ui/input'
 
 const tabList1: TabItem[] = [
   { label: 'Jobs', href: '/jobs', Icon: Work },
@@ -114,7 +87,12 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
               <Input className='pl-10' placeholder='Search' />
               <Search className='absolute left-2 top-1/2 -translate-y-1/2' />
 
-              <Filter />
+              <FilterSheet>
+                <div className='flex items-center gap-1 cursor-pointer'>
+                  <Sort />
+                  <span>Filter</span>
+                </div>
+              </FilterSheet>
             </div>
             <div className='flex gap-2'>
               <Link href={'/companies'}>

@@ -48,7 +48,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
     <div className='space-y-4'>
       <header
         className='z-30 hidden sm:flex md:h-14 items-center gap-4 border-b bg-background px-4 
-      sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6'
+      sm:static sm:h-auto sm:border-0 sm:bg-transparent '
       >
         <Breadcrumb className='hidden md:flex'>
           <BreadcrumbList>
@@ -66,7 +66,7 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
           </BreadcrumbList>
         </Breadcrumb>
       </header>
-      <div className='px-6 space-y-2'>
+      <div className='px-4 space-y-2'>
         <div className='flex justify-start items-center'>
           <Tabs tabs={tabs} />
         </div>

@@ -19,7 +19,7 @@ export default function FormCard ({
     <div
       className={cn(
         `w-full flex flex-col justify-start items-stretch gap-0
-    rounded border bg-card h-fit`,
+    rounded border bg-card h-fit @container`,
         className
       )}
     >
@@ -28,7 +28,7 @@ export default function FormCard ({
           className={cn('space-y-2 p-2 px-4 px bg-lightAccent', headerClass)}
         >
           <div className='flex justify-between items-center'>
-            <h1 className='text-xl font-semibold'>{heading}</h1>
+            <h1 className='@lg:text-xl text-base font-semibold'>{heading}</h1>
             {extraButton}
           </div>
           {subHeading ? (

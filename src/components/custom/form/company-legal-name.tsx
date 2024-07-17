@@ -43,7 +43,7 @@ export default function CompanyLegalNameForm ({
   return (
     <>
       <div
-        className='relative'
+        className='relative z-50'
         //@ts-ignore
         ref={salaryTriggerRef}
         onClick={() => setDropdownOpen(true)}
@@ -62,6 +62,7 @@ export default function CompanyLegalNameForm ({
                 key={item}
                 onClick={() => {
                   onListItemClick?.()
+                  setDropdownOpen(false)
                 }}
               >
                 {item}

@@ -18,6 +18,7 @@ import { useForm } from 'react-hook-form'
 import pdfIcon from '@/../public/images/pdf.png'
 import Image from 'next/image'
 import { Add, Check, Close, MoreVert } from '@mui/icons-material'
+import { cn } from '@/lib/utils'
 
 export default function CompanyRecruiter () {
   const [showForm, setShowForm] = useState(false)
@@ -100,26 +101,17 @@ export default function CompanyRecruiter () {
         </FieldsContainer>
         <FieldsContainer className='w-full px-4'>
           {recruiters.map((recruiter, idx) => (
-            <div className='space-y-2 w-full' key={idx}>
+            <div
+              className='space-y-2 w-full border-b last:border-none'
+              key={idx}
+            >
               <ProfileInfoOverView
                 titleValue={recruiter.name}
                 descriptionValue={`Role: ${recruiter.role}`}
                 profileInfo='w-[250px]'
+                className='@container'
               >
-                <div className='w-full flex justify-between items-center'>
-                  <div className='flex justify-start items-center gap-10'>
-                    <div className='flex justify-center items-center gap-1'>
-                      <Image src={pdfIcon} height={20} width={20} alt='pdf' />
-                      <p className='hover:text-primary cursor-pointer'>
-                        Document
-                      </p>
-                    </div>
-                    <p className='text-orange-500'>Pending</p>
-                    <div className='flex justify-center items-center gap-3'>
-                      <Close className='cursor-pointer text-destructive' />
-                      <Check className='cursor-pointer text-success' />
-                    </div>
-                  </div>
+                <div className=' flex  justify-end items-center'>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <div className='cursor-pointer'>
@@ -137,6 +129,25 @@ export default function CompanyRecruiter () {
                   </DropdownMenu>
                 </div>
               </ProfileInfoOverView>
+              <div className='flex justify-between items-center gap-5 py-5'>
+                <div className='flex justify-center items-center gap-1'>
+                  <Image src={pdfIcon} height={20} width={20} alt='pdf' />
+                  <p className='hover:text-primary cursor-pointer'>Document</p>
+                </div>
+                <p
+                  className={cn(
+                    recruiter.status === 'Approved'
+                      ? 'text-success'
+                      : 'text-orange-500'
+                  )}
+                >
+                  {recruiter.status}
+                </p>
+                {/* <div className='flex justify-center items-center gap-3'>
+                  <Close className='cursor-pointer text-destructive' />
+                  <Check className='cursor-pointer text-success' />
+                </div> */}
+              </div>
             </div>
           ))}
         </FieldsContainer>

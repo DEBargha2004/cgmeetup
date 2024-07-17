@@ -56,7 +56,7 @@ export default function NotificationsPage () {
   return (
     <div className='space-y-4 pb-10'>
       <div className='space-y-3'>
-        <h1 className='flex justify-start items-center gap-2 text-2xl'>
+        <h1 className='flex justify-start items-center gap-2 xl:text-2xl lg:text-xl sm:text-base'>
           <Notifications className='text-primary h-6' />
           <span>Email Notifications</span>
         </h1>
@@ -102,7 +102,7 @@ export default function NotificationsPage () {
         </div>
       </div>
       <div className='space-y-3'>
-        <h1 className='flex justify-start items-center gap-2 text-2xl'>
+        <h1 className='flex justify-start items-center gap-2 xl:text-2xl lg:text-xl sm:text-base'>
           <Notifications className='text-primary h-6' />
           <span>Email Subscriptions</span>
         </h1>

@@ -42,87 +42,89 @@ import { cn } from '@/lib/utils'
 import { Check, Close, KeyboardArrowDown, Sort } from '@mui/icons-material'
 import { useState } from 'react'
 
-export default function Filter () {
-  const [selectedSoftwares, setSelectedSoftwares] = useState<string[]>([])
-  const [selectedIndustries, setSelectedIndustries] = useState<string[]>([])
-  const [selectedSkills, setSelectedSkills] = useState<string[]>([])
+export default function FilterSheet ({
+  children
+}: {
+  children: React.ReactNode
+}) {
   return (
     <Sheet>
-      <SheetTrigger asChild>
-        <div className='flex items-center gap-1 cursor-pointer'>
-          <Sort />
-          <span>Filter</span>
-        </div>
-      </SheetTrigger>
+      <SheetTrigger asChild>{children}</SheetTrigger>
       <SheetContent
         side={'right'}
         className='bg-card overflow-y-auto scroller-hide'
         onOpenAutoFocus={e => e.preventDefault()}
       >
-        <div className=' space-y-3'>
-          <div className='space-y-4'>
-            <Select>
-              <SelectTrigger>
-                <SelectValue placeholder='Job Type' />
-              </SelectTrigger>
-              <SelectContent>
-                {job_type.map(item => (
-                  <SelectItem key={item} value={item}>
-                    {item}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-
-            <Select>
-              <SelectTrigger>
-                <SelectValue placeholder='Expertise Level' />
-              </SelectTrigger>
-              <SelectContent>
-                {expertise_level.map(item => (
-                  <SelectItem key={item} value={item}>
-                    {item}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-
-            <Select>
-              <SelectTrigger>
-                <SelectValue placeholder='Category' />
-              </SelectTrigger>
-              <SelectContent></SelectContent>
-            </Select>
-            <FancyMultiSelect
-              options={tags.map(t => ({ label: t, value: t }))}
-              placeholder='Sub Category'
-            />
-
-            <FancyMultiSelect
-              options={tags.map(t => ({ label: t, value: t }))}
-              placeholder='Skills'
-            />
-
-            <FancyMultiSelect
-              options={tags.map(t => ({ label: t, value: t }))}
-              placeholder='Software'
-            />
-
-            <div className='space-x-2'>
-              <Checkbox />
-              <span>Only show listings with salary included</span>
-            </div>
-
-            <div className='space-y-2'>
-              <Input placeholder='Country' />
-              <Input placeholder='City' />
-            </div>
-          </div>
-          <div className='flex justify-end'>
-            <Button className='ml-auto'>Reset</Button>
-          </div>
-        </div>
+        <Filter />
       </SheetContent>
     </Sheet>
+  )
+}
+
+export function Filter () {
+  return (
+    <div className=' space-y-3'>
+      <div className='space-y-4'>
+        <Select>
+          <SelectTrigger>
+            <SelectValue placeholder='Job Type' />
+          </SelectTrigger>
+          <SelectContent>
+            {job_type.map(item => (
+              <SelectItem key={item} value={item}>
+                {item}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        <Select>
+          <SelectTrigger>
+            <SelectValue placeholder='Expertise Level' />
+          </SelectTrigger>
+          <SelectContent>
+            {expertise_level.map(item => (
+              <SelectItem key={item} value={item}>
+                {item}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        <Select>
+          <SelectTrigger>
+            <SelectValue placeholder='Category' />
+          </SelectTrigger>
+          <SelectContent></SelectContent>
+        </Select>
+        <FancyMultiSelect
+          options={tags.map(t => ({ label: t, value: t }))}
+          placeholder='Sub Category'
+        />
+
+        <FancyMultiSelect
+          options={tags.map(t => ({ label: t, value: t }))}
+          placeholder='Skills'
+        />
+
+        <FancyMultiSelect
+          options={tags.map(t => ({ label: t, value: t }))}
+          placeholder='Software'
+        />
+
+        <div className='flex justify-start items-center gap-2'>
+          <Checkbox />
+          <span>Only show listings with salary included</span>
+        </div>
+
+        <div className='space-y-2'>
+          <Input placeholder='Country' />
+          <Input placeholder='City' />
+        </div>
+      </div>
+      <div className='flex justify-end'>
+        <Button className='ml-auto'>Reset</Button>
+      </div>
+    </div>
   )
 }

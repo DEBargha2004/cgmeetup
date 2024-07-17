@@ -104,9 +104,13 @@ export default function SocialsPage () {
           <div className='space-y-2 w-full' key={idx}>
             <div>
               <h1 className='text-lg text-white flex justify-between items-center'>
-                <div className='flex justify-start items-center gap-2 text-sm text-primary'>
+                <div className='flex justify-start items-center gap-2 text-sm text-primary overflow-hidden'>
                   <Public />
-                  <Link target='_blank' href={social.url} className=''>
+                  <Link
+                    target='_blank'
+                    href={social.url}
+                    className='w-full inline-block whitespace-nowrap truncate'
+                  >
                     {social.url}
                   </Link>
                 </div>

@@ -24,7 +24,6 @@ import { cn } from '@/lib/utils'
 import { TabItem } from '@/types/tab'
 import { Search } from 'lucide-react'
 import { Roboto } from 'next/font/google'
-import Filter from './_components/filter'
 import Link from 'next/link'
 import background from '@/../public/images/cover-image.jpg'
 import Image from 'next/image'
@@ -38,6 +37,7 @@ import {
   Sort,
   TrendingUp
 } from '@mui/icons-material'
+import FilterSheet from './_components/filter'
 
 const tabList1: TabItem[] = [
   {
@@ -83,7 +83,12 @@ export default function Layout ({ children }: { children: React.ReactNode }) {
                 <Input className='pl-10' placeholder='Search' />
                 <Search className='absolute left-2 top-1/2 -translate-y-1/2' />
 
-                <Filter />
+                <FilterSheet>
+                  <div className='flex items-center gap-1 cursor-pointer'>
+                    <Sort />
+                    <span>Filter</span>
+                  </div>
+                </FilterSheet>
               </div>
               <div>
                 <Link href={'/artists'}>

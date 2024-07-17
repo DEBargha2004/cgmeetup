@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { JobCard, FeaturedJobCard } from '@/components/custom'
 import { sample_cateories } from '@/constants/categories'
-import Filter from '../_components/filter'
+import { Filter } from '../_components/filter'
 
 export default function Dashboard () {
   return (
@@ -23,7 +23,7 @@ border-none bg-transparent'
           <CardHeader className='pb-0'>
             <CardTitle className='text-xl'>Filters</CardTitle>
           </CardHeader>
-          <CardContent className=''>
+          <CardContent className='pt-4'>
             <Filter />
           </CardContent>
         </Card>

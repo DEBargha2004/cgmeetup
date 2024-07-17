@@ -48,33 +48,27 @@ export default function NewCompanyPage () {
         </FieldsContainer>
       </FormCard>
       <div className='py-4 flex flex-col justify-center items-center border bg-lightAccent rounded'>
-        <Table>
-          <TableBody>
-            {Array.from({ length: 1 }, (_, i) => i).map(i => (
-              <TableRow key={i}>
-                <TableCell>Ast Studio</TableCell>
-                <TableCell className='text-yellow-500'>
-                  Verification Pending
-                </TableCell>
-                <TableCell>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <div>
-                        <MoreVert className='text-4 cursor-pointer' />
-                      </div>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                      <Link href={'/dashboard/company'}>
-                        <DropdownMenuItem>Edit</DropdownMenuItem>
-                      </Link>
-                      <DropdownMenuItem>Delete</DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+        {Array.from({ length: 4 }, (_, i) => i).map(i => (
+          <div key={i} className='w-full flex justify-between items-center p-2'>
+            <div>Ast Studio</div>
+            <div className='text-yellow-500'>Verification Pending</div>
+            <div>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <div>
+                    <MoreVert className='text-4 cursor-pointer' />
+                  </div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <Link href={'/dashboard/company'}>
+                    <DropdownMenuItem>Edit</DropdownMenuItem>
+                  </Link>
+                  <DropdownMenuItem>Delete</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   )

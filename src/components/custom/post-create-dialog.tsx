@@ -51,7 +51,8 @@ import {
   Upload,
   Delete,
   SwapHoriz,
-  PlayArrow
+  PlayArrow,
+  Crop
 } from '@mui/icons-material'
 
 type PostMedia = {
@@ -92,7 +93,7 @@ export default function PostCreateDialog () {
   const [postDesc, setPostDesc] = useState('')
   const [mediaList, setMediaList] = useState<PostMedia[]>([])
   const [thumbnail, setThumbnail] = useState<
-    (PostMedia & { custom: boolean }) | null
+    (PostMedia & { custom?: boolean; cropping?: boolean }) | null
   >(null)
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
   const [selectedSoftwares, setSelectedSoftwares] = useState<string[]>([])
@@ -245,11 +246,35 @@ export default function PostCreateDialog () {
     setConfirmClose(false)
   }
 
+  const handleCrop = () => {
+    if (!thumbnail?.cropping) {
+      //@ts-ignore
+      setThumbnail(prev => ({ ...prev, cropping: true }))
+    } else {
+      if (cropperRef?.current?.cropper) {
+        //@ts-ignore
+        setThumbnail(prev => ({
+          ...prev,
+          cropping: false,
+          url: cropperRef.current?.cropper
+            .getCroppedCanvas()
+            .toDataURL() as string
+        }))
+      }
+    }
+  }
+
+  const deleteCustomThumbnail = () => {
+    if (thumbnail?.custom) {
+      setThumbnail({ ...mediaList[0], custom: false, cropping: false })
+    }
+  }
+
   useEffect(() => {
     if (mediaList.length) {
       setThumbnail(prev => {
         if (!prev?.custom) {
-          return { ...mediaList[0], custom: false }
+          return { ...mediaList[0], custom: false, cropping: false }
         }
         return prev
       })
@@ -275,7 +300,7 @@ export default function PostCreateDialog () {
   useEffect(() => {
     if (thumbnailDropzone.acceptedFiles.length) {
       loadImage(thumbnailDropzone.acceptedFiles[0], media => {
-        setThumbnail({ ...media, custom: true })
+        setThumbnail({ ...media, custom: true, cropping: false })
       })
     }
   }, [thumbnailDropzone.acceptedFiles])
@@ -318,7 +343,7 @@ export default function PostCreateDialog () {
             </div>
           </DialogClose>
           <div className='flex items-start justify-start gap-2'>
-            <div id='user-image'>
+            <div id='user-image' className='xs:block hidden'>
               <div className='w-14 h-14 rounded-full flex justify-center items-center'>
                 <Avatar className='h-full w-full'>
                   <AvatarImage src={avatar.src} alt='profile' />
@@ -468,54 +493,53 @@ export default function PostCreateDialog () {
                 </div>
               ) : null}
               {thumbnail ? (
-                <div
-                  className='col-span-1'
-                  style={{
-                    width:
-                      Math.min(800, windowDimension.width || 0) -
-                      (16 * 2 + 1 * 2 + 56 + 8)
-                  }}
-                >
+                <div className='col-span-1'>
                   <p className='text-sm'>Thumbnail</p>
-                  <div
-                    className='w-full h-[200px] flex justify-center items-center border 
-              p-2 bg-darkAccent relative'
-                  >
-                    <Cropper
-                      ref={cropperRef}
-                      style={{
-                        height: '100%',
-                        width: '100%'
-                      }}
-                      className='object-contain cropper overflow-hidden'
-                      aspectRatio={1}
-                      src={thumbnail.url}
-                      // zoomTo={0.5}
-                      initialAspectRatio={1}
-                      preview='.img-preview'
-                      viewMode={1}
-                      minCropBoxHeight={10}
-                      minCropBoxWidth={10}
-                      background={false}
-                      responsive={true}
-                      autoCropArea={1}
-                      checkOrientation={false}
-                      guides={true}
-                    />
-                    <div className='absolute w-full bottom-0 py-2 left-0 flex justify-center items-center gap-4'>
-                      <input {...thumbnailDropzone.getInputProps()} hidden />
-                      <Badge
-                        className='h-8 w-fit px-2 flex justify-between items-center gap-2
+                  <div className='flex flex-col justify-start items-center gap-2'>
+                    <div className='w-fit shrink-0'>
+                      <NextImage
+                        src={thumbnail.url}
+                        alt='thumbnail'
+                        height={200}
+                        width={200}
+                        className='h-[200px] aspect-square object-cover '
+                      />
+                    </div>
+                    <div className='self-stretch w-full flex items-center justify-center gap-2'>
+                      <div className='w-[100px]'>
+                        <input {...thumbnailDropzone.getInputProps()} hidden />
+                        <Badge
+                          className='h-8 w-full px-2 flex justify-start items-center gap-2
                 cursor-pointer'
-                        {...thumbnailDropzone.getRootProps()}
+                          {...thumbnailDropzone.getRootProps()}
+                        >
+                          <Upload className='h-4 text-success' />
+                          <span>Upload</span>
+                        </Badge>
+                      </div>
+                      <Badge
+                        className='h-8 w-[100px] px-2 flex justify-start items-center gap-2
+                cursor-pointer'
+                        onClick={handleCrop}
                       >
-                        <Upload className='h-4' />
-                        <span>Upload</span>
+                        <Crop className='h-4 text-primary' />
+                        <span>Crop</span>
                       </Badge>
+                      {thumbnail.custom ? (
+                        <Badge
+                          className='h-8 w-fit px-2 flex justify-start items-center gap-2
+                cursor-pointer'
+                          onClick={deleteCustomThumbnail}
+                        >
+                          <Delete className='h-4 text-destructive' />
+                          <span>Remove</span>
+                        </Badge>
+                      ) : null}
                     </div>
                   </div>
                 </div>
               ) : null}
+
               {showOptions ? (
                 <div className='grid gap-2'>
                   <FancyMultiSelect
@@ -554,31 +578,6 @@ export default function PostCreateDialog () {
                     </Badge>
                   </DialogClose>
                   <div className='flex gap-2 '>
-                    <div className='flex justify-start md:justify-center items-center gap-1'>
-                      <div
-                        className='flex items-center gap-1'
-                        onClick={() => setAddToPortfolio(prev => !prev)}
-                      >
-                        <Checkbox
-                          className='rounded-full'
-                          checked={addToPortfolio}
-                        />
-                        <span
-                          className={cn(
-                            'whitespace-nowrap text-sm hover:opacity-100 cursor-pointer',
-                            addToPortfolio ? 'opacity-100' : 'opacity-70 '
-                          )}
-                        >
-                          Add to Portfolio
-                        </span>
-                      </div>
-                      <div
-                        className='h-5 w-5 grid place-content-center rounded-full bg-lightAccent cursor-pointer'
-                        onClick={() => setShowQuestionInfo(true)}
-                      >
-                        <QuestionMark className='h-3' />
-                      </div>
-                    </div>
                     <Button className='h-8' variant={'success'}>
                       Post
                     </Button>
@@ -620,6 +619,52 @@ export default function PostCreateDialog () {
               Check to display this post in your Portfolio.
             </span>
           </DialogDescription>
+        </DialogContent>
+      </Dialog>
+      <Dialog
+        open={thumbnail?.cropping}
+        //@ts-ignore
+        onOpenChange={e => setThumbnail(prev => ({ ...prev, cropping: e }))}
+      >
+        <DialogContent className='max-w-[800px] bg-card pb-0'>
+          <div
+            className='h-[400px]  border 
+              bg-darkAccent'
+            style={{
+              width: Math.min(800, windowDimension.width!) - 48 - 2
+            }}
+          >
+            <Cropper
+              ref={cropperRef}
+              style={{
+                height: '100%',
+                width: '100%'
+              }}
+              className='object-contain cropper overflow-hidden'
+              aspectRatio={1}
+              src={thumbnail?.url}
+              initialAspectRatio={1}
+              preview='.img-preview'
+              viewMode={1}
+              minCropBoxHeight={10}
+              minCropBoxWidth={10}
+              background={false}
+              responsive={true}
+              autoCropArea={1}
+              checkOrientation={false}
+              guides={true}
+            />
+          </div>
+          <div className='w-full p-3 grid place-content-center'>
+            <Badge
+              className='h-8 w-full px-2 flex justify-start items-center gap-2
+                cursor-pointer'
+              onClick={handleCrop}
+            >
+              <Crop className='h-4' />
+              <span>Crop</span>
+            </Badge>
+          </div>
         </DialogContent>
       </Dialog>
     </>

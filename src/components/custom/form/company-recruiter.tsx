@@ -25,6 +25,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 const roles = ['Recruiter', 'Editor', 'Admin']
+const status = ['Pending', 'Approved']
 
 export default function CompanyRecruiterForm ({
   form,
@@ -110,6 +111,30 @@ export default function CompanyRecruiterForm ({
                   </SelectTrigger>
                   <SelectContent>
                     {roles.map(role => (
+                      <SelectItem value={role} key={role}>
+                        {role}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name='status'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Status</FormLabel>
+              <FormControl>
+                <Select value={field.value} onValueChange={field.onChange}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {status.map(role => (
                       <SelectItem value={role} key={role}>
                         {role}
                       </SelectItem>

@@ -176,7 +176,7 @@ export default function JobCreateDialog () {
               <Close className='h-3 opacity-70' />
             </div>
           </DialogClose>
-          <Avatar className='h-14 w-14'>
+          <Avatar className='h-14 w-14 xs:block hidden'>
             <AvatarImage src={avatar.src} />
             <AvatarFallback>{getShortendName('John Doe')}</AvatarFallback>
           </Avatar>
@@ -185,12 +185,12 @@ export default function JobCreateDialog () {
               className='w-full flex flex-col justify-start items-stretch gap-4 @container'
               onSubmit={jobCreateForm.handleSubmit(handleJobCreateFormSubmit)}
             >
-              <div className='grid @xs:grid-cols-4 gap-2'>
+              <div className='grid @sm:grid-cols-4 gap-2'>
                 <FormField
                   control={jobCreateForm.control}
                   name='title'
                   render={({ field }) => (
-                    <FormItem className='xs:col-span-3 col-span-2'>
+                    <FormItem className='@sm:col-span-3 col-span-2'>
                       <FormControl>
                         <Input {...field} placeholder='Job Title' />
                       </FormControl>
@@ -202,7 +202,7 @@ export default function JobCreateDialog () {
                   control={jobCreateForm.control}
                   name='type'
                   render={({ field }) => (
-                    <FormItem className='xs:col-span-1 col-span-2'>
+                    <FormItem className='col-span-1 @sm:col-start-auto col-start-2'>
                       <FormControl>
                         <Select
                           value={field.value}
@@ -473,12 +473,12 @@ export default function JobCreateDialog () {
                   </PopoverContent>
                 </Popover>
               </div>
-              <div className='grid @xl:grid-cols-3 @sm:grid-cols-2 gap-2'>
+              <div className='grid @sm:grid-cols-3 gap-2'>
                 <FormField
                   control={jobCreateForm.control}
                   name='apply_option'
                   render={({ field }) => (
-                    <FormItem className=''>
+                    <FormItem className='@sm:col-span-1 col-span-2'>
                       <FormControl>
                         <Select
                           value={field.value}

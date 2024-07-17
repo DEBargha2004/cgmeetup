@@ -41,62 +41,62 @@ const cities = [
   'Denver'
 ]
 
-export default function Filter () {
-  const [selectedSkills, setSelectedSkills] = useState<string[]>([])
-  const [selectedSoftwares, setSelectedSoftwares] = useState<string[]>([])
-  const [selectedAvailabilities, setSelectedAvailabilities] = useState<
-    string[]
-  >([])
+export default function FilterSheet ({
+  children
+}: {
+  children: React.ReactNode
+}) {
   return (
     <Sheet>
-      <SheetTrigger asChild>
-        <div className='flex items-center gap-1 cursor-pointer'>
-          <Sort />
-          <span>Filter</span>
-        </div>
-      </SheetTrigger>
+      <SheetTrigger asChild>{children}</SheetTrigger>
       <SheetContent
         side={'right'}
         className='bg-card overflow-y-auto scroller-hide pt-10'
         onOpenAutoFocus={e => e.preventDefault()}
       >
-        <div className='space-y-4'>
-          <Input placeholder='Name' />
-          <div>
-            <FancyMultiSelect
-              options={tags.map(t => ({ label: t, value: t }))}
-              placeholder='Software'
-            />
-            <ClearButton />
-          </div>
-          <div>
-            <FancyMultiSelect
-              options={tags.map(t => ({ label: t, value: t }))}
-              placeholder='Skills'
-            />
-            <ClearButton />
-          </div>
-          <div className='space-y-2'>
-            <Select>
-              <SelectTrigger>
-                <SelectValue placeholder='City/Country' />
-              </SelectTrigger>
-              <SelectContent>
-                {cities.map(item => (
-                  <SelectItem key={item} value={item}>
-                    {item}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <FancyMultiSelect
-              options={job_type.map(t => ({ label: t, value: t }))}
-              placeholder='Availability'
-            />
-            <ClearButton />
-          </div>
-        </div>
+        <Filter />
       </SheetContent>
     </Sheet>
+  )
+}
+
+export function Filter () {
+  return (
+    <div className='space-y-4'>
+      <Input placeholder='Name' />
+      <div>
+        <FancyMultiSelect
+          options={tags.map(t => ({ label: t, value: t }))}
+          placeholder='Software'
+        />
+        <ClearButton />
+      </div>
+      <div>
+        <FancyMultiSelect
+          options={tags.map(t => ({ label: t, value: t }))}
+          placeholder='Skills'
+        />
+        <ClearButton />
+      </div>
+      <div className='space-y-2'>
+        <Select>
+          <SelectTrigger>
+            <SelectValue placeholder='City/Country' />
+          </SelectTrigger>
+          <SelectContent>
+            {cities.map(item => (
+              <SelectItem key={item} value={item}>
+                {item}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        <FancyMultiSelect
+          options={job_type.map(t => ({ label: t, value: t }))}
+          placeholder='Availability'
+        />
+        <ClearButton />
+      </div>
+    </div>
   )
 }
