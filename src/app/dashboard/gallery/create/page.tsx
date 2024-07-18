@@ -51,6 +51,7 @@ import {
   PhotoLibrary,
   SlowMotionVideo
 } from '@mui/icons-material'
+import { v4 as uuidv4 } from 'uuid'
 
 const upload_types: { icon: string; title: string; description: string }[] = [
   {
@@ -125,7 +126,7 @@ export default function Dashboard () {
           setImages(prev => [
             ...prev,
             {
-              id: crypto.randomUUID(),
+              id: uuidv4(),
               type: files[i].type,
               url: reader.result as string,
               caption: ''
@@ -154,7 +155,7 @@ export default function Dashboard () {
 
       reader.onloadend = () => {
         setThumbnail({
-          id: crypto.randomUUID(),
+          id: uuidv4(),
           url: reader.result as string,
           type: files[0].type,
           caption: '',

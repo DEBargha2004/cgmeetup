@@ -54,6 +54,7 @@ import {
   PlayArrow,
   Crop
 } from '@mui/icons-material'
+import { v4 as uuidv4 } from 'uuid'
 
 type PostMedia = {
   type: 'video' | 'image'
@@ -140,7 +141,7 @@ export default function PostCreateDialog () {
       setMediaList(prev => [
         ...prev,
         {
-          id: crypto.randomUUID(),
+          id: uuidv4(),
           url: thumbnail_url,
           height: image.height,
           width: image.width,
@@ -219,7 +220,7 @@ export default function PostCreateDialog () {
 
       image.onload = () => {
         cb({
-          id: crypto.randomUUID(),
+          id: uuidv4(),
           url: reader.result as string,
           height: image.height,
           width: image.width,
@@ -331,7 +332,7 @@ export default function PostCreateDialog () {
       >
         <DialogContent
           className='max-w-[800px] bg-card px-4 overflow-y-auto scroller-hide 
-        max-h-[calc(100vh-20px)] pt-10'
+        max-h-[calc(100vh-80px)] pt-10'
           hideCloseButton
         >
           <DialogClose className='absolute right-2 top-2'>

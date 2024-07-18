@@ -83,6 +83,7 @@ import {
   Upload
 } from '@mui/icons-material'
 import ImageIcon from '@mui/icons-material/Image'
+import { v4 as uuidv4 } from 'uuid'
 
 const visibilityOptions: string[] = ['Open', 'Closed']
 
@@ -168,7 +169,7 @@ export default function Dashboard () {
 
       reader.onloadend = () => {
         setLogo({
-          id: crypto.randomUUID(),
+          id: uuidv4(),
           url: reader.result as string,
           type: files[0].type,
           caption: '',

@@ -62,6 +62,7 @@ import {
 import { IconType } from '@/types/icon'
 import { Separator } from '@/components/ui/separator'
 import { Textarea } from '@/components/ui/textarea'
+import { v4 as uuidv4 } from 'uuid'
 
 const visibilityOptions: FieldType[] = [
   {
@@ -143,11 +144,11 @@ export default function Dashboard () {
 
   const generateEditorComponentInstance = ({ data, type }: EditorData) => {
     if (type === 'image') {
-      setEditorData(prev => [...prev, { type, id: crypto.randomUUID(), data }])
+      setEditorData(prev => [...prev, { type, id: uuidv4(), data }])
     } else if (type === 'video') {
-      setEditorData(prev => [...prev, { type, id: crypto.randomUUID(), data }])
+      setEditorData(prev => [...prev, { type, id: uuidv4(), data }])
     } else {
-      setEditorData(prev => [...prev, { type, id: crypto.randomUUID(), data }])
+      setEditorData(prev => [...prev, { type, id: uuidv4(), data }])
     }
   }
 
@@ -196,7 +197,7 @@ export default function Dashboard () {
 
       reader.onloadend = () => {
         setThumbnail({
-          id: crypto.randomUUID(),
+          id: uuidv4(),
           url: reader.result as string,
           type: files[0].type,
           caption: '',

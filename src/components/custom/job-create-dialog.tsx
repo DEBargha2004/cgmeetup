@@ -165,7 +165,7 @@ export default function JobCreateDialog () {
       >
         <DialogContent
           className='max-w-[800px] bg-card px-4 overflow-y-auto scroller-hide 
-        max-h-[calc(100vh-20px)] flex justify-start items-start gap-2'
+        max-h-[calc(100vh-80px)] flex justify-start items-start gap-2'
           hideCloseButton
         >
           <DialogClose className='absolute right-1 top-1'>

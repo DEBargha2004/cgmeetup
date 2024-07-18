@@ -2,7 +2,7 @@
 
 import { useGlobalAppStore } from '@/store/global-app-store'
 import { Dialog, DialogContent, DialogFooter, DialogHeader } from '../ui/dialog'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   AccountCreateForm2,
   FieldsContainer,
@@ -71,6 +71,20 @@ export default function AuthDialog () {
     data: SignInWithOtpSchemaType
   ) => {}
 
+  // const handleCloseAuthDialog = (e: PopStateEvent) => {
+  //   if (authDialogState) {
+  //     e.preventDefault()
+  //     setAuthDialogState(false)
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   window.addEventListener('popstate', handleCloseAuthDialog)
+  //   return () => {
+  //     window.removeEventListener('popstate', handleCloseAuthDialog)
+  //   }
+  // }, [authDialogState])
+
   //form submit handler end
 
   return (
@@ -78,7 +92,7 @@ export default function AuthDialog () {
       <DialogContent
         className={cn(
           `p-0 overflow-y-auto md:max-h-[calc(100vh-30px)] md:min-h-[530px] 
-       scroller-hide grid md:grid-cols-2 grid-cols-1 gap-0 bg-card max-h-[calc(100vh)]`,
+       scroller-hide grid md:grid-cols-2 grid-cols-1 gap-0 bg-card max-h-full`,
           showForm.create_acc
             ? 'max-w-[500px]'
             : 'md:max-w-[800px] max-w-[450px] md:py-0 py-10'
