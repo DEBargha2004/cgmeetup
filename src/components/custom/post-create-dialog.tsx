@@ -334,13 +334,14 @@ export default function PostCreateDialog () {
           className='max-w-[800px] bg-card px-4 overflow-y-auto scroller-hide 
         max-h-[calc(100vh-80px)] pt-10'
           hideCloseButton
+          onOpenAutoFocus={e => e.preventDefault()}
         >
-          <DialogClose className='absolute right-2 top-2'>
+          <DialogClose className='absolute right-1 top-1'>
             <div
-              className='h-5 w-5 rounded-full grid place-content-center bg-lightAccent/50 hover:bg-lightAccent/90 
+              className='h-8 w-8 rounded-full grid place-content-center bg-lightAccent/50 hover:bg-lightAccent/90 
            cursor-pointer'
             >
-              <Close className='h-3 opacity-70' />
+              <Close className='h-4 opacity-70' />
             </div>
           </DialogClose>
           <div className='flex items-start justify-start gap-2'>

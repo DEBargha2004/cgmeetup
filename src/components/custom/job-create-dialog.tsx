@@ -165,15 +165,16 @@ export default function JobCreateDialog () {
       >
         <DialogContent
           className='max-w-[800px] bg-card px-4 overflow-y-auto scroller-hide 
-        max-h-[calc(100vh-80px)] flex justify-start items-start gap-2'
+        max-h-[calc(100vh-80px)] flex justify-start items-start gap-2 pt-10'
           hideCloseButton
+          onOpenAutoFocus={e => e.preventDefault()}
         >
-          <DialogClose className='absolute right-1 top-1'>
+          <DialogClose className='absolute right-1 top-1 z-40'>
             <div
-              className='h-5 w-5 rounded-full grid place-content-center bg-lightAccent/50 hover:bg-lightAccent/90 
+              className='h-8 w-8 rounded-full grid place-content-center bg-lightAccent/50 hover:bg-lightAccent/90 
            cursor-pointer'
             >
-              <Close className='h-3 opacity-70' />
+              <Close className='h-4 opacity-70' />
             </div>
           </DialogClose>
           <Avatar className='h-14 w-14 xs:block hidden'>
