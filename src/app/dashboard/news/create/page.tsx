@@ -43,8 +43,25 @@ import {
   Image as ImageIcon,
   Crop,
   Upload,
-  Delete
+  Delete,
+  Photo,
+  Description,
+  YouTube,
+  Close,
+  Remove
 } from '@mui/icons-material'
+import { useWindowSize } from '@uidotdev/usehooks'
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTrigger
+} from '@/components/ui/dialog'
+import { IconType } from '@/types/icon'
+import { Separator } from '@/components/ui/separator'
+import { Textarea } from '@/components/ui/textarea'
 
 const visibilityOptions: FieldType[] = [
   {
@@ -56,6 +73,35 @@ const visibilityOptions: FieldType[] = [
     value: 'private'
   }
 ]
+
+type EditorData =
+  | {
+      type: 'text'
+      data: string
+    }
+  | {
+      type: 'image'
+      data: { url: string; caption: string }
+    }
+  | {
+      type: 'video'
+      data: {
+        url: string
+        title: string
+      }
+    }
+
+const youtubeDomains = ['https://www.youtube.com/', 'https://youtu.be/']
+function formatUrl (url: string): string {
+  if (youtubeDomains.some(domain => url.startsWith(domain))) {
+    const videoId = url
+      .replace('https://www.youtube.com/', '')
+      .replace('https://youtu.be/', '')
+    return `https://www.youtube.com/embed/${videoId}`
+  } else {
+    return url
+  }
+}
 
 export default function Dashboard () {
   const [selectedTags, setSelectedTags] = useState<string[]>([])
@@ -73,20 +119,75 @@ export default function Dashboard () {
     custom: boolean
     crop: boolean
   } | null>()
-  const videoDomains = ['youtube.com/watch?v=', 'vimeo.com']
+  const [editorData, setEditorData] = useState<
+    (EditorData & {
+      id: string
+    })[]
+  >([])
   const [videoUrl, setVideoUrl] = useState('')
-  const showFrame = useMemo(() => {
-    return videoDomains.some(domain => videoUrl.includes(domain))
-  }, [videoUrl])
 
   const thumbnailDropzone = useDropzone()
-  const mainFeedDropzone = useDropzone()
+  const mainFeedDropzone = useDropzone({
+    accept: {
+      'image/*': []
+    }
+  })
+
+  const windowDimension = useWindowSize()
 
   const thumbnailRef = useRef<HTMLInputElement>(null)
   const cropperRef = useRef<ReactCropperElement>(null)
   const mainUploaderRef = useRef<HTMLInputElement>(null)
 
   // const onDragEnd = e => {}
+
+  const generateEditorComponentInstance = ({ data, type }: EditorData) => {
+    if (type === 'image') {
+      setEditorData(prev => [...prev, { type, id: crypto.randomUUID(), data }])
+    } else if (type === 'video') {
+      setEditorData(prev => [...prev, { type, id: crypto.randomUUID(), data }])
+    } else {
+      setEditorData(prev => [...prev, { type, id: crypto.randomUUID(), data }])
+    }
+  }
+
+  function handleEditorComponentUpdate (id: string, data: EditorData) {
+    if (data.type === 'image') {
+      //@ts-ignore
+      setEditorData(prev =>
+        prev.map(item => {
+          if (item.id === id) {
+            return { ...item, data: data.data }
+          }
+          return item
+        })
+      )
+    } else if (data.type === 'video') {
+      //@ts-ignore
+      setEditorData(prev =>
+        prev.map(item => {
+          if (item.id === id) {
+            return { ...item, data: data.data }
+          }
+          return item
+        })
+      )
+    } else {
+      //@ts-ignore
+      setEditorData(prev =>
+        prev.map(item => {
+          if (item.id === id) {
+            return { ...item, data: data.data }
+          }
+          return item
+        })
+      )
+    }
+  }
+
+  const handleEditorComponentDelete = (id: string) => {
+    setEditorData(prev => prev.filter(item => item.id !== id))
+  }
 
   const handleCustomThumbnailChange = (files: File[] | null) => {
     if (files?.length) {
@@ -113,7 +214,8 @@ export default function Dashboard () {
         ...prev,
         url: cropperRef.current?.cropper
           .getCroppedCanvas()
-          .toDataURL() as string
+          .toDataURL() as string,
+        crop: false
       }))
     }
   }
@@ -121,6 +223,26 @@ export default function Dashboard () {
   useEffect(() => {
     handleCustomThumbnailChange(thumbnailDropzone.acceptedFiles)
   }, [thumbnailDropzone.acceptedFiles])
+
+  useEffect(() => {
+    if (mainFeedDropzone.acceptedFiles.length) {
+      mainFeedDropzone.acceptedFiles.map(file => {
+        const reader = new FileReader()
+
+        reader.readAsDataURL(file)
+
+        reader.onloadend = () => {
+          generateEditorComponentInstance({
+            type: 'image',
+            data: {
+              url: reader.result as string,
+              caption: ''
+            }
+          })
+        }
+      })
+    }
+  }, [mainFeedDropzone.acceptedFiles])
 
   return (
     <div className='flex h-full w-full flex-col'>
@@ -164,11 +286,146 @@ export default function Dashboard () {
                   className='border bg-card p-2 max-w-full overflow-hidden'
                 >
                   <CardContent className='flex flex-col justify-between items-stretch gap-1 p-0 w-full '>
-                    <div className='space-y-2'>
+                    <div className='space-y-2 mb-2'>
                       <p className='text-sm'>Title</p>
                       <Input className='' placeholder='Post Title' />
                     </div>
-                    <RichTextEditor />
+                    {editorData.map((data, index) => (
+                      <>
+                        {data.type === 'text' && (
+                          <EditorComponentWrapper>
+                            <div className='space-y-2'>
+                              <EditorComponentHeader
+                                heading='Text'
+                                onClose={() =>
+                                  handleEditorComponentDelete(data.id)
+                                }
+                              />
+                              <RichTextEditor key={data.id} />
+                            </div>
+                          </EditorComponentWrapper>
+                        )}
+                        {data.type === 'image' && (
+                          <EditorComponentWrapper>
+                            <div className='space-y-2'>
+                              <EditorComponentHeader
+                                heading='Image'
+                                onClose={() =>
+                                  handleEditorComponentDelete(data.id)
+                                }
+                              />
+                              <EditorImageComponent
+                                url={data.data.url}
+                                key={data.id}
+                                caption={data.data.caption}
+                                handleCaptionChange={e => {
+                                  console.log(data.data)
+                                  handleEditorComponentUpdate(data.id, {
+                                    type: 'image',
+                                    data: { ...data.data, caption: e }
+                                  })
+                                }}
+                              />
+                            </div>
+                          </EditorComponentWrapper>
+                        )}
+                        {data.type === 'video' && (
+                          <EditorComponentWrapper>
+                            <div className='space-y-2'>
+                              <EditorComponentHeader
+                                heading='Video'
+                                onClose={() =>
+                                  handleEditorComponentDelete(data.id)
+                                }
+                              />
+                              <EditorVideoComponent
+                                key={data.id}
+                                title={data.data.title}
+                                url={data.data.url}
+                                handleTitleChange={e =>
+                                  handleEditorComponentUpdate(data.id, {
+                                    type: 'video',
+                                    data: { ...data.data, title: e }
+                                  })
+                                }
+                              />
+                            </div>
+                          </EditorComponentWrapper>
+                        )}
+                      </>
+                    ))}
+                    <section className='w-full flex sm:flex-row flex-col gap-2'>
+                      <EditorOption
+                        Icon={Description}
+                        label='Add Text'
+                        description='Add Details'
+                        onClick={() =>
+                          generateEditorComponentInstance({
+                            type: 'text',
+                            data: ''
+                          })
+                        }
+                      />
+                      <input hidden {...mainFeedDropzone.getInputProps()} />
+                      <EditorOption
+                        {...mainFeedDropzone.getRootProps({
+                          Icon: Photo,
+                          label: 'Add Image',
+                          description: 'JPG,PNG'
+                        })}
+                      />
+
+                      <Dialog
+                        onOpenChange={e => {
+                          if (!e) {
+                            generateEditorComponentInstance({
+                              type: 'video',
+                              data: {
+                                url: videoUrl,
+                                title: ''
+                              }
+                            })
+                          }
+                        }}
+                      >
+                        <DialogTrigger asChild>
+                          <EditorOption
+                            Icon={YouTube}
+                            label='Add Video'
+                            description='Youtube,Vimeo'
+                          />
+                        </DialogTrigger>
+                        <DialogContent className='p-0 space-y-0 bg-darkAccent max-w-[600px]'>
+                          <DialogHeader className='p-2 px-4 md:text-lg text-base bg-lightAccent'>
+                            Video
+                          </DialogHeader>
+                          <div className='px-4 py-2 space-y-4'>
+                            <div className='space-y-2'>
+                              <p>Paste a YouTube or Vimeo video URL here</p>
+                              <Input
+                                value={videoUrl}
+                                onChange={e =>
+                                  setVideoUrl(formatUrl(e.target.value))
+                                }
+                                placeholder='Example: https://www.youtube.com/watch?v=doPV-Shqm7k'
+                                className='placeholder:text-gray-500'
+                              />
+                            </div>
+                            {videoUrl && (
+                              <iframe
+                                src={videoUrl}
+                                className='w-full aspect-video'
+                              />
+                            )}
+                          </div>
+                          <DialogFooter className='p-4 pt-0'>
+                            <DialogClose>
+                              <Button className='h-8'>Save</Button>
+                            </DialogClose>
+                          </DialogFooter>
+                        </DialogContent>
+                      </Dialog>
+                    </section>
                   </CardContent>
                 </Card>
                 <Card
@@ -218,7 +475,11 @@ export default function Dashboard () {
                             )
                           }}
                         >
-                          <SelectTrigger id='status' aria-label='Select status'>
+                          <SelectTrigger
+                            id='status'
+                            aria-label='Select status'
+                            className='w-[250px] md:w-full mx-auto'
+                          >
                             <SelectValue placeholder='Select status' />
                           </SelectTrigger>
                           <SelectContent>
@@ -233,7 +494,10 @@ export default function Dashboard () {
                             ))}
                           </SelectContent>
                         </Select>
-                        <Button variant={'success'}>
+                        <Button
+                          variant={'success'}
+                          className='w-[250px] md:w-full mx-auto'
+                        >
                           <Rocket className='mr-2' />
                           Publish
                         </Button>
@@ -262,39 +526,15 @@ export default function Dashboard () {
                         thumbnailDropzone.getRootProps())}
                     >
                       {thumbnail ? (
-                        thumbnail.crop ? (
-                          <Cropper
-                            ref={cropperRef}
-                            style={{
-                              height: '100%',
-                              aspectRatio: 16 / 9
-                            }}
-                            className='object-contain cropper overflow-hidden'
-                            aspectRatio={16 / 9}
+                        <div className='h-full w-full flex justify-center items-center'>
+                          <Image
                             src={thumbnail.url}
-                            // zoomTo={0.5}
-                            initialAspectRatio={16 / 9}
-                            preview='.img-preview'
-                            viewMode={1}
-                            minCropBoxHeight={10}
-                            minCropBoxWidth={10}
-                            background={false}
-                            responsive={true}
-                            autoCropArea={1}
-                            checkOrientation={false}
-                            guides={true}
+                            alt='thumbnail'
+                            width={300}
+                            height={300}
+                            className='h-full w-full object-cover'
                           />
-                        ) : (
-                          <div className='h-full w-full flex justify-center items-center'>
-                            <Image
-                              src={thumbnail.url}
-                              alt='thumbnail'
-                              width={300}
-                              height={300}
-                              className='h-full w-full object-cover'
-                            />
-                          </div>
-                        )
+                        </div>
                       ) : (
                         <div className='h-full w-full flex flex-col justify-center items-center'>
                           <ImageIcon />
@@ -376,6 +616,152 @@ export default function Dashboard () {
           </div>
         </main>
       </div>
+      <Dialog
+        open={thumbnail?.crop}
+        onOpenChange={e => {
+          //@ts-ignore
+          setThumbnail(prev => ({ ...prev, crop: e }))
+        }}
+      >
+        <DialogContent className='max-w-[800px] bg-card pb-0'>
+          <div
+            className='h-[400px]  border 
+              bg-darkAccent'
+            style={{
+              width: Math.min(800, windowDimension.width!) - 48 - 2
+            }}
+          >
+            <Cropper
+              ref={cropperRef}
+              style={{
+                height: '100%',
+                aspectRatio: 16 / 9
+              }}
+              className='object-contain cropper overflow-hidden'
+              aspectRatio={16 / 9}
+              src={thumbnail?.url}
+              // zoomTo={0.5}
+              initialAspectRatio={16 / 9}
+              preview='.img-preview'
+              viewMode={1}
+              minCropBoxHeight={10}
+              minCropBoxWidth={10}
+              background={false}
+              responsive={true}
+              autoCropArea={1}
+              checkOrientation={false}
+              guides={true}
+            />
+          </div>
+          <div className='w-full p-3 grid place-content-center'>
+            <Badge
+              className='h-8 w-full px-2 flex justify-start items-center gap-2
+                cursor-pointer'
+              onClick={handleCrop}
+            >
+              <Crop className='h-4' />
+              <span>Crop</span>
+            </Badge>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </div>
+  )
+}
+
+const EditorOption = forwardRef<
+  HTMLDivElement,
+  {
+    Icon: IconType
+    label: string
+    description: string
+  } & HTMLProps<HTMLDivElement>
+>(({ className, Icon, label, description, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn(
+      'flex flex-col items-center justify-start gap-1 cursor-pointer p-4 py-8 border border-dashed transition-all hover:bg-lightAccent w-full rounded',
+      className
+    )}
+    {...props}
+  >
+    <Icon className='text-primary sm:h-8 h-6' />
+    <p>{label}</p>
+    <p className='text-sm opacity-70'>{description}</p>
+  </div>
+))
+
+EditorOption.displayName = 'EditorOption'
+
+function EditorComponentWrapper ({ children }: { children: React.ReactNode }) {
+  return <div className='w-full border-b last:border-none py-4'>{children}</div>
+}
+
+function EditorImageComponent ({
+  url,
+  caption,
+  handleCaptionChange
+}: {
+  url: string
+  caption: string
+  handleCaptionChange: (value: string) => void
+}) {
+  return (
+    <div className='w-full flex flex-col items-stretch justify-start gap-2'>
+      <Image
+        src={url}
+        alt=''
+        className='w-full aspect-auto object-cover object-center'
+        width={300}
+        height={300}
+      />
+      <Textarea
+        value={caption}
+        onChange={e => handleCaptionChange(e.target.value)}
+      />
+    </div>
+  )
+}
+
+function EditorVideoComponent ({
+  url,
+  title,
+  handleTitleChange
+}: {
+  url: string
+  title: string
+  handleTitleChange: (value: string) => void
+}) {
+  const src = useMemo(() => {
+    return url
+  }, [url])
+  return (
+    <div className='w-full flex flex-col items-stretch justify-start gap-2'>
+      <Input value={title} onChange={e => handleTitleChange(e.target.value)} />
+      <iframe src={src} className='w-full aspect-video'></iframe>
+    </div>
+  )
+}
+
+function EditorComponentHeader ({
+  onClose,
+  heading
+}: {
+  onClose: () => void
+  heading: string
+}) {
+  return (
+    <div className='flex justify-between items-center p-1 px-2 border rounded-sm bg-lightAccent'>
+      <p className='text-sm'>{heading}</p>
+      <EditorClose onClick={onClose} />
+    </div>
+  )
+}
+
+function EditorClose ({ className, ...props }: HTMLProps<HTMLDivElement>) {
+  return (
+    <div className={cn('cursor-pointer', className)} {...props}>
+      <Delete fontSize='small' className='opacity-70' />
     </div>
   )
 }
