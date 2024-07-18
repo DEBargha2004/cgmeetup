@@ -77,8 +77,8 @@ export default function AuthDialog () {
     <Dialog open={authDialogState} onOpenChange={setAuthDialogState}>
       <DialogContent
         className={cn(
-          `p-0 overflow-hidden md:max-h-[calc(100vh-30px)] md:min-h-[530px] 
-      overflow-y-auto scroller-hide grid md:grid-cols-2 grid-cols-1 gap-0 bg-card`,
+          `p-0 overflow-y-auto md:max-h-[calc(100vh-30px)] md:min-h-[530px] 
+       scroller-hide grid md:grid-cols-2 grid-cols-1 gap-0 bg-card max-h-[calc(100vh)]`,
           showForm.create_acc
             ? 'max-w-[500px]'
             : 'md:max-w-[800px] max-w-[450px] md:py-0 py-10'
