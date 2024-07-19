@@ -36,15 +36,11 @@ import {
   Person,
   Work
 } from '@mui/icons-material'
+import { dialogHash } from '@/constants/dialog-hash'
 
 export default function Navbar ({ className }: { className?: string }) {
-  const {
-    sidebarState,
-    setSidebarState,
-    setAuthDialogState,
-    setPostDialogState,
-    setJobDialogState
-  } = useGlobalAppStore()
+  const { sidebarState, setSidebarState, setJobDialogState } =
+    useGlobalAppStore()
   const [signedin, setSignedin] = useState(false)
   const pathname = usePathname()
 
@@ -170,20 +166,18 @@ export default function Navbar ({ className }: { className?: string }) {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align='start' className='translate-y-2'>
-            <DropdownMenuItem
-              className='cursor-pointer flex gap-2 items-center pl-2'
-              onClick={() => setPostDialogState(true)}
-            >
-              <ImageIcon className='h-[14px]' />
-              <span>Add Post</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              className='cursor-pointer flex gap-2 items-center pl-2'
-              onClick={() => setJobDialogState(true)}
-            >
-              <Work className='h-[14px]' />
-              <span>Add Job</span>
-            </DropdownMenuItem>
+            <a href={dialogHash.postCreate}>
+              <DropdownMenuItem className='cursor-pointer flex gap-2 items-center pl-2'>
+                <ImageIcon className='h-[14px]' />
+                <span>Add Post</span>
+              </DropdownMenuItem>
+            </a>
+            <a href={dialogHash.jobCreate}>
+              <DropdownMenuItem className='cursor-pointer flex gap-2 items-center pl-2'>
+                <Work className='h-[14px]' />
+                <span>Add Job</span>
+              </DropdownMenuItem>
+            </a>
             <DropdownMenuSeparator />
             {uploadButtonItems.map((item, item_idx) => (
               <React.Fragment key={item_idx}>
@@ -268,13 +262,12 @@ export default function Navbar ({ className }: { className?: string }) {
                   <ProfileItemLabel item={item} />
                 </ProfileItemLink>
               ))}
-            <DropdownMenuItem
-              className='cursor-pointer flex gap-2 w-full pl-2 '
-              onClick={() => setAuthDialogState(true)}
-            >
-              <Login className='h-[14px]' />
-              Sign In
-            </DropdownMenuItem>
+            <a className='w-full' href={dialogHash.auth}>
+              <DropdownMenuItem className='cursor-pointer flex gap-2 w-full pl-2 '>
+                <Login className='h-[14px]' />
+                Sign In
+              </DropdownMenuItem>
+            </a>
             {profileItems
               .slice(profileItems.length - 1)
               .map((item, item_idx) => (

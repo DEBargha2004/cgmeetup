@@ -1,17 +1,15 @@
 import type { Metadata } from 'next'
-import { Inter, Open_Sans, Roboto } from 'next/font/google'
+import { Open_Sans } from 'next/font/google'
 import { ThemeProvider } from '@/provider/theme-provider'
 import { cn } from '@/lib/utils'
-import {
-  AuthDialog,
-  Navbar,
-  NavigationHelper,
-  PostCreateDialog
-} from '@/components/custom'
+import { Navbar, NavigationHelper } from '@/components/custom'
 import './globals.css'
 import './global-icons.css'
-import JobCreateDialog from '@/components/custom/job-create-dialog'
-
+import {
+  AuthDialog,
+  JobCreateDialog,
+  PostCreateDialog
+} from '@/components/custom/global-dialog'
 const inter = Open_Sans({ subsets: ['cyrillic'] })
 
 export const metadata: Metadata = {

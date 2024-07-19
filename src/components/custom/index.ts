@@ -14,8 +14,6 @@ import MainPageForm from './main-page-form'
 import ShowcaseCard from './showcase-card'
 import ClearButton from './clear-button'
 import AccordionItemChildWrapper from './accordion-item-children-wrapper'
-import AuthDialog from './auth-dialog'
-import PostCreateDialog from './post-create-dialog'
 import MultiSelect from './multi-select'
 import NewsCard from './news-card'
 import FeaturedNewsCard from './featured-news-card'
@@ -42,8 +40,6 @@ export {
   ShowcaseCard,
   ClearButton,
   AccordionItemChildWrapper,
-  AuthDialog,
-  PostCreateDialog,
   MultiSelect,
   NewsCard,
   FeaturedNewsCard,
