@@ -10,11 +10,11 @@ import { useGlobalAppStore } from '@/store/global-app-store'
 import { Image as ImageIcon, SlowMotionVideo } from '@mui/icons-material'
 
 export default function PostCreate () {
-  const { setPostDialogState } = useGlobalAppStore()
+  // const { setPostDialogState } = useGlobalAppStore()
   return (
     <div
       className='flex items-start justify-start gap-2 w-full border-t border rounded-sm py-5 bg-card px-2'
-      onClick={() => setPostDialogState(true)}
+      // onClick={() => setPostDialogState(true)}
     >
       <div id='user-image'>
         <div className='w-14 h-14 rounded-full flex justify-center items-center'>

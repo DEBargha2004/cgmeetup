@@ -53,6 +53,7 @@ import { Combobox } from '@/components/ui/combobox'
 import { FancyMultiSelect } from '@/components/ui/fancy-multi-select'
 import { Close, Delete, KeyboardArrowDown } from '@mui/icons-material'
 import { removeHashFromUrl } from '@/functions/remove-hash-from-url'
+import { goToPreviousPage } from '@/functions/go-to-previous-page'
 
 const locations = [
   'Lagos, Nigeria',

@@ -56,6 +56,7 @@ import { Badge } from '@/components/ui/badge'
 import { Switch } from '@/components/ui/switch'
 import { FancyMultiSelect } from '@/components/ui/fancy-multi-select'
 import { removeHashFromUrl } from '@/functions/remove-hash-from-url'
+import { goToPreviousPage } from '@/functions/go-to-previous-page'
 
 type PostMedia = {
   type: 'video' | 'image'

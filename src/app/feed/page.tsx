@@ -14,6 +14,7 @@ import Advertisements from './_components/advertisements'
 import JobPosts from './_components/job-posts'
 import LatestComments from './_components/latest-comments'
 import LatestLikes from './_components/latest-likes'
+import { dialogHash } from '@/constants/dialog-hash'
 
 export default function FeedPage () {
   return (
@@ -28,7 +29,9 @@ export default function FeedPage () {
         </div>
         <div className='lg:w-1/3 md:w-3/5 w-full lg:min-w-[500px] flex flex-col justify-start items-center gap-4 border-x px-2'>
           <ProfileCarousel />
-          <PostCreate />
+          <a href={dialogHash.postCreate} className='w-full'>
+            <PostCreate />
+          </a>
           <div className='flex justify-between items-center w-full'>
             <h1 className='text-lg'>Job Recommendation</h1>
             <Link href={'/jobs'} className='text-primary text-sm'>
