@@ -323,13 +323,13 @@ export default function PostCreateDialog () {
             if (isContentAdded) {
               if (confirmClose) {
                 setPostDialogState(false)
-                removeHashFromUrl()
+                goToPreviousPage()
               } else {
                 setCloseConfirmDialog(true)
               }
             } else {
               setPostDialogState(false)
-              removeHashFromUrl()
+              goToPreviousPage()
             }
           }
         }}

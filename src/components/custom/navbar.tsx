@@ -166,18 +166,18 @@ export default function Navbar ({ className }: { className?: string }) {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align='start' className='translate-y-2'>
-            <a href={dialogHash.postCreate}>
+            <Link href={'/create-post'}>
               <DropdownMenuItem className='cursor-pointer flex gap-2 items-center pl-2'>
                 <ImageIcon className='h-[14px]' />
                 <span>Add Post</span>
               </DropdownMenuItem>
-            </a>
-            <a href={dialogHash.jobCreate}>
+            </Link>
+            <Link href={'/create-job'}>
               <DropdownMenuItem className='cursor-pointer flex gap-2 items-center pl-2'>
                 <Work className='h-[14px]' />
                 <span>Add Job</span>
               </DropdownMenuItem>
-            </a>
+            </Link>
             <DropdownMenuSeparator />
             {uploadButtonItems.map((item, item_idx) => (
               <React.Fragment key={item_idx}>
@@ -262,12 +262,12 @@ export default function Navbar ({ className }: { className?: string }) {
                   <ProfileItemLabel item={item} />
                 </ProfileItemLink>
               ))}
-            <a className='w-full' href={dialogHash.auth}>
+            <Link className='w-full' href={'/signin'}>
               <DropdownMenuItem className='cursor-pointer flex gap-2 w-full pl-2 '>
                 <Login className='h-[14px]' />
                 Sign In
               </DropdownMenuItem>
-            </a>
+            </Link>
             {profileItems
               .slice(profileItems.length - 1)
               .map((item, item_idx) => (

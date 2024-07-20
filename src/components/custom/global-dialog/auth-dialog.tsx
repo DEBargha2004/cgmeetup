@@ -32,6 +32,7 @@ import landing_image from '@/../public/images/landing-page.png'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
 import { removeHashFromUrl } from '@/functions/remove-hash-from-url'
+import { goToPreviousPage } from '@/functions/go-to-previous-page'
 
 type FormNameTypes = 'phone' | 'otp' | 'pass' | 'create_acc'
 type FormStateTypes = Partial<Record<FormNameTypes, boolean>>
@@ -82,7 +83,7 @@ export default function AuthDialog () {
       open={authDialogState}
       onOpenChange={e => {
         setAuthDialogState(e)
-        removeHashFromUrl()
+        goToPreviousPage()
       }}
     >
       <DialogContent

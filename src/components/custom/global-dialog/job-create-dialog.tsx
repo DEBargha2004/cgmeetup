@@ -159,13 +159,13 @@ export default function JobCreateDialog () {
             if (isContentAdded) {
               if (confirmClose) {
                 setJobDialogState(false)
-                removeHashFromUrl()
+                goToPreviousPage()
               } else {
                 setCloseConfirmDialog(true)
               }
             } else {
               setJobDialogState(false)
-              removeHashFromUrl()
+              goToPreviousPage()
             }
           }
         }}

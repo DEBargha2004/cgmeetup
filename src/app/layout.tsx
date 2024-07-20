@@ -38,9 +38,9 @@ export default function RootLayout ({
             {children}
             {modal}
           </div>
-          <AuthDialog />
+          {/* <AuthDialog />
           <PostCreateDialog />
-          <JobCreateDialog />
+          <JobCreateDialog /> */}
           <NavigationHelper />
         </ThemeProvider>
       </body>
