@@ -9,7 +9,7 @@ export default function ProfileCard ({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        'bg-card p-3 px-5 flex flex-col justify-start items-center gap-4 rounded border',
+        'bg-card transition-all hover:bg-darkAccent/80 p-3 px-5 flex flex-col justify-start items-center gap-4 rounded border',
         className
       )}
     >

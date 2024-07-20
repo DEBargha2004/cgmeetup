@@ -13,7 +13,7 @@ export default function LatestLikes () {
   return (
     <div className='space-y-4'>
       <h1 className=' text-lg'>Latest Likes</h1>
-      <LatestSectionContainer.ItemsContainer className='grid xl:grid-cols-2 gap-x-6 bg-card rounded border p-3 space-y-0'>
+      <LatestSectionContainer.ItemsContainer className='grid xl:grid-cols-2 gap-x-6 bg-card rounded border p-3 space-y-0 hover:bg-darkAccent/80 transition-all'>
         {Array.from({ length: 6 }).map((_, i) => (
           <PostItem key={i} />
         ))}

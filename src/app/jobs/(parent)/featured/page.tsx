@@ -13,9 +13,7 @@ border-none bg-transparent'
       >
         <CardContent className='space-y-4 px-1'>
           {Array.from({ length: 3 }, (_, i) => i).map(i => (
-            <Link href={'/jobs/123'} className='inline-block w-full' key={i}>
-              <JobCard />
-            </Link>
+            <JobCard key={i} />
           ))}
         </CardContent>
       </Card>

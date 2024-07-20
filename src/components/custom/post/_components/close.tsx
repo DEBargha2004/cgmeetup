@@ -9,7 +9,12 @@ export default function Close ({ className }: { className?: string }) {
   return (
     <CloseIcon
       className={cn('cursor-pointer', className)}
-      onClick={() => router.back()}
+      onClick={() => {
+        if (window.history.length > 1) router.back()
+        else {
+          router.replace('/')
+        }
+      }}
     />
   )
 }

@@ -10,7 +10,7 @@ export default function StudioCard ({ className }: { className?: string }) {
   return (
     <Card
       className={cn(
-        'bg-card min-w-[250px] p-5 flex flex-col justify-start items-center gap-6',
+        'bg-card transition-all hover:bg-darkAccent/80 min-w-[250px] p-5 flex flex-col justify-start items-center gap-6',
         className
       )}
     >

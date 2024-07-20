@@ -3,9 +3,7 @@
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import { HTMLProps } from 'react'
-import { Badge } from '../ui/badge'
 import { Button } from '../ui/button'
-import MaterialSymbolIcon from './material-symbol-icon'
 import { Card } from '../ui/card'
 import { PersonAdd } from '@mui/icons-material'
 
@@ -17,7 +15,7 @@ export default function ShowcaseCard ({
     <Card className={cn('@container')} {...props}>
       <div
         className={cn(
-          'flex @xl:flex-row flex-col justify-between gap-4 items-stretch p-3 bg-card hover:bg-darkAccent/50 transition-all',
+          'flex @xl:flex-row flex-col justify-between gap-4 items-stretch p-3 bg-card hover:bg-darkAccent/80 transition-all',
           className
         )}
       >

@@ -12,15 +12,9 @@ export default function TrendingJobs () {
 border-none bg-transparent'
       >
         <CardContent className='space-y-4 px-1'>
-          <Link href={'/job-post/123'} className='inline-block w-full'>
-            <JobCard />
-          </Link>
-          <Link href={'/job-post/123'} className='inline-block w-full'>
-            <JobCard />
-          </Link>
-          <Link href={'/job-post/123'} className='inline-block w-full'>
-            <JobCard />
-          </Link>
+          {Array.from({ length: 3 }, (_, i) => i).map(i => (
+            <JobCard key={i} />
+          ))}
         </CardContent>
       </Card>
       <Card className='bg-transparent border-none col-span-3 xl:col-span-1'>

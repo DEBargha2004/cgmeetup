@@ -48,11 +48,11 @@ export default function Sidebar ({ postId }: { postId: string }) {
 
   const [activeTab, setActiveTab] = useState<'comment' | 'creator'>('comment')
   return (
-    <div className='w-full h-full md:overflow-y-auto px-1 scroller pt-2 bg-darkAccent relative'>
+    <div className='w-full h-full md:overflow-y-auto px-1 scroller pt-2 bg-darkAccent relative post-sidebar'>
       <div
         className={cn(
-          ' space-y-3  md:overflow-y-auto scroller',
-          activeTab === 'comment' ? 'h-fit md:h-[calc(100%-80px)]' : 'h-full'
+          ' space-y-3  md:overflow-y-auto scroller z-30 bg-darkAccent relative',
+          activeTab === 'comment' ? 'h-fit md:h-[calc(100%-60px)]' : 'h-full'
         )}
       >
         <Card className='rounded bg-card relative'>
@@ -65,8 +65,10 @@ export default function Sidebar ({ postId }: { postId: string }) {
               textContainer='justify-start gap-1'
             >
               <div
-                className='xl:text-sm text-xs h-8 w-8 bg-primary flex justify-center items-center 
-              shrink-0 rounded-full'
+                className={cn(
+                  'xl:text-sm text-xs h-9 w-9 bg-primary flex justify-center items-center shrink-0 rounded-full',
+                  false && 'bg-transparent border'
+                )}
               >
                 <PersonAdd fontSize='small' />
               </div>
@@ -78,8 +80,8 @@ export default function Sidebar ({ postId }: { postId: string }) {
             <i className='text-muted-foreground text-xs'>Posted 5 hours ago</i>
           </CardContent>
         </Card>
-        <div className='flex justify-between items-center '>
-          <div className='flex justify-between 2xl:gap-6 gap-3 items-center w-full'>
+        <div className='flex justify-between items-center'>
+          <div className='flex justify-between 2xl:gap-6 gap-3 items-center w-full px-2'>
             <div className='flex 2xl:gap-6 gap-2 items-center'>
               <PostActionsContainer
                 Icon={showLiked ? Favorite : FavoriteBorder}
@@ -204,8 +206,8 @@ export default function Sidebar ({ postId }: { postId: string }) {
       </div>
       <div
         className={cn(
-          'flex sticky bottom-0 justify-center items-center border-t border-border bg-darkAccent',
-          activeTab === 'comment' ? 'h-[80px] z-50' : 'hidden'
+          'flex sticky bottom-0 justify-center items-center border-t border-border bg-card px-2',
+          activeTab === 'comment' ? 'h-[60px] z-50' : 'hidden'
         )}
       >
         <CommentInput />
