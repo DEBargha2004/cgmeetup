@@ -29,9 +29,9 @@ export default function FeedPage () {
         </div>
         <div className='lg:w-1/3 md:w-3/5 w-full lg:min-w-[500px] flex flex-col justify-start items-center gap-4 border-x px-2'>
           <ProfileCarousel />
-          <a href={dialogHash.postCreate} className='w-full'>
+          <Link href={'/create-post'} className='w-full'>
             <PostCreate />
-          </a>
+          </Link>
           <div className='flex justify-between items-center w-full'>
             <h1 className='text-lg'>Job Recommendation</h1>
             <Link href={'/jobs'} className='text-primary text-sm'>
