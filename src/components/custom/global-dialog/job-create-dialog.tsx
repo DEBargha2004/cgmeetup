@@ -629,6 +629,7 @@ export default function JobCreateDialog () {
               onClick={() => {
                 setConfirmClose(true)
                 setJobDialogState(false)
+                goToPreviousPage()
                 setCloseConfirmDialog(false)
               }}
             >

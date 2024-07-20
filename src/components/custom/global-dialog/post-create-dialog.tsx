@@ -604,6 +604,7 @@ export default function PostCreateDialog () {
               onClick={() => {
                 setConfirmClose(true)
                 setPostDialogState(false)
+                goToPreviousPage()
                 setCloseConfirmDialog(false)
               }}
             >
