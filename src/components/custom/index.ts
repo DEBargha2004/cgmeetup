@@ -22,6 +22,7 @@ import Cropper from './cropper'
 import ScrollControlContainer from './scroll-control-container'
 import Navigator from './navigator'
 import UploadType from './upload-type'
+import DualInputRange from './dual-input-range'
 
 export {
   AppLogo,
@@ -47,5 +48,6 @@ export {
   Cropper,
   ScrollControlContainer,
   Navigator,
-  UploadType
+  UploadType,
+  DualInputRange
 }

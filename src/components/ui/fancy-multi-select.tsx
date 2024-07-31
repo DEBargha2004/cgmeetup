@@ -11,6 +11,7 @@ import {
   CommandList
 } from '@/components/ui/command'
 import { Command as CommandPrimitive } from 'cmdk'
+import { cn } from '@/lib/utils'
 
 type Option = {
   value: string
@@ -56,12 +57,16 @@ export function FancyMultiSelect ({
   options,
   values,
   onChange,
-  placeholder
+  placeholder,
+  max,
+  className
 }: {
   options: Option[]
   values?: Option[]
   onChange?: (values: Option[]) => void
   placeholder?: string
+  max?: number
+  className?: string
 }) {
   const inputRef = React.useRef<HTMLInputElement>(null)
   const [open, setOpen] = React.useState(false)
@@ -103,14 +108,16 @@ export function FancyMultiSelect ({
     option => !selected.some(value => value.value === option.value)
   )
 
+  const maxCount = max ? (selected.length > max ? selected.length - max : 0) : 0
+
   return (
     <Command
       onKeyDown={handleKeyDown}
-      className='overflow-visible bg-transparent'
+      className={cn('overflow-visible bg-transparent', className)}
     >
       <div className='group rounded-md bg-darkAccent border border-input px-3 py-2 text-sm ring-primary focus-within:ring-2  '>
         <div className='flex flex-wrap gap-1'>
-          {selected.map(value => {
+          {selected.slice(0, max).map(value => {
             return (
               <Badge
                 key={value.value}
@@ -136,6 +143,15 @@ export function FancyMultiSelect ({
               </Badge>
             )
           })}
+          {maxCount ? (
+            <Badge
+              key={'max'}
+              variant='secondary'
+              className='bg-lightAccent hover:bg-lightAccent/70 cursor-pointer'
+            >
+              +{maxCount}
+            </Badge>
+          ) : null}
           {/* Avoid having the "Search" Icon */}
           <CommandPrimitive.Input
             ref={inputRef}

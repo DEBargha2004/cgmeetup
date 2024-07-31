@@ -1,4 +1,3 @@
-import { MaterialSymbolIcon } from '@/components/custom'
 import LatestSectionContainer from '@/components/custom/feed/latest-section-container'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { getShortendName } from '@/functions'

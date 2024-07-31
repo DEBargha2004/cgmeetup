@@ -29,10 +29,10 @@ export default function Tabs ({
               <Link href={tab.href}>
                 <div
                   className={cn(
-                    `h-10 hover:border-b-2 border-b-primary 
+                    `h-10 border-b-2 border-transparent hover:border-b-primary  
               md:px-10 px-5 py-4 flex justify-center items-center text-sm border-r border-r-darkAccent 
               last:border-r-none gap-2`,
-                    pathname === tab.href ? 'border-b-2' : '',
+                    pathname === tab.href ? 'border-b-primary' : '',
                     className
                   )}
                 >
