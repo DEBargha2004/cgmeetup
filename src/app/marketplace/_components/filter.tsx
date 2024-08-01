@@ -491,8 +491,8 @@ export function Filter ({ className }: { className?: string }) {
             defaultValues={priceOptions}
             max={1000}
             min={0}
-            onChange={setSelectedPolyCountRange}
-            values={selectedPolyCountRange}
+            onChange={setSelectedPriceRange}
+            values={selectedPriceRange}
             formatRangeValue={e => `$${e[0]}-$${getFormattedNumber(e[1])}`}
           />
           <Separator className='my-3' />
