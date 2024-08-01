@@ -29,6 +29,8 @@ export default function SelectRange ({
         defaultValue={[min, max]}
         value={localValue}
         onChange={handleChange}
+        max={max}
+        min={min}
       />
       <div className='flex justify-between items-start'>
         <InputButtons
@@ -67,7 +69,7 @@ function InputButtons ({
   return (
     <Input
       className={cn(
-        'bg-transparent hover:bg-transparent hover:shadow-lightAccent py-2 border rounded w-20 text-center hide-input-inner-buttons'
+        'bg-transparent hover:bg-transparent hover:shadow-lightAccent py-2 border rounded w-24 text-center hide-input-inner-buttons'
       )}
       type='number'
       value={localValue}

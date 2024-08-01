@@ -115,7 +115,7 @@ ListContainer.Card = function ListContainerCard ({
         </div>
       </div>
       <div className='grid gap-2 p-2'>
-        <h1 className=''>Dog Image</h1>
+        <h1 className='text-lg'>Dog Image</h1>
 
         <ProfileInfoOverView
           description='hidden'
@@ -123,7 +123,9 @@ ListContainer.Card = function ListContainerCard ({
           image='h-6 w-6 border-none'
           heading='font-light text-sm'
           className='mt-1'
-        />
+        >
+          <p className='bg-lightAccent text-xs p-1.5 py-0.5 rounded'>$100</p>
+        </ProfileInfoOverView>
       </div>
     </div>
   )

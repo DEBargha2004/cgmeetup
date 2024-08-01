@@ -115,8 +115,8 @@ export function FancyMultiSelect ({
       onKeyDown={handleKeyDown}
       className={cn('overflow-visible bg-transparent', className)}
     >
-      <div className='group rounded-md bg-darkAccent border border-input px-3 py-2 text-sm ring-primary focus-within:ring-2  '>
-        <div className='flex flex-wrap gap-1'>
+      <div className='group rounded-md bg-darkAccent border border-input px-3 py-2 text-sm ring-primary focus-within:ring-2 h-full'>
+        <div className='flex items-center flex-wrap gap-1'>
           {selected.slice(0, max).map(value => {
             return (
               <Badge
@@ -164,7 +164,7 @@ export function FancyMultiSelect ({
           />
         </div>
       </div>
-      <div className='relative mt-2'>
+      <div className='relative top-2'>
         <CommandList className=''>
           {open && selectables.length > 0 ? (
             <div

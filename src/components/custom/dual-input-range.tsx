@@ -9,7 +9,9 @@ export default function DualInputRange ({
   defaultValue,
   minDistance,
   onChange,
-  value
+  value,
+  max,
+  min
 }: {} & {
   className?: string
   thumbClassName?: string
@@ -17,6 +19,8 @@ export default function DualInputRange ({
   minDistance?: number
   onChange?: (value: [number, number]) => void
   value?: [number, number]
+  max: number
+  min: number
 }) {
   return (
     <ReactSlider
@@ -34,6 +38,8 @@ export default function DualInputRange ({
       minDistance={minDistance}
       onAfterChange={onChange}
       value={value}
+      max={max}
+      min={min}
     />
   )
 }
