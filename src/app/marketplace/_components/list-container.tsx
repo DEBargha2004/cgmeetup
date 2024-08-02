@@ -17,6 +17,7 @@ import {
   ShoppingCart
 } from '@mui/icons-material'
 import { ProfileInfoOverView } from '@/components/custom'
+import Link from 'next/link'
 
 const tags = ['FDX', 'OBJ']
 
@@ -38,7 +39,7 @@ ListContainer.Title = function ListContainerTitle ({
   ...props
 }: {} & HTMLProps<HTMLHeadingElement>) {
   return (
-    <h1 className={cn('text-2xl font-semibold', className)} {...props}>
+    <h1 className={cn('text-2xl font-semibold ', className)} {...props}>
       {children}
     </h1>
   )
@@ -63,23 +64,27 @@ ListContainer.CardsContainer = function ListContainerCardsContainer ({
 ListContainer.Card = function ListContainerCard ({
   className,
   price,
-  bottomLeftIcons
+  bottomLeftIcons,
+  href
 }: {
   price?: string
   bottomLeftIcons?: JSX.Element
+  href?: string
 } & HTMLProps<HTMLDivElement>) {
   return (
     <div
       className={cn('w-[300px] grid gap-2 rounded shrink-0 border ', className)}
     >
       <div className='w-full aspect-square rounded relative group overflow-hidden'>
-        <Image
-          src={profile}
-          alt='profile'
-          height={300}
-          width={300}
-          className='w-full h-full object-contain bg-black/10'
-        />
+        <Link href={href || ''}>
+          <Image
+            src={profile}
+            alt='profile'
+            height={300}
+            width={300}
+            className='w-full h-full object-contain bg-black/10'
+          />
+        </Link>
         <div
           id='tag'
           className={cn(
@@ -121,10 +126,12 @@ ListContainer.Card = function ListContainerCard ({
           description='hidden'
           textContainer='justify-center'
           image='h-6 w-6 border-none'
-          heading='font-light text-sm'
-          className='mt-1'
+          heading='font-light text-sm line-clamp-1 '
+          className='mt-1 @container'
         >
-          <p className='bg-lightAccent text-xs p-1.5 py-0.5 rounded'>$100</p>
+          <p className='bg-lightAccent text-xs p-1.5 py-0.5 rounded my-auto'>
+            $100
+          </p>
         </ProfileInfoOverView>
       </div>
     </div>

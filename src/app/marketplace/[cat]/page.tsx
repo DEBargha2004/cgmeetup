@@ -9,6 +9,7 @@ import { Filter } from '../_components/filter'
 import ListContainer from '../_components/list-container'
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
+import { v4 } from 'uuid'
 
 export default function Page ({ params: { cat } }: { params: { cat: string } }) {
   const category = marketplaceCategories.find(
@@ -51,8 +52,12 @@ export default function Page ({ params: { cat } }: { params: { cat: string } }) 
         </div>
       </div>
       <div className='grid 2xl:grid-cols-6 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-3'>
-        {Array.from({ length: 8 }).map((_, i) => (
-          <ListContainer.Card key={i} className='w-full' />
+        {Array.from({ length: 10 }).map((_, i) => (
+          <ListContainer.Card
+            key={i}
+            className='w-full'
+            href={`/marketplace/${v4()}`}
+          />
         ))}
       </div>
     </div>

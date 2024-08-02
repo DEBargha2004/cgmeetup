@@ -1,4 +1,6 @@
+import { getFormattedUrlFromTitle } from '@/functions/get-formatted-url-from-title'
 import ListContainer from '../../../_components/list-container'
+import { v4 } from 'uuid'
 
 export default function MarketplaceTrendingPage () {
   return (
@@ -8,6 +10,7 @@ export default function MarketplaceTrendingPage () {
           className=''
           price={Math.random() > 0.5 ? '$10' : ''}
           key={i}
+          href={`/marketplace/product/${v4()}`}
         />
       ))}
     </div>
