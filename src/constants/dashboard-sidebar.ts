@@ -7,6 +7,7 @@ import {
   Notifications,
   Person,
   Settings,
+  Store,
   Work
 } from '@mui/icons-material'
 import { SvgIconTypeMap } from '@mui/material'
@@ -62,6 +63,13 @@ export const dashboardSidebar: SidebarItem[] = [
     href: '/dashboard/news',
     Icon: Newspaper,
     catch_routes: ['/dashboard/news', '/dashboard/news/create']
+  },
+  {
+    type: 'link',
+    label: 'Marketplace',
+    id: 'marketplace',
+    href: '/dashboard/marketplace',
+    Icon: Store
   },
   {
     type: 'separator'
