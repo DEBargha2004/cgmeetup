@@ -1,66 +1,66 @@
-'use client'
+"use client";
 
-import { cn } from '@/lib/utils'
-import { EditorContent, EditorProvider, useEditor } from '@tiptap/react'
-import { StarterKit } from '@tiptap/starter-kit'
-import ImageExtension from '@tiptap/extension-image'
-import UnderlineExtension from '@tiptap/extension-underline'
-import SubScriptExtension from '@tiptap/extension-subscript'
-import SuperScriptExtension from '@tiptap/extension-superscript'
-import HeadingExtension from '@tiptap/extension-heading'
-import TextAlignExtension from '@tiptap/extension-text-align'
-import BulletListExtension from '@tiptap/extension-bullet-list'
-import ListItemExtension from '@tiptap/extension-list-item'
-import OrderedListExtension from '@tiptap/extension-ordered-list'
-import HighlightExtension from '@tiptap/extension-highlight'
-import ImageResizeExtension from 'tiptap-extension-resize-image'
-import YoutubeExtension from '@tiptap/extension-youtube'
-import { VideoExtension } from './extensions/video'
-import EditorMenuBar from './editor-menu'
-import { useState } from 'react'
+import { cn } from "@/lib/utils";
+import { EditorContent, EditorProvider, useEditor } from "@tiptap/react";
+import { StarterKit } from "@tiptap/starter-kit";
+import ImageExtension from "@tiptap/extension-image";
+import UnderlineExtension from "@tiptap/extension-underline";
+import SubScriptExtension from "@tiptap/extension-subscript";
+import SuperScriptExtension from "@tiptap/extension-superscript";
+import HeadingExtension from "@tiptap/extension-heading";
+import TextAlignExtension from "@tiptap/extension-text-align";
+import BulletListExtension from "@tiptap/extension-bullet-list";
+import ListItemExtension from "@tiptap/extension-list-item";
+import OrderedListExtension from "@tiptap/extension-ordered-list";
+import HighlightExtension from "@tiptap/extension-highlight";
+import ImageResizeExtension from "tiptap-extension-resize-image";
+import YoutubeExtension from "@tiptap/extension-youtube";
+import { VideoExtension } from "./extensions/video";
+import EditorMenuBar from "./editor-menu";
+import { useState } from "react";
 
 const CustomImageResizeExtension = ImageResizeExtension.extend({
-  addAttributes () {
+  addAttributes() {
     return {
       ...this.parent?.(),
       style: {
-        default: 'width:400px',
-        parseHTML: element => element.getAttribute('style'),
-        renderHTML: attributes => {
+        default: "width:400px",
+        parseHTML: (element) => element.getAttribute("style"),
+        renderHTML: (attributes) => {
           return {
             style: `width:${attributes.style}px;`
-          }
+          };
         }
       },
       class: {
-        default: '',
-        parseHTML: element => element.getAttribute('class'),
-        renderHTML: attributes => {
+        default: "",
+        parseHTML: (element) => element.getAttribute("class"),
+        renderHTML: (attributes) => {
           return {
             class: attributes.class
-          }
+          };
         }
       }
-    }
+    };
   }
-})
+});
 
 const CustomYoutubeExtension = YoutubeExtension.extend({
-  addAttributes () {
+  addAttributes() {
     return {
       ...this.parent?.(),
       class: {
-        default: 'w-full',
-        parseHTML: element => element.getAttribute('class'),
-        renderHTML: attributes => {
+        default: "w-full",
+        parseHTML: (element) => element.getAttribute("class"),
+        renderHTML: (attributes) => {
           return {
             class: attributes.class
-          }
+          };
         }
       }
-    }
+    };
   }
-})
+});
 
 const extensions = [
   StarterKit,
@@ -70,7 +70,7 @@ const extensions = [
   SuperScriptExtension,
   HeadingExtension,
   TextAlignExtension.configure({
-    types: ['heading', 'paragraph']
+    types: ["heading", "paragraph"]
   }),
   ListItemExtension,
   BulletListExtension,
@@ -84,24 +84,27 @@ const extensions = [
     nocookie: true
   }),
   VideoExtension
-]
+];
 
-export default function RichTextEditor ({
+export default function RichTextEditor({
   className,
-  content = '',
-  onUpdate
+  content = "",
+  onUpdate,
+  editorWrapperClassName
 }: {
-  className?: string
-  content?: string
-  onUpdate?: (content: string) => void
+  className?: string;
+  content?: string;
+  onUpdate?: (content: string) => void;
+  editorWrapperClassName?: string;
 }) {
-  const [innerFocus, setInnerFocus] = useState(false)
-  const [contentState, setContentState] = useState(content)
+  const [innerFocus, setInnerFocus] = useState(false);
+  const [contentState, setContentState] = useState(content);
   return (
     <div
       className={cn(
-        'rounded-lg focus:ring-2 focus:ring-primary overflow-hidden',
-        innerFocus && 'ring-2 ring-primary  ring-offset-background'
+        "rounded-lg focus:ring-2 focus:ring-primary overflow-hidden",
+        innerFocus && "ring-2 ring-primary  ring-offset-background",
+        editorWrapperClassName
       )}
       tabIndex={0}
     >
@@ -109,8 +112,8 @@ export default function RichTextEditor ({
         extensions={extensions}
         content={contentState}
         onUpdate={({ editor }) => {
-          setContentState(editor.getHTML())
-          onUpdate?.(editor.getHTML())
+          setContentState(editor.getHTML());
+          onUpdate?.(editor.getHTML());
         }}
         slotBefore={<EditorMenuBar />}
         onFocus={() => setInnerFocus(true)}
@@ -118,28 +121,28 @@ export default function RichTextEditor ({
         editorProps={{
           attributes: {
             class: cn(
-              'max-h-[calc(100vh-200px)] min-h-[300px] p-4 overflow-y-auto scroller-hide outline-none bg-darkAccent',
+              "max-h-[calc(100vh-200px)] min-h-[300px] p-4 overflow-y-auto scroller-hide outline-none bg-darkAccent",
               className
             )
           },
-          handleDrop: e => {}
+          handleDrop: (e) => {}
         }}
       />
     </div>
-  )
+  );
 }
 
-export function EditorContentComponent ({
+export function EditorContentComponent({
   className,
-  content = ''
+  content = ""
 }: {
-  className?: string
-  content?: string
+  className?: string;
+  content?: string;
 }) {
   const editor = useEditor({
     extensions,
     content
-  })
+  });
   return (
     <EditorProvider
       extensions={extensions}
@@ -147,13 +150,13 @@ export function EditorContentComponent ({
       editorProps={{
         attributes: {
           class: cn(
-            'min-h-[300px] py-4 overflow-y-auto scroller-hide outline-none bg-darkAccent min-w-[100px] w-full',
+            "min-h-[300px] py-4 overflow-y-auto scroller-hide outline-none bg-darkAccent min-w-[100px] w-full",
             className
           ),
-          spellCheck: 'false',
-          contentEditable: 'false'
+          spellCheck: "false",
+          contentEditable: "false"
         }
       }}
     />
-  )
+  );
 }

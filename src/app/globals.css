@@ -154,7 +154,7 @@ html {
   );
 }
 
-.hide-input-inner-buttons::-webkit-inner-spin-button{
+.hide-input-inner-buttons::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
