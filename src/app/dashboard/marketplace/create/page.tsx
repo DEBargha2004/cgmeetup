@@ -14,7 +14,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -23,13 +22,11 @@ import {
   SelectValue
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { Cropper } from "@/components/custom";
+import { Cropper, Navigator } from "@/components/custom";
 import { Switch } from "@/components/ui/switch";
-import { sample_cateories } from "@/constants/categories";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { HTMLProps, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { useDropzone } from "react-dropzone";
-import { UploadType } from "@/components/custom";
 import {
   Dialog,
   DialogContent,
@@ -37,20 +34,20 @@ import {
   DialogHeader,
   DialogTrigger
 } from "@/components/ui/dialog";
-import { FieldType } from "@/types/field-type";
 import { ReactCropperElement } from "react-cropper";
 import { FancyMultiSelect } from "@/components/ui/fancy-multi-select";
 import {
-  FourK,
   Rocket,
   Upload,
   Image as ImageIcon,
   Crop,
   Delete,
-  PhotoLibrary,
   SlowMotionVideo,
   FolderZip,
-  AttachFile
+  AttachFile,
+  PlayArrow,
+  ArrowBackIos,
+  ArrowForwardIos
 } from "@mui/icons-material";
 import { v4 as uuidv4 } from "uuid";
 import { useForm } from "react-hook-form";
@@ -78,48 +75,67 @@ import {
   AccordionTrigger
 } from "@/components/ui/accordion";
 import { InsertPhoto } from "@mui/icons-material";
-
-const upload_types: { icon: string; title: string; description: string }[] = [
-  {
-    icon: "photo_library",
-    title: "Images",
-    description: "JPG, PNG, GIF"
-  },
-  {
-    icon: "slow_motion_video",
-    title: "Video",
-    description: "Youtube, Vimeo"
-  }
-];
+import { getYoutubeThumbnail } from "@/functions";
+import { scroll } from "@/functions/scroll";
 
 const visibilityOptions: string[] = ["Public", "Private"];
+const softwares = [
+  "Blender",
+  "Maya",
+  "Photoshop",
+  "Adobe XD",
+  "Premiere",
+  "After Effects",
+  "Cinema 4D",
+  "Fusion 360"
+];
+
+const licenses = [
+  "CC0",
+  "CC BY",
+  "CC BY-SA",
+  "CC BY-ND",
+  "CC BY-NC",
+  "CC BY-NC-SA"
+];
+
+const models = [
+  "Animated",
+  "Low Poly (Game-Ready)",
+  "Textures",
+  "High Poly",
+  "Materials"
+];
+
+const geometry = [
+  "Triangle",
+  "Square",
+  "Circle",
+  "Rectangle",
+  "Ellipse",
+  "Polygon"
+];
 
 export default function Dashboard() {
   const form = useForm<ProductCreateSchemaType>({
     resolver: zodResolver(productCreateSchema),
     defaultValues: {
       visibility: "Public",
-      productFiles: []
+      productFiles: [],
+      productMedia: []
     }
   });
 
-  const [images, setImages] = useState<
-    { id: string; url: string; type: string; caption: string }[]
-  >([]);
   const [thumbnail, setThumbnail] = useState<{
     id: string;
     url: string;
     type: string;
-    caption: string;
     custom: boolean;
     crop: boolean;
   } | null>();
 
-  const videoDomains = ["youtube.com/watch?v=", "vimeo.com"];
   const [videoUrl, setVideoUrl] = useState("");
-  const showFrame = useMemo(() => {
-    return videoDomains.some((domain) => videoUrl.includes(domain));
-  }, [videoUrl]);
+  const [selectedMediaIndex, setSelectedMediaIndex] = useState(0);
 
   const productDropzone = useDropzone({
     accept: {
@@ -146,8 +162,8 @@ export default function Dashboard() {
   const windowDimension = useWindowSize();
 
   const thumbnailRef = useRef<HTMLInputElement>(null);
-  const mainUploaderRef = useRef<HTMLInputElement>(null);
   const cropperRef = useRef<ReactCropperElement>(null);
+  const scrollerRef = useRef<HTMLDivElement>(null);
 
   const getFormattedFileSize = (size: number) => {
     const formattedFileSizeInKb = size / 1024;
@@ -202,6 +218,29 @@ export default function Dashboard() {
     }
   };
 
+  const handleProductImagesUpload = (files: File[] | null) => {
+    if (files) {
+      const file_length = files.length;
+      for (let i = 0; i < file_length; i++) {
+        const reader = new FileReader();
+
+        reader.readAsDataURL(files[i]);
+
+        reader.onloadend = () => {
+          //@ts-ignore
+          form.setValue("productMedia", [
+            ...(form.getValues("productMedia") || []),
+            {
+              id: uuidv4(),
+              url: reader.result as string,
+              type: "image"
+            }
+          ]);
+        };
+      }
+    }
+  };
+
   // const onDragEnd = e => {}
 
   const handleCustomThumbnailChange = (files: File[] | null) => {
@@ -214,7 +253,6 @@ export default function Dashboard() {
           id: uuidv4(),
           url: reader.result as string,
           type: files[0].type,
-          caption: "",
           custom: true,
           crop: false
         });
@@ -242,14 +280,16 @@ export default function Dashboard() {
     );
   };
 
-  useEffect(() => {
-    setThumbnail((prev) => {
-      if (prev?.custom) return prev;
-      return images.length
-        ? { ...images[0], custom: false, crop: false }
-        : null;
-    });
-  }, [images]);
+  const handleSaveVideo = () => {
+    form.setValue("productMedia", [
+      ...(form.getValues("productMedia") || []),
+      {
+        id: uuidv4(),
+        url: getYoutubeThumbnail(videoUrl),
+        type: "video"
+      }
+    ]);
+  };
 
   // digital art types
   const productTypes = [
@@ -296,44 +336,17 @@ export default function Dashboard() {
     return [];
   }, [form.watch("category")]);
 
-  const softwares = [
-    "Blender",
-    "Maya",
-    "Photoshop",
-    "Adobe XD",
-    "Premiere",
-    "After Effects",
-    "Cinema 4D",
-    "Fusion 360"
-  ];
-
-  const licenses = [
-    "CC0",
-    "CC BY",
-    "CC BY-SA",
-    "CC BY-ND",
-    "CC BY-NC",
-    "CC BY-NC-SA"
-  ];
-
-  const models = [
-    "Animated",
-    "Low Poly (Game-Ready)",
-    "Textures",
-    "High Poly",
-    "Materials"
-  ];
-
-  const geometry = [
-    "Triangle",
-    "Square",
-    "Circle",
-    "Rectangle",
-    "Ellipse",
-    "Polygon"
-  ];
-
   const productFiles = form.watch("productFiles");
+  const productMedia = form.watch("productMedia");
+
+  const handleImageSwap = (start: number, end: number) => {
+    const productMedia = form.getValues("productMedia");
+    const item1 = productMedia[start];
+    productMedia[start] = productMedia[end];
+    productMedia[end] = item1;
+
+    form.setValue("productMedia", productMedia);
+  };
 
   useEffect(() => {
     if (productDropzone.acceptedFiles.length) {
@@ -344,6 +357,25 @@ export default function Dashboard() {
   useEffect(() => {
     handleCustomThumbnailChange(thumbnailDropzone.acceptedFiles);
   }, [thumbnailDropzone.acceptedFiles]);
+
+  useEffect(() => {
+    if (productImagesDropzone.acceptedFiles.length) {
+      handleProductImagesUpload(productImagesDropzone.acceptedFiles);
+    }
+  }, [productImagesDropzone.acceptedFiles]);
+
+  useEffect(() => {
+    setThumbnail((prev) => {
+      if (prev?.custom) return prev;
+      return productMedia.length
+        ? {
+            ...productMedia[0],
+            custom: false,
+            crop: false
+          }
+        : null;
+    });
+  }, [productMedia]);
 
   return (
     <div className="flex h-full w-full flex-col">
@@ -425,7 +457,7 @@ export default function Dashboard() {
                       </div>
                       <p>Upload or drag and drop Zip files</p>
                     </div>
-                    {productFiles.length > 0 && (
+                    {productFiles.length ? (
                       <div className="grid gap-2 col-span-2">
                         <h1 className="text-xl">Product Files</h1>
                         <Accordion type="multiple" className="grid gap-2">
@@ -561,7 +593,74 @@ export default function Dashboard() {
                           ))}
                         </Accordion>
                       </div>
-                    )}
+                    ) : null}
+
+                    {productMedia.length ? (
+                      <div className="col-span-2 space-y-4">
+                        <Image
+                          src={productMedia[selectedMediaIndex].url}
+                          alt="thumbnail"
+                          height={400}
+                          width={400}
+                          className="w-full aspect-video object-contain border"
+                        />
+                        <div className="relative">
+                          <div
+                            className="w-full overflow-x-scroll scroller-hide flex justify-start items-center gap-2"
+                            ref={scrollerRef}
+                          >
+                            {productMedia.map((media, media_idx) => (
+                              <ProductMedia
+                                key={media.id}
+                                media={media}
+                                draggable
+                                index={media_idx}
+                                className={cn(
+                                  "border-2 border-transparent",
+                                  media_idx === selectedMediaIndex &&
+                                    "border-primary"
+                                )}
+                                onClick={() => setSelectedMediaIndex(media_idx)}
+                                onDragStart={(e) => {
+                                  e.dataTransfer.setData(
+                                    "text/plain",
+                                    media_idx.toString()
+                                  );
+                                }}
+                                onDrop={(e) => {
+                                  const droppedItemIndex = Number(
+                                    e.dataTransfer.getData("text/plain")
+                                  );
+                                  handleImageSwap(droppedItemIndex, media_idx);
+                                }}
+                              />
+                            ))}
+                          </div>
+                          <Navigator
+                            Icon={ArrowForwardIos}
+                            className={cn(
+                              "absolute top-1/2 -translate-y-1/2 right-0",
+                              "h-8 w-8 rounded-full bg-lightAccent/70 hover:bg-lightAccent"
+                            )}
+                            iconClassName="text-sm"
+                            onClick={() =>
+                              scroll({ ref: scrollerRef, direction: "right" })
+                            }
+                          />
+                          <Navigator
+                            Icon={ArrowBackIos}
+                            className={cn(
+                              "absolute top-1/2 -translate-y-1/2 left-0",
+                              "h-8 w-8 rounded-full bg-lightAccent/70 hover:bg-lightAccent"
+                            )}
+                            iconClassName="text-sm"
+                            onClick={() =>
+                              scroll({ ref: scrollerRef, direction: "left" })
+                            }
+                          />
+                        </div>
+                      </div>
+                    ) : null}
                     <input
                       type="file"
                       {...productImagesDropzone.getInputProps()}
@@ -589,16 +688,41 @@ export default function Dashboard() {
                           <InsertPhoto />
                           <p>Add Image</p>
                         </div>
-                        <div
-                          className={cn(
-                            "flex flex-col justify-start items-center gap-2",
-                            "border-2 border-dashed px-6 py-2 cursor-pointer hover:bg-lightAccent",
-                            "transition-all"
-                          )}
-                        >
-                          <SlowMotionVideo />
-                          <p>Add Video Url</p>
-                        </div>
+                        <Dialog onOpenChange={() => setVideoUrl("")}>
+                          <DialogTrigger asChild>
+                            <div
+                              className={cn(
+                                "flex flex-col justify-start items-center gap-2",
+                                "border-2 border-dashed px-6 py-2 cursor-pointer hover:bg-lightAccent",
+                                "transition-all"
+                              )}
+                            >
+                              <SlowMotionVideo />
+                              <p>Add Video Url</p>
+                            </div>
+                          </DialogTrigger>
+                          <DialogContent className="p-0 space-y-0 bg-darkAccent max-w-[600px]">
+                            <DialogHeader className="p-4 text-xl bg-lightAccent">
+                              Video
+                            </DialogHeader>
+                            <div className="px-4 py-2 space-y-4">
+                              <div className="space-y-2">
+                                <p>Paste a YouTube or Vimeo video URL here</p>
+                                <Input
+                                  value={videoUrl}
+                                  onChange={(e) => setVideoUrl(e.target.value)}
+                                  placeholder="Example: https://www.youtube.com/watch?v=doPV-Shqm7k"
+                                  className="placeholder:text-gray-500"
+                                />
+                              </div>
+                            </div>
+                            <DialogFooter className="p-4 pt-0">
+                              <Button className="h-8" onClick={handleSaveVideo}>
+                                Save
+                              </Button>
+                            </DialogFooter>
+                          </DialogContent>
+                        </Dialog>
                       </div>
                       <p>Upload or drag and drop Images</p>
                     </div>
@@ -1057,8 +1181,12 @@ export default function Dashboard() {
                               if (thumbnailDropzone.inputRef.current)
                                 thumbnailDropzone.inputRef.current.value = "";
                               setThumbnail(
-                                images.length
-                                  ? { ...images[0], custom: false, crop: false }
+                                productMedia.length
+                                  ? {
+                                      ...productMedia[0],
+                                      custom: false,
+                                      crop: false
+                                    }
                                   : null
                               );
                             }}
@@ -1143,3 +1271,40 @@ export default function Dashboard() {
     </div>
   );
 }
+
+const ProductMedia = ({
+  media,
+  className,
+  ...props
+}: {
+  media: ProductCreateSchemaType["productMedia"][number];
+  index: number;
+} & Omit<HTMLProps<HTMLDivElement>, "media">) => {
+  const url = media.url;
+  const isVideo = media.type === "video";
+
+  return (
+    <div
+      className={cn("h-28 aspect-video relative border", className)}
+      {...props}
+    >
+      <Image
+        src={url}
+        alt="thumbnail"
+        width={300}
+        height={300}
+        className="h-full w-full object-cover"
+      />
+      <div
+        className={cn(
+          "h-10 aspect-square rounded-full bg-lightAccent/70",
+          "place-content-center",
+          "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
+          isVideo ? "grid" : "hidden"
+        )}
+      >
+        <PlayArrow />
+      </div>
+    </div>
+  );
+};
