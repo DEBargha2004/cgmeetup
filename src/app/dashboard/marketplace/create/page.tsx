@@ -29,6 +29,7 @@ import Image from "next/image";
 import { useDropzone } from "react-dropzone";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,
@@ -77,6 +78,7 @@ import {
 import { InsertPhoto } from "@mui/icons-material";
 import { getYoutubeThumbnail } from "@/functions";
 import { scroll } from "@/functions/scroll";
+import placeholderImage from "@/../public/images/cover-image.jpg";
 
 const visibilityOptions: string[] = ["Public", "Private"];
 const softwares = [
@@ -136,6 +138,7 @@ export default function Dashboard() {
 
   const [videoUrl, setVideoUrl] = useState("");
   const [selectedMediaIndex, setSelectedMediaIndex] = useState(0);
+  const [videoDialogState, setVideoDialogState] = useState(false);
 
   const productDropzone = useDropzone({
     accept: {
@@ -206,7 +209,7 @@ export default function Dashboard() {
             {
               id: uuidv4(),
               size: files[i].size,
-              fileFormat: files[i].type,
+              fileFormat: "Zip",
               renderer: "",
               rendererVersion: "",
               software: "",
@@ -289,6 +292,8 @@ export default function Dashboard() {
         type: "video"
       }
     ]);
+
+    setVideoDialogState(false);
   };
 
   // digital art types
@@ -346,6 +351,19 @@ export default function Dashboard() {
     productMedia[end] = item1;
 
     form.setValue("productMedia", productMedia);
+  };
+
+  const handleDeleteProductMedia = (id: string) => {
+    form.setValue(
+      "productMedia",
+      form.getValues("productMedia").filter((file) => file.id !== id)
+    );
+  };
+
+  const isValidVideoUrl = (url: string) => {
+    const youtubeRegex =
+      /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/;
+    return youtubeRegex.test(url);
   };
 
   useEffect(() => {
@@ -439,25 +457,29 @@ export default function Dashboard() {
                       {...productDropzone.getInputProps()}
                       hidden
                     />
-                    <div
-                      {...productDropzone.getRootProps()}
-                      className={cn(
-                        "py-10 w-full border-2 border-dashed bg-darkAccent col-span-2",
-                        "flex flex-col justify-center items-center gap-4"
-                      )}
-                    >
+                    <div className="grid gap-2 col-span-2">
+                      <p className="text-sm">Product Files</p>
                       <div
+                        {...productDropzone.getRootProps()}
                         className={cn(
-                          "p-4 flex flex-col justify-center items-center gap-2",
-                          "border-2 border-dashed"
+                          "py-10 w-full border-2 border-dashed bg-darkAccent col-span-2",
+                          "flex flex-col justify-center items-center gap-4"
                         )}
                       >
-                        <FolderZip />
-                        <p>Upload Zip Files</p>
+                        <div
+                          className={cn(
+                            "p-4 flex flex-col justify-center items-center gap-2",
+                            "border-2 border-dashed"
+                          )}
+                        >
+                          <FolderZip />
+                          <p>Upload Zip Files</p>
+                        </div>
+                        <p>Upload or drag and drop Zip files</p>
                       </div>
-                      <p>Upload or drag and drop Zip files</p>
                     </div>
-                    {productFiles.length ? (
+
+                    {productFiles.length > 0 ? (
                       <div className="grid gap-2 col-span-2">
                         <h1 className="text-xl">Product Files</h1>
                         <Accordion type="multiple" className="grid gap-2">
@@ -467,7 +489,7 @@ export default function Dashboard() {
                               value={file.id}
                               className="border-none"
                             >
-                              <AccordionTrigger className="w-full bg-lightAccent hover:no-underline">
+                              <AccordionTrigger className="w-full bg-lightAccent hover:no-underline pr-3 py-1">
                                 <div className="p-3 flex justify-between items-center w-full">
                                   <div className="flex gap-1 items-center">
                                     <FolderZip />
@@ -479,7 +501,7 @@ export default function Dashboard() {
                                       className="opacity-70"
                                     />
                                     <p className="opacity-70">
-                                      {file.fileFormat.split(".")[1]}/
+                                      {file.fileFormat}/
                                       {
                                         getFormattedFileSize(file.size)
                                           .formattedString
@@ -598,10 +620,10 @@ export default function Dashboard() {
                     {productMedia.length ? (
                       <div className="col-span-2 space-y-4">
                         <Image
-                          src={productMedia[selectedMediaIndex].url}
+                          src={productMedia[selectedMediaIndex]?.url}
                           alt="thumbnail"
-                          height={400}
-                          width={400}
+                          height={600}
+                          width={600}
                           className="w-full aspect-video object-contain border"
                         />
                         <div className="relative">
@@ -633,98 +655,135 @@ export default function Dashboard() {
                                   );
                                   handleImageSwap(droppedItemIndex, media_idx);
                                 }}
-                              />
+                              >
+                                <div
+                                  className={cn(
+                                    "h-8 aspect-square rounded-full bg-lightAccent/60 hover:bg-lightAccent",
+                                    "grid place-content-center",
+                                    "absolute top-2 right-2 cursor-pointer"
+                                  )}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleDeleteProductMedia(media.id);
+                                  }}
+                                >
+                                  <Delete
+                                    fontSize="small"
+                                    className="text-destructive"
+                                  />
+                                </div>
+                              </ProductMedia>
                             ))}
                           </div>
-                          <Navigator
-                            Icon={ArrowForwardIos}
-                            className={cn(
-                              "absolute top-1/2 -translate-y-1/2 right-0",
-                              "h-8 w-8 rounded-full bg-lightAccent/70 hover:bg-lightAccent"
-                            )}
-                            iconClassName="text-sm"
-                            onClick={() =>
-                              scroll({ ref: scrollerRef, direction: "right" })
-                            }
-                          />
-                          <Navigator
-                            Icon={ArrowBackIos}
-                            className={cn(
-                              "absolute top-1/2 -translate-y-1/2 left-0",
-                              "h-8 w-8 rounded-full bg-lightAccent/70 hover:bg-lightAccent"
-                            )}
-                            iconClassName="text-sm"
-                            onClick={() =>
-                              scroll({ ref: scrollerRef, direction: "left" })
-                            }
-                          />
                         </div>
                       </div>
                     ) : null}
+
+                    {!productMedia.length ? (
+                      <div className="col-span-2 space-y-4">
+                        <div className="w-full aspect-video border">
+                          <Image
+                            src={placeholderImage}
+                            alt="thumbnail"
+                            height={600}
+                            width={1000}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="relative">
+                          <div className="w-full overflow-x-scroll scroller-hide flex justify-start items-center gap-2">
+                            {Array.from({ length: 5 }).map((_, idx) => (
+                              <div
+                                key={idx}
+                                className="h-28 aspect-video bg-lightAccent grid place-content-center"
+                              >
+                                <InsertPhoto />
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    ) : null}
+
                     <input
                       type="file"
                       {...productImagesDropzone.getInputProps()}
                       hidden
                     />
-                    <div
-                      className={cn(
-                        "py-10 w-full border-2 border-dashed bg-darkAccent col-span-2",
-                        "flex flex-col justify-center items-center gap-4"
-                      )}
-                    >
-                      <h2 className="text-lg">
-                        Add Cover Images and Video Url
-                      </h2>
+                    <div className="grid col-span-2 gap-2">
+                      <p className="text-sm">Product Images</p>
+                      <div
+                        className={cn(
+                          "py-10 w-full border-2 border-dashed bg-darkAccent col-span-2",
+                          "flex flex-col justify-center items-center gap-4"
+                        )}
+                      >
+                        <h2 className="text-lg">
+                          Add Cover Images and Video Url
+                        </h2>
 
-                      <div className="grid grid-cols-2 gap-4">
-                        <div
-                          {...productImagesDropzone.getRootProps()}
-                          className={cn(
-                            "flex flex-col justify-start items-center gap-2",
-                            "border-2 border-dashed px-6 py-2 cursor-pointer hover:bg-lightAccent",
-                            "transition-all"
-                          )}
-                        >
-                          <InsertPhoto />
-                          <p>Add Image</p>
-                        </div>
-                        <Dialog onOpenChange={() => setVideoUrl("")}>
-                          <DialogTrigger asChild>
-                            <div
-                              className={cn(
-                                "flex flex-col justify-start items-center gap-2",
-                                "border-2 border-dashed px-6 py-2 cursor-pointer hover:bg-lightAccent",
-                                "transition-all"
-                              )}
-                            >
-                              <SlowMotionVideo />
-                              <p>Add Video Url</p>
-                            </div>
-                          </DialogTrigger>
-                          <DialogContent className="p-0 space-y-0 bg-darkAccent max-w-[600px]">
-                            <DialogHeader className="p-4 text-xl bg-lightAccent">
-                              Video
-                            </DialogHeader>
-                            <div className="px-4 py-2 space-y-4">
-                              <div className="space-y-2">
-                                <p>Paste a YouTube or Vimeo video URL here</p>
-                                <Input
-                                  value={videoUrl}
-                                  onChange={(e) => setVideoUrl(e.target.value)}
-                                  placeholder="Example: https://www.youtube.com/watch?v=doPV-Shqm7k"
-                                  className="placeholder:text-gray-500"
-                                />
+                        <div className="grid grid-cols-2 gap-4">
+                          <div
+                            {...productImagesDropzone.getRootProps()}
+                            className={cn(
+                              "flex flex-col justify-start items-center gap-2",
+                              "border-2 border-dashed px-6 py-2 cursor-pointer hover:bg-lightAccent",
+                              "transition-all"
+                            )}
+                          >
+                            <InsertPhoto />
+                            <p>Add Image</p>
+                          </div>
+                          <Dialog
+                            onOpenChange={(e) => {
+                              setVideoUrl("");
+                              setVideoDialogState(e);
+                            }}
+                            open={videoDialogState}
+                          >
+                            <DialogTrigger asChild>
+                              <div
+                                className={cn(
+                                  "flex flex-col justify-start items-center gap-2",
+                                  "border-2 border-dashed px-6 py-2 cursor-pointer hover:bg-lightAccent",
+                                  "transition-all"
+                                )}
+                              >
+                                <SlowMotionVideo />
+                                <p>Add Video Url</p>
                               </div>
-                            </div>
-                            <DialogFooter className="p-4 pt-0">
-                              <Button className="h-8" onClick={handleSaveVideo}>
-                                Save
-                              </Button>
-                            </DialogFooter>
-                          </DialogContent>
-                        </Dialog>
+                            </DialogTrigger>
+                            <DialogContent className="p-0 space-y-0 bg-darkAccent max-w-[600px]">
+                              <DialogHeader className="p-4 text-xl bg-lightAccent">
+                                Video
+                              </DialogHeader>
+                              <div className="px-4 py-2 space-y-4">
+                                <div className="space-y-2">
+                                  <p>Paste a YouTube or Vimeo video URL here</p>
+                                  <Input
+                                    value={videoUrl}
+                                    onChange={(e) =>
+                                      setVideoUrl(e.target.value)
+                                    }
+                                    placeholder="Example: https://www.youtube.com/watch?v=doPV-Shqm7k"
+                                    className="placeholder:text-gray-500"
+                                  />
+                                </div>
+                              </div>
+                              <DialogFooter className="p-4 pt-0">
+                                <Button
+                                  className="h-8"
+                                  disabled={!isValidVideoUrl(videoUrl)}
+                                  onClick={handleSaveVideo}
+                                >
+                                  Save
+                                </Button>
+                              </DialogFooter>
+                            </DialogContent>
+                          </Dialog>
+                        </div>
+                        <p>Upload or drag and drop Images</p>
                       </div>
-                      <p>Upload or drag and drop Images</p>
                     </div>
                     <FormField
                       control={form.control}
@@ -801,24 +860,16 @@ export default function Dashboard() {
                       control={form.control}
                       name="subCategory"
                       render={({ field }) => (
-                        <FormItem>
+                        <FormItem className="col-span-2">
                           <FormLabel>Sub Category</FormLabel>
                           <FormControl>
-                            <Select
-                              onValueChange={field.onChange}
-                              value={field.value}
-                            >
-                              <SelectTrigger>
-                                <SelectValue placeholder="Select Sub Category" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                {subCategories.map((type) => (
-                                  <SelectItem key={type} value={type}>
-                                    {type}
-                                  </SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
+                            <FancyMultiSelect
+                              options={subCategories.map((t) => ({
+                                label: t,
+                                value: t
+                              }))}
+                              className="h-10"
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -828,47 +879,51 @@ export default function Dashboard() {
                       control={form.control}
                       name="software"
                       render={({ field }) => (
-                        <FormItem>
+                        <FormItem className="col-span-2">
                           <FormLabel>Software Used</FormLabel>
                           <FormControl>
-                            <Select
-                              onValueChange={field.onChange}
-                              value={field.value}
-                            >
-                              <SelectTrigger>
-                                <SelectValue placeholder="Select Software" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                {softwares.map((type) => (
-                                  <SelectItem key={type} value={type}>
-                                    {type}
-                                  </SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="price"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Price</FormLabel>
-                          <FormControl>
-                            <Input
-                              type="number"
-                              {...field}
-                              className="hide-input-inner-buttons"
-                              min={0}
+                            <FancyMultiSelect
+                              options={softwares.map((t) => ({
+                                label: t,
+                                value: t
+                              }))}
+                              className="h-10"
                             />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
+                    <div className="grid grid-cols-2">
+                      <FormField
+                        control={form.control}
+                        name="price"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Price</FormLabel>
+                            <FormControl>
+                              <div className="relative">
+                                <Input
+                                  type="number"
+                                  {...field}
+                                  className="hide-input-inner-buttons pl-[70px]"
+                                  min={0}
+                                />
+                                <div
+                                  className={cn(
+                                    "absolute left-0 top-1/2 -translate-y-1/2 px-3 h-full bg-lightAccent rounded-l-md",
+                                    "flex items-center border-r"
+                                  )}
+                                >
+                                  <p>USD</p>
+                                </div>
+                              </div>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
                     <FormField
                       control={form.control}
                       name="isFree"
@@ -960,7 +1015,7 @@ export default function Dashboard() {
                                 label: t,
                                 value: t
                               }))}
-                              className="h-10"
+                              className="py-2"
                             />
                           </FormControl>
                           <FormMessage />
@@ -1275,6 +1330,7 @@ export default function Dashboard() {
 const ProductMedia = ({
   media,
   className,
+  children,
   ...props
 }: {
   media: ProductCreateSchemaType["productMedia"][number];
@@ -1295,6 +1351,7 @@ const ProductMedia = ({
         height={300}
         className="h-full w-full object-cover"
       />
+      {children}
       <div
         className={cn(
           "h-10 aspect-square rounded-full bg-lightAccent/70",

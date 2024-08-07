@@ -169,7 +169,9 @@ export function FancyMultiSelect({
             onBlur={() => setOpen(false)}
             onFocus={() => setOpen(true)}
             placeholder={placeholder || "Select Options"}
-            className="ml-2 max-w-[100px] flex-1 bg-transparent outline-none placeholder:text-muted-foreground"
+            className={cn(
+              "ml-2 min-w-[80px] flex-1 bg-transparent outline-none placeholder:text-muted-foreground"
+            )}
           />
         </div>
       </div>
