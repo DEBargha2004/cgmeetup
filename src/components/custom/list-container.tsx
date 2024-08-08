@@ -127,14 +127,14 @@ ListContainer.Card = function ListContainerCard({
           textContainer="justify-center"
           image="h-6 w-6 border-none"
           heading="font-light text-sm line-clamp-1 "
-          className="mt-1 @container"
+          className="mt-1 @container gap-2"
         >
-          <ListContainer.CardIcon className="bg-orange-500 shrink-0">
-            <AddShoppingCart fontSize="small" />
-          </ListContainer.CardIcon>
           <p className="bg-lightAccent text-xs p-1.5 py-0.5 rounded my-auto">
             $100
           </p>
+          <ListContainer.CardIcon className="bg-orange-500 shrink-0">
+            <AddShoppingCart fontSize="small" />
+          </ListContainer.CardIcon>
         </ProfileInfoOverView>
       </div>
     </div>

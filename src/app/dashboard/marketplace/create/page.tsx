@@ -399,7 +399,7 @@ export default function Dashboard() {
     <div className="flex h-full w-full flex-col">
       <div className="flex flex-col sm:gap-4 sm:py-4">
         <header
-          className=" flex z-40 lg:h-14 items-center gap-4 border-b px-4 sm:h-auto 
+          className="sm:flex hidden z-40 lg:h-14 items-center gap-4 border-b px-4 sm:h-auto 
         sm:border-0 sm:bg-darkAccent sm:px-6"
         >
           <Breadcrumb className="hidden md:flex">
@@ -438,7 +438,7 @@ export default function Dashboard() {
               </div>
               <div className="grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8">
                 <Card className="auto-rows-max lg:col-span-2 bg-card">
-                  <CardContent className="grid grid-cols-2 pt-4 items-start gap-4  lg:gap-8">
+                  <CardContent className="grid grid-cols-2 sm:p-4 p-2 items-start gap-4 lg:gap-8 @container">
                     <FormField
                       control={form.control}
                       name="title"
@@ -473,9 +473,13 @@ export default function Dashboard() {
                           )}
                         >
                           <FolderZip />
-                          <p>Upload Zip Files</p>
+                          <p className="sm:text-base text-xs">
+                            Upload Zip Files
+                          </p>
                         </div>
-                        <p>Upload or drag and drop Zip files</p>
+                        <p className="sm:text-base text-sm text-center">
+                          Upload or drag and drop Zip files
+                        </p>
                       </div>
                     </div>
 
@@ -718,11 +722,11 @@ export default function Dashboard() {
                           "flex flex-col justify-center items-center gap-4"
                         )}
                       >
-                        <h2 className="text-lg">
+                        <h2 className="sm:text-lg text-base text-center">
                           Add Cover Images and Video Url
                         </h2>
 
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid @sm:grid-cols-2 gap-4">
                           <div
                             {...productImagesDropzone.getRootProps()}
                             className={cn(
@@ -732,7 +736,7 @@ export default function Dashboard() {
                             )}
                           >
                             <InsertPhoto />
-                            <p>Add Image</p>
+                            <p className="sm:text-base text-xs">Add Image</p>
                           </div>
                           <Dialog
                             onOpenChange={(e) => {
@@ -750,7 +754,9 @@ export default function Dashboard() {
                                 )}
                               >
                                 <SlowMotionVideo />
-                                <p>Add Video Url</p>
+                                <p className="sm:text-base text-xs">
+                                  Add Video Url
+                                </p>
                               </div>
                             </DialogTrigger>
                             <DialogContent className="p-0 space-y-0 bg-darkAccent max-w-[600px]">
@@ -782,7 +788,9 @@ export default function Dashboard() {
                             </DialogContent>
                           </Dialog>
                         </div>
-                        <p>Upload or drag and drop Images</p>
+                        <p className="sm:text-base text-sm text-center">
+                          Upload or drag and drop Images
+                        </p>
                       </div>
                     </div>
                     <FormField
@@ -806,7 +814,7 @@ export default function Dashboard() {
                       control={form.control}
                       name="type"
                       render={({ field }) => (
-                        <FormItem>
+                        <FormItem className="col-span-2 @md:col-span-1">
                           <FormLabel>Type</FormLabel>
                           <FormControl>
                             <Select
@@ -833,7 +841,7 @@ export default function Dashboard() {
                       control={form.control}
                       name="category"
                       render={({ field }) => (
-                        <FormItem>
+                        <FormItem className="col-span-2 @md:col-span-1">
                           <FormLabel>Category</FormLabel>
                           <FormControl>
                             <Select
@@ -894,12 +902,12 @@ export default function Dashboard() {
                         </FormItem>
                       )}
                     />
-                    <div className="grid grid-cols-2">
+                    <div className="grid @lg:grid-cols-4">
                       <FormField
                         control={form.control}
                         name="price"
                         render={({ field }) => (
-                          <FormItem>
+                          <FormItem className="@lg:col-span-3">
                             <FormLabel>Price</FormLabel>
                             <FormControl>
                               <div className="relative">
@@ -1034,19 +1042,19 @@ export default function Dashboard() {
                                 label: t,
                                 value: t
                               }))}
-                              className="h-10"
+                              className="py-2"
                             />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
-                    <div className="grid grid-cols-3 gap-4 col-span-2">
+                    <div className="grid @xl:grid-cols-3 grid-cols-2 gap-4 col-span-2">
                       <FormField
                         control={form.control}
                         name="geometry"
                         render={({ field }) => (
-                          <FormItem>
+                          <FormItem className="@xl:col-span-1 col-span-2">
                             <FormLabel>Geometry</FormLabel>
                             <FormControl>
                               <Select
@@ -1073,7 +1081,7 @@ export default function Dashboard() {
                         control={form.control}
                         name="polygonCount"
                         render={({ field }) => (
-                          <FormItem>
+                          <FormItem className="">
                             <FormLabel>Polygons Count</FormLabel>
                             <FormControl>
                               <Input
