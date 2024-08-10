@@ -34,6 +34,10 @@ const config = {
       listStyleType:{
         "upper-alpha":'upper-alpha'
       },
+      transitionDuration:{
+        '2000': '2000ms',
+        '1000': '1000ms',
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

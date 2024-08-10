@@ -6,14 +6,23 @@ import { getFormattedUrlFromTitle } from "@/functions/get-formatted-url-from-tit
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Filter } from "../_components/filter";
-import { ListContainer } from "@/components/custom";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { v4 } from "uuid";
+import { ListContainerCard } from "@/components/custom/list-container";
+
+const products = Array.from({ length: 35 }).map((_, i) => {
+  const id = v4();
+  return {
+    id,
+    price: "$10",
+    href: `/product/${id}`,
+  };
+});
 
 export default function Page({ params: { cat } }: { params: { cat: string } }) {
   const category = marketplaceCategories.find(
-    (category) => getFormattedUrlFromTitle(category.title) === cat
+    (category) => getFormattedUrlFromTitle(category.title) === cat,
   );
   if (!category) notFound();
 
@@ -30,7 +39,7 @@ export default function Page({ params: { cat } }: { params: { cat: string } }) {
           <Link
             key={subcategory}
             href={`/product/${getFormattedUrlFromTitle(
-              category.title
+              category.title,
             )}/${getFormattedUrlFromTitle(subcategory)}`}
             className="text-sm text-gray-400 hover:text-primary"
           >
@@ -47,16 +56,18 @@ export default function Page({ params: { cat } }: { params: { cat: string } }) {
         >
           {showFilter ? "Hide" : "Show"} Filter
         </Badge>
-        <div className="p-5 border rounded-md bg-card/60">
+        <div className="p-5 border rounded-md bg-card/60 w-full overflow-x-auto scroller-x">
           <Filter className={cn("", showFilter ? "" : "hidden")} />
         </div>
       </div>
       <div className="grid 2xl:grid-cols-6 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-3">
-        {Array.from({ length: 10 }).map((_, i) => (
-          <ListContainer.Card
-            key={i}
-            className="w-full"
-            href={`/product/${v4()}`}
+        {products.map((product) => (
+          <ListContainerCard
+            className="w-full md:w-full"
+            price={product.price}
+            key={product.id}
+            href={product.href}
+            id={product.id}
           />
         ))}
       </div>

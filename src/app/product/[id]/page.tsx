@@ -2,22 +2,26 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import {
-  AddShoppingCart,
-  ArrowBackOutlined,
-  ArrowForwardOutlined,
-  Handshake,
-  InfoOutlined
-} from "@mui/icons-material";
+import { AddShoppingCart, Handshake, InfoOutlined } from "@mui/icons-material";
 import { ProductPreviewProvider } from "./_components/product-preview-provider";
 import project from "@/../public/data/projects.json";
 import {
   ProductPreviewContainer,
   ProductPreviewImage,
   ProductPreviewMapper,
-  ProductPreviewNavigator
+  ProductPreviewNavigator,
 } from "./_components/product-preview";
-import { ListContainer } from "@/components/custom";
+import { ListContainerCard } from "@/components/custom/list-container";
+import { v4 } from "uuid";
+
+const products = Array.from({ length: 35 }).map((_, i) => {
+  const id = v4();
+  return {
+    id,
+    price: "$10",
+    href: `/product/${id}`,
+  };
+});
 
 const images = project.data
   .slice(0, 15)
@@ -29,7 +33,7 @@ export default function Page({ params }: { params: { id: string } }) {
       <section
         className={cn(
           "4xl:w-[1616px] 2xl:w-[1328px] xl:w-[1040px] lg:w-[843px] w-full",
-          "grid gap-4"
+          "grid gap-4",
         )}
       >
         <div className="w-full flex xl:flex-row flex-col justify-between items-start gap-4">
@@ -79,8 +83,14 @@ export default function Page({ params }: { params: { id: string } }) {
             <p>to xyz</p>
           </div>
           <div className="grid @6xl:grid-cols-6 @3xl:grid-cols-4 grid-cols-2 gap-3">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <ListContainer.Card key={i} className="w-full" />
+            {products.map((p) => (
+              <ListContainerCard
+                className="w-full md:w-full"
+                price={p.price}
+                href={p.href}
+                id={p.id}
+                key={p.id}
+              />
             ))}
           </div>
         </div>
