@@ -18,7 +18,6 @@ import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { Button } from "../ui/button";
 import React, { HTMLProps, useState } from "react";
 import { useGlobalAppStore } from "@/store/global-app-store";
-import MaterialSymbolIcon from "./material-symbol-icon";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { NotificationCard } from "./notification-card";
 import { usePathname } from "next/navigation";
@@ -30,16 +29,20 @@ import {
   Add,
   AddShoppingCart,
   Chat,
+  Delete,
   Image as ImageIcon,
   Login,
   Notifications,
   Person,
   Work,
 } from "@mui/icons-material";
+import Image from "next/image";
+import profile from "@/../public/images/profile-1.jpg";
 
 export default function Navbar({ className }: { className?: string }) {
   const { sidebarState, setSidebarState, cart } = useGlobalAppStore();
   const [signedin, setSignedin] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const pathname = usePathname();
 
   return (
@@ -224,19 +227,46 @@ export default function Navbar({ className }: { className?: string }) {
             <Link href={"/chat"} className="xs:inline hidden">
               <Chat />
             </Link>
-            <Link href={""} className="inline relative" id="shopping-cart">
-              <AddShoppingCart />
-              {cart.length > 0 && (
+            <Popover open={isCartOpen} onOpenChange={(e) => setIsCartOpen(e)}>
+              <PopoverTrigger asChild>
                 <div
-                  className={cn(
-                    "h-5 aspect-square rounded-full bg-primary absolute -top-2 -right-2",
-                    "grid place-content-center text-xs",
-                  )}
+                  className="inline relative cursor-pointer"
+                  id="shopping-cart"
                 >
-                  {cart.length}
+                  <AddShoppingCart />
+                  {cart.length > 0 && (
+                    <div
+                      className={cn(
+                        "h-5 aspect-square rounded-full bg-primary absolute -top-2 -right-2",
+                        "grid place-content-center text-xs",
+                      )}
+                    >
+                      {cart.length}
+                    </div>
+                  )}
                 </div>
-              )}
-            </Link>
+              </PopoverTrigger>
+              <PopoverContent
+                align="center"
+                className="bg-card space-y-3 sm:w-[450px] w-[100vw] overflow-y-auto scroller 
+                translate-y-3 sm:max-h-[650px] max-h-[calc(100vh-64px)]"
+              >
+                {cart.map((item) => (
+                  <PopoverCartItem key={item} id={item} />
+                ))}
+                {cart.length > 0 && (
+                  <div className="grid grid-cols-2 gap-2">
+                    <Button
+                      variant={"secondary"}
+                      onClick={() => setIsCartOpen(false)}
+                    >
+                      Continue Shopping
+                    </Button>
+                    <Button>Checkout</Button>
+                  </div>
+                )}
+              </PopoverContent>
+            </Popover>
           </div>
         ) : (
           <>
@@ -396,6 +426,37 @@ function SearchItem({
       )}
     >
       {children}
+    </div>
+  );
+}
+
+function PopoverCartItem({ id }: { id: string }) {
+  const { removeFromCart } = useGlobalAppStore();
+  return (
+    <div className="flex justify-start items-center gap-4 p-4 bg-lightAccent/40 hover:bg-lightAccent transition-all rounded">
+      <div className="h-16 aspect-video">
+        <Image
+          src={profile}
+          alt="cart-item-image"
+          height={200}
+          width={200}
+          className="h-full w-full aspect-video object-cover rounded-sm"
+        />
+      </div>
+      <div className="w-full grid gap-2">
+        <div className="flex justify-between items-center w-full gap-2">
+          <h1 className="lg:text-lg text-base text-primary line-clamp-1">
+            Modern 3D Gun Model Design
+          </h1>
+          <div className="cursor-pointer" onClick={() => removeFromCart(id)}>
+            <Delete className="text-destructive" />
+          </div>
+        </div>
+        <p className="flex gap-2 lg:[&>span]:text-base [&>span]:text-sm">
+          <span className="line-through opacity-70">$ 9.99</span>
+          <span>$ 7.99</span>
+        </p>
+      </div>
     </div>
   );
 }

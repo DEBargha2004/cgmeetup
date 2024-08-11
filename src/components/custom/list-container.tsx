@@ -106,6 +106,7 @@ export function ListContainerCard({
 
     setTimeout(() => {
       addToCart(id);
+      setIsAddToCartInitiated(false);
     }, 800);
   };
 

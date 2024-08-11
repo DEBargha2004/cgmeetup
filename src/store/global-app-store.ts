@@ -58,8 +58,10 @@ export const useGlobalAppStore = create<State & Actions>((set) => ({
     );
   },
   removeFromCart(state) {
-    produce((prev: State) => {
-      prev.cart = prev.cart.filter((item) => item !== state);
-    });
+    set(
+      produce((prev: State) => {
+        prev.cart = prev.cart.filter((item) => item !== state);
+      }),
+    );
   },
 }));

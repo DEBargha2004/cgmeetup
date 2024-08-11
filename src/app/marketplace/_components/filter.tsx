@@ -5,14 +5,14 @@ import { FancyMultiSelect } from "@/components/ui/fancy-multi-select";
 import {
   Popover,
   PopoverContent,
-  PopoverTrigger
+  PopoverTrigger,
 } from "@/components/ui/popover";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue
+  SelectValue,
 } from "@/components/ui/select";
 import { expertise_level, job_type, tags } from "@/constants/job-filters";
 import { cn } from "@/lib/utils";
@@ -24,7 +24,7 @@ import {
   HTMLProps,
   SetStateAction,
   useContext,
-  useState
+  useState,
 } from "react";
 import SelectRange from "./range-select";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -38,7 +38,7 @@ const sortSelectables: string[] = [
   "Newest",
   "Oldest",
   "Lowest price",
-  "Highest price"
+  "Highest price",
 ];
 
 const firstTags: string[] = ["Free", "On sale"];
@@ -48,7 +48,7 @@ const secondTags: string[] = [
   "Animated",
   "PBR",
   "Rigged",
-  "Low Poly"
+  "Low Poly",
 ];
 
 type InputTagType = "custom" | "default";
@@ -65,40 +65,40 @@ const priceOptions: ListItem_V2[] = [
     id: "p2-10",
     type: "default",
     label: "$2 - $10",
-    value: [2, 10]
+    value: [2, 10],
   },
   {
     id: "p10-20",
     type: "default",
     label: "$10 - $20",
-    value: [10, 20]
+    value: [10, 20],
   },
   {
     id: "p20-50",
     type: "default",
     label: "$20 - $50",
-    value: [20, 50]
+    value: [20, 50],
   },
   {
     id: "p50-100",
     type: "default",
     label: "$50 - $100",
-    value: [50, 100]
+    value: [50, 100],
   },
   {
     id: "p100+",
     type: "default",
     label: "$100+",
-    value: [100, Infinity]
-  }
+    value: [100, Infinity],
+  },
 ];
 
 const freeOptions: ListItem_V2[] = [
   {
     id: "exclude-free",
     type: "default",
-    label: "Exclude free"
-  }
+    label: "Exclude free",
+  },
 ];
 
 const polyCountOptions: ListItem_V2[] = [
@@ -106,38 +106,38 @@ const polyCountOptions: ListItem_V2[] = [
     id: "pc0-5k",
     type: "default",
     label: "0 - 5k",
-    value: [0, 5000]
+    value: [0, 5000],
   },
   {
     id: "pc5k-10k",
     type: "default",
     label: "5k - 10k",
-    value: [5000, 10000]
+    value: [5000, 10000],
   },
   {
     id: "pc10k-50k",
     type: "default",
     label: "10k - 50k",
-    value: [10000, 50000]
+    value: [10000, 50000],
   },
   {
     id: "pc50k-100k",
     type: "default",
     label: "50k - 100k",
-    value: [50000, 100000]
+    value: [50000, 100000],
   },
   {
     id: "pc100k-250k",
     type: "default",
     label: "100k - 250k",
-    value: [100000, 250000]
+    value: [100000, 250000],
   },
   {
     id: "pc250k+",
     type: "default",
     label: "250k+",
-    value: [250000, Infinity]
-  }
+    value: [250000, Infinity],
+  },
 ];
 
 type FilterContextState = {
@@ -165,14 +165,14 @@ const FilterContext = createContext<
 const useFilter = () =>
   useContext<(FilterContextState & FilterContextActions) | null>(FilterContext);
 
-const SortSelect = () => {
+const SortSelect = ({ className }: { className?: string }) => {
   const filter = useFilter();
 
   if (filter === null) return null;
 
   return (
     <Select value={filter.sortSelect} onValueChange={filter.setSortSelect}>
-      <SelectTrigger className="h-full">
+      <SelectTrigger className={cn("h-full", className)}>
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
@@ -196,7 +196,7 @@ const Tag = ({ tag }: { tag: string } & ButtonProps) => {
       variant={"outline"}
       className={cn(
         "hover:bg-lightAccent h-full",
-        filter.selectedTags.includes(tag) ? "bg-lightAccent" : "bg-transparent"
+        filter.selectedTags.includes(tag) ? "bg-lightAccent" : "bg-transparent",
       )}
       onClick={() => {
         if (filter.selectedTags.includes(tag)) {
@@ -214,7 +214,7 @@ const Tag = ({ tag }: { tag: string } & ButtonProps) => {
 function DefaultList({
   onChange,
   selectedValues,
-  values
+  values,
 }: {
   selectedValues: ListItem_V2[];
   values: ListItem_V2[];
@@ -246,7 +246,7 @@ function DefaultList({
 
 const InputTag = ({
   children,
-  label
+  label,
 }: {
   children?: React.ReactNode;
   label: string;
@@ -256,7 +256,7 @@ const InputTag = ({
       variant="secondary"
       className={cn(
         "bg-lightAccent hover:bg-lightAccent/70 cursor-pointer",
-        "flex items-center justify-start gap-0.5"
+        "flex items-center justify-start gap-0.5",
       )}
     >
       {label}
@@ -272,7 +272,7 @@ const RangeSelectorWithDefaultValues = ({
   values,
   defaultValues,
   className,
-  formatRangeValue
+  formatRangeValue,
 }: {
   min: number;
   max: number;
@@ -291,7 +291,7 @@ const RangeSelectorWithDefaultValues = ({
       onChange(
         values
           .filter((v) => v.type === "default")
-          .concat({ type: "custom", value: e, label: formatRangeValue?.(e) })
+          .concat({ type: "custom", value: e, label: formatRangeValue?.(e) }),
       );
     }
   };
@@ -329,7 +329,7 @@ const SelectedListOptionsRenderer = forwardRef<
 >(
   (
     { className, children, max, values, CloseButton, placeholder, ...props },
-    ref
+    ref,
   ) => {
     const indexOfCustomValue = values.findIndex((v) => v.type === "custom");
     if (indexOfCustomValue !== -1) {
@@ -339,9 +339,9 @@ const SelectedListOptionsRenderer = forwardRef<
     return (
       <div
         className={cn(
-          "h-full min-w-[300px] p-1.5 pl-2 border rounded cursor-pointer",
+          "h-full min-w-[200px] w-full p-1.5 pl-2 border rounded cursor-pointer",
           "bg-transparent hover:bg-transparent flex flex-wrap justify-between items-center",
-          className
+          className,
         )}
         ref={ref}
         {...props}
@@ -364,7 +364,7 @@ const SelectedListOptionsRenderer = forwardRef<
         {children}
       </div>
     );
-  }
+  },
 );
 
 SelectedListOptionsRenderer.displayName = "SelectedListOptionsRenderer";
@@ -375,7 +375,8 @@ const RangeSelectorRoot = ({
   deleteOption,
   onChange,
   selectedValues,
-  children
+  children,
+  className,
 }: {
   maxTags: number;
   placeholder?: string;
@@ -383,6 +384,7 @@ const RangeSelectorRoot = ({
   selectedValues: ListItem_V2[];
   onChange: (values: ListItem_V2[]) => void;
   children?: React.ReactNode;
+  className?: string;
 }) => {
   return (
     <Popover>
@@ -391,6 +393,7 @@ const RangeSelectorRoot = ({
           max={maxTags}
           values={selectedValues}
           placeholder={placeholder}
+          className={cn("", className)}
           CloseButton={({ value }) => (
             <button
               className="ml-1 rounded-full outline-none  focus:ring-2  focus:ring-offset-2"
@@ -427,7 +430,7 @@ export function Filter({ className }: { className?: string }) {
   const [sortSelect, setSortSelect] = useState<string>("Best Match");
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [selectedPriceRange, setSelectedPriceRange] = useState<ListItem_V2[]>(
-    []
+    [],
   );
   const [selectedPolyCountRange, setSelectedPolyCountRange] = useState<
     ListItem_V2[]
@@ -436,16 +439,16 @@ export function Filter({ className }: { className?: string }) {
   const deletePriceOption = (value: ListItem_V2) => {
     setSelectedPriceRange(
       selectedPriceRange.filter((v) =>
-        value.id ? v.id !== value.id : Boolean(v.id)
-      )
+        value.id ? v.id !== value.id : Boolean(v.id),
+      ),
     );
   };
 
   const deletePolyCountOption = (value: ListItem_V2) => {
     setSelectedPolyCountRange(
       selectedPolyCountRange.filter((v) =>
-        value.id ? v.id !== value.id : Boolean(v.id)
-      )
+        value.id ? v.id !== value.id : Boolean(v.id),
+      ),
     );
   };
 
@@ -459,22 +462,22 @@ export function Filter({ className }: { className?: string }) {
         selectedPriceRange,
         setSelectedPriceRange,
         selectedPolyCountRange,
-        setSelectedPolyCountRange
+        setSelectedPolyCountRange,
       }}
     >
       <div
         className={cn(
           "flex items-stretch justify-between gap-2 h-10",
-          className
+          className,
         )}
       >
         <FancyMultiSelect
           options={tags.map((t) => ({ label: t, value: t }))}
-          max={3}
-          className="h-full min-w-[500px]"
+          max={2}
+          className="h-full min-w-[400px]"
         />
 
-        <div className="hidden lg:flex items-center gap-2">
+        <div className="hidden 2xl:flex items-center gap-2">
           {firstTags.map((tag) => (
             <Tag key={tag} tag={tag} />
           ))}
@@ -486,6 +489,7 @@ export function Filter({ className }: { className?: string }) {
           selectedValues={selectedPriceRange}
           deleteOption={deletePriceOption}
           placeholder="Price"
+          className="sm:flex hidden"
         >
           <RangeSelectorWithDefaultValues
             defaultValues={priceOptions}
@@ -502,13 +506,16 @@ export function Filter({ className }: { className?: string }) {
             onChange={setSelectedPriceRange}
           />
         </RangeSelectorRoot>
-        <FancyMultiSelect
-          max={2}
-          options={secondTags.map((t) => ({ label: t, value: t }))}
-          values={selectedTags.map((t) => ({ label: t, value: t }))}
-          className="3xl:hidden block"
-          placeholder="type"
-        />
+        <div className="3xl:hidden xl:block hidden">
+          <FancyMultiSelect
+            max={1}
+            options={secondTags.map((t) => ({ label: t, value: t }))}
+            values={selectedTags.map((t) => ({ label: t, value: t }))}
+            className="min-w-[250px]"
+            placeholder="type"
+          />
+        </div>
+
         <div className="hidden 3xl:flex items-center gap-2">
           {secondTags.map((tag) => (
             <Tag key={tag} tag={tag} />
@@ -521,6 +528,7 @@ export function Filter({ className }: { className?: string }) {
           selectedValues={selectedPolyCountRange}
           deleteOption={deletePolyCountOption}
           placeholder="Poly Count"
+          className="lg:flex hidden"
         >
           <RangeSelectorWithDefaultValues
             defaultValues={polyCountOptions}
@@ -533,7 +541,7 @@ export function Filter({ className }: { className?: string }) {
             }
           />
         </RangeSelectorRoot>
-        <SortSelect />
+        <SortSelect className="xl:block hidden" />
       </div>
     </FilterContext.Provider>
   );

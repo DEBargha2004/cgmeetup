@@ -49,18 +49,23 @@ export default function Page({ params: { cat } }: { params: { cat: string } }) {
           </Link>
         ))}
       </div>
-      <div className="grid gap-2">
+      <div className="xs:flex hidden flex-col items-end justify-start gap-2">
         <Badge
           className="ml-auto cursor-pointer"
           onClick={() => setShowFilter(!showFilter)}
         >
           {showFilter ? "Hide" : "Show"} Filter
         </Badge>
-        <div className="p-5 border rounded-md bg-card/60 w-full overflow-x-auto scroller-x">
-          <Filter className={cn("", showFilter ? "" : "hidden")} />
+        <div
+          className={cn(
+            "p-5 border rounded-md bg-card/60 w-full",
+            showFilter ? "" : "hidden",
+          )}
+        >
+          <Filter />
         </div>
       </div>
-      <div className="grid 2xl:grid-cols-6 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-3">
+      <div className="grid 2xl:grid-cols-6 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 xs:grid-cols-2 gap-3">
         {products.map((product) => (
           <ListContainerCard
             className="w-full md:w-full"

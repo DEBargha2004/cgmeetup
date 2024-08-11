@@ -1,20 +1,20 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
 
 const config = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
       center: true,
       padding: "2rem",
       screens: {
-        "2xl": "1400px"
+        "2xl": "1400px",
       },
     },
     screens: {
@@ -29,14 +29,17 @@ const config = {
       "5xl": "2560px",
       "6xl": "3200px",
     },
-    
+
     extend: {
-      listStyleType:{
-        "upper-alpha":'upper-alpha'
+      screens: {
+        xxs: "360px",
       },
-      transitionDuration:{
-        '2000': '2000ms',
-        '1000': '1000ms',
+      listStyleType: {
+        "upper-alpha": "upper-alpha",
+      },
+      transitionDuration: {
+        "2000": "2000ms",
+        "1000": "1000ms",
       },
       colors: {
         border: "hsl(var(--border))",
@@ -48,7 +51,7 @@ const config = {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
         },
-        success:{
+        success: {
           DEFAULT: "hsl(var(--success))",
           foreground: "hsl(var(--success-foreground))",
         },
@@ -111,7 +114,10 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"),require("@tailwindcss/container-queries")],
-} satisfies Config
+  plugins: [
+    require("tailwindcss-animate"),
+    require("@tailwindcss/container-queries"),
+  ],
+} satisfies Config;
 
-export default config
+export default config;
