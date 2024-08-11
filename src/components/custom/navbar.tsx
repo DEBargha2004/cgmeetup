@@ -433,14 +433,14 @@ function SearchItem({
 function PopoverCartItem({ id }: { id: string }) {
   const { removeFromCart } = useGlobalAppStore();
   return (
-    <div className="flex justify-start items-center gap-4 p-4 bg-lightAccent/40 hover:bg-lightAccent transition-all rounded">
+    <div className="flex justify-start items-center gap-4 p-4 bg-lightAccent/40 hover:bg-lightAccent transition-all">
       <div className="h-16 aspect-video">
         <Image
           src={profile}
           alt="cart-item-image"
           height={200}
           width={200}
-          className="h-full w-full aspect-video object-cover rounded-sm"
+          className="h-full w-full aspect-video object-cover"
         />
       </div>
       <div className="w-full grid gap-2">
