@@ -1,0 +1,30 @@
+.product-container {
+  grid-template-areas:
+    "product-preview"
+    "product-description"
+    "product-sidebar";
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 1280px) {
+  .product-container {
+    display: grid;
+    grid-template-areas:
+      "product-preview product-sidebar"
+      "product-description product-sidebar";
+    grid-template-columns: minmax(0, 2fr) 0.6fr;
+    grid-template-rows: auto 1fr;
+  }
+}
+
+.product-preview {
+  grid-area: product-preview;
+}
+
+.product-description {
+  grid-area: product-description;
+}
+
+.product-sidebar {
+  grid-area: product-sidebar;
+}

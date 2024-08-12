@@ -2,7 +2,13 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { AddShoppingCart, Handshake, InfoOutlined } from "@mui/icons-material";
+import {
+  AddShoppingCart,
+  CheckCircleOutline,
+  Handshake,
+  HighlightOff,
+  InfoOutlined,
+} from "@mui/icons-material";
 import { ProductPreviewProvider } from "./_components/product-preview-provider";
 import project from "@/../public/data/projects.json";
 import {
@@ -13,6 +19,16 @@ import {
 } from "./_components/product-preview";
 import { ListContainerCard } from "@/components/custom/list-container";
 import { v4 } from "uuid";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import _ from "lodash";
+import "./style.css";
 
 const products = Array.from({ length: 35 }).map((_, i) => {
   const id = v4();
@@ -27,6 +43,29 @@ const images = project.data
   .slice(0, 15)
   .map((project) => project.smaller_square_cover_url);
 
+const checker = {
+  false: <HighlightOff fontSize="small" className="text-destructive" />,
+  true: <CheckCircleOutline fontSize="small" className="text-primary" />,
+};
+
+const productDetails = [
+  { id: 1, label: "Publish Date", value: "2021-04-17" },
+  { id: 2, label: "Model ID", value: "2989762" },
+  { id: 3, label: "Animated", value: true },
+  { id: 4, label: "Rigged", value: true },
+  { id: 5, label: "VR / AR / Low-poly", value: true },
+  { id: 6, label: "PBR", value: true },
+  { id: 7, label: "Geometry", value: "Polygon mesh" },
+  { id: 8, label: "Polygons", value: "0" },
+  { id: 9, label: "Vertices", value: "0" },
+  { id: 10, label: "Textures", value: false },
+  { id: 11, label: "Materials", value: false },
+  { id: 12, label: "UV Mapping", value: false },
+  { id: 13, label: "Unwrapped UVs", value: "Unknown" },
+  { id: 14, label: "Plugins used", value: false },
+  { id: 15, label: "Ready for 3D Printing", value: true },
+];
+
 export default function Page({ params }: { params: { id: string } }) {
   return (
     <main className="flex justify-center items-start py-10 px-2">
@@ -36,8 +75,8 @@ export default function Page({ params }: { params: { id: string } }) {
           "grid gap-4",
         )}
       >
-        <div className="w-full flex xl:flex-row flex-col justify-between items-start gap-4">
-          <div className={cn("w-full", "grid gap-4")} id="left-section">
+        <div className="w-full  product-container gap-4">
+          <div className={cn("product-preview", "space-y-4")}>
             <ProductPreviewProvider images={images}>
               <div className="w-full aspect-video relative">
                 <ProductPreviewContainer>
@@ -47,14 +86,13 @@ export default function Page({ params }: { params: { id: string } }) {
                 </ProductPreviewContainer>
               </div>
               <ProductPreviewMapper />
-              <div className="w-full bg-lime-500 overflow"></div>
             </ProductPreviewProvider>
           </div>
           <div
-            className={cn("3xl:w-[370px] xl:w-[290px] w-full xl:shrink-0", "")}
+            className={cn("w-full xl:shrink-0 product-sidebar", "grid gap-4")}
             id="right-section"
           >
-            <Card>
+            <Card className="bg-card">
               <CardHeader className="flex flex-row justify-between items-center w-full space-y-0">
                 <CardTitle className="text-2xl">$45.00</CardTitle>
                 <Badge className="flex gap-1">
@@ -63,7 +101,7 @@ export default function Page({ params }: { params: { id: string } }) {
                 </Badge>
               </CardHeader>
               <CardContent className="space-y-8">
-                <div className="text-white flex justify-start items-center gap-3">
+                <div className="text-foreground flex justify-start items-center gap-3">
                   <p className="">Royalty Free License</p>
                   <InfoOutlined fontSize="small" />
                 </div>
@@ -72,7 +110,91 @@ export default function Page({ params }: { params: { id: string } }) {
                 </Button>
               </CardContent>
             </Card>
+            <Card className="bg-card">
+              <CardContent className="pt-4">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>
+                        <h2 className="text-xl text-foreground">
+                          3D Model Formats
+                        </h2>
+                      </TableHead>
+                      <TableHead className="text-right px-0">
+                        <InfoOutlined
+                          fontSize="small"
+                          className="hover:opacity-70 transition-all cursor-pointer text-foreground"
+                        />
+                      </TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody className="divide-y">
+                    <TableRow>
+                      <TableCell>Autodesk FBX (.fbx)</TableCell>
+                      <TableCell className="px-0 text-right">
+                        <strong>4.53MB</strong>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>OBJ (.obj, .mtl)</TableCell>
+                      <TableCell className="px-0 text-right">
+                        <strong>13.3MB</strong>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>
+                        <p>Blender 2.92.0 (.blend)</p>
+                        <p>Version: 2.92.0</p>
+                        <p>Renderer: Cycles 2.92.0</p>
+                      </TableCell>
+                      <TableCell className="px-0 text-right">
+                        <strong>22MB</strong>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Textures</TableCell>
+                      <TableCell className="px-0 text-right">
+                        <strong>4.23MB</strong>
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </CardContent>
+            </Card>
+            <Card className="bg-card">
+              <CardContent className="pt-4">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>
+                        <h2 className="text-xl text-foreground whitespace-nowrap">
+                          3D Model Details
+                        </h2>
+                      </TableHead>
+                      <TableHead></TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody className="divide-y">
+                    {productDetails.map((p) => (
+                      <TableRow key={p.id}>
+                        <TableCell>{p.label}</TableCell>
+                        <TableCell className="px-0 text-right">
+                          <strong className="whitespace-nowrap">
+                            {_.isBoolean(p.value)
+                              ? checker[`${p.value}`]
+                              : p.value}
+                          </strong>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </CardContent>
+            </Card>
           </div>
+          <div
+            className={cn("product-description", "w-full bg-lime-500 h-20")}
+          ></div>
         </div>
         <div
           className={cn("w-full @container", "space-y-3")}
