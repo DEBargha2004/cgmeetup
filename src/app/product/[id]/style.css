@@ -1,8 +1,9 @@
 .product-container {
+  display: grid;
   grid-template-areas:
     "product-preview"
-    "product-description"
-    "product-sidebar";
+    "product-sidebar"
+    "product-description";
   grid-template-columns: 1fr;
 }
 

@@ -1,118 +1,118 @@
-'use client'
+"use client";
 
-import Image from 'next/image'
-import { useProductPreview } from './product-preview-provider'
-import { cn } from '@/lib/utils'
-import { ArrowBackOutlined, ArrowForwardOutlined } from '@mui/icons-material'
-import { Navigator } from '@/components/custom'
+import Image from "next/image";
+import { useProductPreview } from "./product-preview-provider";
+import { cn } from "@/lib/utils";
+import { ArrowBackOutlined, ArrowForwardOutlined } from "@mui/icons-material";
+import { Navigator } from "@/components/custom";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
-  CarouselPrevious
-} from '@/components/ui/carousel'
-import { useEffect } from 'react'
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { useEffect } from "react";
 
-type Direction = 'previous' | 'next'
+type Direction = "previous" | "next";
 
 export const ProductPreviewContainer = ({
-  children
+  children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) => {
-  return <div className='w-full h-full'>{children}</div>
-}
+  return <div className="w-full h-full">{children}</div>;
+};
 
-export function ProductPreviewImage () {
-  const productPreview = useProductPreview()
+export function ProductPreviewImage() {
+  const productPreview = useProductPreview();
 
   if (!productPreview) {
-    return null
+    return null;
   }
 
-  const { images, currentImageIndex } = productPreview
+  const { images, currentImageIndex } = productPreview;
   return (
     <Image
-      className='w-full h-full object-contain'
+      className="w-full h-full object-cover"
       src={images[currentImageIndex]}
-      alt='product image'
+      alt="product image"
       fill={true}
     />
-  )
+  );
 }
 
-export function ProductPreviewNavigator ({
+export function ProductPreviewNavigator({
   direction,
-  className
+  className,
 }: {
-  direction: Direction
-  className?: string
+  direction: Direction;
+  className?: string;
 }) {
-  const productPreview = useProductPreview()
+  const productPreview = useProductPreview();
 
   if (!productPreview) {
-    return null
+    return null;
   }
 
-  const { images, currentImageIndex, setCurrentIndex } = productPreview
+  const { images, currentImageIndex, setCurrentIndex } = productPreview;
   const handleNavigation = (dir: Direction) => {
-    if (dir === 'previous') {
-      const nextIndex = currentImageIndex - 1
-      setCurrentIndex(nextIndex < 0 ? images.length - 1 : nextIndex)
+    if (dir === "previous") {
+      const nextIndex = currentImageIndex - 1;
+      setCurrentIndex(nextIndex < 0 ? images.length - 1 : nextIndex);
     } else {
-      const nextIndex = currentImageIndex + 1
-      setCurrentIndex(nextIndex > images.length - 1 ? 0 : nextIndex)
+      const nextIndex = currentImageIndex + 1;
+      setCurrentIndex(nextIndex > images.length - 1 ? 0 : nextIndex);
     }
-  }
+  };
   return (
     <Navigator
-      Icon={direction === 'previous' ? ArrowBackOutlined : ArrowForwardOutlined}
+      Icon={direction === "previous" ? ArrowBackOutlined : ArrowForwardOutlined}
       className={cn(
-        'bg-lightAccent/70 hover:bg-lightAccent rounded-full',
-        'absolute top-1/2 -translate-y-1/2',
-        direction === 'previous' ? 'left-0' : 'right-0',
-        className
+        "bg-lightAccent/70 hover:bg-lightAccent rounded-full",
+        "absolute top-1/2 -translate-y-1/2",
+        direction === "previous" ? "left-0" : "right-0",
+        className,
       )}
       onClick={() => handleNavigation(direction)}
     />
-  )
+  );
 }
 
-export function ProductPreviewMapper ({ className }: { className?: string }) {
-  const productPreview = useProductPreview()
+export function ProductPreviewMapper({ className }: { className?: string }) {
+  const productPreview = useProductPreview();
 
-  useEffect(() => {}, [])
+  useEffect(() => {}, []);
 
   if (!productPreview) {
-    return null
+    return null;
   }
 
-  const { images, currentImageIndex, setCurrentIndex } = productPreview
+  const { images, currentImageIndex, setCurrentIndex } = productPreview;
 
   return (
-    <Carousel className='px-2'>
+    <Carousel className="px-2">
       <CarouselContent>
         {images.map((image, index) => (
-          <CarouselItem key={index} className='basis-auto'>
+          <CarouselItem key={index} className="basis-auto">
             <Image
               src={image}
-              alt='product image'
+              alt="product image"
               width={200}
               height={200}
               className={cn(
-                'aspect-video w-[200px] object-cover border-2',
+                "aspect-video lg:w-[200px] sm:w-[180px] w-[140px] object-cover border-2",
                 index === currentImageIndex
-                  ? 'border-primary'
-                  : 'border-transparent'
+                  ? "border-primary"
+                  : "border-transparent",
               )}
               onClick={() => setCurrentIndex(index)}
             />
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselNext className='right-2' />
-      <CarouselPrevious className='left-2' />
+      <CarouselNext className="right-2" />
+      <CarouselPrevious className="left-2" />
     </Carousel>
-  )
+  );
 }

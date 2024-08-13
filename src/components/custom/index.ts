@@ -24,6 +24,7 @@ import Navigator from "./navigator";
 import UploadType from "./upload-type";
 import DualInputRange from "./dual-input-range";
 import ListContainer from "./list-container";
+import AddFriend from "./add-friend";
 
 export {
   AppLogo,
@@ -51,5 +52,6 @@ export {
   Navigator,
   UploadType,
   DualInputRange,
-  ListContainer
+  ListContainer,
+  AddFriend,
 };

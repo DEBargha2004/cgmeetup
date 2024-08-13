@@ -116,7 +116,7 @@ export function ListContainerCard({
   return (
     <div
       className={cn(
-        "md:w-[300px] w-[250px] grid gap-2 rounded shrink-0 border ",
+        "md:w-[300px] w-[250px] grid gap-2 rounded shrink-0 border @container",
         className,
       )}
     >
@@ -177,12 +177,12 @@ export function ListContainerCard({
           </p>
           <ListContainerCardIcon
             className={cn(
-              "shrink-0",
+              "shrink-0 h-6 w-6",
               isAddableToCart ? "bg-orange-500" : "bg-lightAccent/70",
             )}
             onClick={() => (isAddableToCart ? handleAddToCart() : null)}
           >
-            <AddShoppingCart fontSize="small" />
+            <AddShoppingCart fontSize="small" className="h-4 w-4" />
           </ListContainerCardIcon>
         </ProfileInfoOverView>
       </div>

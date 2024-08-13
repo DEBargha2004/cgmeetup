@@ -4,7 +4,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import {
   AddShoppingCart,
+  Bookmark,
+  BookmarkOutlined,
   CheckCircleOutline,
+  Favorite,
   Handshake,
   HighlightOff,
   InfoOutlined,
@@ -29,8 +32,21 @@ import {
 } from "@/components/ui/table";
 import _ from "lodash";
 import "./style.css";
+import { IconType } from "@/types/icon";
+import { HTMLProps } from "react";
+import ProductStats from "./_components/product-stats";
+import ProductDescription from "./_components/product-description";
+import { AddFriend, ProfileInfoOverView } from "@/components/custom";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import Link from "next/link";
 
-const products = Array.from({ length: 35 }).map((_, i) => {
+const products = Array.from({ length: 10 }).map((_, i) => {
   const id = v4();
   return {
     id,
@@ -68,13 +84,33 @@ const productDetails = [
 
 export default function Page({ params }: { params: { id: string } }) {
   return (
-    <main className="flex justify-center items-start py-10 px-2">
+    <main className="flex justify-center items-start pb-10 px-2">
       <section
         className={cn(
           "4xl:w-[1616px] 2xl:w-[1328px] xl:w-[1040px] lg:w-[843px] w-full",
           "grid gap-4",
         )}
       >
+        <header
+          className=" z-30 flex md:h-14 items-center gap-4 bg-background
+        sm:static sm:h-auto sm:bg-transparent"
+        >
+          <Breadcrumb className="hidden md:flex">
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="#">Product</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="#">Xpeng X2 Flying car EVTOL 3D model</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </header>
         <div className="w-full  product-container gap-4">
           <div className={cn("product-preview", "space-y-4")}>
             <ProductPreviewProvider images={images}>
@@ -108,6 +144,18 @@ export default function Page({ params }: { params: { id: string } }) {
                 <Button className="w-full py-6">
                   <AddShoppingCart /> Add to Cart
                 </Button>
+              </CardContent>
+            </Card>
+            <Card className="bg-card">
+              <CardContent className="pt-4">
+                <ProfileInfoOverView
+                  content={<Button className="mt-3 h-8">Hire Me</Button>}
+                >
+                  <AddFriend
+                    isFriend={false}
+                    className="h-8 w-8 cursor-pointer"
+                  />
+                </ProfileInfoOverView>
               </CardContent>
             </Card>
             <Card className="bg-card">
@@ -192,9 +240,19 @@ export default function Page({ params }: { params: { id: string } }) {
               </CardContent>
             </Card>
           </div>
-          <div
-            className={cn("product-description", "w-full bg-lime-500 h-20")}
-          ></div>
+          <div className={cn("product-description", "w-full space-y-4")}>
+            <Card className="bg-card h-fit">
+              <CardHeader>
+                <CardTitle className="leading-8 md:text-2xl text-xl">
+                  Xpeng X2 Flying car EVTOL 3D model
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ProductStats />
+              </CardContent>
+            </Card>
+            <ProductDescription />
+          </div>
         </div>
         <div
           className={cn("w-full @container", "space-y-3")}
@@ -204,7 +262,7 @@ export default function Page({ params }: { params: { id: string } }) {
             <h1 className="text-2xl">Similar Products</h1>
             <p>to xyz</p>
           </div>
-          <div className="grid @6xl:grid-cols-6 @3xl:grid-cols-4 grid-cols-2 gap-3">
+          <div className="grid @6xl:grid-cols-5 @3xl:grid-cols-3 @md:grid-cols-2 gap-3 overflow-hidden">
             {products.map((p) => (
               <ListContainerCard
                 className="w-full md:w-full"
