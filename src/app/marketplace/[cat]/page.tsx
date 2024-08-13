@@ -1,15 +1,14 @@
-"use client";
-
 import { Badge } from "@/components/ui/badge";
 import { marketplaceCategories } from "@/constants/marketplace-categories";
-import { getFormattedUrlFromTitle } from "@/functions/get-formatted-url-from-title";
+import { getFormattedIdFromTitle } from "@/functions/get-formatted-id-from-title";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Filter } from "../_components/filter";
-import { useState } from "react";
-import { cn } from "@/lib/utils";
+import { FilterWrapper } from "../_components/filter";
 import { v4 } from "uuid";
-import { ListContainerCard } from "@/components/custom/list-container";
+import {
+  ListContainerCard,
+  ListContainerCardsContainer,
+} from "@/components/custom/list-container";
 
 const products = Array.from({ length: 35 }).map((_, i) => {
   const id = v4();
@@ -21,12 +20,12 @@ const products = Array.from({ length: 35 }).map((_, i) => {
 });
 
 export default function Page({ params: { cat } }: { params: { cat: string } }) {
+  cat = decodeURIComponent(cat);
+
   const category = marketplaceCategories.find(
-    (category) => getFormattedUrlFromTitle(category.title) === cat,
+    (category) => getFormattedIdFromTitle(category.title) === cat,
   );
   if (!category) notFound();
-
-  const [showFilter, setShowFilter] = useState(true);
 
   return (
     <div className="p-3 space-y-4">
@@ -38,9 +37,9 @@ export default function Page({ params: { cat } }: { params: { cat: string } }) {
         {category.subcategories.map((subcategory) => (
           <Link
             key={subcategory}
-            href={`/product/${getFormattedUrlFromTitle(
+            href={`/marketplace/${getFormattedIdFromTitle(
               category.title,
-            )}/${getFormattedUrlFromTitle(subcategory)}`}
+            )}/${getFormattedIdFromTitle(subcategory)}`}
             className="text-sm text-gray-400 hover:text-primary"
           >
             <Badge className="bg-lightAccent p-2 px-3 hover:text-primary transition-all">
@@ -49,23 +48,8 @@ export default function Page({ params: { cat } }: { params: { cat: string } }) {
           </Link>
         ))}
       </div>
-      <div className="xs:flex hidden flex-col items-end justify-start gap-2">
-        <Badge
-          className="ml-auto cursor-pointer"
-          onClick={() => setShowFilter(!showFilter)}
-        >
-          {showFilter ? "Hide" : "Show"} Filter
-        </Badge>
-        <div
-          className={cn(
-            "p-5 border rounded-md bg-card/60 w-full",
-            showFilter ? "" : "hidden",
-          )}
-        >
-          <Filter />
-        </div>
-      </div>
-      <div className="grid 2xl:grid-cols-6 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 xs:grid-cols-2 gap-3">
+      <FilterWrapper />
+      <ListContainerCardsContainer>
         {products.map((product) => (
           <ListContainerCard
             className="w-full md:w-full"
@@ -75,7 +59,7 @@ export default function Page({ params: { cat } }: { params: { cat: string } }) {
             id={product.id}
           />
         ))}
-      </div>
+      </ListContainerCardsContainer>
     </div>
   );
 }

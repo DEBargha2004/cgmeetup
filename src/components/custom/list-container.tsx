@@ -49,11 +49,14 @@ export function ListContainerCardsContainer({
   className?: string;
 }) {
   return (
-    <Carousel className={cn("overflow-hidden", className)}>
-      <CarouselContent className="">{children}</CarouselContent>
-      <CarouselNext className="right-2 -translate-y-10" />
-      <CarouselPrevious className="left-2 -translate-y-10" />
-    </Carousel>
+    <div
+      className={cn(
+        "grid 3xl:grid-cols-6  xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-3",
+        className,
+      )}
+    >
+      {children}
+    </div>
   );
 }
 
@@ -116,7 +119,7 @@ export function ListContainerCard({
   return (
     <div
       className={cn(
-        "md:w-[300px] w-[250px] grid gap-2 rounded shrink-0 border @container",
+        "min-w-[240px] grid gap-2 rounded shrink-0 border @container",
         className,
       )}
     >
@@ -170,7 +173,7 @@ export function ListContainerCard({
           textContainer="justify-center"
           image="h-6 w-6 border-none"
           heading="font-light text-sm line-clamp-1"
-          className="mt-1 @container gap-2"
+          className="mt-1 @container gap-0"
         >
           <p className="bg-lightAccent text-xs p-1.5 py-0.5 rounded my-auto">
             $100

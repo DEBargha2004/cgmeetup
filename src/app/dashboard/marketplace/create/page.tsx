@@ -424,7 +424,7 @@ export default function Dashboard() {
         </header>
         <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
           <Form {...form}>
-            <form className=" grid flex-1 auto-rows-max gap-4">
+            <form className="grid flex-1 auto-rows-max gap-4">
               <div className="flex items-center gap-4">
                 <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
                   Create Product

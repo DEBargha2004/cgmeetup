@@ -2,7 +2,7 @@ import { CarouselItem } from "@/components/ui/carousel";
 import { ListContainer } from "@/components/custom";
 import { marketplaceCategories } from "@/constants/marketplace-categories";
 import Link from "next/link";
-import { getFormattedUrlFromTitle } from "@/functions/get-formatted-url-from-title";
+import { getFormattedIdFromTitle } from "@/functions/get-formatted-id-from-title";
 import { v4 } from "uuid";
 import {
   ListContainerCard,
@@ -10,7 +10,7 @@ import {
   ListContainerTitle,
 } from "@/components/custom/list-container";
 
-const popularProducts = Array.from({ length: 35 }).map((_, i) => {
+const popularProducts = Array.from({ length: 6 }).map((_, i) => {
   const id = v4();
   return {
     id,
@@ -19,7 +19,7 @@ const popularProducts = Array.from({ length: 35 }).map((_, i) => {
   };
 });
 
-const freeProducts = Array.from({ length: 35 }).map((_, i) => {
+const freeProducts = Array.from({ length: 6 }).map((_, i) => {
   const id = v4();
   return {
     id,
@@ -28,7 +28,7 @@ const freeProducts = Array.from({ length: 35 }).map((_, i) => {
   };
 });
 
-const latestProducts = Array.from({ length: 35 }).map((_, i) => {
+const latestProducts = Array.from({ length: 6 }).map((_, i) => {
   const id = v4();
   return {
     id,
@@ -44,20 +44,19 @@ export default function MarketplacePage() {
         <ListContainerTitle className="flex justify-between items-baseline">
           Popular Products
           <Link href={``}>
-            <span className="text-sm text-primary">More</span>
+            <span className="text-sm text-primary">View all</span>
           </Link>
         </ListContainerTitle>
 
         <ListContainerCardsContainer>
           {popularProducts.map((p) => (
-            <CarouselItem key={p.id} className="basis-auto">
-              <ListContainerCard
-                className=""
-                price={p.price}
-                href={p.href}
-                id={p.id}
-              />
-            </CarouselItem>
+            <ListContainerCard
+              className="w-full"
+              price={p.price}
+              href={p.href}
+              id={p.id}
+              key={p.id}
+            />
           ))}
         </ListContainerCardsContainer>
       </ListContainer>
@@ -65,19 +64,18 @@ export default function MarketplacePage() {
         <ListContainerTitle className="flex justify-between items-baseline">
           Free Products
           <Link href={``}>
-            <span className="text-sm text-primary">More</span>
+            <span className="text-sm text-primary">View all</span>
           </Link>
         </ListContainerTitle>
         <ListContainerCardsContainer>
           {freeProducts.map((p) => (
-            <CarouselItem key={p.id} className="basis-auto">
-              <ListContainerCard
-                className=""
-                price={p.price}
-                href={p.href}
-                id={p.id}
-              />
-            </CarouselItem>
+            <ListContainerCard
+              className="w-full"
+              price={p.price}
+              href={p.href}
+              id={p.id}
+              key={p.id}
+            />
           ))}
         </ListContainerCardsContainer>
       </ListContainer>
@@ -85,19 +83,18 @@ export default function MarketplacePage() {
         <ListContainerTitle className="flex justify-between items-baseline">
           Latest Products
           <Link href={``}>
-            <span className="text-sm text-primary">More</span>
+            <span className="text-sm text-primary">View all</span>
           </Link>
         </ListContainerTitle>
         <ListContainerCardsContainer>
           {latestProducts.map((p) => (
-            <CarouselItem key={p.id} className="basis-auto">
-              <ListContainerCard
-                className=""
-                price={p.price}
-                href={p.href}
-                id={p.id}
-              />
-            </CarouselItem>
+            <ListContainerCard
+              className="w-full"
+              price={p.price}
+              href={p.href}
+              id={p.id}
+              key={p.id}
+            />
           ))}
         </ListContainerCardsContainer>
       </ListContainer>
@@ -105,20 +102,21 @@ export default function MarketplacePage() {
         <ListContainer className="w-full" key={cat_idx}>
           <ListContainerTitle className="flex justify-between items-baseline">
             {category.title}
-            <Link href={`/product/${getFormattedUrlFromTitle(category.title)}`}>
-              <span className="text-sm text-primary">More</span>
+            <Link
+              href={`/marketplace/${getFormattedIdFromTitle(category.title)}`}
+            >
+              <span className="text-sm text-primary">View all</span>
             </Link>
           </ListContainerTitle>
           <ListContainerCardsContainer>
             {latestProducts.map((p) => (
-              <CarouselItem key={p.id} className="basis-auto">
-                <ListContainerCard
-                  className=""
-                  price={p.price}
-                  href={p.href}
-                  id={p.id}
-                />
-              </CarouselItem>
+              <ListContainerCard
+                className="w-full"
+                price={p.price}
+                href={p.href}
+                id={p.id}
+                key={p.id}
+              />
             ))}
           </ListContainerCardsContainer>
         </ListContainer>

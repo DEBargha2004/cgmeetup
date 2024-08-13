@@ -111,7 +111,7 @@ export default function Page({ params }: { params: { id: string } }) {
             </BreadcrumbList>
           </Breadcrumb>
         </header>
-        <div className="w-full  product-container gap-4">
+        <div className="w-full product-container gap-4">
           <div className={cn("product-preview", "space-y-4")}>
             <ProductPreviewProvider images={images}>
               <div className="w-full aspect-video relative">
@@ -126,15 +126,10 @@ export default function Page({ params }: { params: { id: string } }) {
           </div>
           <div
             className={cn("w-full xl:shrink-0 product-sidebar", "grid gap-4")}
-            id="right-section"
           >
             <Card className="bg-card">
               <CardHeader className="flex flex-row justify-between items-center w-full space-y-0">
                 <CardTitle className="text-2xl">$45.00</CardTitle>
-                <Badge className="flex gap-1">
-                  <Handshake />
-                  <span className="text-sm">Offer price</span>
-                </Badge>
               </CardHeader>
               <CardContent className="space-y-8">
                 <div className="text-foreground flex justify-start items-center gap-3">
@@ -149,7 +144,11 @@ export default function Page({ params }: { params: { id: string } }) {
             <Card className="bg-card">
               <CardContent className="pt-4">
                 <ProfileInfoOverView
-                  content={<Button className="mt-3 h-8">Hire Me</Button>}
+                  content={
+                    <Button className="mt-3 h-8" variant={"success"}>
+                      Hire Me
+                    </Button>
+                  }
                 >
                   <AddFriend
                     isFriend={false}
@@ -163,7 +162,7 @@ export default function Page({ params }: { params: { id: string } }) {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>
+                      <TableHead className="px-0 xxs:px-2">
                         <h2 className="text-xl text-foreground">
                           3D Model Formats
                         </h2>
@@ -214,7 +213,7 @@ export default function Page({ params }: { params: { id: string } }) {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>
+                      <TableHead className="px-0 xxs:px-2">
                         <h2 className="text-xl text-foreground whitespace-nowrap">
                           3D Model Details
                         </h2>
@@ -262,7 +261,7 @@ export default function Page({ params }: { params: { id: string } }) {
             <h1 className="text-2xl">Similar Products</h1>
             <p>to xyz</p>
           </div>
-          <div className="grid @6xl:grid-cols-5 @3xl:grid-cols-3 @md:grid-cols-2 gap-3 overflow-hidden">
+          <div className="grid @6xl:grid-cols-5 @3xl:grid-cols-3 @lg:grid-cols-2 gap-3 overflow-hidden">
             {products.map((p) => (
               <ListContainerCard
                 className="w-full md:w-full"

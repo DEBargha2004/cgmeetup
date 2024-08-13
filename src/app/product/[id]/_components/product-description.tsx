@@ -19,7 +19,7 @@ export default function ProductDescription() {
     <Card className="bg-card p-4 h-fit">
       <Tabs defaultValue="details" className="space-y-4">
         <TabsList>
-          <TabsTrigger value="details">Model Details</TabsTrigger>
+          <TabsTrigger value="details">Details</TabsTrigger>
           <TabsTrigger value="comments">Comments (2)</TabsTrigger>
           <TabsTrigger value="reviews">Reviews (2)</TabsTrigger>
         </TabsList>

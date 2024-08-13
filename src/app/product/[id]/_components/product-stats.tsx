@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import {
   Bookmark,
   BookmarkBorder,
+  Comment,
   Favorite,
   FavoriteBorder,
   Share,
@@ -19,28 +20,29 @@ export default function ProductStats() {
     like: false,
   });
   return (
-    <div className="flex justify-between items-center">
-      <div>
-        <PostActionsContainer
-          Icon={postActions.bookmark ? Bookmark : BookmarkBorder}
-          className={cn("", postActions.bookmark ? "text-primary" : "")}
-          onClick={() =>
-            setPostActions({ ...postActions, bookmark: !postActions.bookmark })
-          }
-        />
-      </div>
-      <div className="flex justify-between items-center gap-5">
-        <PostActionsContainer Icon={Visibility} count={100} />
+    <div className="flex justify-between 2xl:gap-6 gap-3 items-center w-full">
+      <div className="flex 2xl:gap-6 gap-3 items-center">
         <PostActionsContainer
           Icon={postActions.like ? Favorite : FavoriteBorder}
-          count={10}
-          className={cn("", postActions.like ? "text-red-600" : "")}
+          count={3}
           onClick={() =>
             setPostActions({ ...postActions, like: !postActions.like })
           }
+          className={cn(postActions.like ? "text-red-600" : "")}
+          // className='text-red-600'
         />
-        <PostActionsContainer Icon={Share} />
-        <Button variant={"outline-destructive"}>Report</Button>
+        <PostActionsContainer Icon={Visibility} count={3} />
+        <PostActionsContainer Icon={Comment} count={3} />
+      </div>
+      <div className="flex 2xl:gap-6 gap-3 items-center">
+        <PostActionsContainer Icon={Share} count={3} />
+        <PostActionsContainer
+          Icon={postActions.bookmark ? Bookmark : BookmarkBorder}
+          onClick={() =>
+            setPostActions({ ...postActions, bookmark: !postActions.bookmark })
+          }
+          className={postActions.bookmark ? "text-primary" : ""}
+        />
       </div>
     </div>
   );

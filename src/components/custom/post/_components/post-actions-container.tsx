@@ -16,7 +16,8 @@ export default function PostActionsContainer({
       <div
         className={cn(
           `flex justify-center items-center bg-lightAccent h-8 w-8 
-                      2xl:h-9 2xl:w-9 rounded-full cursor-pointer`,
+          2xl:h-9 2xl:w-9 rounded-full cursor-pointer`,
+          "sm:[&>svg]:w-5 sm:[&>svg]:h-5 [&>svg]:w-4 [&>svg]:h-4",
           className,
         )}
         {...props}

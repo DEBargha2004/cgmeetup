@@ -172,7 +172,7 @@ const SortSelect = ({ className }: { className?: string }) => {
 
   return (
     <Select value={filter.sortSelect} onValueChange={filter.setSortSelect}>
-      <SelectTrigger className={cn("h-full", className)}>
+      <SelectTrigger className={cn("", className)}>
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
@@ -339,7 +339,7 @@ const SelectedListOptionsRenderer = forwardRef<
     return (
       <div
         className={cn(
-          "h-full min-w-[200px] w-full p-1.5 pl-2 border rounded cursor-pointer",
+          "h-full min-w-[120px] w-full p-1.5 pl-2 border rounded cursor-pointer",
           "bg-transparent hover:bg-transparent flex flex-wrap justify-between items-center",
           className,
         )}
@@ -541,8 +541,30 @@ export function Filter({ className }: { className?: string }) {
             }
           />
         </RangeSelectorRoot>
-        <SortSelect className="xl:block hidden" />
+        <SortSelect className="xl:flex hidden" />
       </div>
     </FilterContext.Provider>
+  );
+}
+
+export function FilterWrapper() {
+  const [showFilter, setShowFilter] = useState(true);
+  return (
+    <div className="xs:flex hidden flex-col items-end justify-start gap-2">
+      <Badge
+        className="ml-auto cursor-pointer"
+        onClick={() => setShowFilter(!showFilter)}
+      >
+        {showFilter ? "Hide" : "Show"} Filter
+      </Badge>
+      <div
+        className={cn(
+          "p-5 border rounded-md bg-card/60 w-full",
+          showFilter ? "" : "hidden",
+        )}
+      >
+        <Filter />
+      </div>
+    </div>
   );
 }

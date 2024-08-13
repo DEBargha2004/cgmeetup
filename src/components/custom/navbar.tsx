@@ -34,6 +34,7 @@ import {
   Login,
   Notifications,
   Person,
+  ShoppingCartCheckoutOutlined,
   Work,
 } from "@mui/icons-material";
 import Image from "next/image";
@@ -259,10 +260,15 @@ export default function Navbar({ className }: { className?: string }) {
                     <Button
                       variant={"secondary"}
                       onClick={() => setIsCartOpen(false)}
+                      className="space-x-2"
                     >
-                      Continue Shopping
+                      <span>Continue Shopping</span>
+                      <AddShoppingCart fontSize="small" />
                     </Button>
-                    <Button>Checkout</Button>
+                    <Button className="space-x-2">
+                      <span>Checkout</span>
+                      <ShoppingCartCheckoutOutlined fontSize="small" />
+                    </Button>
                   </div>
                 )}
               </PopoverContent>
@@ -445,14 +451,14 @@ function PopoverCartItem({ id }: { id: string }) {
       </div>
       <div className="w-full grid gap-2">
         <div className="flex justify-between items-center w-full gap-2">
-          <h1 className="lg:text-lg text-base text-primary line-clamp-1">
+          <h1 className="text-sm text-primary line-clamp-1">
             Modern 3D Gun Model Design
           </h1>
           <div className="cursor-pointer" onClick={() => removeFromCart(id)}>
             <Delete className="text-destructive" />
           </div>
         </div>
-        <p className="flex gap-2 lg:[&>span]:text-base [&>span]:text-sm">
+        <p className="flex gap-2 [&>span]:text-xs">
           <span className="line-through opacity-70">$ 9.99</span>
           <span>$ 7.99</span>
         </p>
