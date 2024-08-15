@@ -8,7 +8,7 @@ import {
   Command,
   CommandGroup,
   CommandItem,
-  CommandList
+  CommandList,
 } from "@/components/ui/command";
 import { Command as CommandPrimitive } from "cmdk";
 import { cn } from "@/lib/utils";
@@ -21,36 +21,36 @@ type Option = {
 const FRAMEWORKS: Option[] = [
   {
     value: "next.js",
-    label: "Next.js"
+    label: "Next.js",
   },
   {
     value: "sveltekit",
-    label: "SvelteKit"
+    label: "SvelteKit",
   },
   {
     value: "nuxt.js",
-    label: "Nuxt.js"
+    label: "Nuxt.js",
   },
   {
     value: "remix",
-    label: "Remix"
+    label: "Remix",
   },
   {
     value: "astro",
-    label: "Astro"
+    label: "Astro",
   },
   {
     value: "wordpress",
-    label: "WordPress"
+    label: "WordPress",
   },
   {
     value: "express.js",
-    label: "Express.js"
+    label: "Express.js",
   },
   {
     value: "nest.js",
-    label: "Nest.js"
-  }
+    label: "Nest.js",
+  },
 ];
 
 export function FancyMultiSelect({
@@ -59,7 +59,7 @@ export function FancyMultiSelect({
   onChange,
   placeholder,
   max,
-  className
+  className,
 }: {
   options: Option[];
   values?: Option[];
@@ -101,11 +101,11 @@ export function FancyMultiSelect({
         }
       }
     },
-    []
+    [],
   );
 
   const selectables = options.filter(
-    (option) => !selected.some((value) => value.value === option.value)
+    (option) => !selected.some((value) => value.value === option.value),
   );
 
   const maxCount = max
@@ -121,8 +121,8 @@ export function FancyMultiSelect({
     >
       <div
         className={cn(
-          "group grid rounded-md bg-darkAccent border border-input px-2 text-sm ring-primary focus-within:ring-2 h-full",
-          className
+          "group grid rounded-md bg-darkAccent border border-input p-2 text-sm ring-primary focus-within:ring-2 h-full",
+          className,
         )}
       >
         <div className="flex items-center flex-wrap gap-1 my-auto">
@@ -170,7 +170,7 @@ export function FancyMultiSelect({
             onFocus={() => setOpen(true)}
             placeholder={placeholder || "Select Options"}
             className={cn(
-              "ml-2 min-w-[80px] flex-1 bg-transparent outline-none placeholder:text-muted-foreground"
+              "ml-2 min-w-[80px] flex-1 bg-transparent outline-none placeholder:text-muted-foreground",
             )}
           />
         </div>
