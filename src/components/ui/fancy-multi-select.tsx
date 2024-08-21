@@ -18,41 +18,6 @@ type Option = {
   label: string;
 };
 
-const FRAMEWORKS: Option[] = [
-  {
-    value: "next.js",
-    label: "Next.js",
-  },
-  {
-    value: "sveltekit",
-    label: "SvelteKit",
-  },
-  {
-    value: "nuxt.js",
-    label: "Nuxt.js",
-  },
-  {
-    value: "remix",
-    label: "Remix",
-  },
-  {
-    value: "astro",
-    label: "Astro",
-  },
-  {
-    value: "wordpress",
-    label: "WordPress",
-  },
-  {
-    value: "express.js",
-    label: "Express.js",
-  },
-  {
-    value: "nest.js",
-    label: "Nest.js",
-  },
-];
-
 export function FancyMultiSelect({
   options,
   values,
@@ -73,13 +38,16 @@ export function FancyMultiSelect({
   const [selected, setSelected] = React.useState<Option[]>(values || []);
   const [inputValue, setInputValue] = React.useState("");
 
-  const handleUnselect = React.useCallback((value: Option) => {
-    setSelected((prev) => {
-      const newSelected = prev.filter((s) => s.value !== value.value);
-      onChange?.(newSelected);
-      return newSelected;
-    });
-  }, []);
+  const handleUnselect = React.useCallback(
+    (value: Option) => {
+      setSelected((prev) => {
+        const newSelected = prev.filter((s) => s.value !== value.value);
+        onChange?.(newSelected);
+        return newSelected;
+      });
+    },
+    [setSelected, onChange],
+  );
 
   const handleKeyDown = React.useCallback(
     (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -101,7 +69,7 @@ export function FancyMultiSelect({
         }
       }
     },
-    [],
+    [setSelected, onChange],
   );
 
   const selectables = options.filter(
