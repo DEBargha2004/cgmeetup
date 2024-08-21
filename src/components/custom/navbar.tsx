@@ -265,10 +265,12 @@ export default function Navbar({ className }: { className?: string }) {
                       <span>Continue Shopping</span>
                       <AddShoppingCart fontSize="small" />
                     </Button>
-                    <Button className="space-x-2">
-                      <span>Checkout</span>
-                      <ShoppingCartCheckoutOutlined fontSize="small" />
-                    </Button>
+                    <Link href={"/marketplace/checkout"}>
+                      <Button className="space-x-2 w-full">
+                        <span>Checkout</span>
+                        <ShoppingCartCheckoutOutlined fontSize="small" />
+                      </Button>
+                    </Link>
                   </div>
                 )}
               </PopoverContent>
