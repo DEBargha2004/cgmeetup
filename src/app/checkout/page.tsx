@@ -27,6 +27,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowBackIos, Help } from "@mui/icons-material";
 import { useForm } from "react-hook-form";
 import { v4 } from "uuid";
+import productImage from "@/../public/images/cover-image.jpg";
+import Image from "next/image";
 
 export default function Page() {
   const bankCardForm = useForm<BankCardSchemaType>({
@@ -56,39 +58,6 @@ export default function Page() {
         >
           <div className="space-y-2 2xl:w-3/5 lg:w-[55%] w-full shrink-0">
             <h1 className="text-xl">Billing Information</h1>
-            <Accordion type="single" className="space-y-2">
-              <AccordionItem
-                value="bank-card"
-                className="space-y-2 bg-card hover:bg-card rounded"
-              >
-                <AccordionTrigger className="hover:no-underline bg-lightAccent px-2 rounded-t">
-                  Bank Card
-                </AccordionTrigger>
-                <AccordionContent className="px-2">
-                  <BankCardForm
-                    form={bankCardForm}
-                    onSubmit={handleBankCardFormSubmit}
-                  />
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem
-                value="paypal"
-                className="space-y-2 bg-card hover:bg-card rounded"
-              >
-                <AccordionTrigger className="hover:no-underline bg-lightAccent px-2 rounded-t">
-                  Paypal
-                </AccordionTrigger>
-                <AccordionContent className="px-2">
-                  <PayPalForm
-                    form={paypalForm}
-                    onSubmit={handlePaypalFormSubmit}
-                  />
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-          </div>
-          <div className="w-full grid gap-2">
-            <h1 className="text-xl">Billing Information</h1>
             <div className="bg-lightAccent p-3 w-full flex justify-between items-center">
               <p className="text-lg uppercase">USERNAME</p>
               <p className="text-sm">debarghasaha2</p>
@@ -96,7 +65,8 @@ export default function Page() {
             <Table className="border">
               <TableHeader>
                 <TableRow>
-                  <TableHead className="border">ITEMS</TableHead>
+                  <TableHead></TableHead>
+                  <TableHead className="border-r">ITEMS</TableHead>
                   <TableHead className="border">QTY.</TableHead>
                   <TableHead className="border">PRICE</TableHead>
                 </TableRow>
@@ -104,6 +74,15 @@ export default function Page() {
               <TableBody>
                 {Array.from({ length: 5 }).map((_, i) => (
                   <TableRow key={i}>
+                    <TableCell className="min-w-[132px]">
+                      <Image
+                        src={productImage}
+                        alt="product-image"
+                        height={300}
+                        width={300}
+                        className="h-[100px] w-[100px] object-cover shrink-0"
+                      />
+                    </TableCell>
                     <TableCell className="border">
                       50 Medieval City 3D Models with Textures | Game Ready |
                       Vol 2
@@ -141,6 +120,40 @@ export default function Page() {
                 </TableRow>
               </TableFooter>
             </Table>
+            <Accordion type="single" className="space-y-2">
+              <AccordionItem
+                value="bank-card"
+                className="space-y-2 bg-card hover:bg-card rounded"
+              >
+                <AccordionTrigger className="hover:no-underline bg-lightAccent px-2 rounded-t">
+                  Bank Card
+                </AccordionTrigger>
+                <AccordionContent className="p-4 px-6">
+                  <BankCardForm
+                    form={bankCardForm}
+                    onSubmit={handleBankCardFormSubmit}
+                  />
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem
+                value="paypal"
+                className="space-y-2 bg-card hover:bg-card rounded"
+              >
+                <AccordionTrigger className="hover:no-underline bg-lightAccent px-2 rounded-t">
+                  Paypal
+                </AccordionTrigger>
+                <AccordionContent className="p-4 px-6">
+                  <PayPalForm
+                    form={paypalForm}
+                    onSubmit={handlePaypalFormSubmit}
+                  />
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
+          <div className="w-full grid gap-2 pt-3">
+            {/* <h1 className="text-xl"></h1> */}
+
             <div className="flex items-center justify-start gap-2 py-2 mt-4">
               <Input placeholder="Enter promo code" />
               <Button>Apply</Button>

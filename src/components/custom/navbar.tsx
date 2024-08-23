@@ -249,29 +249,51 @@ export default function Navbar({ className }: { className?: string }) {
               </PopoverTrigger>
               <PopoverContent
                 align="center"
-                className="bg-card space-y-3 sm:w-[450px] w-[100vw] overflow-y-auto scroller 
-                translate-y-3 sm:max-h-[650px] max-h-[calc(100vh-64px)]"
+                className={cn(
+                  "bg-card space-y-3 overflow-y-auto scroller translate-y-3",
+                  "sm:max-h-[650px] max-h-[calc(100vh-64px)] sm:w-[450px] w-[100vw]",
+                  !cart.length && "grid place-content-center sm:w-fit",
+                )}
               >
                 {cart.map((item) => (
                   <PopoverCartItem key={item} id={item} />
                 ))}
-                {cart.length > 0 && (
+                {cart.length > 0 ? (
                   <div className="grid grid-cols-2 gap-2">
-                    <Button
-                      variant={"secondary"}
+                    <Link
+                      href={"/marketplace"}
+                      className="w-full"
                       onClick={() => setIsCartOpen(false)}
-                      className="space-x-2"
+                      scroll={false}
                     >
-                      <span>Continue Shopping</span>
-                      <AddShoppingCart fontSize="small" />
-                    </Button>
-                    <Link href={"/marketplace/checkout"}>
+                      <Button variant={"secondary"} className="space-x-2">
+                        <span>Continue Shopping</span>
+                        <AddShoppingCart fontSize="small" />
+                      </Button>
+                    </Link>
+                    <Link
+                      href={"/checkout"}
+                      onClick={() => setIsCartOpen(false)}
+                      scroll={false}
+                    >
                       <Button className="space-x-2 w-full">
                         <span>Checkout</span>
                         <ShoppingCartCheckoutOutlined fontSize="small" />
                       </Button>
                     </Link>
                   </div>
+                ) : (
+                  <Link
+                    href={"/marketplace"}
+                    className="w-full"
+                    onClick={() => setIsCartOpen(false)}
+                    scroll={false}
+                  >
+                    <Button variant={"secondary"} className="space-x-2">
+                      <span>Continue Shopping</span>
+                      <AddShoppingCart fontSize="small" />
+                    </Button>
+                  </Link>
                 )}
               </PopoverContent>
             </Popover>
