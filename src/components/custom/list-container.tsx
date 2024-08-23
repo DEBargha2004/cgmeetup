@@ -124,7 +124,7 @@ export function ListContainerCard({
       )}
     >
       <div className="w-full aspect-square rounded relative group overflow-hidden">
-        <Link href={href || ""}>
+        <Link href={href || ""} scroll={false}>
           <NextImage
             src={profile}
             alt="profile"
