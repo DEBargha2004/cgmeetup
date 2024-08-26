@@ -9,35 +9,36 @@ import background from "@/../public/images/cover-image.jpg";
 import {
   FeaturedVideo,
   Schedule,
+  School,
   Store,
   Subject,
   TrendingUp,
 } from "@mui/icons-material";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 const tabList1: TabItem[] = [
-  { label: "Marketplace", href: "/marketplace", Icon: Store },
+  { label: "Marketplace", href: "/tutorials", Icon: School },
   {
     label: "Trending",
-    href: "/marketplace/trending",
+    href: "/tutorials/trending",
     Icon: TrendingUp,
   },
   {
     label: "Featured",
     Icon: FeaturedVideo,
-    href: "/marketplace/featured",
+    href: "/tutorials/featured",
   },
   {
     label: "Latest",
-    href: "/marketplace/latest",
+    href: "/tutorials/latest",
     Icon: Schedule,
   },
   {
     label: "Categories",
-    href: "/marketplace/categories",
+    href: "/tutorials/categories",
     Icon: Subject,
   },
-  // { label: 'Studios', href: '/jobs/studios', icon: 'apartment' },
 ];
 
 const roboto = Roboto({ subsets: ["cyrillic"], weight: "700" });
@@ -56,18 +57,22 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     roboto.className,
                   )}
                 >
-                  Free Downloads, Buy & Sell Marketplace
+                  Free Tutorials & Courses
                 </h1>
                 <p className="text-lg md:text-xl">
-                  for 3D Models, 3D Charactor Rigs , Materials & Shaders,
-                  Textures and more
+                  for Concept Art , 3d Modeling , Animation and more.
                 </p>
               </div>
               <div className="w-3/4 md:w-3/5 lg:w-2/5 relative flex justify-between items-center gap-2">
                 <Input className="pl-10" placeholder="Search" />
                 <Search className="absolute left-2 top-1/2 -translate-y-1/2" />
               </div>
-              <div className="h-10" />
+              <div className="">
+                <Button className="space-x-2">
+                  <School fontSize="small" />
+                  <span>Post Tutorial</span>
+                </Button>
+              </div>
             </div>
             <div className="absolute w-full h-full top-0 left-0 object-cover -z-10 ">
               <Image

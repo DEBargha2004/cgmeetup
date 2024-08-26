@@ -1,4 +1,4 @@
-import { IconType } from '@/types/icon'
+import { IconType } from "@/types/icon";
 import {
   AddShoppingCart,
   Apartment,
@@ -7,98 +7,90 @@ import {
   Newspaper,
   Notifications,
   Person,
-  Work
-} from '@mui/icons-material'
+  School,
+  Work,
+} from "@mui/icons-material";
 
 type NavItem =
   | {
-      type: 'item'
-      id: string
-      label: string
-      href: string
-      Icon: IconType
-      catch_routes?: string[]
+      type: "item";
+      id: string;
+      label: string;
+      href: string;
+      Icon: IconType;
+      catch_routes?: string[];
     }
-  | { type: 'separator' }
+  | { type: "separator" };
 
 export const navItems: NavItem[] = [
   {
-    type: 'item',
-    id: 'gallery',
-    label: 'Gallery',
-    href: '/gallery',
+    type: "item",
+    id: "gallery",
+    label: "Gallery",
+    href: "/gallery",
     Icon: Image,
     catch_routes: [
-      '/gallery/trending',
-      '/gallery/latest',
-      '/gallery',
-      '/gallery/featured'
-    ]
+      "/gallery/trending",
+      "/gallery/latest",
+      "/gallery",
+      "/gallery/featured",
+    ],
   },
   {
-    type: 'item',
-    id: 'jobs',
-    label: 'Jobs',
-    href: '/jobs',
+    type: "item",
+    id: "jobs",
+    label: "Jobs",
+    href: "/jobs",
     Icon: Work,
-    catch_routes: ['/jobs', '/jobs/latest', '/jobs/trending', '/jobs/featured']
+    catch_routes: ["/jobs", "/jobs/latest", "/jobs/trending", "/jobs/featured"],
   },
   {
-    type: 'item',
-    id: 'news',
-    label: 'News',
-    href: '/news',
+    type: "item",
+    id: "news",
+    label: "News",
+    href: "/news",
     Icon: Newspaper,
-    catch_routes: ['/news']
+    catch_routes: ["/news"],
   },
-  // {
-  //   type: 'item',
-  //   id: 'artists',
-  //   label: 'Artists',
-  //   href: '/artists',
-  //   Icon: Person,
-  //   catch_routes: ['/artists', '/artists/latest', '/artists/trending']
-  // },
-  // {
-  //   type: 'item',
-  //   id: 'company',
-  //   label: 'Companies',
-  //   href: '/companies',
-  //   Icon: Apartment,
-  //   catch_routes: ['/companies', '/companies/latest', '/companies/trending']
-  // }
   {
-    type: 'item',
-    id: 'marketplace',
-    href: '/marketplace',
-    label: 'Marketplace',
-    Icon: AddShoppingCart
-  }
-]
+    type: "item",
+    id: "marketplace",
+    href: "/marketplace",
+    label: "Marketplace",
+    Icon: AddShoppingCart,
+  },
+  {
+    type: "item",
+    label: "Tutorials",
+    id: "tutorials",
+    href: "/tutorials",
+    Icon: School,
+  },
+];
 
 export const extraNavItems: NavItem[] = [
   {
-    type: 'separator'
+    type: "separator",
   },
   {
-    type: 'item',
-    id: 'notifications',
-    label: 'Notifications',
-    href: '/notifications',
-    Icon: Notifications
+    type: "item",
+    id: "notifications",
+    label: "Notifications",
+    href: "/notifications",
+    Icon: Notifications,
   },
   {
-    type: 'item',
-    id: 'chat',
-    href: '/chat',
-    label: 'Chat',
-    Icon: Chat
+    type: "item",
+    id: "chat",
+    href: "/chat",
+    label: "Chat",
+    Icon: Chat,
   },
   {
-    type: 'item',
-    id: 'cart',
-    href: '',
-    label: 'Cart',
-    Icon: AddShoppingCart
-  }
-]
+    type: "item",
+    id: "cart",
+    href: "",
+    label: "Cart",
+    Icon: AddShoppingCart,
+  },
+];
