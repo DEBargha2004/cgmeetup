@@ -31,8 +31,34 @@ import {
   TooltipProvider,
   TooltipTrigger
 } from "../ui/tooltip";
+import { Rating, RatingInfo, RatingType } from "./rating-info";
+import { Card, CardContent } from "../ui/card";
+import coverImage from "@/../public/images/cover-image.jpg";
 
 const tags = ["Intermediate", "Maya"];
+
+const ratings: RatingType[] = [
+  {
+    maxCount: 5,
+    percent: 78
+  },
+  {
+    maxCount: 4,
+    percent: 35
+  },
+  {
+    maxCount: 3,
+    percent: 67
+  },
+  {
+    maxCount: 2,
+    percent: 12
+  },
+  {
+    maxCount: 1,
+    percent: 5
+  }
+];
 
 export function TutorialsCard({
   className,
@@ -143,6 +169,60 @@ export function TutorialsCard({
         </ProfileInfoOverView>
       </div>
     </div>
+  );
+}
+
+export function TuturialCardListView() {
+  return (
+    <Card className="bg-card ">
+      <CardContent className="p-3 flex justify-between gap-4">
+        <div className="aspect-video sm:w-[260px] sm:h-auto h-[100px] shrink-0">
+          <Image
+            src={coverImage}
+            alt="cover"
+            height={300}
+            width={300}
+            className="h-full w-full object-cover"
+          />
+        </div>
+        <div className="space-y-2">
+          <h1 className="text-lg font-semibold">
+            Computer Graphics Fundamentals
+          </h1>
+          <p className="text-sm opacity-70">
+            Learn the basics of computer graphics in this course.Learn modern
+            OpenGL techniques so you can make games, simulations and more!
+          </p>
+          <p className="text-sm font-light">Ben Holmes</p>
+          <div className="flex items-center gap-2 [&>*]:text-sm">
+            <strong>4.5</strong>
+            <TooltipProvider delayDuration={20}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className="relative bottom-0.5">
+                    <Rating starDimension="17px" rating={4.5} />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent className="bg-lightAccent">
+                  <RatingInfo ratings={ratings} />
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+            <span className="opacity-70">(12)</span>
+          </div>
+          <div className="[&>*]:text-xs [&>*]:opacity-70 font-light space-x-1">
+            <span>12.5 total hours</span>
+            <span>⋅</span>
+            <span>23 lectures</span>
+            <span>⋅</span>
+            <span>Intermediate</span>
+          </div>
+        </div>
+        <div>
+          <strong>$100</strong>
+        </div>
+      </CardContent>
+    </Card>
   );
 }
 

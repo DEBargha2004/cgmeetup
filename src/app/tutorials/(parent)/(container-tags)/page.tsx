@@ -7,6 +7,7 @@ import {
   InstructorCard,
   TutorialsCard
 } from "@/components/custom/tutorials-list-container";
+import Link from "next/link";
 import { v4 } from "uuid";
 
 const popularProducts = Array.from({ length: 6 }).map((_, i) => {
@@ -40,7 +41,12 @@ export default function TutorialsPage() {
   return (
     <div className="p-2 space-y-10">
       <ListContainer>
-        <ListContainerTitle>Trending</ListContainerTitle>
+        <ListContainerTitle className="flex justify-between items-baseline">
+          Trending
+          <Link href={`/tutorials/trending`}>
+            <span className="text-sm text-primary">View all</span>
+          </Link>
+        </ListContainerTitle>
         <ListContainerCardsContainer>
           {popularProducts.map(({ id, href, price }, i) => (
             <TutorialsCard id={id} href={href} price={price} key={i} />
@@ -48,7 +54,12 @@ export default function TutorialsPage() {
         </ListContainerCardsContainer>
       </ListContainer>
       <ListContainer>
-        <ListContainerTitle>Free Courses</ListContainerTitle>
+        <ListContainerTitle className="flex justify-between items-baseline">
+          Free Courses
+          <Link href={``}>
+            <span className="text-sm text-primary">View all</span>
+          </Link>
+        </ListContainerTitle>
         <ListContainerCardsContainer>
           {freeProducts.map(({ id, href, price }, i) => (
             <TutorialsCard id={id} href={href} price={price} key={i} />
@@ -56,7 +67,12 @@ export default function TutorialsPage() {
         </ListContainerCardsContainer>
       </ListContainer>
       <ListContainer>
-        <ListContainerTitle>New Courses</ListContainerTitle>
+        <ListContainerTitle className="flex justify-between items-baseline">
+          New Courses
+          <Link href={``}>
+            <span className="text-sm text-primary">View all</span>
+          </Link>
+        </ListContainerTitle>
         <ListContainerCardsContainer>
           {latestProducts.map(({ id, href, price }, i) => (
             <TutorialsCard id={id} href={href} price={price} key={i} />
