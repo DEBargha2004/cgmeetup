@@ -76,7 +76,7 @@ export default function InstructorInfo({
             sure everything is easy to understand. I'll be there for you every
             step of the way.
           </article>
-          <CollapsibleContainerOverflowCover className="from-darkAccent" />
+          <CollapsibleContainerOverflowCover className="" />
         </CollapsibleContainer>
         <CollapsibleButton
           variant={"ghost"}

@@ -60,7 +60,7 @@ export default function ContentTimestamps({
       <ContentSectionHeader>Course content</ContentSectionHeader>
       <div className="space-y-2">
         <div className="flex justify-between items-center">
-          <p className="space-x-1 [&>span]:text-sm [&>span]:opacity-70">
+          <p className="space-x-1 md:[&>span]:text-sm [&>span]:text-xs [&>span]:opacity-70">
             <span>{courseContent.length} sections</span>
             <span>•</span>
             <span>
@@ -73,7 +73,7 @@ export default function ContentTimestamps({
             </span>
           </p>
           <p
-            className="text-primary cursor-pointer"
+            className="text-primary cursor-pointer sm:block hidden"
             onClick={
               isExpanded ? handleCollapseAccordion : handleExpandAccordion
             }
@@ -95,11 +95,13 @@ export default function ContentTimestamps({
                   "flex justify-between items-center gap-2"
                 )}
               >
-                <h1 className="w-full text-left text-lg">{course.title}</h1>
+                <h1 className="w-full text-left md:text-lg text-base line-clamp-1">
+                  {course.title}
+                </h1>
                 <div
                   className={cn(
                     "flex items-center gap-1 justify-start shrink-0",
-                    "[&>span]:text-sm [&>span]:opacity-70"
+                    "md:[&>span]:text-sm [&>span]:text-xs [&>span]:opacity-70"
                   )}
                 >
                   <span>{course.sections.length} lectures</span>
@@ -117,17 +119,13 @@ export default function ContentTimestamps({
                         key={section.title}
                         className="hover:bg-transparent"
                       >
-                        <TableCell className="w-fit pr-1">
-                          {section.is_video ? (
-                            <YouTube fontSize="small" />
-                          ) : (
-                            <Description fontSize="small" />
-                          )}
+                        <TableCell className="w-fit pr-1 [&>svg]:text-base">
+                          {section.is_video ? <YouTube /> : <Description />}
                         </TableCell>
-                        <TableCell className="w-full">
+                        <TableCell className="w-full pr-0">
                           <h1
                             className={cn(
-                              "text-base cursor-pointer w-fit",
+                              "md:text-base text-sm cursor-pointer w-fit",
                               "hover:underline hover:text-primary"
                             )}
                           >
@@ -138,7 +136,7 @@ export default function ContentTimestamps({
                           {section.is_preview_available ? (
                             <p
                               className={cn(
-                                "text-base cursor-pointer w-fit",
+                                "md:text-base text-sm cursor-pointer w-fit",
                                 "hover:underline hover:text-primary"
                               )}
                             >
@@ -146,7 +144,7 @@ export default function ContentTimestamps({
                             </p>
                           ) : null}
                         </TableCell>
-                        <TableCell className="opacity-70 min-w-[110px]">
+                        <TableCell className="opacity-70 ">
                           {format(section.lecture_duration_in_minutes, "hh:mm")}
                         </TableCell>
                       </TableRow>

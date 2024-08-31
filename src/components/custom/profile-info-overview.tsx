@@ -15,7 +15,7 @@ export default function ProfileInfoOverView({
   descriptionValue,
   titleValue,
   profileInfo,
-  content,
+  content
 }: {
   children?: React.ReactNode;
   className?: string;
@@ -50,19 +50,19 @@ export default function ProfileInfoOverView({
         <div
           className={cn(
             "flex flex-col justify-between items-start w-fit",
-            textContainer,
+            textContainer
           )}
         >
           <h1 className={cn("text-sm font-semibold ", heading)}>
-            {titleValue || "Ramaya Vastavaiya"}
+            {titleValue ?? "Ramaya Vastavaiya"}
           </h1>
           <p
             className={cn(
               "text-sm text-lightAccent-foreground line-clamp-1",
-              description,
+              description
             )}
           >
-            {descriptionValue || "VFX artist"}
+            {descriptionValue ?? "VFX artist"}
           </p>
 
           {content}

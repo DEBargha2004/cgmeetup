@@ -49,7 +49,7 @@ export default function CourseDescription({
             delectus explicabo corporis. Ipsa ut voluptates velit reprehenderit!
             Dolore facilis doloribus veritatis a cum, fuga iste optio!
           </article>
-          <CollapsibleContainerOverflowCover className="from-darkAccent" />
+          <CollapsibleContainerOverflowCover className="" />
         </CollapsibleContainer>
         <CollapsibleButton variant={"ghost"} className="hover:bg-transparent">
           <CollapsibleButtonLabel />

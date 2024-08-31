@@ -1,0 +1,30 @@
+.tutorial-container {
+  display: grid;
+  grid-template-areas:
+    "tutorial-preview"
+    "tutorial-sidebar"
+    "tutorial-description";
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 1280px) {
+  .tutorial-container {
+    display: grid;
+    grid-template-areas:
+      "tutorial-preview tutorial-sidebar"
+      "tutorial-description tutorial-sidebar";
+    grid-template-columns: minmax(0, 2fr) 0.6fr;
+    gap: 1rem;
+  }
+}
+
+.tutorial-preview {
+  grid-area: tutorial-preview;
+}
+.tutorial-sidebar {
+  grid-area: tutorial-sidebar;
+}
+.tutorial-description {
+  grid-area: tutorial-description;
+}

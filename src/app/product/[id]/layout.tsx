@@ -5,7 +5,7 @@ import {
   AddShoppingCart,
   CheckCircleOutline,
   HighlightOff,
-  InfoOutlined,
+  InfoOutlined
 } from "@mui/icons-material";
 import { ProductPreviewProvider } from "./_components/product-preview-provider";
 import project from "@/../public/data/projects.json";
@@ -13,7 +13,7 @@ import {
   ProductPreviewContainer,
   ProductPreviewImage,
   ProductPreviewMapper,
-  ProductPreviewNavigator,
+  ProductPreviewNavigator
 } from "./_components/product-preview";
 import { ListContainerCard } from "@/components/custom/list-container";
 import { v4 } from "uuid";
@@ -23,7 +23,7 @@ import {
   TableCell,
   TableHead,
   TableHeader,
-  TableRow,
+  TableRow
 } from "@/components/ui/table";
 import _ from "lodash";
 import ProductStats from "./_components/product-stats";
@@ -33,7 +33,7 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbSeparator,
+  BreadcrumbSeparator
 } from "@/components/ui/breadcrumb";
 import Link from "next/link";
 import "./style.css";
@@ -44,7 +44,7 @@ const products = Array.from({ length: 10 }).map((_, i) => {
   return {
     id,
     price: "$10",
-    href: `/product/${id}`,
+    href: `/product/${id}`
   };
 });
 
@@ -54,7 +54,7 @@ const images = project.data
 
 const checker = {
   false: <HighlightOff fontSize="small" className="text-destructive" />,
-  true: <CheckCircleOutline fontSize="small" className="text-primary" />,
+  true: <CheckCircleOutline fontSize="small" className="text-primary" />
 };
 
 const productDetails = [
@@ -72,12 +72,12 @@ const productDetails = [
   { id: 12, label: "UV Mapping", value: false },
   { id: 13, label: "Unwrapped UVs", value: "Unknown" },
   { id: 14, label: "Plugins used", value: false },
-  { id: 15, label: "Ready for 3D Printing", value: true },
+  { id: 15, label: "Ready for 3D Printing", value: true }
 ];
 
 export default function ProductLayout({
   children,
-  params: { id },
+  params: { id }
 }: {
   children: React.ReactNode;
   params: { id: string };
@@ -87,7 +87,7 @@ export default function ProductLayout({
       <section
         className={cn(
           "4xl:w-[1616px] 2xl:w-[1328px] xl:w-[1040px] lg:w-[843px] w-full",
-          "grid gap-4",
+          "grid gap-4"
         )}
       >
         <header
@@ -138,9 +138,7 @@ export default function ProductLayout({
               <ProductPreviewMapper />
             </ProductPreviewProvider>
           </div>
-          <div
-            className={cn("w-full xl:shrink-0 product-sidebar", "grid gap-4")}
-          >
+          <div className={cn("w-full product-sidebar", "grid gap-4")}>
             <Card className="bg-card">
               <CardHeader className="flex flex-row justify-between items-center w-full space-y-0">
                 <CardTitle className="text-2xl">$45.00</CardTitle>
