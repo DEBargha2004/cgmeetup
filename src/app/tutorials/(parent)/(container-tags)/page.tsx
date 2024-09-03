@@ -15,7 +15,7 @@ const popularProducts = Array.from({ length: 6 }).map((_, i) => {
   return {
     id,
     price: "$10",
-    href: `/course/${id}`
+    href: `/tutorial/${id}`
   };
 });
 
@@ -24,7 +24,7 @@ const freeProducts = Array.from({ length: 6 }).map((_, i) => {
   return {
     id,
     price: "",
-    href: `/course/${id}`
+    href: `/tutorial/${id}`
   };
 });
 
@@ -33,7 +33,7 @@ const latestProducts = Array.from({ length: 6 }).map((_, i) => {
   return {
     id,
     price: "$10",
-    href: `/course/${id}`
+    href: `/tutorial/${id}`
   };
 });
 
@@ -43,7 +43,7 @@ export default function TutorialsPage() {
       <ListContainer>
         <ListContainerTitle className="flex justify-between items-baseline">
           Trending
-          <Link href={`/course/trending`}>
+          <Link href={`/tutorials/trending`}>
             <span className="text-sm text-primary">View all</span>
           </Link>
         </ListContainerTitle>

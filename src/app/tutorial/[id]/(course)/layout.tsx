@@ -16,17 +16,17 @@ import {
   Subtitles
 } from "@mui/icons-material";
 import Link from "next/link";
-import ContentSectionHeader from "../_components/content-section-header";
-import TutorialStats from "../_components/tutorial-stats";
+import ContentSectionHeader from "../../_components/content-section-header";
+import TutorialStats from "../../_components/tutorial-stats";
 import { Badge } from "@/components/ui/badge";
-import CourseSyllabus from "../_components/course-syllabus";
-import CourseFeatures from "../_components/course-features";
-import ContentTimestamps from "../_components/content-timestamps";
-import CourseRequirements from "../_components/course-requirements";
-import CourseDescription from "../_components/course-description";
-import InstructorInfo from "../_components/instructor-info";
-import CourseRating from "../_components/course-rating";
-import CourseSuggestions from "../_components/course-suggestions";
+import CourseSyllabus from "../../_components/course-syllabus";
+import CourseFeatures from "../../_components/course-features";
+import ContentTimestamps from "../../_components/content-timestamps";
+import CourseRequirements from "../../_components/course-requirements";
+import CourseDescription from "../../_components/course-description";
+import InstructorInfo from "../../_components/instructor-info";
+import CourseSuggestions from "../../_components/course-suggestions";
+import CourseTab from "../../_components/course-tab";
 import "./style.css";
 
 const related_topics = ["Web Development", "Frontend", "HTML"];
@@ -40,9 +40,11 @@ const requirements = [
   "Tight VNC Viewer for Windows Users and RealVNC Viewer for MAC Users (Downloaded in Section 8)."
 ];
 
-export default function CoursePage({
+export default function Layout({
+  children,
   params: { id }
 }: {
+  children: React.ReactNode;
   params: { id: string };
 }) {
   return (
@@ -55,13 +57,13 @@ export default function CoursePage({
       >
         <header
           className="z-30 flex md:h-10 pt-2 items-center gap-4 bg-background
-    sm:static sm:h-auto sm:bg-transparent"
+sm:static sm:h-auto sm:bg-transparent"
         >
           <Breadcrumb className="hidden md:flex">
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href="#">Tutorials</Link>
+                  <Link href="#">Tutorial</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
@@ -83,7 +85,7 @@ export default function CoursePage({
               "space-y-4 w-full aspect-video bg-red-600 rounded"
             )}
           ></div>
-          <div className={cn("w-full tutorial-sidebar", " md:min-w-[340px]")}>
+          <div className={cn("w-full tutorial-sidebar", " xl:min-w-[340px]")}>
             <div className="space-y-4 xl:sticky top-2">
               <Card className="bg-card">
                 <CardHeader className="flex flex-row justify-between items-center w-full space-y-0">
@@ -159,11 +161,12 @@ export default function CoursePage({
               <CardContent className="pt-4 space-y-4">
                 <CourseSyllabus />
                 <CourseFeatures />
-                <ContentTimestamps />
+                <ContentTimestamps courseId={id} />
                 <CourseRequirements requirements={requirements} />
                 <CourseDescription />
                 <InstructorInfo />
-                <CourseRating />
+                <CourseTab />
+                {children}
               </CardContent>
             </Card>
           </div>

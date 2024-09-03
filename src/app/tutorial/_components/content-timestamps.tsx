@@ -13,24 +13,14 @@ import { Description, YouTube } from "@mui/icons-material";
 import { format } from "date-fns";
 import { HTMLProps, useMemo, useState } from "react";
 import ContentSectionHeader from "./content-section-header";
-
-const formatTimeFromMinutes = (duration: number) => {
-  const hours = Math.floor(duration / 60);
-  const minutes = Math.floor(duration % 60);
-
-  if (hours === 0) {
-    return `${minutes} min`;
-  } else if (minutes === 0) {
-    return `${hours} hr`;
-  } else {
-    return `${hours} hr ${minutes} min`;
-  }
-};
+import { formatTimeFromMinutes } from "@/functions/format-time-from-minutes";
+import Link from "next/link";
 
 export default function ContentTimestamps({
   className,
+  courseId,
   ...props
-}: HTMLProps<HTMLDivElement>) {
+}: HTMLProps<HTMLDivElement> & { courseId: string }) {
   const [activeAccordion, setActiveAccordion] = useState<string[]>([
     courseContent[0].title
   ]);
@@ -134,14 +124,16 @@ export default function ContentTimestamps({
                         </TableCell>
                         <TableCell>
                           {section.is_preview_available ? (
-                            <p
-                              className={cn(
-                                "md:text-base text-sm cursor-pointer w-fit",
-                                "hover:underline hover:text-primary"
-                              )}
-                            >
-                              Preview
-                            </p>
+                            <Link href={`/tutorial/${courseId}/preview`}>
+                              <p
+                                className={cn(
+                                  "md:text-base text-sm cursor-pointer w-fit",
+                                  "hover:underline hover:text-primary"
+                                )}
+                              >
+                                Preview
+                              </p>
+                            </Link>
                           ) : null}
                         </TableCell>
                         <TableCell className="opacity-70 ">

@@ -12,33 +12,33 @@ import {
   School,
   Store,
   Subject,
-  TrendingUp,
+  TrendingUp
 } from "@mui/icons-material";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 const tabList1: TabItem[] = [
-  { label: "Marketplace", href: "/tutorials", Icon: School },
+  { label: "Tutorials", href: "/tutorials", Icon: School },
   {
     label: "Trending",
     href: "/tutorials/trending",
-    Icon: TrendingUp,
+    Icon: TrendingUp
   },
   {
     label: "Featured",
     Icon: FeaturedVideo,
-    href: "/tutorials/featured",
+    href: "/tutorials/featured"
   },
   {
     label: "Latest",
     href: "/tutorials/latest",
-    Icon: Schedule,
+    Icon: Schedule
   },
   {
     label: "Categories",
     href: "/tutorials/categories",
-    Icon: Subject,
-  },
+    Icon: Subject
+  }
 ];
 
 const roboto = Roboto({ subsets: ["cyrillic"], weight: "700" });
@@ -54,7 +54,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <h1
                   className={cn(
                     "text-4xl md:text-[52px] font-bold",
-                    roboto.className,
+                    roboto.className
                   )}
                 >
                   Free Tutorials & Courses
@@ -87,7 +87,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <div
               className={cn(
                 "w-full flex justify-center items-center gap-3 mb-5",
-                roboto.className,
+                roboto.className
               )}
             >
               <div className="flex justify-start items-center">
