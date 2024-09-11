@@ -9,7 +9,7 @@ import {
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
-  BreadcrumbSeparator,
+  BreadcrumbSeparator
 } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -19,7 +19,7 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
+  SelectValue
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Cropper, Navigator } from "@/components/custom";
@@ -33,7 +33,7 @@ import {
   DialogContent,
   DialogFooter,
   DialogHeader,
-  DialogTrigger,
+  DialogTrigger
 } from "@/components/ui/dialog";
 import { ReactCropperElement } from "react-cropper";
 import { FancyMultiSelect } from "@/components/ui/fancy-multi-select";
@@ -48,14 +48,14 @@ import {
   AttachFile,
   PlayArrow,
   ArrowBackIos,
-  ArrowForwardIos,
+  ArrowForwardIos
 } from "@mui/icons-material";
 import { v4 as uuidv4 } from "uuid";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   ProductCreateSchemaType,
-  productCreateSchema,
+  productCreateSchema
 } from "@/schema/product-create";
 import {
   Form,
@@ -63,7 +63,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from "@/components/ui/form";
 import { RichTextEditor } from "@/components/custom/editor";
 import { tags } from "@/constants/job-filters";
@@ -73,12 +73,13 @@ import {
   Accordion,
   AccordionContent,
   AccordionItem,
-  AccordionTrigger,
+  AccordionTrigger
 } from "@/components/ui/accordion";
 import { InsertPhoto } from "@mui/icons-material";
 import { getYoutubeThumbnail } from "@/functions";
 import { scroll } from "@/functions/scroll";
 import placeholderImage from "@/../public/images/cover-image.jpg";
+import PrefixInput from "@/components/custom/prefix-input";
 
 const visibilityOptions: string[] = ["Public", "Private"];
 const softwares = [
@@ -89,7 +90,7 @@ const softwares = [
   "Premiere",
   "After Effects",
   "Cinema 4D",
-  "Fusion 360",
+  "Fusion 360"
 ];
 
 const licenses = [
@@ -98,7 +99,7 @@ const licenses = [
   "CC BY-SA",
   "CC BY-ND",
   "CC BY-NC",
-  "CC BY-NC-SA",
+  "CC BY-NC-SA"
 ];
 
 const models = [
@@ -106,7 +107,7 @@ const models = [
   "Low Poly (Game-Ready)",
   "Textures",
   "High Poly",
-  "Materials",
+  "Materials"
 ];
 
 const geometry = [
@@ -115,17 +116,17 @@ const geometry = [
   "Circle",
   "Rectangle",
   "Ellipse",
-  "Polygon",
+  "Polygon"
 ];
 
 export default function Dashboard() {
   const form = useForm<ProductCreateSchemaType>({
     resolver: zodResolver(productCreateSchema),
     defaultValues: {
-      visibility: "Public",
+      visibility: visibilityOptions[0],
       productFiles: [],
-      productMedia: [],
-    },
+      productMedia: []
+    }
   });
 
   const [thumbnail, setThumbnail] = useState<{
@@ -146,20 +147,20 @@ export default function Dashboard() {
         "application/x-zip-compressed",
         "application/zip",
         "application/x-rar-compressed",
-        "application/x-7z-compressed",
-      ],
-    },
+        "application/x-7z-compressed"
+      ]
+    }
   });
   const productImagesDropzone = useDropzone({
     accept: {
-      "image/*": [],
-    },
+      "image/*": []
+    }
   });
   const thumbnailDropzone = useDropzone({
     multiple: false,
     accept: {
-      "image/*": [],
-    },
+      "image/*": []
+    }
   });
 
   const windowDimension = useWindowSize();
@@ -177,19 +178,19 @@ export default function Dashboard() {
       return {
         size: formattedFileSizeInGb.toFixed(2),
         unit: "GB",
-        formattedString: `${formattedFileSizeInGb.toFixed(2)} GB`,
+        formattedString: `${formattedFileSizeInGb.toFixed(2)} GB`
       };
     } else if (formattedFileSizeInMb > 1) {
       return {
         size: formattedFileSizeInMb.toFixed(2),
         unit: "MB",
-        formattedString: `${formattedFileSizeInMb.toFixed(2)} MB`,
+        formattedString: `${formattedFileSizeInMb.toFixed(2)} MB`
       };
     } else {
       return {
         size: formattedFileSizeInKb.toFixed(2),
         unit: "KB",
-        formattedString: `${formattedFileSizeInKb.toFixed(2)} KB`,
+        formattedString: `${formattedFileSizeInKb.toFixed(2)} KB`
       };
     }
   };
@@ -213,8 +214,8 @@ export default function Dashboard() {
               renderer: "",
               rendererVersion: "",
               software: "",
-              softwareVersion: "",
-            },
+              softwareVersion: ""
+            }
           ]);
         };
       }
@@ -236,8 +237,8 @@ export default function Dashboard() {
             {
               id: uuidv4(),
               url: reader.result as string,
-              type: "image",
-            },
+              type: "image"
+            }
           ]);
         };
       }
@@ -257,7 +258,7 @@ export default function Dashboard() {
           url: reader.result as string,
           type: files[0].type,
           custom: true,
-          crop: false,
+          crop: false
         });
       };
     }
@@ -271,7 +272,7 @@ export default function Dashboard() {
         url: cropperRef.current?.cropper
           .getCroppedCanvas()
           .toDataURL() as string,
-        crop: false,
+        crop: false
       }));
     }
   };
@@ -279,7 +280,7 @@ export default function Dashboard() {
   const handleDeleteProductFile = (id: string) => {
     form.setValue(
       "productFiles",
-      form.getValues("productFiles").filter((file) => file.id !== id),
+      form.getValues("productFiles").filter((file) => file.id !== id)
     );
   };
 
@@ -289,8 +290,8 @@ export default function Dashboard() {
       {
         id: uuidv4(),
         url: getYoutubeThumbnail(videoUrl),
-        type: "video",
-      },
+        type: "video"
+      }
     ]);
 
     setVideoDialogState(false);
@@ -302,7 +303,7 @@ export default function Dashboard() {
     "3D Art",
     "2D Art",
     "NFT Art",
-    "3D Printing",
+    "3D Printing"
   ];
 
   const categories = useMemo(() => {
@@ -317,7 +318,7 @@ export default function Dashboard() {
         "cat7",
         "cat8",
         "cat9",
-        "cat10",
+        "cat10"
       ];
     }
     return [];
@@ -335,7 +336,7 @@ export default function Dashboard() {
         "subCat7",
         "subCat8",
         "subCat9",
-        "subCat10",
+        "subCat10"
       ];
     }
     return [];
@@ -356,7 +357,7 @@ export default function Dashboard() {
   const handleDeleteProductMedia = (id: string) => {
     form.setValue(
       "productMedia",
-      form.getValues("productMedia").filter((file) => file.id !== id),
+      form.getValues("productMedia").filter((file) => file.id !== id)
     );
   };
 
@@ -389,7 +390,7 @@ export default function Dashboard() {
         ? {
             ...productMedia[0],
             custom: false,
-            crop: false,
+            crop: false
           }
         : null;
     });
@@ -463,13 +464,13 @@ export default function Dashboard() {
                         {...productDropzone.getRootProps()}
                         className={cn(
                           "py-10 w-full border-2 border-dashed bg-darkAccent col-span-2",
-                          "flex flex-col justify-center items-center gap-4",
+                          "flex flex-col justify-center items-center gap-4"
                         )}
                       >
                         <div
                           className={cn(
                             "p-4 flex flex-col justify-center items-center gap-2",
-                            "border-2 border-dashed",
+                            "border-2 border-dashed"
                           )}
                         >
                           <FolderZip />
@@ -644,18 +645,18 @@ export default function Dashboard() {
                                 className={cn(
                                   "border-2 border-transparent",
                                   media_idx === selectedMediaIndex &&
-                                    "border-primary",
+                                    "border-primary"
                                 )}
                                 onClick={() => setSelectedMediaIndex(media_idx)}
                                 onDragStart={(e) => {
                                   e.dataTransfer.setData(
                                     "text/plain",
-                                    media_idx.toString(),
+                                    media_idx.toString()
                                   );
                                 }}
                                 onDrop={(e) => {
                                   const droppedItemIndex = Number(
-                                    e.dataTransfer.getData("text/plain"),
+                                    e.dataTransfer.getData("text/plain")
                                   );
                                   handleImageSwap(droppedItemIndex, media_idx);
                                 }}
@@ -664,7 +665,7 @@ export default function Dashboard() {
                                   className={cn(
                                     "h-8 aspect-square rounded-full bg-lightAccent/60 hover:bg-lightAccent",
                                     "grid place-content-center",
-                                    "absolute top-2 right-2 cursor-pointer",
+                                    "absolute top-2 right-2 cursor-pointer"
                                   )}
                                   onClick={(e) => {
                                     e.stopPropagation();
@@ -713,7 +714,7 @@ export default function Dashboard() {
                       <div
                         className={cn(
                           "py-10 w-full border-2 border-dashed bg-darkAccent col-span-2",
-                          "flex flex-col justify-center items-center gap-4",
+                          "flex flex-col justify-center items-center gap-4"
                         )}
                       >
                         <h2 className="sm:text-lg text-base text-center">
@@ -726,7 +727,7 @@ export default function Dashboard() {
                             className={cn(
                               "flex flex-col justify-start items-center gap-2",
                               "border-2 border-dashed px-6 py-2 cursor-pointer hover:bg-lightAccent",
-                              "transition-all",
+                              "transition-all"
                             )}
                           >
                             <InsertPhoto />
@@ -744,7 +745,7 @@ export default function Dashboard() {
                                 className={cn(
                                   "flex flex-col justify-start items-center gap-2",
                                   "border-2 border-dashed px-6 py-2 cursor-pointer hover:bg-lightAccent",
-                                  "transition-all",
+                                  "transition-all"
                                 )}
                               >
                                 <SlowMotionVideo />
@@ -868,7 +869,7 @@ export default function Dashboard() {
                             <FancyMultiSelect
                               options={subCategories.map((t) => ({
                                 label: t,
-                                value: t,
+                                value: t
                               }))}
                               className="h-10"
                             />
@@ -887,7 +888,7 @@ export default function Dashboard() {
                             <FancyMultiSelect
                               options={softwares.map((t) => ({
                                 label: t,
-                                value: t,
+                                value: t
                               }))}
                               className="h-10"
                             />
@@ -904,22 +905,12 @@ export default function Dashboard() {
                           <FormItem className="@lg:col-span-3">
                             <FormLabel>Price</FormLabel>
                             <FormControl>
-                              <div className="relative">
-                                <Input
-                                  type="number"
-                                  {...field}
-                                  className="hide-input-inner-buttons pl-[70px]"
-                                  min={0}
-                                />
-                                <div
-                                  className={cn(
-                                    "absolute left-0 top-1/2 -translate-y-1/2 px-3 h-full bg-lightAccent rounded-l-md",
-                                    "flex items-center border-r",
-                                  )}
-                                >
-                                  <p>USD</p>
-                                </div>
-                              </div>
+                              <PrefixInput
+                                min={0}
+                                type="number"
+                                prefix="USD"
+                                {...field}
+                              />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -1015,7 +1006,7 @@ export default function Dashboard() {
                             <FancyMultiSelect
                               options={tags.map((t) => ({
                                 label: t,
-                                value: t,
+                                value: t
                               }))}
                               className="py-2"
                             />
@@ -1034,7 +1025,7 @@ export default function Dashboard() {
                             <FancyMultiSelect
                               options={models.map((t) => ({
                                 label: t,
-                                value: t,
+                                value: t
                               }))}
                               className="py-2"
                             />
@@ -1211,7 +1202,7 @@ export default function Dashboard() {
                               //@ts-ignore
                               setThumbnail((prev) => ({
                                 ...prev,
-                                crop: !prev?.crop,
+                                crop: !prev?.crop
                               }));
                             }}
                           >
@@ -1242,9 +1233,9 @@ export default function Dashboard() {
                                   ? {
                                       ...productMedia[0],
                                       custom: false,
-                                      crop: false,
+                                      crop: false
                                     }
-                                  : null,
+                                  : null
                               );
                             }}
                           >
@@ -1288,14 +1279,14 @@ export default function Dashboard() {
             className="h-[400px]  border 
               bg-darkAccent"
             style={{
-              width: Math.min(800, windowDimension.width!) - 48 - 2,
+              width: Math.min(800, windowDimension.width!) - 48 - 2
             }}
           >
             <Cropper
               ref={cropperRef}
               style={{
                 height: "100%",
-                aspectRatio: "100%",
+                aspectRatio: "100%"
               }}
               className="object-contain cropper overflow-hidden"
               aspectRatio={1}
@@ -1359,7 +1350,7 @@ const ProductMedia = ({
           "h-10 aspect-square rounded-full bg-lightAccent/70",
           "place-content-center",
           "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
-          isVideo ? "grid" : "hidden",
+          isVideo ? "grid" : "hidden"
         )}
       >
         <PlayArrow />

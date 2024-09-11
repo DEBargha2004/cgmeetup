@@ -28,6 +28,7 @@ import {
   RatingType
 } from "@/components/custom/rating-info";
 import { calculateAverageStarRating } from "@/functions/calculate-average-rating";
+import ShareDialog from "@/components/custom/share-dialog";
 
 const ratings: RatingType[] = [
   {
@@ -102,7 +103,9 @@ export default function ProductStats() {
         </TooltipProvider>
       </div>
       <div className="flex 2xl:gap-6 gap-3 items-center">
-        <PostActionsContainer Icon={Share} count={3} />
+        <ShareDialog link="https://cgmeetup.com/12e8woieuo2n3e">
+          <PostActionsContainer Icon={Share} count={3} />
+        </ShareDialog>
         <PostActionsContainer
           Icon={postActions.bookmark ? Bookmark : BookmarkBorder}
           onClick={() =>

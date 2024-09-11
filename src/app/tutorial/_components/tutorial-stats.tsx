@@ -6,6 +6,7 @@ import {
   RatingInfo,
   RatingType
 } from "@/components/custom/rating-info";
+import ShareDialog from "@/components/custom/share-dialog";
 import {
   Tooltip,
   TooltipContent,
@@ -91,7 +92,9 @@ export default function TutorialStats() {
         </TooltipProvider>
       </div>
       <div className="flex 2xl:gap-6 gap-4 items-center">
-        <PostActionsContainer Icon={Share} count={3} />
+        <ShareDialog link="http://cgmeetup.com/i3hdiwhf83428r">
+          <PostActionsContainer Icon={Share} count={3} />
+        </ShareDialog>
         <PostActionsContainer
           Icon={postActions.bookmark ? Bookmark : BookmarkBorder}
           onClick={() =>

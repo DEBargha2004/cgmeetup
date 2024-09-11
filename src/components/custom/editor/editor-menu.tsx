@@ -92,13 +92,9 @@ export default function EditorMenuBar() {
 
     if (editor.isActive("paragraph")) return 0;
 
-    return textTypes
-      .map((type) => {
-        if (editor.isActive("heading", { level: type.level }))
-          return type.level;
-        return null;
-      })
-      .filter((level) => level != null)[0];
+    return textTypes.find((type) =>
+      editor.isActive("heading", { level: type.level })
+    )?.level;
   })();
 
   const handleUrlSubmit = (data: UrlSchemaType) => {
@@ -158,6 +154,7 @@ export default function EditorMenuBar() {
               variant={"light_ghost"}
               className="w-full flex justify-between items-center border"
               size={"icon"}
+              type="button"
             >
               <p className=" flex justify-start">
                 {
@@ -196,6 +193,7 @@ export default function EditorMenuBar() {
           disabled={!editor.can().toggleBold()}
           onClick={() => editor.chain().focus().toggleBold().run()}
           size={"icon"}
+          type="button"
         >
           <FormatBold />
         </Button>
@@ -204,6 +202,7 @@ export default function EditorMenuBar() {
           disabled={!editor.can().toggleItalic()}
           onClick={() => editor.chain().focus().toggleItalic().run()}
           size={"icon"}
+          type="button"
         >
           <FormatItalic />
         </Button>
@@ -212,6 +211,7 @@ export default function EditorMenuBar() {
           disabled={!editor.can().toggleUnderline()}
           onClick={() => editor.chain().focus().toggleUnderline().run()}
           size={"icon"}
+          type="button"
         >
           <FormatUnderlined />
         </Button>
@@ -220,6 +220,7 @@ export default function EditorMenuBar() {
           disabled={!editor.can().toggleStrike()}
           onClick={() => editor.chain().focus().toggleStrike().run()}
           size={"icon"}
+          type="button"
         >
           <FormatStrikethrough />
         </Button>
@@ -228,6 +229,7 @@ export default function EditorMenuBar() {
           disabled={!editor.can().toggleSubscript()}
           onClick={() => editor.chain().focus().toggleSubscript().run()}
           size={"icon"}
+          type="button"
         >
           <Subscript />
         </Button>
@@ -236,6 +238,7 @@ export default function EditorMenuBar() {
           disabled={!editor.can().toggleSuperscript()}
           onClick={() => editor.chain().focus().toggleSuperscript().run()}
           size={"icon"}
+          type="button"
         >
           <Superscript />
         </Button>
@@ -247,6 +250,7 @@ export default function EditorMenuBar() {
             className="relative"
             variant={editor.isActive("highlight") ? "secondary" : "light_ghost"}
             size={"icon"}
+            type="button"
             onClick={() =>
               editor
                 .chain()
@@ -322,6 +326,7 @@ export default function EditorMenuBar() {
           size={"icon"}
           onClick={() => editor.chain().focus().toggleBulletList().run()}
           disabled={!editor.can().toggleBulletList()}
+          type="button"
         >
           <FormatListBulleted />
         </Button>
@@ -330,6 +335,7 @@ export default function EditorMenuBar() {
           size={"icon"}
           onClick={() => editor.chain().focus().toggleOrderedList().run()}
           disabled={!editor.can().toggleOrderedList()}
+          type="button"
         >
           <FormatListNumbered />
         </Button>
@@ -338,7 +344,7 @@ export default function EditorMenuBar() {
       <>
         <Popover>
           <PopoverTrigger asChild>
-            <Button size={"icon"} variant={"light_ghost"}>
+            <Button size={"icon"} variant={"light_ghost"} type="button">
               <FormatAlignJustify />
             </Button>
           </PopoverTrigger>
@@ -360,6 +366,7 @@ export default function EditorMenuBar() {
                   onClick={() =>
                     editor.chain().focus().setTextAlign(type.value).run()
                   }
+                  type="button"
                 >
                   <type.Icon />
                 </Button>

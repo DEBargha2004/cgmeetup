@@ -22,6 +22,7 @@ import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger
@@ -59,13 +60,13 @@ export default function Gallery() {
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href="#">Marketplace</Link>
+                  <Link href="#">Dashboard</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href="#">Marketplace Products</Link>
+                  <Link href="#">Tutorials</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
             </BreadcrumbList>
@@ -83,10 +84,7 @@ export default function Gallery() {
                 </TabsList>
               </div>
               <div className="flex justify-between items-center gap-2 w-full">
-                <Link
-                  href={"/dashboard/marketplace/create"}
-                  className=" inline"
-                >
+                <Link href={"/dashboard/tutorials/create"} className=" inline">
                   <Button
                     size="sm"
                     variant={"success"}
@@ -94,7 +92,7 @@ export default function Gallery() {
                   >
                     <PlusCircle className="h-3.5 w-3.5" />
                     <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                      Add Product
+                      Add Tutorial
                     </span>
                   </Button>
                 </Link>
@@ -140,9 +138,7 @@ export default function Gallery() {
             <TabsContent value="all">
               <Card x-chunk="dashboard-06-chunk-0" className="bg-card">
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-xl">
-                    Marketplace Products
-                  </CardTitle>
+                  <CardTitle className="text-xl">Tutorial</CardTitle>
                   <CardDescription>
                     Manage your posts and view their performance.
                   </CardDescription>

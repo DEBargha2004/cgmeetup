@@ -8,7 +8,7 @@ import {
   Command,
   CommandGroup,
   CommandItem,
-  CommandList,
+  CommandList
 } from "@/components/ui/command";
 import { Command as CommandPrimitive } from "cmdk";
 import { cn } from "@/lib/utils";
@@ -24,7 +24,7 @@ export function FancyMultiSelect({
   onChange,
   placeholder,
   max,
-  className,
+  className
 }: {
   options: Option[];
   values?: Option[];
@@ -37,6 +37,8 @@ export function FancyMultiSelect({
   const [open, setOpen] = React.useState(false);
   const [selected, setSelected] = React.useState<Option[]>(values || []);
   const [inputValue, setInputValue] = React.useState("");
+  const selectablesGroupRef = React.useRef<HTMLDivElement>(null);
+  const selectedTagsContainerRef = React.useRef<HTMLDivElement>(null);
 
   const handleUnselect = React.useCallback(
     (value: Option) => {
@@ -46,7 +48,7 @@ export function FancyMultiSelect({
         return newSelected;
       });
     },
-    [setSelected, onChange],
+    [setSelected, onChange]
   );
 
   const handleKeyDown = React.useCallback(
@@ -69,11 +71,11 @@ export function FancyMultiSelect({
         }
       }
     },
-    [setSelected, onChange],
+    [setSelected, onChange]
   );
 
   const selectables = options.filter(
-    (option) => !selected.some((value) => value.value === option.value),
+    (option) => !selected.some((value) => value.value === option.value)
   );
 
   const maxCount = max
@@ -82,16 +84,51 @@ export function FancyMultiSelect({
       : 0
     : 0;
 
+  React.useEffect(() => {
+    const selectablesGroup = selectablesGroupRef.current;
+    if (open && selectablesGroup) {
+      const groupDimension = selectablesGroup.getBoundingClientRect();
+
+      selectablesGroup.style.removeProperty("top");
+      selectablesGroup.style.removeProperty("bottom");
+
+      console.log(groupDimension.height, window.innerHeight);
+
+      // 30 is added to account for the gap between the selectables and the input box
+      // and the margin of the input box
+      if (
+        groupDimension.top + groupDimension.height + 40 >
+        window.innerHeight
+      ) {
+        selectablesGroup.style.bottom =
+          selectedTagsContainerRef.current?.getBoundingClientRect().height! +
+          5 +
+          "px";
+      } else {
+        selectablesGroup.style.top =
+          selectedTagsContainerRef.current?.getBoundingClientRect().height! +
+          5 +
+          "px";
+      }
+    }
+
+    return () => {
+      selectablesGroup?.style.removeProperty("top");
+      selectablesGroup?.style.removeProperty("bottom");
+    };
+  }, [open, selectables]);
+
   return (
     <Command
       onKeyDown={handleKeyDown}
-      className={cn("overflow-visible bg-transparent")}
+      className={cn("overflow-visible bg-transparent relative")}
     >
       <div
         className={cn(
           "group grid rounded-md bg-darkAccent border border-input p-2 text-sm ring-primary focus-within:ring-2 h-full",
-          className,
+          className
         )}
+        ref={selectedTagsContainerRef}
       >
         <div className="flex items-center flex-wrap gap-1 my-auto">
           {selected.slice(0, max).map((value) => {
@@ -138,16 +175,16 @@ export function FancyMultiSelect({
             onFocus={() => setOpen(true)}
             placeholder={placeholder || "Select Options"}
             className={cn(
-              "ml-2 min-w-[80px] flex-1 bg-transparent outline-none placeholder:text-muted-foreground",
+              "ml-2 min-w-[80px] flex-1 bg-transparent outline-none placeholder:text-muted-foreground"
             )}
           />
         </div>
       </div>
-      <div className="relative top-2">
+      <div className="absolute w-full h-fit" ref={selectablesGroupRef}>
         <CommandList className="">
           {open && selectables.length > 0 ? (
             <div
-              className="absolute top-0 z-10 w-full rounded-md border bg-darkAccent 
+              className="top-0 z-10 w-full rounded-md border bg-darkAccent 
             text-popover-foreground shadow-md outline-none animate-in max-h-[300px] overflow-y-auto overflow-x-hidden scroller"
             >
               <CommandGroup className="h-full overflow-auto">

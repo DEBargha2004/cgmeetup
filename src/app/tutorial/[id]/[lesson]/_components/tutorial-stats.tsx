@@ -2,6 +2,7 @@
 
 import ContentSectionHeader from "@/app/tutorial/_components/content-section-header";
 import PostActionsContainer from "@/components/custom/post/_components/post-actions-container";
+import ShareDialog from "@/components/custom/share-dialog";
 import { cn } from "@/lib/utils";
 import {
   Bookmark,
@@ -42,7 +43,9 @@ export default function TutorialStats({
           <PostActionsContainer Icon={Comment} count={3} />
         </div>
         <div className="flex 2xl:gap-6 gap-4 items-center">
-          <PostActionsContainer Icon={Share} count={3} />
+          <ShareDialog link="https://cgmeetup.com/12e8woieuo2n3e">
+            <PostActionsContainer Icon={Share} count={3} />
+          </ShareDialog>
           <PostActionsContainer
             Icon={postActions.bookmark ? Bookmark : BookmarkBorder}
             onClick={() =>

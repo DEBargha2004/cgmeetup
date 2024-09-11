@@ -23,7 +23,7 @@ export const productCreateSchema = z.object({
   geometry: z.string({ required_error: "Geometry is required" }),
   polygonCount: z.string({ required_error: "PolygonCount is required" }),
   verticesCount: z.string({ required_error: "VerticesCount is required" }),
-  visibility: z.enum(["Public", "Private"]).default("Public"),
+  visibility: z.string({ required_error: "Visibility is required" }),
   productFiles: z
     .array(
       z.object({

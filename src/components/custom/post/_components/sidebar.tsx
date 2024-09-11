@@ -3,7 +3,7 @@
 import {
   LimitText,
   MaterialSymbolIcon,
-  ProfileInfoOverView,
+  ProfileInfoOverView
 } from "@/components/custom";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Close from "./close";
@@ -23,17 +23,19 @@ import {
   Share,
   Bookmark,
   FavoriteBorder,
-  BookmarkBorder,
+  BookmarkBorder
 } from "@mui/icons-material";
 import { IconType } from "@/types/icon";
 import profile from "@/../public/images/profile-1.jpg";
 import ImageTag from "./image-tag";
+import PostActionsContainer from "./post-actions-container";
+import ShareDialog from "../../share-dialog";
 
 export default function Sidebar({ postId }: { postId: string }) {
   const [showLiked, setShowLiked] = useState(false);
   const [showBookmarked, setShowBookmarked] = useState(false);
   const project_idx = projects.data.findIndex(
-    (project) => project.id === Number(postId),
+    (project) => project.id === Number(postId)
   );
   const description = `Lorem Ipsum is simply dummy text of the printing and typesetting
     industry. Lorem Ipsum has been the industry's standard dummy text ever
@@ -53,7 +55,7 @@ export default function Sidebar({ postId }: { postId: string }) {
       <div
         className={cn(
           " space-y-3  md:overflow-y-auto scroller z-30 bg-darkAccent relative",
-          activeTab === "comment" ? "h-fit md:h-[calc(100%-60px)]" : "h-full",
+          activeTab === "comment" ? "h-fit md:h-[calc(100%-60px)]" : "h-full"
         )}
       >
         <Card className="rounded bg-card relative">
@@ -68,7 +70,7 @@ export default function Sidebar({ postId }: { postId: string }) {
               <div
                 className={cn(
                   "xl:text-sm text-xs h-9 w-9 bg-primary flex justify-center items-center shrink-0 rounded-full",
-                  false && "bg-transparent border",
+                  false && "bg-transparent border"
                 )}
               >
                 <PersonAdd fontSize="small" />
@@ -95,7 +97,9 @@ export default function Sidebar({ postId }: { postId: string }) {
               <PostActionsContainer Icon={CommentIcon} count={3} />
             </div>
             <div className="flex 2xl:gap-6 gap-3 items-center">
-              <PostActionsContainer Icon={Share} count={3} />
+              <ShareDialog link={"https://cgmeetup.com/12e8woieuo2n3e"}>
+                <PostActionsContainer Icon={Share} count={3} />
+              </ShareDialog>
               <PostActionsContainer
                 Icon={showBookmarked ? Bookmark : BookmarkBorder}
                 onClick={() => setShowBookmarked(!showBookmarked)}
@@ -108,7 +112,7 @@ export default function Sidebar({ postId }: { postId: string }) {
           <div className="grid grid-cols-2 w-full px-2 sticky top-0 z-20 bg-darkAccent border-b">
             <TabItem
               className={cn(
-                activeTab === "comment" ? " border-primary border-b-2 " : "",
+                activeTab === "comment" ? " border-primary border-b-2 " : ""
               )}
               onClick={() => setActiveTab("comment")}
             >
@@ -116,7 +120,7 @@ export default function Sidebar({ postId }: { postId: string }) {
             </TabItem>
             <TabItem
               className={cn(
-                activeTab === "creator" ? " border-primary border-b-2 " : "",
+                activeTab === "creator" ? " border-primary border-b-2 " : ""
               )}
               onClick={() => setActiveTab("creator")}
             >
@@ -126,7 +130,7 @@ export default function Sidebar({ postId }: { postId: string }) {
           <div
             className={cn(
               "py-3 px-[10px] md:h-auto mx-auto space-y-3",
-              activeTab === "comment" ? "overflow-y-auto scroller h-auto" : "",
+              activeTab === "comment" ? "overflow-y-auto scroller h-auto" : ""
             )}
           >
             {activeTab === "comment"
@@ -194,36 +198,11 @@ export default function Sidebar({ postId }: { postId: string }) {
       <div
         className={cn(
           "flex sticky bottom-0 justify-center items-center border-t border-border bg-card px-2",
-          activeTab === "comment" ? "h-[60px] z-50" : "hidden",
+          activeTab === "comment" ? "h-[60px] z-50" : "hidden"
         )}
       >
         <CommentInput />
       </div>
-    </div>
-  );
-}
-function PostActionsContainer({
-  count,
-  Icon,
-  className,
-  ...props
-}: {
-  Icon: IconType;
-  count?: number;
-} & HTMLProps<HTMLDivElement>) {
-  return (
-    <div className="flex justify-between items-center 2xl:gap-2 gap-1">
-      <div
-        className={cn(
-          `flex justify-center items-center bg-lightAccent h-8 w-8 
-                  2xl:h-9 2xl:w-9 rounded-full cursor-pointer`,
-          className,
-        )}
-        {...props}
-      >
-        <Icon className="2xl:h-[20px]" fontSize="small" />
-      </div>
-      {count && <span className="font-bold opacity-90">{count}</span>}
     </div>
   );
 }
@@ -237,7 +216,7 @@ function TabItem({
     <div
       className={cn(
         "flex justify-center items-center py-1 cursor-pointer bg-transparent",
-        className,
+        className
       )}
       {...props}
     >

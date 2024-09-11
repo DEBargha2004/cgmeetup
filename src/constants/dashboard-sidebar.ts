@@ -6,10 +6,11 @@ import {
   Newspaper,
   Notifications,
   Person,
+  School,
   Sell,
   Settings,
   Store,
-  Work,
+  Work
 } from "@mui/icons-material";
 import { SvgIconTypeMap } from "@mui/material";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
@@ -39,7 +40,7 @@ export const dashboardSidebar: SidebarItem[] = [
     label: "Dashboard",
     id: "dashboard",
     href: "/dashboard",
-    Icon: Dashboard,
+    Icon: Dashboard
   },
   {
     type: "link",
@@ -47,7 +48,7 @@ export const dashboardSidebar: SidebarItem[] = [
     id: "gallery",
     href: "/dashboard/gallery",
     Icon: Image,
-    catch_routes: ["/dashboard/gallery", "/dashboard/gallery/create"],
+    catch_routes: ["/dashboard/gallery", "/dashboard/gallery/create"]
   },
   {
     type: "link",
@@ -55,7 +56,7 @@ export const dashboardSidebar: SidebarItem[] = [
     id: "jobs",
     href: "/dashboard/jobs",
     Icon: Work,
-    catch_routes: ["/dashboard/jobs", "/dashboard/jobs/create"],
+    catch_routes: ["/dashboard/jobs", "/dashboard/jobs/create"]
   },
   {
     type: "link",
@@ -63,7 +64,7 @@ export const dashboardSidebar: SidebarItem[] = [
     id: "news",
     href: "/dashboard/news",
     Icon: Newspaper,
-    catch_routes: ["/dashboard/news", "/dashboard/news/create"],
+    catch_routes: ["/dashboard/news", "/dashboard/news/create"]
   },
   {
     type: "link",
@@ -71,9 +72,18 @@ export const dashboardSidebar: SidebarItem[] = [
     id: "marketplace",
     href: "/dashboard/marketplace",
     Icon: Store,
+    catch_routes: ["/dashboard/marketplace", "/dashboard/marketplace/create"]
   },
   {
-    type: "separator",
+    type: "link",
+    label: "Tutorials",
+    id: "tutorials",
+    href: "/dashboard/tutorials",
+    Icon: School,
+    catch_routes: ["/dashboard/tutorials", "/dashboard/tutorials/create"]
+  },
+  {
+    type: "separator"
   },
   {
     type: "link",
@@ -81,7 +91,7 @@ export const dashboardSidebar: SidebarItem[] = [
     href: "/dashboard/bookmarks",
     Icon: Bookmark,
     id: "bookmarks",
-    catch_routes: ["/dashboard/bookmarks"],
+    catch_routes: ["/dashboard/bookmarks"]
   },
   {
     type: "link",
@@ -89,7 +99,7 @@ export const dashboardSidebar: SidebarItem[] = [
     href: "/dashboard/notifications",
     Icon: Notifications,
     id: "notifications",
-    catch_routes: ["/dashboard/notifications"],
+    catch_routes: ["/dashboard/notifications"]
   },
   {
     type: "link",
@@ -100,11 +110,11 @@ export const dashboardSidebar: SidebarItem[] = [
     catch_routes: [
       "/dashboard/my-sales",
       "/dashboard/my-sales/monthly-summary",
-      "/dashboard/my-sales/payment-information",
-    ],
+      "/dashboard/my-sales/payment-information"
+    ]
   },
   {
-    type: "separator",
+    type: "separator"
   },
   {
     type: "link",
@@ -124,8 +134,8 @@ export const dashboardSidebar: SidebarItem[] = [
       "/dashboard/demoreel",
       "/dashboard/links",
       "/dashboard/skills",
-      "/dashboard/softwares",
-    ],
+      "/dashboard/softwares"
+    ]
   },
   {
     type: "link",
@@ -144,8 +154,8 @@ export const dashboardSidebar: SidebarItem[] = [
       "/dashboard/company/bio",
       "/dashboard/company/address",
       "/dashboard/company/recruiters",
-      "/dashboard/company/new",
-    ],
+      "/dashboard/company/new"
+    ]
   },
   {
     type: "link",
@@ -157,7 +167,7 @@ export const dashboardSidebar: SidebarItem[] = [
       "/dashboard/settings",
       "/dashboard/settings/notifications",
       "/dashboard/settings/blocking",
-      "/dashboard/settings/payment",
-    ],
-  },
+      "/dashboard/settings/payment"
+    ]
+  }
 ];
