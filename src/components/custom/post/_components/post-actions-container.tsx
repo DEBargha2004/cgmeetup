@@ -12,14 +12,14 @@ const PostActionsContainer = forwardRef<
   <div className="flex justify-between items-center 2xl:gap-2 gap-1" ref={ref}>
     <div
       className={cn(
-        `flex justify-center items-center bg-lightAccent h-7 w-7 
+        `flex justify-center items-center bg-lightAccent h-8 w-8 
       2xl:h-9 2xl:w-9 rounded-full cursor-pointer`,
         "sm:[&>svg]:w-5 sm:[&>svg]:h-5 [&>svg]:w-4 [&>svg]:h-4",
         className
       )}
       {...props}
     >
-      <Icon className="h-[20px] 2xl:scale-100 scale-[0.8]" />
+      <Icon className="2xl:h-[20px]" fontSize="small" />
     </div>
     {count && (
       <span className="font-bold opacity-90 xl:text-base text-xs">{count}</span>

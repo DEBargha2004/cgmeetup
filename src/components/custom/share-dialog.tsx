@@ -92,8 +92,14 @@ export default function ShareDialog({
               className="h-8 rounded-full text-xs"
               variant={isCopied ? "outline" : "default"}
               onClick={() => {
-                navigator.clipboard.writeText(link);
-                setIsCopied(true);
+                navigator.clipboard
+                  ?.writeText("link")
+                  .then(() => {
+                    setIsCopied(true);
+                  })
+                  .catch((e) => {
+                    setIsCopied(false);
+                  });
               }}
             >
               {isCopied ? "Copied" : "Copy"}
