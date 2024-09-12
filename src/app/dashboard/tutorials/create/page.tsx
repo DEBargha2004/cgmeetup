@@ -217,17 +217,28 @@ export default function TutorialPage() {
       (ch) => ch.id === chapterId
     );
 
+    console.log("Selected chapter index is", selectedChapterIndex);
+
     if (selectedChapterIndex === -1) return;
 
-    form.setValue(`tutorial.${selectedChapterIndex}.sections`, [
-      ...chapters[selectedChapterIndex].sections,
+    const tutorial = form.getValues(`tutorial`);
+    const chapter = tutorial[selectedChapterIndex];
+
+    if (!chapter) return;
+
+    console.log("Chapter is", chapter);
+
+    chapter.sections = [
+      ...chapter.sections,
       {
         id: lessionId,
         title: "",
         type,
         content: ""
       }
-    ]);
+    ];
+
+    form.setValue("tutorial", tutorial);
   };
 
   const handleDragEnd = (e: DropResult) => {
@@ -244,6 +255,8 @@ export default function TutorialPage() {
   };
 
   const onSubmit = (data: CourseSchemaType) => {};
+
+  console.log(form.watch("tutorial"));
 
   return (
     <>
@@ -389,54 +402,62 @@ export default function TutorialPage() {
                                             "bg-transparent flex flex-col gap-4 pb-0"
                                           )}
                                         >
-                                          <Droppable droppableId={chapter.id}>
-                                            {(provided) => (
-                                              <div
-                                                ref={provided.innerRef}
-                                                {...provided.droppableProps}
-                                              >
-                                                {chapter.sections.map(
-                                                  (section, index) => (
-                                                    <Draggable
-                                                      key={section.id}
-                                                      draggableId={section.id}
-                                                      index={index}
-                                                    >
-                                                      {(provided) => (
-                                                        <div
-                                                          ref={
-                                                            provided.innerRef
-                                                          }
-                                                          className="p-3 border-b"
-                                                          {...provided.draggableProps}
-                                                        >
-                                                          <Lesson
-                                                            form={form}
-                                                            lessonId={
-                                                              section.id
+                                          <DragDropContext
+                                            onDragEnd={(e) => {}}
+                                          >
+                                            <Droppable
+                                              droppableId={`droppable-${chapter.id}`}
+                                            >
+                                              {(provided) => (
+                                                <div
+                                                  ref={provided.innerRef}
+                                                  {...provided.droppableProps}
+                                                >
+                                                  {chapter.sections.map(
+                                                    (section, index) => (
+                                                      <Draggable
+                                                        key={section.id}
+                                                        draggableId={section.id}
+                                                        index={index}
+                                                      >
+                                                        {(provided) => (
+                                                          <div
+                                                            ref={
+                                                              provided.innerRef
                                                             }
-                                                            lessonIndex={index}
-                                                            chapterIndex={
-                                                              ch_index
-                                                            }
-                                                            dragHandler={
-                                                              <div
-                                                                {...provided.dragHandleProps}
-                                                                className="relative bottom-0.5"
-                                                              >
-                                                                <DragIndicator />
-                                                              </div>
-                                                            }
-                                                          />
-                                                        </div>
-                                                      )}
-                                                    </Draggable>
-                                                  )
-                                                )}
-                                                {provided.placeholder}
-                                              </div>
-                                            )}
-                                          </Droppable>
+                                                            className="p-3 border-b"
+                                                            {...provided.draggableProps}
+                                                          >
+                                                            <Lesson
+                                                              form={form}
+                                                              lessonId={
+                                                                section.id
+                                                              }
+                                                              lessonIndex={
+                                                                index
+                                                              }
+                                                              chapterIndex={
+                                                                ch_index
+                                                              }
+                                                              dragHandler={
+                                                                <div
+                                                                  {...provided.dragHandleProps}
+                                                                  className="relative bottom-0.5"
+                                                                >
+                                                                  <DragIndicator />
+                                                                </div>
+                                                              }
+                                                            />
+                                                          </div>
+                                                        )}
+                                                      </Draggable>
+                                                    )
+                                                  )}
+                                                  {provided.placeholder}
+                                                </div>
+                                              )}
+                                            </Droppable>
+                                          </DragDropContext>
 
                                           <div
                                             className={cn(

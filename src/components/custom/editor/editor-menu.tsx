@@ -107,41 +107,41 @@ export default function EditorMenuBar() {
     urlForm.reset({ url: "" });
   };
 
-  useEffect(() => {
-    if (!editor) return;
+  // useEffect(() => {
+  //   if (!editor) return;
 
-    if (imageUploader.acceptedFiles.length) {
-      const reader = new FileReader();
+  //   if (imageUploader.acceptedFiles.length) {
+  //     const reader = new FileReader();
 
-      reader.readAsDataURL(imageUploader.acceptedFiles[0]);
+  //     reader.readAsDataURL(imageUploader.acceptedFiles[0]);
 
-      reader.onloadend = () => {
-        editor
-          .chain()
-          .focus()
-          .setImage({ src: reader.result as string })
-          .run();
-      };
-    }
-  }, [editor, imageUploader.acceptedFiles]);
+  //     reader.onloadend = () => {
+  //       editor
+  //         .chain()
+  //         .focus()
+  //         .setImage({ src: reader.result as string })
+  //         .run();
+  //     };
+  //   }
+  // }, [editor, imageUploader.acceptedFiles]);
 
-  useEffect(() => {
-    if (!editor) return;
+  // useEffect(() => {
+  //   if (!editor) return;
 
-    if (videoUploader.acceptedFiles.length) {
-      const reader = new FileReader();
+  //   if (videoUploader.acceptedFiles.length) {
+  //     const reader = new FileReader();
 
-      reader.readAsDataURL(videoUploader.acceptedFiles[0]);
+  //     reader.readAsDataURL(videoUploader.acceptedFiles[0]);
 
-      reader.onloadend = () => {
-        editor
-          .chain()
-          .focus()
-          .setVideo({ src: reader.result as string })
-          .run();
-      };
-    }
-  }, [editor, videoUploader.acceptedFiles]);
+  //     reader.onloadend = () => {
+  //       editor
+  //         .chain()
+  //         .focus()
+  //         .setVideo({ src: reader.result as string })
+  //         .run();
+  //     };
+  //   }
+  // }, [editor, videoUploader.acceptedFiles]);
 
   if (!editor) return null;
 
@@ -150,20 +150,15 @@ export default function EditorMenuBar() {
       <>
         <DropdownMenu>
           <DropdownMenuTrigger className="w-1/6 min-w-[120px] bg-transparent">
-            <Button
-              variant={"light_ghost"}
-              className="w-full flex justify-between items-center border"
-              size={"icon"}
-              type="button"
-            >
-              <p className=" flex justify-start">
+            <div className="w-full flex justify-between items-center border p-2 rounded hover:bg-lightAccent transition-all">
+              <p className="text-sm flex justify-start">
                 {
                   textTypes.find((type) => type.level === currentTextType)
                     ?.label
                 }
               </p>
               <ArrowDropDown className="h-[14px]" />
-            </Button>
+            </div>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             {textTypes.slice(0, 1).map((type) => (
@@ -379,21 +374,6 @@ export default function EditorMenuBar() {
   );
 }
 
-const HeaderItemWrapper = forwardRef<
-  HTMLDivElement,
-  HTMLProps<HTMLDivElement> & {}
->(({ className, children, disabled, ...props }, ref) => (
-  <div
-    ref={ref}
-    {...props}
-    className={cn("p-2 hover:bg-lightAccent", className)}
-  >
-    {children}
-  </div>
-));
-
-HeaderItemWrapper.displayName = "HeaderItemWrapper";
-
 const textTypes: TextType[] = [
   {
     element: <p>Paragraph</p>,
@@ -432,23 +412,23 @@ const textTypes: TextType[] = [
   }
 ];
 
-const fontSizes = [
-  "Default",
-  8,
-  10,
-  12,
-  14,
-  16,
-  18,
-  20,
-  24,
-  30,
-  36,
-  48,
-  60,
-  72,
-  96
-];
+// const fontSizes = [
+//   "Default",
+//   8,
+//   10,
+//   12,
+//   14,
+//   16,
+//   18,
+//   20,
+//   24,
+//   30,
+//   36,
+//   48,
+//   60,
+//   72,
+//   96
+// ];
 
 const justifyTypes: { Icon: IconType; value: string }[] = [
   { Icon: FormatAlignLeft, value: "left" },

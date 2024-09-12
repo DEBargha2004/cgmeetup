@@ -19,52 +19,52 @@ import { VideoExtension } from "./extensions/video";
 import EditorMenuBar from "./editor-menu";
 import { useState } from "react";
 
-const CustomImageResizeExtension = ImageResizeExtension.extend({
-  addAttributes() {
-    return {
-      ...this.parent?.(),
-      style: {
-        default: "width:400px",
-        parseHTML: (element) => element.getAttribute("style"),
-        renderHTML: (attributes) => {
-          return {
-            style: `width:${attributes.style}px;`
-          };
-        }
-      },
-      class: {
-        default: "",
-        parseHTML: (element) => element.getAttribute("class"),
-        renderHTML: (attributes) => {
-          return {
-            class: attributes.class
-          };
-        }
-      }
-    };
-  }
-});
+// const CustomImageResizeExtension = ImageResizeExtension.extend({
+//   addAttributes() {
+//     return {
+//       ...this.parent?.(),
+//       style: {
+//         default: "width:400px",
+//         parseHTML: (element) => element.getAttribute("style"),
+//         renderHTML: (attributes) => {
+//           return {
+//             style: `width:${attributes.style}px;`
+//           };
+//         }
+//       },
+//       class: {
+//         default: "",
+//         parseHTML: (element) => element.getAttribute("class"),
+//         renderHTML: (attributes) => {
+//           return {
+//             class: attributes.class
+//           };
+//         }
+//       }
+//     };
+//   }
+// });
 
-const CustomYoutubeExtension = YoutubeExtension.extend({
-  addAttributes() {
-    return {
-      ...this.parent?.(),
-      class: {
-        default: "w-full",
-        parseHTML: (element) => element.getAttribute("class"),
-        renderHTML: (attributes) => {
-          return {
-            class: attributes.class
-          };
-        }
-      }
-    };
-  }
-});
+// const CustomYoutubeExtension = YoutubeExtension.extend({
+//   addAttributes() {
+//     return {
+//       ...this.parent?.(),
+//       class: {
+//         default: "w-full",
+//         parseHTML: (element) => element.getAttribute("class"),
+//         renderHTML: (attributes) => {
+//           return {
+//             class: attributes.class
+//           };
+//         }
+//       }
+//     };
+//   }
+// });
 
 const extensions = [
   StarterKit,
-  ImageExtension,
+  // ImageExtension,
   UnderlineExtension,
   SubScriptExtension,
   SuperScriptExtension,
@@ -77,13 +77,13 @@ const extensions = [
   OrderedListExtension,
   HighlightExtension.configure({
     multicolor: true
-  }),
-  CustomImageResizeExtension,
-  CustomYoutubeExtension.configure({
-    controls: false,
-    nocookie: true
-  }),
-  VideoExtension
+  })
+  // CustomImageResizeExtension,
+  // CustomYoutubeExtension.configure({
+  //   controls: false,
+  //   nocookie: true
+  // }),
+  // VideoExtension
 ];
 
 export default function RichTextEditor({
