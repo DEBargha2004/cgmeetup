@@ -22,8 +22,9 @@ import { useEffect, useRef, useState } from "react";
 import ChatInput from "../_components/chat-input";
 import { useRouter } from "next/navigation";
 import { useChatContext } from "../_components/chat-provider";
+import Message, { TMessage } from "../_components/message";
 
-const defaultmessages = [
+const defaultmessages: TMessage[] = [
   {
     id: 1,
     message: "Hello, how are you?",
@@ -99,15 +100,6 @@ const defaultmessages = [
     time: "2024-05-29T10:45:00Z",
     user_id: 1
   }
-];
-
-const attachments: (Omit<FieldType, "icon"> & {
-  Icon: IconType;
-})[] = [
-  { label: "Images", value: "gallery", Icon: PhotoLibrary },
-  { label: "Resume", value: "resume", Icon: InsertDriveFile },
-  { label: "Share Number", value: "contacts", Icon: Phone },
-  { label: "Demo Reel", value: "videos", Icon: SlowMotionVideo }
 ];
 
 export default function ChatPage() {
@@ -186,46 +178,11 @@ export default function ChatPage() {
           ref={messagesContainerRef}
         >
           {messages.map((message) => (
-            <div
-              className={cn(
-                "flex group relative",
-                message.user_id === 1 ? "justify-end " : "justify-start"
-              )}
+            <Message
               key={message.id}
-            >
-              <div
-                className={cn(
-                  "flex max-w-[60%] gap-6 items-center relative",
-                  message.user_id === 1
-                    ? "justify-end flex-row-reverse"
-                    : "justify-start"
-                )}
-              >
-                <div className={cn("w-fit")}>
-                  <div
-                    className={cn(
-                      "p-4 pb-1 rounded flex flex-col justify-between items-end",
-                      message.user_id === 1
-                        ? "bg-white text-black rounded-br-none "
-                        : "bg-primary rounded-tl-none"
-                    )}
-                  >
-                    <p>{message.message}</p>
-                    <p className="text-xs opacity-70">
-                      {format(message.time, "h:mm a")}
-                    </p>
-                  </div>
-                  <div
-                    className={cn(
-                      "group-hover:visible invisible absolute top-1/2 -translate-y-1/2  cursor-pointer",
-                      message.user_id == 1 ? "-left-10" : "-right-10"
-                    )}
-                  >
-                    <EmojiEmotions />
-                  </div>
-                </div>
-              </div>
-            </div>
+              message={message}
+              isUserMessage={message.user_id === 1}
+            />
           ))}
         </div>
         <ChatInput className="h-[10%] " />
