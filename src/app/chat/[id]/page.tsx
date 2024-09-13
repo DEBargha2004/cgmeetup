@@ -191,9 +191,9 @@ export default function ChatPage() {
       <div
         id="info"
         className={cn(
-          `shrink-0 xl:w-1/3 lg:w-1/2 h-full bg-lightAccent w-full duration-300 
-      overflow-y-auto scroller p-4 space-y-6
-     `,
+          "xl:w-1/3 lg:w-1/2 h-full w-full",
+          "bg-lightAccent  duration-300 p-4 space-y-6",
+          "shrink-0 overflow-y-auto scroller",
           showInfo ? "-translate-x-full lg:translate-x-0" : "translate-x-0"
         )}
       >
@@ -234,7 +234,7 @@ export default function ChatPage() {
               <span>Bookmark</span>
             </Button>
           </div>
-          <div className="space-y-2">
+          <div className="space-y-2 w-full">
             <h1 className="text-xl">About</h1>
             <p className="text-sm">
               Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -249,7 +249,7 @@ export default function ChatPage() {
               Lorem Ipsum
             </p>
           </div>
-          <div className="space-y-2">
+          <div className="space-y-2 w-full">
             <h1 className="text-xl">Portfolio</h1>
             <div className="grid grid-cols-3 gap-1">
               {Array.from({ length: 6 }, (_, i) => i).map((_, i) => (
