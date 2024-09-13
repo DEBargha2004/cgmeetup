@@ -174,7 +174,7 @@ export default function ChatPage() {
         </div>
         <div
           id="messages"
-          className="h-[82%] w-full  overflow-y-auto scroller space-y-2 p-2"
+          className="h-[82%] w-full overflow-y-auto scroller space-y-2 p-2"
           ref={messagesContainerRef}
         >
           {messages.map((message) => (

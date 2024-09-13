@@ -39,14 +39,15 @@ export default function Message({
           <MessagePointer
             className="shrink-0"
             user={isUserMessage}
-            width={10}
+            width={15}
+            // height={15}
           />
           <div
             className={cn(
-              "p-4 pb-1  flex flex-col justify-between items-end",
+              "p-4 pb-1 flex flex-col justify-between items-end w-full relative",
               isUserMessage
-                ? "bg-white text-black rounded-lg rounded-tr-none"
-                : "bg-primary rounded-lg rounded-tl-none"
+                ? "bg-white text-black rounded-lg rounded-tr-none left-1"
+                : "bg-primary rounded-lg rounded-tl-none right-1"
             )}
           >
             <p>{message.message}</p>
