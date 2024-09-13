@@ -36,7 +36,11 @@ export default function Message({
             isUserMessage && "flex-row-reverse"
           )}
         >
-          <MessagePointer className="" user={isUserMessage} width={10} />
+          <MessagePointer
+            className="shrink-0"
+            user={isUserMessage}
+            width={10}
+          />
           <div
             className={cn(
               "p-4 pb-1  flex flex-col justify-between items-end",

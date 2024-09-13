@@ -89,7 +89,7 @@ const defaultmessages: TMessage[] = [
   {
     id: 11,
     message:
-      "No problem, let me know if you need anything else. No problem, let me know if you need anything else. No problem, let me know if you need anything else.",
+      "anything else.No problem, let me know if you need anything else. No problem, let me know if you need anything else. No problem, let me know if you need anything else.",
     time: "2024-05-29T10:45:00Z",
     user_id: 3
   },
