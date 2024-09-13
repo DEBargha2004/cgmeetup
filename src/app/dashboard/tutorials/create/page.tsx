@@ -89,6 +89,8 @@ const languages: string[] = [
   "Portuguese"
 ];
 
+const sample = [1, 2, 4, 5, 6];
+
 export default function TutorialPage() {
   const form = useForm<CourseSchemaType>({
     resolver: zodResolver(courseSchema),
@@ -319,185 +321,118 @@ export default function TutorialPage() {
                       )}
                     />
                     <>
-                      <DragDropContext onDragEnd={handleDragEnd}>
-                        <Droppable droppableId="chapters" type="chapters">
-                          {(provided) => (
-                            <Accordion
-                              type="multiple"
-                              className="col-span-2 "
-                              ref={provided.innerRef}
-                              {...provided.droppableProps}
+                      <Accordion type="multiple" className="col-span-2 ">
+                        {form.watch("tutorial").map((chapter, ch_index) => (
+                          <AccordionItem
+                            value={chapter.id}
+                            key={chapter.id}
+                            className="hover:bg-card border mb-3 transition-none"
+                            draggable
+                          >
+                            <AccordionTrigger className="px-3 hover:no-underline bg-lightAccent hover:bg-lightAccent gap-2">
+                              {chaptersMeta[chapter.id]?.save ? (
+                                <div className="flex justify-start items-center gap-3">
+                                  <DragIndicator />
+                                  <h1 className="text-white text-lg font-semibold line-clamp-1">
+                                    {chapter.title}
+                                  </h1>
+                                </div>
+                              ) : (
+                                <div className="flex justify-between items-center w-full">
+                                  <Input
+                                    className="max-w-[350px]"
+                                    onClick={(e) => e.stopPropagation()}
+                                    onChange={(e) =>
+                                      handleChapterTitleChange(
+                                        chapter.id,
+                                        e.target.value
+                                      )
+                                    }
+                                    value={chaptersMeta[chapter.id]?.title}
+                                  />{" "}
+                                  <div className="flex items-center gap-4">
+                                    <Button
+                                      className="h-8"
+                                      type="button"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        saveChapter(chapter.id);
+                                      }}
+                                    >
+                                      Save
+                                    </Button>
+                                    <Button
+                                      variant={"destructive"}
+                                      className="h-8"
+                                      type="button"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        removeChapter(chapter.id);
+                                      }}
+                                    >
+                                      Cancel
+                                    </Button>
+                                  </div>
+                                </div>
+                              )}
+                            </AccordionTrigger>
+                            <AccordionContent
+                              disableAnimation
+                              className={cn(
+                                "bg-transparent flex flex-col gap-4 pb-0"
+                              )}
                             >
-                              {form
-                                .watch("tutorial")
-                                .map((chapter, ch_index) => (
-                                  <Draggable
-                                    key={chapter.id}
-                                    draggableId={chapter.id}
-                                    index={ch_index}
+                              <div>
+                                {chapter.sections.map((section, index) => (
+                                  <div
+                                    className="p-3 border-b"
+                                    key={section.id}
                                   >
-                                    {(provided) => (
-                                      <AccordionItem
-                                        value={chapter.id}
-                                        className="hover:bg-card border mb-3 transition-none"
-                                        ref={provided.innerRef}
-                                        {...provided.draggableProps}
-                                        {...provided.dragHandleProps}
-                                      >
-                                        <AccordionTrigger className="px-3 hover:no-underline bg-lightAccent hover:bg-lightAccent gap-2">
-                                          {chaptersMeta[chapter.id]?.save ? (
-                                            <div className="flex justify-start items-center gap-3">
-                                              <DragIndicator />
-                                              <h1 className="text-white text-lg font-semibold line-clamp-1">
-                                                {chapter.title}
-                                              </h1>
-                                            </div>
-                                          ) : (
-                                            <div className="flex justify-between items-center w-full">
-                                              <Input
-                                                className="max-w-[350px]"
-                                                onClick={(e) =>
-                                                  e.stopPropagation()
-                                                }
-                                                onChange={(e) =>
-                                                  handleChapterTitleChange(
-                                                    chapter.id,
-                                                    e.target.value
-                                                  )
-                                                }
-                                                value={
-                                                  chaptersMeta[chapter.id]
-                                                    ?.title
-                                                }
-                                              />{" "}
-                                              <div className="flex items-center gap-4">
-                                                <Button
-                                                  className="h-8"
-                                                  type="button"
-                                                  onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    saveChapter(chapter.id);
-                                                  }}
-                                                >
-                                                  Save
-                                                </Button>
-                                                <Button
-                                                  variant={"destructive"}
-                                                  className="h-8"
-                                                  type="button"
-                                                  onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    removeChapter(chapter.id);
-                                                  }}
-                                                >
-                                                  Cancel
-                                                </Button>
-                                              </div>
-                                            </div>
-                                          )}
-                                        </AccordionTrigger>
-                                        <AccordionContent
-                                          disableAnimation
-                                          className={cn(
-                                            "bg-transparent flex flex-col gap-4 pb-0"
-                                          )}
-                                        >
-                                          <DragDropContext
-                                            onDragEnd={(e) => {}}
-                                          >
-                                            <Droppable
-                                              droppableId={`droppable-${chapter.id}`}
-                                            >
-                                              {(provided) => (
-                                                <div
-                                                  ref={provided.innerRef}
-                                                  {...provided.droppableProps}
-                                                >
-                                                  {chapter.sections.map(
-                                                    (section, index) => (
-                                                      <Draggable
-                                                        key={section.id}
-                                                        draggableId={section.id}
-                                                        index={index}
-                                                      >
-                                                        {(provided) => (
-                                                          <div
-                                                            ref={
-                                                              provided.innerRef
-                                                            }
-                                                            className="p-3 border-b"
-                                                            {...provided.draggableProps}
-                                                          >
-                                                            <Lesson
-                                                              form={form}
-                                                              lessonId={
-                                                                section.id
-                                                              }
-                                                              lessonIndex={
-                                                                index
-                                                              }
-                                                              chapterIndex={
-                                                                ch_index
-                                                              }
-                                                              dragHandler={
-                                                                <div
-                                                                  {...provided.dragHandleProps}
-                                                                  className="relative bottom-0.5"
-                                                                >
-                                                                  <DragIndicator />
-                                                                </div>
-                                                              }
-                                                            />
-                                                          </div>
-                                                        )}
-                                                      </Draggable>
-                                                    )
-                                                  )}
-                                                  {provided.placeholder}
-                                                </div>
-                                              )}
-                                            </Droppable>
-                                          </DragDropContext>
-
-                                          <div
-                                            className={cn(
-                                              "py-10 bg-darkAccent",
-                                              "flex justify-center items-center gap-2"
-                                            )}
-                                          >
-                                            <LessionCreateButton
-                                              Icon={Title}
-                                              label="Text"
-                                              onClick={() =>
-                                                createLession(
-                                                  chapter.id,
-                                                  "text"
-                                                )
-                                              }
-                                            />
-                                            <LessionCreateButton
-                                              Icon={ImageOutlined}
-                                              label="Image"
-                                            />
-                                            <LessionCreateButton
-                                              Icon={PlayCircleOutline}
-                                              label="Video"
-                                            />
-                                            <LessionCreateButton
-                                              Icon={AddLinkOutlined}
-                                              label="Video Url"
-                                            />
-                                          </div>
-                                        </AccordionContent>
-                                      </AccordionItem>
-                                    )}
-                                  </Draggable>
+                                    <Lesson
+                                      form={form}
+                                      lessonId={section.id}
+                                      lessonIndex={index}
+                                      chapterIndex={ch_index}
+                                      dragHandler={
+                                        <div className="relative bottom-0.5">
+                                          <DragIndicator />
+                                        </div>
+                                      }
+                                    />
+                                  </div>
                                 ))}
-                              {provided.placeholder}
-                            </Accordion>
-                          )}
-                        </Droppable>
-                      </DragDropContext>
+                              </div>
+
+                              <div
+                                className={cn(
+                                  "py-10 bg-darkAccent",
+                                  "flex justify-center items-center gap-2"
+                                )}
+                              >
+                                <LessionCreateButton
+                                  Icon={Title}
+                                  label="Text"
+                                  onClick={() =>
+                                    createLession(chapter.id, "text")
+                                  }
+                                />
+                                <LessionCreateButton
+                                  Icon={ImageOutlined}
+                                  label="Image"
+                                />
+                                <LessionCreateButton
+                                  Icon={PlayCircleOutline}
+                                  label="Video"
+                                />
+                                <LessionCreateButton
+                                  Icon={AddLinkOutlined}
+                                  label="Video Url"
+                                />
+                              </div>
+                            </AccordionContent>
+                          </AccordionItem>
+                        ))}
+                      </Accordion>
 
                       <div className="grid place-content-center col-span-2">
                         <Button
