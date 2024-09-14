@@ -65,10 +65,10 @@ export default function ShareDialog({
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent
-        className="bg-card p-4"
+        className="bg-card p-8 block"
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
-        <div className="space-y-6 overflow-hidden">
+        <div className="space-y-6 ">
           <p className="text-lg">Share</p>
           <Carousel>
             <CarouselContent className="bg-card">
@@ -78,8 +78,18 @@ export default function ShareDialog({
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselNext className="right-0" />
-            <CarouselPrevious className="left-0" />
+            <CarouselNext
+              className="-right-6 top-8"
+              appearanceHandler={(canScroll) =>
+                canScroll ? "block" : "hidden"
+              }
+            />
+            <CarouselPrevious
+              className="-left-6 top-8"
+              appearanceHandler={(canScroll) =>
+                canScroll ? "block" : "hidden"
+              }
+            />
           </Carousel>
           <div
             className={cn(
