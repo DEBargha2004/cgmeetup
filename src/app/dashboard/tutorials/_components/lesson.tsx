@@ -46,11 +46,11 @@ export default function Lesson({
         />
       </div>
       <div>
-        {form.watch(`tutorial.${chapterIndex}.sections.${lessonIndex}.type`) ===
+        {form.watch(`chapters.${chapterIndex}.sections.${lessonIndex}.type`) ===
           "text" && (
           <FormField
             control={form.control}
-            name={`tutorial.${lessonIndex}.sections.${chapterIndex}.content`}
+            name={`chapters.${chapterIndex}.sections.${lessonIndex}.content`}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Content</FormLabel>

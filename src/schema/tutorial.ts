@@ -5,12 +5,12 @@ const SectionType = z.enum(["text", "video"]);
 
 const tutorialSchema = z.array(
   z.object({
-    id: z.string(),
     title: z.string({ required_error: "Title is required" }),
     img: z.string({ required_error: "Image is required" }),
+    saved: z.boolean(),
     sections: z.array(
       z.object({
-        id: z.string(),
+        lesson_id: z.string(),
         title: z.string({ required_error: "Title is required" }),
         type: SectionType,
         content: z.string({ required_error: "Content is required" })
@@ -34,7 +34,7 @@ export const courseSchema = z.object({
   isFree: z.boolean(),
   hasAdultContent: z.boolean(),
   tags: z.array(z.string()).min(1, "Tags are required"),
-  tutorial: tutorialSchema
+  chapters: tutorialSchema
 });
 
 export type TutorialSchemaType = z.infer<typeof tutorialSchema>;

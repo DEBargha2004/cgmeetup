@@ -44,7 +44,7 @@ import {
   AddLinkOutlined
 } from "@mui/icons-material";
 import { v4 as uuidv4 } from "uuid";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ProductCreateSchemaType } from "@/schema/product-create";
 import {
@@ -69,13 +69,7 @@ import { courseSchema, CourseSchemaType, SectionType } from "@/schema/tutorial";
 import { categories } from "@/constants/job-categories";
 import { job_skills } from "@/constants/job-skills";
 import PrefixInput from "@/components/custom/prefix-input";
-import _, { forIn } from "lodash";
-import {
-  DragDropContext,
-  Draggable,
-  Droppable,
-  DropResult
-} from "@hello-pangea/dnd";
+import _ from "lodash";
 import LessionCreateButton from "../_components/lession-create-button";
 import Lesson from "../_components/lesson";
 
@@ -96,7 +90,7 @@ export default function TutorialPage() {
     resolver: zodResolver(courseSchema),
     defaultValues: {
       visibility: visibilityOptions[0],
-      tutorial: [],
+      chapters: [],
       isFree: false,
       hasAdultContent: false,
       skills: [],
@@ -105,16 +99,19 @@ export default function TutorialPage() {
     }
   });
 
+  const chapters = useFieldArray({
+    control: form.control,
+    name: "chapters"
+  });
+
+  const chaptersState = form.watch("chapters");
+
   const [thumbnail, setThumbnail] = useState<{
     id: string;
     url: string;
     type: string;
     crop: boolean;
   } | null>();
-
-  const [chaptersMeta, setChaptersMeta] = useState<
-    Record<string, { title: string; save: boolean }>
-  >({});
 
   const thumbnailDropzone = useDropzone({
     multiple: false,
@@ -163,102 +160,107 @@ export default function TutorialPage() {
     }
   };
 
+  //done
   const addChapter = () => {
-    const courseId = uuidv4();
-
-    form.setValue("tutorial", [
-      ...(form.getValues("tutorial") || []),
-      { id: courseId, title: "", sections: [], img: "" }
-    ]);
-
-    setChaptersMeta((prev) => ({
-      ...prev,
-      [courseId.toString()]: { title: "", save: false }
-    }));
-  };
-
-  const removeChapter = (id: string) => {
-    const courses = form.getValues("tutorial");
-    const chapterIdx = courses.findIndex((c) => c.id === id);
-    courses.splice(chapterIdx, 1);
-
-    form.setValue("tutorial", courses);
-
-    setChaptersMeta((cmeta) => {
-      let cmeta_clone = _.cloneDeep(cmeta);
-      delete cmeta_clone[id];
-      return cmeta_clone;
+    chapters.append({
+      sections: [],
+      img: "",
+      title: "",
+      saved: false
     });
   };
 
-  const handleChapterTitleChange = (id: string, title: string) => {
-    setChaptersMeta((prev) => ({ ...prev, [id]: { title, save: false } }));
+  //done
+  const removeChapter = (chapterIndex: number) => {
+    chapters.remove(chapterIndex);
   };
 
-  const saveChapter = (id: string) => {
-    setChaptersMeta((prev) => ({
-      ...prev,
-      [id]: { title: prev[id].title, save: true }
-    }));
+  //done
+  const saveChapter = (chapterIndex: number) => {
+    const chapter = chaptersState[chapterIndex];
 
-    const chapters = [...form.getValues("tutorial")];
-    const chapterIdx = chapters.findIndex((c) => c.id === id);
-
-    chapters[chapterIdx] = {
-      ...chapters[chapterIdx],
-      title: chaptersMeta[id].title
-    };
-    form.setValue("tutorial", chapters);
+    chapters.update(chapterIndex, {
+      ...chapter,
+      saved: true
+    });
   };
 
+  //done
   const createLession = (chapterId: string, type: SectionType) => {
     const lessionId = uuidv4();
 
-    const chapters = form.getValues(`tutorial`);
-    const selectedChapterIndex = chapters.findIndex(
-      (ch) => ch.id === chapterId
-    );
+    const chapterIndex = chapters.fields.findIndex((ch) => ch.id === chapterId);
 
-    console.log("Selected chapter index is", selectedChapterIndex);
+    if (chapterIndex === -1) return;
 
-    if (selectedChapterIndex === -1) return;
+    const chapter = chapters.fields[chapterIndex];
+    console.log(chapter);
 
-    const tutorial = form.getValues(`tutorial`);
-    const chapter = tutorial[selectedChapterIndex];
-
-    if (!chapter) return;
-
-    console.log("Chapter is", chapter);
-
-    chapter.sections = [
-      ...chapter.sections,
-      {
-        id: lessionId,
-        title: "",
-        type,
-        content: ""
-      }
-    ];
-
-    form.setValue("tutorial", tutorial);
+    chapters.update(chapterIndex, {
+      ...chapter,
+      sections: [
+        ...chapter.sections,
+        {
+          lesson_id: lessionId,
+          title: "",
+          type,
+          content: ""
+        }
+      ]
+    });
   };
 
-  const handleDragEnd = (e: DropResult) => {
-    const { source, destination } = e;
-    if (!destination) return;
+  const handleLessonDragEnd = (
+    sourceChapterIndex: number,
+    destinationChapterIndex: number,
+    sourceLessionIndex: number,
+    destinationLessionIndex: number
+  ) => {
+    if (destinationLessionIndex === -1) return;
+    if (
+      sourceLessionIndex === destinationLessionIndex &&
+      sourceChapterIndex === destinationChapterIndex
+    )
+      return;
 
-    if (source.index === destination.index) return;
+    console.log(
+      sourceChapterIndex,
+      destinationChapterIndex,
+      sourceLessionIndex,
+      destinationLessionIndex
+    );
 
-    const courses = form.getValues("tutorial");
-    const [reorderedItem] = courses.splice(source.index, 1);
-    courses.splice(destination.index, 0, reorderedItem);
+    const [sourceLesson] = form
+      .getValues(`chapters.${sourceChapterIndex}.sections`)
+      ?.splice(sourceLessionIndex, 1);
 
-    form.setValue("tutorial", courses);
+    const destinationLessonChapter = form.getValues(
+      `chapters.${destinationChapterIndex}.sections`
+    );
+
+    destinationLessonChapter?.splice(destinationLessionIndex, 0, sourceLesson);
+
+    form.setValue(
+      `chapters.${destinationChapterIndex}.sections`,
+      destinationLessonChapter
+    );
+  };
+
+  //done
+  const handleChapterDragEnd = (
+    sourceIndex: number,
+    destinationIndex: number
+  ) => {
+    if (destinationIndex === -1) return;
+
+    if (sourceIndex === destinationIndex) return;
+
+    chapters.swap(sourceIndex, destinationIndex);
   };
 
   const onSubmit = (data: CourseSchemaType) => {};
 
-  console.log(form.watch("tutorial"));
+  console.log({ chaptersState, fields: chapters.fields });
 
   return (
     <>
@@ -320,89 +322,127 @@ export default function TutorialPage() {
                         </FormItem>
                       )}
                     />
-                    <>
-                      <Accordion type="multiple" className="col-span-2 ">
-                        {form.watch("tutorial").map((chapter, ch_index) => (
-                          <AccordionItem
-                            value={chapter.id}
-                            key={chapter.id}
-                            className="hover:bg-card border mb-3 transition-none"
-                            draggable
-                          >
-                            <AccordionTrigger className="px-3 hover:no-underline bg-lightAccent hover:bg-lightAccent gap-2">
-                              {chaptersMeta[chapter.id]?.save ? (
-                                <div className="flex justify-start items-center gap-3">
-                                  <DragIndicator />
-                                  <h1 className="text-white text-lg font-semibold line-clamp-1">
-                                    {chapter.title}
-                                  </h1>
-                                </div>
-                              ) : (
-                                <div className="flex justify-between items-center w-full">
-                                  <Input
-                                    className="max-w-[350px]"
-                                    onClick={(e) => e.stopPropagation()}
-                                    onChange={(e) =>
-                                      handleChapterTitleChange(
-                                        chapter.id,
-                                        e.target.value
-                                      )
-                                    }
-                                    value={chaptersMeta[chapter.id]?.title}
-                                  />{" "}
-                                  <div className="flex items-center gap-4">
-                                    <Button
-                                      className="h-8"
-                                      type="button"
-                                      onClick={(e) => {
-                                        e.stopPropagation();
-                                        saveChapter(chapter.id);
-                                      }}
-                                    >
-                                      Save
-                                    </Button>
-                                    <Button
-                                      variant={"destructive"}
-                                      className="h-8"
-                                      type="button"
-                                      onClick={(e) => {
-                                        e.stopPropagation();
-                                        removeChapter(chapter.id);
-                                      }}
-                                    >
-                                      Cancel
-                                    </Button>
-                                  </div>
-                                </div>
-                              )}
-                            </AccordionTrigger>
-                            <AccordionContent
-                              disableAnimation
-                              className={cn(
-                                "bg-transparent flex flex-col gap-4 pb-0"
-                              )}
-                            >
-                              <div>
-                                {chapter.sections.map((section, index) => (
-                                  <div
-                                    className="p-3 border-b"
-                                    key={section.id}
-                                  >
-                                    <Lesson
-                                      form={form}
-                                      lessonId={section.id}
-                                      lessonIndex={index}
-                                      chapterIndex={ch_index}
-                                      dragHandler={
-                                        <div className="relative bottom-0.5">
-                                          <DragIndicator />
-                                        </div>
-                                      }
-                                    />
-                                  </div>
-                                ))}
-                              </div>
 
+                    <Accordion type="multiple" className="col-span-2">
+                      {chapters.fields.map((chapter, ch_index) => (
+                        <AccordionItem
+                          value={chapter.id}
+                          key={chapter.id}
+                          className="hover:bg-card border mb-3 transition-none"
+                          draggable
+                          onDragStart={(e) => {
+                            e.dataTransfer.setData(
+                              "text/plain",
+                              JSON.stringify(ch_index)
+                            );
+                          }}
+                          onDrop={(e) => {
+                            e.preventDefault();
+                            const droppedChapterIndex =
+                              e.dataTransfer.getData("text/plain");
+                            handleChapterDragEnd(
+                              Number(droppedChapterIndex),
+                              ch_index
+                            );
+                          }}
+                        >
+                          <AccordionTrigger className="px-3 hover:no-underline bg-lightAccent hover:bg-lightAccent gap-2">
+                            {chapter.saved ? (
+                              <div className="flex justify-start items-center gap-3">
+                                <DragIndicator />
+                                <h1 className="text-white text-lg font-semibold line-clamp-1">
+                                  {chapter.title}
+                                </h1>
+                              </div>
+                            ) : (
+                              <div className="flex justify-between items-center w-full">
+                                <Input
+                                  className="max-w-[350px]"
+                                  onClick={(e) => e.stopPropagation()}
+                                  {...form.register(
+                                    `chapters.${ch_index}.title`
+                                  )}
+                                />
+
+                                <div className="flex items-center gap-4">
+                                  <Button
+                                    className="h-8"
+                                    type="button"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      saveChapter(ch_index);
+                                    }}
+                                  >
+                                    Save
+                                  </Button>
+                                  <Button
+                                    variant={"destructive"}
+                                    className="h-8"
+                                    type="button"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      removeChapter(ch_index);
+                                    }}
+                                  >
+                                    Cancel
+                                  </Button>
+                                </div>
+                              </div>
+                            )}
+                          </AccordionTrigger>
+                          <AccordionContent
+                            disableAnimation
+                            className={cn(
+                              "bg-transparent flex flex-col gap-4 pb-0"
+                            )}
+                          >
+                            <div>
+                              {chapter.sections.map((section, index) => (
+                                <div
+                                  className="p-3 border-b"
+                                  key={section.lesson_id}
+                                  draggable
+                                  onDragStart={(e) => {
+                                    e.stopPropagation();
+                                    e.dataTransfer.setData(
+                                      "text/plain",
+                                      JSON.stringify({
+                                        chapterIndex: ch_index,
+                                        lessonIndex: index
+                                      })
+                                    );
+                                  }}
+                                  onDrop={(e) => {
+                                    // e.preventDefault();
+                                    e.stopPropagation();
+                                    const data = JSON.parse(
+                                      e.dataTransfer.getData("text/plain")
+                                    );
+                                    console.log(data);
+                                    handleLessonDragEnd(
+                                      Number(data.chapterIndex),
+                                      ch_index,
+                                      Number(data.lessonIndex),
+                                      index
+                                    );
+                                  }}
+                                >
+                                  <Lesson
+                                    form={form}
+                                    lessonId={section.lesson_id}
+                                    lessonIndex={index}
+                                    chapterIndex={ch_index}
+                                    dragHandler={
+                                      <div className="relative bottom-0.5">
+                                        <DragIndicator />
+                                      </div>
+                                    }
+                                  />
+                                </div>
+                              ))}
+                            </div>
+
+                            {chapter.saved ? (
                               <div
                                 className={cn(
                                   "py-10 bg-darkAccent",
@@ -412,9 +452,10 @@ export default function TutorialPage() {
                                 <LessionCreateButton
                                   Icon={Title}
                                   label="Text"
-                                  onClick={() =>
-                                    createLession(chapter.id, "text")
-                                  }
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    createLession(chapter.id, "text");
+                                  }}
                                 />
                                 <LessionCreateButton
                                   Icon={ImageOutlined}
@@ -429,23 +470,24 @@ export default function TutorialPage() {
                                   label="Video Url"
                                 />
                               </div>
-                            </AccordionContent>
-                          </AccordionItem>
-                        ))}
-                      </Accordion>
+                            ) : null}
+                          </AccordionContent>
+                        </AccordionItem>
+                      ))}
+                    </Accordion>
 
-                      <div className="grid place-content-center col-span-2">
-                        <Button
-                          variant={"success"}
-                          className="min-w-24 space-x-3"
-                          type="button"
-                          onClick={addChapter}
-                        >
-                          <Add />
-                          <span>Add Chapter</span>
-                        </Button>
-                      </div>
-                    </>
+                    <div className="grid place-content-center col-span-2">
+                      <Button
+                        variant={"success"}
+                        className="min-w-24 space-x-3"
+                        type="button"
+                        onClick={addChapter}
+                      >
+                        <Add />
+                        <span>Add Chapter</span>
+                      </Button>
+                    </div>
+
                     <FormField
                       control={form.control}
                       name="description"
