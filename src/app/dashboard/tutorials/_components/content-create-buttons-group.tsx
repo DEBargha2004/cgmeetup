@@ -1,5 +1,5 @@
 import { useState } from "react";
-import LessionCreateButton from "./lession-create-button";
+import LessionCreateButton from "./content-create-button";
 import {
   AddLinkOutlined,
   ImageOutlined,
@@ -17,48 +17,50 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
+  ContentType,
   CourseSchemaType,
-  LessonsSchemaType,
-  LessonType
+  LessonContentSchemaType,
+  LessonsSchemaType
 } from "@/schema/tutorial";
 import { v4 } from "uuid";
 import { cn } from "@/lib/utils";
 import { useFieldArray } from "react-hook-form";
 import { useDropzone } from "react-dropzone";
 
-export default function LessonCreateButtonsGroup({
+export default function ContentCreateButtonsGroup({
   lessons,
-  chapterId
+  lessonId
 }: {
   lessons: ReturnType<typeof useFieldArray<CourseSchemaType, "lessons", "id">>;
-  chapterId: string;
+  lessonId: string;
 }) {
   const [tempInput, setTempInput] = useState("");
   const [dialogState, setDialogState] = useState({
     videoUrl: false
   });
 
-  const generateNewLessonInstance = (
-    chapterId: string,
-    type: LessonType,
+  const generateNewLessonContentInstance = (
+    type: ContentType,
     content?: string
-  ): LessonsSchemaType[number] => {
+  ): LessonContentSchemaType => {
     return {
-      chapter_id: chapterId,
-      lesson_id: v4(),
-      title: "",
       type,
-      content: content || "",
-      saved: false
+      content_id: v4(),
+      content: content || ""
     };
   };
 
-  const createLesson = (
-    chapterId: string,
-    type: LessonType,
-    content?: string
-  ) => {
-    lessons.append(generateNewLessonInstance(chapterId, type, content));
+  const addContent = (type: ContentType, content?: string) => {
+    const lessonIndex = lessons.fields.findIndex(
+      (l) => l.lesson_id === lessonId
+    );
+    lessons.update(lessonIndex, {
+      ...lessons.fields[lessonIndex],
+      contents: [
+        ...lessons.fields[lessonIndex].contents,
+        generateNewLessonContentInstance(type, content)
+      ]
+    });
   };
 
   const imageDropzone = useDropzone({
@@ -71,7 +73,7 @@ export default function LessonCreateButtonsGroup({
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = () => {
-          createLesson(chapterId, "image", reader.result as string);
+          addContent("image", reader.result as string);
         };
       });
     }
@@ -87,7 +89,7 @@ export default function LessonCreateButtonsGroup({
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = () => {
-          createLesson(chapterId, "video", reader.result as string);
+          addContent("video", reader.result as string);
         };
       });
     }
@@ -95,7 +97,7 @@ export default function LessonCreateButtonsGroup({
   return (
     <div
       className={cn(
-        "py-10 bg-darkAccent",
+        "py-10 bg-darkAccent overflow-hidden rounded",
         "flex justify-center items-center gap-2"
       )}
     >
@@ -104,7 +106,7 @@ export default function LessonCreateButtonsGroup({
         label="Text"
         onClick={(e) => {
           e.stopPropagation();
-          createLesson(chapterId, "text");
+          addContent("text");
         }}
       />
       <input type="file" {...imageDropzone.getInputProps()} />
@@ -152,7 +154,7 @@ export default function LessonCreateButtonsGroup({
                 className="h-8"
                 onClick={(e) => {
                   e.stopPropagation();
-                  createLesson(chapterId, "iframe", tempInput);
+                  addContent("iframe", tempInput);
                   setTempInput("");
                   setDialogState((prev) => ({
                     ...prev,

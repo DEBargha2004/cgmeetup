@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { IconType } from "@/types/icon";
 import { forwardRef } from "react";
 
-const LessionCreateButton = forwardRef<
+const ContentCreateButton = forwardRef<
   HTMLButtonElement,
   ButtonProps & { Icon: IconType; label: string }
 >(({ className, Icon, label, ...props }, ref) => (
@@ -19,6 +19,6 @@ const LessionCreateButton = forwardRef<
   </Button>
 ));
 
-LessionCreateButton.displayName = "LessionCreateButton";
+ContentCreateButton.displayName = "ContentCreateButton";
 
-export default LessionCreateButton;
+export default ContentCreateButton;

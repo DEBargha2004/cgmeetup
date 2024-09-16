@@ -1,6 +1,12 @@
 import { RichTextEditor } from "@/components/custom/editor";
 import { Button } from "@/components/ui/button";
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu";
+import {
   FormControl,
   FormField,
   FormItem,
@@ -10,8 +16,10 @@ import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { generateVideoEmbedUrl } from "@/functions/url-format";
 import { CourseSchemaType } from "@/schema/tutorial";
+import { MoreVert } from "@mui/icons-material";
 import Image from "next/image";
 import { useFieldArray, useForm } from "react-hook-form";
+import Content from "./content";
 
 export default function Lesson({
   form,
@@ -38,8 +46,13 @@ export default function Lesson({
     lessons.remove(lessonIndex);
   };
 
+  const editLesson = () => {
+    const lessonData = form.getValues(`lessons.${lessonIndex}`);
+    lessons.update(lessonIndex, { ...lessonData, saved: false });
+  };
+
   return (
-    <section className=" space-y-4">
+    <section className="space-y-4">
       <div className="flex justify-between items-center">
         {lesson.saved ? (
           <>
@@ -47,9 +60,9 @@ export default function Lesson({
               {dragHandler}
               <span>{lesson.title}</span>
             </p>
-            <FormField
+            {/* <FormField
               control={form.control}
-              name="isFree"
+              name={`lessons.${lessonIndex}.is_free`}
               render={({ field }) => (
                 <FormItem className="flex justify-start items-center gap-4">
                   <FormLabel>Free Lesson</FormLabel>
@@ -61,7 +74,23 @@ export default function Lesson({
                   </FormControl>
                 </FormItem>
               )}
-            />
+            /> */}
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <Button
+                  variant={"ghost"}
+                  className="h-8 w-8 rounded-full hover:bg-card/70"
+                >
+                  <MoreVert />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={editLesson}>Edit</DropdownMenuItem>
+                <DropdownMenuItem onClick={deleteLesson}>
+                  Delete
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </>
         ) : (
           <div className="flex justify-between items-center w-full">
@@ -87,49 +116,17 @@ export default function Lesson({
           </div>
         )}
       </div>
-      <div className="outline outline-lightAccent rounded overflow-hidden">
-        {form.watch(`lessons.${lessonIndex}.type`) === "text" && (
-          <FormField
-            control={form.control}
-            name={`lessons.${lessonIndex}.content`}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Content</FormLabel>
-                <FormControl>
-                  <RichTextEditor
-                    content={field.value}
-                    onUpdate={field.onChange}
-                    editorWrapperClassName="border"
-                  />
-                </FormControl>
-              </FormItem>
-            )}
+      <div className="outline outline-lightAccent rounded overflow-hidden p-2 space-y-2">
+        {lesson.contents.map((content, index) => (
+          <Content
+            key={content.content_id}
+            content={content}
+            form={form}
+            index={index}
+            lessonIndex={lessonIndex}
+            lessons={lessons}
           />
-        )}
-        {form.watch(`lessons.${lessonIndex}.type`) === "iframe" && (
-          <iframe
-            src={generateVideoEmbedUrl(
-              form.watch(`lessons.${lessonIndex}.content`)
-            )}
-            className="w-full aspect-video "
-          />
-        )}
-        {form.watch(`lessons.${lessonIndex}.type`) === "image" && (
-          <Image
-            src={form.watch(`lessons.${lessonIndex}.content`)}
-            height={300}
-            width={300}
-            className="w-full aspect-video object-contain "
-            alt="course-image"
-          />
-        )}
-        {form.watch(`lessons.${lessonIndex}.type`) === "video" && (
-          <video
-            controls
-            src={form.watch(`lessons.${lessonIndex}.content`)}
-            title={form.watch(`lessons.${lessonIndex}.title`)}
-          />
-        )}
+        ))}
       </div>
     </section>
   );

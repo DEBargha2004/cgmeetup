@@ -70,7 +70,7 @@ import { categories } from "@/constants/job-categories";
 import { job_skills } from "@/constants/job-skills";
 import PrefixInput from "@/components/custom/prefix-input";
 import _ from "lodash";
-import LessionCreateButton from "../_components/lession-create-button";
+import LessionCreateButton from "../_components/content-create-button";
 import Lesson from "../_components/lesson";
 import Curriculum from "../_components/curriculum";
 

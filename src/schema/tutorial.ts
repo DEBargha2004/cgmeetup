@@ -1,7 +1,7 @@
 import { sub } from "date-fns";
 import * as z from "zod";
 
-const LessonType = z.enum(["text", "video", "iframe", "image"]);
+const ContentType = z.enum(["text", "video", "iframe", "image"]);
 
 const chaptersSchema = z.array(
   z.object({
@@ -12,14 +12,20 @@ const chaptersSchema = z.array(
   })
 );
 
+const lessonContentSchema = z.object({
+  type: ContentType,
+  content_id: z.string(),
+  content: z.string()
+});
+
 const lessonsSchema = z.array(
   z.object({
     chapter_id: z.string(),
     lesson_id: z.string(),
     title: z.string({ required_error: "Title is required" }),
-    type: LessonType,
-    content: z.string({ required_error: "Content is required" }),
-    saved: z.boolean()
+    saved: z.boolean(),
+    is_free: z.boolean(),
+    contents: z.array(lessonContentSchema)
   })
 );
 
@@ -45,4 +51,5 @@ export const courseSchema = z.object({
 export type ChaptersSchemaType = z.infer<typeof chaptersSchema>;
 export type CourseSchemaType = z.infer<typeof courseSchema>;
 export type LessonsSchemaType = z.infer<typeof lessonsSchema>;
-export type LessonType = z.infer<typeof LessonType>;
+export type ContentType = z.infer<typeof ContentType>;
+export type LessonContentSchemaType = z.infer<typeof lessonContentSchema>;
