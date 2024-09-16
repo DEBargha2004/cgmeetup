@@ -26,18 +26,18 @@ import { v4 } from "uuid";
 import { cn } from "@/lib/utils";
 import { useFieldArray } from "react-hook-form";
 import { useDropzone } from "react-dropzone";
+import { useCurriculum } from "./curriculum-context";
 
 export default function ContentCreateButtonsGroup({
-  lessons,
   lessonId
 }: {
-  lessons: ReturnType<typeof useFieldArray<CourseSchemaType, "lessons", "id">>;
   lessonId: string;
 }) {
   const [tempInput, setTempInput] = useState("");
   const [dialogState, setDialogState] = useState({
     videoUrl: false
   });
+  const { lessons } = useCurriculum();
 
   const generateNewLessonContentInstance = (
     type: ContentType,

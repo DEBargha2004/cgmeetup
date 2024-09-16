@@ -1,18 +1,16 @@
 import { CourseSchemaType, LessonsSchemaType } from "@/schema/tutorial";
 import { useFieldArray } from "react-hook-form";
 import { v4 } from "uuid";
+import { useCurriculum } from "./curriculum-context";
 
 export default function LessonCreateButton({
-  lessonsFieldArray,
   chapterId,
   children
 }: {
-  lessonsFieldArray: ReturnType<
-    typeof useFieldArray<CourseSchemaType, "lessons", "id">
-  >;
   chapterId: string;
   children?: React.ReactNode;
 }) {
+  const { lessons } = useCurriculum();
   const generateNewLessonInstance = (
     chapterId: string
   ): LessonsSchemaType[number] => {
@@ -27,7 +25,7 @@ export default function LessonCreateButton({
   };
 
   const createLesson = (chapterId: string) => {
-    lessonsFieldArray.append(generateNewLessonInstance(chapterId));
+    lessons.append(generateNewLessonInstance(chapterId));
   };
 
   return <div onClick={() => createLesson(chapterId)}>{children}</div>;

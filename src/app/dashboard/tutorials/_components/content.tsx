@@ -13,9 +13,11 @@ import {
   FormLabel
 } from "@/components/ui/form";
 import { generateVideoEmbedUrl } from "@/functions/url-format";
+import { cn } from "@/lib/utils";
 import { CourseSchemaType, LessonContentSchemaType } from "@/schema/tutorial";
 import { MoreVert } from "@mui/icons-material";
 import Image from "next/image";
+import { HTMLProps } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 
 export default function Content({
@@ -23,8 +25,10 @@ export default function Content({
   form,
   index,
   lessonIndex,
-  lessons
-}: {
+  lessons,
+  className,
+  ...props
+}: Omit<HTMLProps<HTMLDivElement>, "content" | "form"> & {
   form: ReturnType<typeof useForm<CourseSchemaType>>;
   content: LessonContentSchemaType;
   index: number;
@@ -40,7 +44,7 @@ export default function Content({
     });
   };
   return (
-    <div className="space-y-2">
+    <div className={cn("space-y-2", className)} {...props}>
       <div className="flex justify-between items-center">
         <p>Content</p>
         <DropdownMenu>
@@ -48,7 +52,7 @@ export default function Content({
             <Button
               type="button"
               variant={"ghost"}
-              className="h-9 w-9 rounded-full hover:bg-card/70"
+              className="h-8 w-8 rounded-full hover:bg-card/70"
             >
               <MoreVert />
             </Button>

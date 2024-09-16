@@ -20,20 +20,19 @@ import { MoreVert } from "@mui/icons-material";
 import Image from "next/image";
 import { useFieldArray, useForm } from "react-hook-form";
 import Content from "./content";
+import { HTMLProps } from "react";
+import { useCurriculum } from "./curriculum-context";
 
 export default function Lesson({
-  form,
   lessonId,
   chapterIndex,
-  dragHandler,
-  lessons
-}: {
-  form: ReturnType<typeof useForm<CourseSchemaType>>;
+  dragHandler
+}: HTMLProps<HTMLDivElement> & {
   lessonId: string;
   chapterIndex: number;
   dragHandler?: React.ReactNode;
-  lessons: ReturnType<typeof useFieldArray<CourseSchemaType, "lessons", "id">>;
 }) {
+  const { form, lessons } = useCurriculum();
   const lessonIndex = lessons.fields.findIndex((l) => l.lesson_id === lessonId);
   const lesson = lessons.fields[lessonIndex];
 
@@ -52,8 +51,8 @@ export default function Lesson({
   };
 
   return (
-    <section className="space-y-4">
-      <div className="flex justify-between items-center">
+    <section className="divide-y-2">
+      <div className="flex justify-between items-center p-3">
         {lesson.saved ? (
           <>
             <p className="text-base flex justify-start items-center gap-2">
@@ -110,24 +109,24 @@ export default function Lesson({
                 type="button"
                 onClick={deleteLesson}
               >
-                Cancel
+                Delete
               </Button>
             </div>
           </div>
         )}
       </div>
-      <div className="outline outline-lightAccent rounded overflow-hidden p-2 space-y-2">
-        {lesson.contents.map((content, index) => (
-          <Content
-            key={content.content_id}
-            content={content}
-            form={form}
-            index={index}
-            lessonIndex={lessonIndex}
-            lessons={lessons}
-          />
-        ))}
-      </div>
+
+      {lesson.contents.map((content, index) => (
+        <Content
+          key={content.content_id}
+          content={content}
+          form={form}
+          index={index}
+          lessonIndex={lessonIndex}
+          lessons={lessons}
+          className="p-3"
+        />
+      ))}
     </section>
   );
 }

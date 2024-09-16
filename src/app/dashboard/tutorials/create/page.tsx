@@ -73,6 +73,7 @@ import _ from "lodash";
 import LessionCreateButton from "../_components/content-create-button";
 import Lesson from "../_components/lesson";
 import Curriculum from "../_components/curriculum";
+import { CurriculumContext } from "../_components/curriculum-context";
 
 const visibilityOptions: string[] = ["Public", "Private"];
 const languages: string[] = [
@@ -237,23 +238,23 @@ export default function TutorialPage() {
                       )}
                     />
 
-                    <Curriculum
-                      form={form}
-                      chapters={chapters}
-                      lessons={lessons}
-                    />
+                    <CurriculumContext.Provider
+                      value={{ form, chapters, lessons }}
+                    >
+                      <Curriculum />
 
-                    <div className="grid place-content-center col-span-2">
-                      <Button
-                        variant={"success"}
-                        className="min-w-24 space-x-3"
-                        type="button"
-                        onClick={addChapter}
-                      >
-                        <Add />
-                        <span>Add Chapter</span>
-                      </Button>
-                    </div>
+                      <div className="grid place-content-center col-span-2">
+                        <Button
+                          variant={"success"}
+                          className="min-w-24 space-x-3"
+                          type="button"
+                          onClick={addChapter}
+                        >
+                          <Add />
+                          <span>Add Section</span>
+                        </Button>
+                      </div>
+                    </CurriculumContext.Provider>
 
                     <FormField
                       control={form.control}

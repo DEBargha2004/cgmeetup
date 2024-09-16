@@ -28,34 +28,22 @@ import {
 import LessonCreateButton from "./lesson-create-button";
 import ContentCreateButtonsGroup from "./content-create-buttons-group";
 import { v4 } from "uuid";
+import { useCurriculum } from "./curriculum-context";
 
-export default function Curriculum({
-  form,
-  chapters,
-  lessons
-}: {
-  form: ReturnType<typeof useForm<CourseSchemaType>>;
-  chapters: ReturnType<
-    typeof useFieldArray<CourseSchemaType, "chapters", "id">
-  >;
-  lessons: ReturnType<typeof useFieldArray<CourseSchemaType, "lessons", "id">>;
-}) {
+export default function Curriculum() {
+  const currentDraggingChapterId = React.useRef<string | null>(null);
+  const currentDraggingLessonId = React.useRef<string | null>(null);
+  const { chapters, form, lessons } = useCurriculum();
+
   const getOriginalLessonIndex = (lessonId: string) => {
     return lessons.fields.findIndex((l) => l.lesson_id === lessonId);
   };
 
   const handleLessonDragStart =
-    (sourceLessonId: string, sourceChapterId: string) =>
-    (e: React.DragEvent<HTMLDivElement>) => {
+    (sourceLessonId: string) => (e: React.DragEvent<HTMLDivElement>) => {
       e.stopPropagation();
 
-      e.dataTransfer.setData(
-        "application/json",
-        JSON.stringify({
-          lessonId: sourceLessonId,
-          chapterId: sourceChapterId
-        })
-      );
+      currentDraggingLessonId.current = sourceLessonId;
     };
 
   const handleLessonDrop =
@@ -63,9 +51,11 @@ export default function Curriculum({
     (e: React.DragEvent<HTMLDivElement>) => {
       e.stopPropagation();
 
-      const { lessonId, chapterId } = JSON.parse(
-        e.dataTransfer.getData("application/json")
-      );
+      if (!currentDraggingLessonId.current) return;
+      const lessonId = currentDraggingLessonId.current;
+
+      const chapterId = lessons.fields.find((l) => l.lesson_id === lessonId)
+        ?.chapter_id as string;
 
       if (
         lessonId === destinationLessonId &&
@@ -128,109 +118,141 @@ export default function Curriculum({
     });
   };
 
-  console.log(lessons.fields);
+  const onChapterDragStart =
+    (chapterId: string) => (e: React.DragEvent<HTMLDivElement>) => {
+      e.dataTransfer.setData("text/plain", "");
+
+      currentDraggingChapterId.current = chapterId;
+    };
+
+  const onChapterDrop =
+    (chapterId: string) => (e: React.DragEvent<HTMLDivElement>) => {
+      if (!currentDraggingChapterId.current) return;
+      if (currentDraggingChapterId.current === chapterId) return;
+
+      const originalSourceChapterIndex = chapters.fields.findIndex(
+        (chapter) => chapter.chapter_id === currentDraggingChapterId.current
+      );
+
+      const originalDestinationChapterIndex = chapters.fields.findIndex(
+        (chapter) => chapter.chapter_id === chapterId
+      );
+
+      chapters.swap(
+        originalSourceChapterIndex,
+        originalDestinationChapterIndex
+      );
+      currentDraggingChapterId.current = null;
+    };
 
   return (
-    <div className="space-y-2 col-span-2">
+    <div className="space-y-4 col-span-2">
       {chapters.fields.map((chapter, ch_index) => (
         <React.Fragment key={chapter.id}>
-          <section className="border rounded bg-lightAccent divide-y-2">
-            <div className="p-2 pl-3">
-              {chapter.saved ? (
-                <div className="flex justify-between items-center">
-                  <h1 className="text-lg">{chapter.title}</h1>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger>
-                      <Button
-                        type="button"
-                        variant={"ghost"}
-                        className="h-9 w-9 rounded-full hover:bg-card/70"
-                      >
-                        <MoreVert />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuItem onClick={editChapter(ch_index)}>
-                        Edit
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={removeChapter(ch_index)}>
-                        Delete
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
-              ) : (
-                <div className="flex justify-between items-center w-full">
-                  <Input
-                    className="max-w-[350px]"
-                    onClick={(e) => e.stopPropagation()}
-                    {...form.register(`chapters.${ch_index}.title`)}
-                  />
-
-                  <div className="flex items-center gap-4">
-                    <Button
-                      className="h-8"
-                      type="button"
-                      onClick={saveChapter(ch_index)}
-                    >
-                      Save
-                    </Button>
-                    <Button
-                      variant={"destructive"}
-                      className="h-8"
-                      type="button"
-                      onClick={removeChapter(ch_index)}
-                    >
-                      Cancel
-                    </Button>
-                  </div>
-                </div>
-              )}
+          <section
+            className={cn(
+              "border rounded bg-lightAccent",
+              "flex justify-start items-start"
+            )}
+            draggable
+            onDragStart={onChapterDragStart(chapter.chapter_id)}
+            onDrop={onChapterDrop(chapter.chapter_id)}
+          >
+            <div className="px-2 py-5 border-r self-stretch cursor-grab active:cursor-grabbing bg-card/60">
+              <DragIndicator />
             </div>
-            {getLessonsByChapterId(chapter.chapter_id).map((lesson, index) => (
-              <div
-                className="p-3 border-b"
-                key={lesson.lesson_id}
-                draggable
-                onDragStart={handleLessonDragStart(
-                  lesson.lesson_id,
-                  lesson.chapter_id
-                )}
-                onDrop={handleLessonDrop(lesson.lesson_id, lesson.chapter_id)}
-              >
-                <Lesson
-                  form={form}
-                  lessonId={lesson.lesson_id}
-                  lessons={lessons}
-                  chapterIndex={ch_index}
-                  dragHandler={
-                    <div className="relative bottom-0.5">
-                      <DragIndicator />
+            <div className="w-full divide-y-2">
+              <div className="p-2 pl-3">
+                {chapter.saved ? (
+                  <div className="flex justify-between items-center">
+                    <h1 className="text-lg">{chapter.title}</h1>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger>
+                        <Button
+                          type="button"
+                          variant={"ghost"}
+                          className="h-9 w-9 rounded-full hover:bg-card/70"
+                        >
+                          <MoreVert />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuItem onClick={editChapter(ch_index)}>
+                          Edit
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={removeChapter(ch_index)}>
+                          Delete
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+                ) : (
+                  <div className="flex justify-between items-center w-full">
+                    <Input
+                      className="max-w-[350px]"
+                      onClick={(e) => e.stopPropagation()}
+                      {...form.register(`chapters.${ch_index}.title`)}
+                    />
+
+                    <div className="flex items-center gap-4">
+                      <Button
+                        className="h-8"
+                        type="button"
+                        onClick={saveChapter(ch_index)}
+                      >
+                        Save
+                      </Button>
+                      <Button
+                        variant={"destructive"}
+                        className="h-8"
+                        type="button"
+                        onClick={removeChapter(ch_index)}
+                      >
+                        Cancel
+                      </Button>
                     </div>
-                  }
-                />
-                <div className="p-2">
-                  <ContentCreateButtonsGroup
-                    lessonId={lesson.lesson_id}
-                    lessons={lessons}
-                  />
-                </div>
+                  </div>
+                )}
               </div>
-            ))}
-            <div className="p-2">
-              <LessonCreateButton
-                lessonsFieldArray={lessons}
-                chapterId={chapter.chapter_id}
-              >
-                <Button
-                  type="button"
-                  variant={"light_ghost"}
-                  className="space-x-2 bg-transparent hover:bg-card/70"
-                >
-                  <Add />
-                  <span>Add Lesson</span>
-                </Button>
-              </LessonCreateButton>
+              {getLessonsByChapterId(chapter.chapter_id).map(
+                (lesson, index) => (
+                  <div
+                    className="border-b"
+                    key={lesson.lesson_id}
+                    draggable
+                    onDragStart={handleLessonDragStart(lesson.lesson_id)}
+                    onDrop={handleLessonDrop(
+                      lesson.lesson_id,
+                      lesson.chapter_id
+                    )}
+                  >
+                    <Lesson
+                      lessonId={lesson.lesson_id}
+                      chapterIndex={ch_index}
+                      dragHandler={
+                        <div className="relative bottom-0.5 cursor-grab active:cursor-grabbing">
+                          <DragIndicator />
+                        </div>
+                      }
+                    />
+                    <div className="p-2">
+                      <ContentCreateButtonsGroup lessonId={lesson.lesson_id} />
+                    </div>
+                  </div>
+                )
+              )}
+              <div className="p-2">
+                <LessonCreateButton chapterId={chapter.chapter_id}>
+                  <Button
+                    type="button"
+                    variant={"light_ghost"}
+                    className="space-x-2 bg-transparent hover:bg-card/70"
+                  >
+                    <Add />
+                    <span>Add Lesson</span>
+                  </Button>
+                </LessonCreateButton>
+              </div>
             </div>
           </section>
           {chapters.fields.length - 1 !== ch_index && (
@@ -247,108 +269,4 @@ export default function Curriculum({
       ))}
     </div>
   );
-}
-
-{
-  /* <Accordion type="multiple" className="col-span-2 space-y-3">
-      {chapters.fields.map((chapter, ch_index) => (
-        <React.Fragment key={chapter.id}>
-          <AccordionItem
-            value={chapter.id}
-            className="hover:bg-card border mb-3 transition-none"
-          >
-            <AccordionTrigger className="px-3 hover:no-underline bg-lightAccent hover:bg-lightAccent gap-2">
-              {chapter.saved ? (
-                <h1 className="text-white text-lg font-semibold line-clamp-1">
-                  {chapter.title}
-                </h1>
-              ) : (
-                <div className="flex justify-between items-center w-full">
-                  <Input
-                    className="max-w-[350px]"
-                    onClick={(e) => e.stopPropagation()}
-                    {...form.register(`chapters.${ch_index}.title`)}
-                  />
-
-                  <div className="flex items-center gap-4">
-                    <Button
-                      className="h-8"
-                      type="button"
-                      onClick={saveChapter(ch_index)}
-                    >
-                      Save
-                    </Button>
-                    <Button
-                      variant={"destructive"}
-                      className="h-8"
-                      type="button"
-                      onClick={removeChapter(ch_index)}
-                    >
-                      Cancel
-                    </Button>
-                  </div>
-                </div>
-              )}
-            </AccordionTrigger>
-            <AccordionContent
-              disableAnimation
-              className={cn("bg-transparent flex flex-col gap-4 pb-0")}
-            >
-              <div>
-                {getLessonsByChapterId(chapter.chapter_id).map(
-                  (lesson, index) => (
-                    <div
-                      className="p-3 border-b"
-                      key={lesson.lesson_id}
-                      draggable
-                      onDragStart={handleLessonDragStart(
-                        lesson.lesson_id,
-                        lesson.chapter_id
-                      )}
-                      onDrop={handleLessonDrop(
-                        lesson.lesson_id,
-                        lesson.chapter_id
-                      )}
-                    >
-                      <Lesson
-                        form={form}
-                        lessonId={lesson.lesson_id}
-                        lessons={lessons}
-                        chapterIndex={ch_index}
-                        dragHandler={
-                          <div className="relative bottom-0.5">
-                            <DragIndicator />
-                          </div>
-                        }
-                      />
-                    </div>
-                  )
-                )}
-              </div>
-
-              {chapter.saved ? (
-                <LessonCreateButtonsGroup
-                  chapterId={chapter.chapter_id}
-                  lessons={lessons}
-                />
-              ) : null}
-            </AccordionContent>
-          </AccordionItem>
-          {chapters.fields.length - 1 !== ch_index && (
-            <div
-              className={cn(
-                "w-full opacity-0 hover:opacity-100",
-                "grid place-content-center cursor-pointer relative"
-              )}
-            >
-              <Separator className="absolute top-1/2 left-0 w-full" />
-              <div className="flex justify-center items-center gap-2 z-30">
-                <AddCircleOutline />
-                <span>Add Chapter</span>
-              </div>
-            </div>
-          )}
-        </React.Fragment>
-      ))}
-</Accordion> */
 }
