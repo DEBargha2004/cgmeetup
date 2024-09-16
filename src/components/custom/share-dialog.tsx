@@ -79,13 +79,13 @@ export default function ShareDialog({
               ))}
             </CarouselContent>
             <CarouselNext
-              className="-right-6 top-8"
+              className="-right-7 top-8"
               appearanceHandler={(canScroll) =>
                 canScroll ? "block" : "hidden"
               }
             />
             <CarouselPrevious
-              className="-left-6 top-8"
+              className="-left-7 top-8"
               appearanceHandler={(canScroll) =>
                 canScroll ? "block" : "hidden"
               }

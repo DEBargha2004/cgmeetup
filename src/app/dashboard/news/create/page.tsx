@@ -126,6 +126,9 @@ export default function Dashboard() {
     })[]
   >([]);
   const [videoUrl, setVideoUrl] = useState("");
+  const [dialogState, setDialogState] = useState({
+    videoUrl: false
+  });
 
   const thumbnailDropzone = useDropzone();
   const mainFeedDropzone = useDropzone({
@@ -377,17 +380,10 @@ export default function Dashboard() {
                       />
 
                       <Dialog
-                        onOpenChange={(e) => {
-                          if (!e) {
-                            generateEditorComponentInstance({
-                              type: "video",
-                              data: {
-                                url: videoUrl,
-                                title: ""
-                              }
-                            });
-                          }
-                        }}
+                        open={dialogState.videoUrl}
+                        onOpenChange={(e) =>
+                          setDialogState((prev) => ({ ...prev, videoUrl: e }))
+                        }
                       >
                         <DialogTrigger asChild>
                           <EditorOption
@@ -421,7 +417,25 @@ export default function Dashboard() {
                           </div>
                           <DialogFooter className="p-4 pt-0">
                             <DialogClose>
-                              <Button className="h-8">Save</Button>
+                              <Button
+                                className="h-8"
+                                onClick={() => {
+                                  generateEditorComponentInstance({
+                                    type: "video",
+                                    data: {
+                                      url: videoUrl,
+                                      title: ""
+                                    }
+                                  });
+                                  setVideoUrl("");
+                                  setDialogState((prev) => ({
+                                    ...prev,
+                                    videoUrl: false
+                                  }));
+                                }}
+                              >
+                                Save
+                              </Button>
                             </DialogClose>
                           </DialogFooter>
                         </DialogContent>

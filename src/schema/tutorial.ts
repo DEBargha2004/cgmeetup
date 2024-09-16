@@ -1,21 +1,25 @@
 import { sub } from "date-fns";
 import * as z from "zod";
 
-const SectionType = z.enum(["text", "video"]);
+const LessonType = z.enum(["text", "video", "iframe", "image"]);
 
-const tutorialSchema = z.array(
+const chaptersSchema = z.array(
   z.object({
+    chapter_id: z.string(),
     title: z.string({ required_error: "Title is required" }),
     img: z.string({ required_error: "Image is required" }),
-    saved: z.boolean(),
-    sections: z.array(
-      z.object({
-        lesson_id: z.string(),
-        title: z.string({ required_error: "Title is required" }),
-        type: SectionType,
-        content: z.string({ required_error: "Content is required" })
-      })
-    )
+    saved: z.boolean()
+  })
+);
+
+const lessonsSchema = z.array(
+  z.object({
+    chapter_id: z.string(),
+    lesson_id: z.string(),
+    title: z.string({ required_error: "Title is required" }),
+    type: LessonType,
+    content: z.string({ required_error: "Content is required" }),
+    saved: z.boolean()
   })
 );
 
@@ -34,9 +38,11 @@ export const courseSchema = z.object({
   isFree: z.boolean(),
   hasAdultContent: z.boolean(),
   tags: z.array(z.string()).min(1, "Tags are required"),
-  chapters: tutorialSchema
+  chapters: chaptersSchema,
+  lessons: lessonsSchema
 });
 
-export type TutorialSchemaType = z.infer<typeof tutorialSchema>;
+export type ChaptersSchemaType = z.infer<typeof chaptersSchema>;
 export type CourseSchemaType = z.infer<typeof courseSchema>;
-export type SectionType = z.infer<typeof SectionType>;
+export type LessonsSchemaType = z.infer<typeof lessonsSchema>;
+export type LessonType = z.infer<typeof LessonType>;
