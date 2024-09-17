@@ -242,19 +242,18 @@ export default function TutorialPage() {
                       value={{ form, chapters, lessons }}
                     >
                       <Curriculum />
-
-                      <div className="grid place-content-center col-span-2">
-                        <Button
-                          variant={"success"}
-                          className="min-w-24 space-x-3"
-                          type="button"
-                          onClick={addChapter}
-                        >
-                          <Add />
-                          <span>Add Section</span>
-                        </Button>
-                      </div>
                     </CurriculumContext.Provider>
+                    <div className="grid place-content-center col-span-2">
+                      <Button
+                        variant={"success"}
+                        className="min-w-24 space-x-3"
+                        type="button"
+                        onClick={addChapter}
+                      >
+                        <Add />
+                        <span>Add Section</span>
+                      </Button>
+                    </div>
 
                     <FormField
                       control={form.control}

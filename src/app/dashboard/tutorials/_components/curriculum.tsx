@@ -5,7 +5,7 @@ import {
   MoreVert
 } from "@mui/icons-material";
 import { cn } from "@/lib/utils";
-import Lesson from "./lesson";
+import Lesson, { Lessons } from "./lesson";
 import {
   Accordion,
   AccordionContent,
@@ -35,54 +35,6 @@ export default function Curriculum() {
   const currentDraggingLessonId = React.useRef<string | null>(null);
   const { chapters, form, lessons } = useCurriculum();
 
-  const getOriginalLessonIndex = (lessonId: string) => {
-    return lessons.fields.findIndex((l) => l.lesson_id === lessonId);
-  };
-
-  const handleLessonDragStart =
-    (sourceLessonId: string) => (e: React.DragEvent<HTMLDivElement>) => {
-      e.stopPropagation();
-
-      currentDraggingLessonId.current = sourceLessonId;
-    };
-
-  const handleLessonDrop =
-    (destinationLessonId: string, destinationChapterId: string) =>
-    (e: React.DragEvent<HTMLDivElement>) => {
-      e.stopPropagation();
-
-      if (!currentDraggingLessonId.current) return;
-      const lessonId = currentDraggingLessonId.current;
-
-      const chapterId = lessons.fields.find((l) => l.lesson_id === lessonId)
-        ?.chapter_id as string;
-
-      if (
-        lessonId === destinationLessonId &&
-        chapterId === destinationChapterId
-      )
-        return;
-
-      const originalSourceLessonIndex = getOriginalLessonIndex(lessonId);
-
-      const originalDestinationLessonIndex =
-        getOriginalLessonIndex(destinationLessonId);
-
-      if (destinationChapterId !== chapterId) {
-        lessons.update(originalSourceLessonIndex, {
-          ...lessons.fields[originalSourceLessonIndex],
-          chapter_id: destinationChapterId
-        });
-
-        lessons.update(originalDestinationLessonIndex, {
-          ...lessons.fields[originalDestinationLessonIndex],
-          chapter_id: chapterId
-        });
-      }
-
-      lessons.swap(originalSourceLessonIndex, originalDestinationLessonIndex);
-    };
-
   const saveChapter =
     (chapterIndex: number) => (e: React.MouseEvent<HTMLButtonElement>) => {
       e.stopPropagation();
@@ -103,10 +55,6 @@ export default function Curriculum() {
       ...chapters.fields[chapterIndex],
       saved: false
     });
-  };
-
-  const getLessonsByChapterId = (chapterId: string) => {
-    return lessons.fields.filter((lesson) => lesson.chapter_id === chapterId);
   };
 
   const addChapter = (index: number) => {
@@ -214,33 +162,7 @@ export default function Curriculum() {
                   </div>
                 )}
               </div>
-              {getLessonsByChapterId(chapter.chapter_id).map(
-                (lesson, index) => (
-                  <div
-                    className="border-b"
-                    key={lesson.lesson_id}
-                    draggable
-                    onDragStart={handleLessonDragStart(lesson.lesson_id)}
-                    onDrop={handleLessonDrop(
-                      lesson.lesson_id,
-                      lesson.chapter_id
-                    )}
-                  >
-                    <Lesson
-                      lessonId={lesson.lesson_id}
-                      chapterIndex={ch_index}
-                      dragHandler={
-                        <div className="relative bottom-0.5 cursor-grab active:cursor-grabbing">
-                          <DragIndicator />
-                        </div>
-                      }
-                    />
-                    <div className="p-2">
-                      <ContentCreateButtonsGroup lessonId={lesson.lesson_id} />
-                    </div>
-                  </div>
-                )
-              )}
+              <Lessons chapterId={chapter.chapter_id} />
               <div className="p-2">
                 <LessonCreateButton chapterId={chapter.chapter_id}>
                   <Button
