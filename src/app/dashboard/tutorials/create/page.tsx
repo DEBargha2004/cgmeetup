@@ -243,16 +243,16 @@ export default function TutorialPage() {
                     >
                       <Curriculum />
                     </CurriculumContext.Provider>
-                    <div className="grid place-content-center col-span-2">
-                      <Button
-                        variant={"success"}
-                        className="min-w-24 space-x-3"
-                        type="button"
-                        onClick={addChapter}
-                      >
-                        <Add />
-                        <span>Add Section</span>
-                      </Button>
+                    <div
+                      className={cn(
+                        "col-span-2 p-3 flex justify-start items-center gap-2",
+                        "border-2 rounded-sm ",
+                        "cursor-pointer hover:bg-lightAccent"
+                      )}
+                      onClick={addChapter}
+                    >
+                      <Add />
+                      <span>Add Section</span>
                     </div>
 
                     <FormField

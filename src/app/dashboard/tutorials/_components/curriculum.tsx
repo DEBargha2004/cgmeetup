@@ -183,7 +183,7 @@ export default function Curriculum() {
               onClick={() => addChapter(ch_index + 1)}
             >
               <Add fontSize="small" className="mr-2" />
-              <span className="whitespace-nowrap mr-2">Add Chapter</span>
+              <span className="whitespace-nowrap mr-2">Add Section</span>
               <Separator className="w-full shrink" />
             </div>
           )}

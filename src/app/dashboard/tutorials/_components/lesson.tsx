@@ -61,7 +61,7 @@ export default function Lesson({
     <>
       <section className="divide-y-2">
         <div className="p-3">
-          <AccordionTrigger hideChevron className="hover:no-underline">
+          <AccordionTrigger className="hover:no-underline">
             {lesson.saved ? (
               <div className="flex justify-between items-center w-full">
                 <p className="text-base flex justify-start items-center gap-2">
