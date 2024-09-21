@@ -8,33 +8,33 @@ import {
 import { Input } from "@/components/ui/input";
 import { MoreVert } from "@mui/icons-material";
 import Content from "./content";
-import { HTMLProps } from "react";
+import React, { HTMLProps, useState } from "react";
 import { useCurriculum } from "./curriculum-context";
 import { DialogTrigger } from "@/components/ui/dialog";
 
 export default function Lesson({
   lessonId,
-  chapterIndex,
   dragHandler
 }: HTMLProps<HTMLDivElement> & {
   lessonId: string;
-  chapterIndex: number;
   dragHandler?: React.ReactNode;
 }) {
   const { form, lessons } = useCurriculum();
   const lessonIndex = lessons.fields.findIndex((l) => l.lesson_id === lessonId);
   const lesson = lessons.fields[lessonIndex];
 
-  const saveLesson = () => {
+  const saveLesson = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const lessonData = form.getValues(`lessons.${lessonIndex}`);
     lessons.update(lessonIndex, { ...lessonData, saved: true });
   };
 
-  const deleteLesson = () => {
+  const deleteLesson = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    e.stopPropagation();
     lessons.remove(lessonIndex);
   };
 
-  const editLesson = () => {
+  const editLesson = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation();
     const lessonData = form.getValues(`lessons.${lessonIndex}`);
     lessons.update(lessonIndex, { ...lessonData, saved: false });
   };

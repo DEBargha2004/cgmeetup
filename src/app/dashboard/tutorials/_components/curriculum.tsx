@@ -5,7 +5,7 @@ import {
   MoreVert
 } from "@mui/icons-material";
 import { cn } from "@/lib/utils";
-import Lesson from "./lesson";
+import Lesson, { Lessons } from "./lesson";
 import {
   Accordion,
   AccordionContent,
@@ -40,54 +40,6 @@ export default function Curriculum() {
   const currentDraggingChapterId = React.useRef<string | null>(null);
   const currentDraggingLessonId = React.useRef<string | null>(null);
   const { chapters, form, lessons } = useCurriculum();
-
-  const getOriginalLessonIndex = (lessonId: string) => {
-    return lessons.fields.findIndex((l) => l.lesson_id === lessonId);
-  };
-
-  const handleLessonDragStart =
-    (sourceLessonId: string) => (e: React.DragEvent<HTMLDivElement>) => {
-      e.stopPropagation();
-
-      currentDraggingLessonId.current = sourceLessonId;
-    };
-
-  const handleLessonDrop =
-    (destinationLessonId: string, destinationChapterId: string) =>
-    (e: React.DragEvent<HTMLDivElement>) => {
-      e.stopPropagation();
-
-      if (!currentDraggingLessonId.current) return;
-      const lessonId = currentDraggingLessonId.current;
-
-      const chapterId = lessons.fields.find((l) => l.lesson_id === lessonId)
-        ?.chapter_id as string;
-
-      if (
-        lessonId === destinationLessonId &&
-        chapterId === destinationChapterId
-      )
-        return;
-
-      const originalSourceLessonIndex = getOriginalLessonIndex(lessonId);
-
-      const originalDestinationLessonIndex =
-        getOriginalLessonIndex(destinationLessonId);
-
-      if (destinationChapterId !== chapterId) {
-        lessons.update(originalSourceLessonIndex, {
-          ...lessons.fields[originalSourceLessonIndex],
-          chapter_id: destinationChapterId
-        });
-
-        lessons.update(originalDestinationLessonIndex, {
-          ...lessons.fields[originalDestinationLessonIndex],
-          chapter_id: chapterId
-        });
-      }
-
-      lessons.swap(originalSourceLessonIndex, originalDestinationLessonIndex);
-    };
 
   const saveChapter =
     (chapterIndex: number) => (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -317,7 +269,7 @@ export default function Curriculum() {
               onClick={() => addChapter(ch_index + 1)}
             >
               <Add fontSize="small" className="mr-2" />
-              <span className="whitespace-nowrap mr-2">Add Chapter</span>
+              <span className="whitespace-nowrap mr-2">Add Section</span>
               <Separator className="w-full shrink" />
             </div>
           )}
