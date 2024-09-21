@@ -182,9 +182,9 @@ export default function TutorialPage() {
     form.setValue("tutorial", {
       tutorial_id,
       title: "",
-      contents: [],
       is_free: false,
-      saved: false
+      saved: false,
+      contents: []
     });
   };
 
@@ -271,7 +271,7 @@ export default function TutorialPage() {
                       <CurriculumContext.Provider
                         value={{ form, chapters, lessons }}
                       >
-                        <Curriculum />
+                        {form.watch("chapters").length > 0 && <Curriculum />}
 
                         <div className="grid place-content-center col-span-2">
                           <Button
@@ -288,7 +288,7 @@ export default function TutorialPage() {
                     ) : (
                       <SingleTutorialContext.Provider value={{ form }}>
                         {form.watch("tutorial") && <SingleTutorial />}
-                        {!form.watch("isCouse") && !form.watch("tutorial") ? (
+                        {!form.watch("tutorial") ? (
                           <div className="grid place-content-center col-span-2">
                             <Button
                               variant={"success"}

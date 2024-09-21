@@ -5,7 +5,7 @@ import {
   MoreVert
 } from "@mui/icons-material";
 import { cn } from "@/lib/utils";
-import Lesson, { Lessons } from "./lesson";
+import Lesson from "./lesson";
 import {
   Accordion,
   AccordionContent,
@@ -67,30 +67,24 @@ export default function Curriculum() {
     return lessons.fields.filter((lesson) => lesson.chapter_id === chapterId);
   };
 
+  const getOriginalLessonIndex = (lessonId: string) => {
+    return lessons.fields.findIndex((lesson) => lesson.lesson_id === lessonId);
+  };
+
   const handleContentCreate =
     (lessonId: string) => (contentType: ContentType, data: string) => {
-      const lessonIndex = lessons.fields.findIndex(
-        (l) => l.lesson_id === lessonId
-      );
+      const id = v4();
+      const lessonIndex = getOriginalLessonIndex(lessonId);
+      const lessonInfo = form.getValues("lessons")[lessonIndex];
+
       lessons.update(lessonIndex, {
-        ...lessons.fields[lessonIndex],
+        ...lessonInfo,
         contents: [
-          ...lessons.fields[lessonIndex].contents,
-          generateNewLessonContentInstance(contentType, data)
+          ...lessonInfo.contents,
+          { content_id: id, type: contentType, content: data }
         ]
       });
     };
-
-  const generateNewLessonContentInstance = (
-    type: ContentType,
-    content?: string
-  ): LessonContentSchemaType => {
-    return {
-      type,
-      content_id: v4(),
-      content: content || ""
-    };
-  };
 
   const addChapter = (index: number) => {
     chapters.insert(index, {
@@ -128,14 +122,48 @@ export default function Curriculum() {
       currentDraggingChapterId.current = null;
     };
 
-  const removeContent = (lessonIndex: number, contentIndex: number) => () => {
-    lessons.update(lessonIndex, {
-      ...lessons.fields[lessonIndex],
-      contents: lessons.fields[lessonIndex].contents.filter(
-        (c, cidx) => cidx !== contentIndex
-      )
-    });
-  };
+  const removeContent = (contentId: string) => () => {};
+
+  const handleLessonDragStart =
+    (lessonId: string) => (e: React.DragEvent<HTMLDivElement>) => {
+      e.dataTransfer.setData("text/plain", "");
+      e.stopPropagation();
+      currentDraggingLessonId.current = lessonId;
+    };
+
+  const handleLessonDrop =
+    (lessonId: string) => (e: React.DragEvent<HTMLDivElement>) => {
+      e.stopPropagation();
+      if (!currentDraggingLessonId.current) return;
+
+      const draggingLesson = lessons.fields.find(
+        (l) => l.lesson_id === currentDraggingLessonId.current
+      )!;
+      const droppedLesson = lessons.fields.find(
+        (l) => l.lesson_id === lessonId
+      )!;
+
+      const originalSourceLessonIndex = lessons.fields.findIndex(
+        (l) => l.lesson_id === currentDraggingLessonId.current
+      );
+      const originalDestinationLessonIndex = lessons.fields.findIndex(
+        (l) => l.lesson_id === lessonId
+      );
+      if (draggingLesson?.chapter_id === droppedLesson?.chapter_id) {
+        lessons.swap(originalSourceLessonIndex, originalDestinationLessonIndex);
+      } else {
+        lessons.update(originalSourceLessonIndex, {
+          ...lessons.fields[originalSourceLessonIndex],
+          chapter_id: droppedLesson.chapter_id
+        });
+
+        lessons.update(originalDestinationLessonIndex, {
+          ...lessons.fields[originalDestinationLessonIndex],
+          chapter_id: draggingLesson.chapter_id
+        });
+      }
+      currentDraggingLessonId.current = null;
+    };
 
   return (
     <div className="space-y-4 col-span-2">
@@ -149,6 +177,7 @@ export default function Curriculum() {
             draggable
             onDragStart={onChapterDragStart(chapter.chapter_id)}
             onDrop={onChapterDrop(chapter.chapter_id)}
+            onDragOver={(e) => e.preventDefault()}
           >
             <div className="px-2 py-5 border-r self-stretch cursor-grab active:cursor-grabbing bg-card/60">
               <DragIndicator />
@@ -213,30 +242,27 @@ export default function Curriculum() {
                     <div
                       className="border-b"
                       draggable
-                      onDragStart={handleLessonDragStart(lesson.lesson_id)}
-                      onDrop={handleLessonDrop(
-                        lesson.lesson_id,
-                        lesson.chapter_id
-                      )}
+                      onDrag={handleLessonDragStart(lesson.lesson_id)}
+                      onDrop={handleLessonDrop(lesson.lesson_id)}
+                      onDragOver={(e) => e.preventDefault()}
                     >
                       <Lesson
                         lessonId={lesson.lesson_id}
-                        chapterIndex={ch_index}
                         dragHandler={
                           <div className="relative bottom-0.5 cursor-grab active:cursor-grabbing">
                             <DragIndicator />
                           </div>
                         }
                       />
-                      <DialogContent className="bg-card max-w-[700px] max-h-[calc(100lvh-40px)] overflow-y-auto scroller">
+                      <DialogContent className="bg-card max-w-[1000px] max-h-[calc(100lvh-40px)] overflow-y-auto scroller">
                         {lesson.contents.map((content, index) => (
                           <Content
                             key={content.content_id}
                             form={form}
                             contentType={content.type}
                             className="p-3"
-                            removeContent={removeContent(lessonIndex, index)}
-                            contentPath={`lessons.${lessonIndex}.contents.${index}.content`}
+                            removeContent={removeContent(content.content_id)}
+                            contentPath={`lessons.${getOriginalLessonIndex(lesson.lesson_id)}.contents.${index}.content`}
                           />
                         ))}
                         <div className="p-2">

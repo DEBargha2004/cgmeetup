@@ -15,11 +15,24 @@ import {
 import { generateVideoEmbedUrl } from "@/functions/url-format";
 import { cn } from "@/lib/utils";
 import { CourseSchemaType, LessonContentSchemaType } from "@/schema/tutorial";
-import { MoreVert } from "@mui/icons-material";
+import { Delete, MoreVert } from "@mui/icons-material";
 import Image from "next/image";
 import { HTMLProps } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
+
+const getContentTitle = (type: LessonContentSchemaType["type"]) => {
+  switch (type) {
+    case "text":
+      return "Content";
+    case "video":
+      return "Video";
+    case "image":
+      return "Image";
+    case "iframe":
+      return "Embed";
+  }
+};
 
 export default function Content({
   contentType,
@@ -37,21 +50,14 @@ export default function Content({
   return (
     <div className={cn("space-y-2", className)} {...props}>
       <div className="flex justify-between items-center">
-        <p>Content</p>
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <Button
-              type="button"
-              variant={"ghost"}
-              className="h-8 w-8 rounded-full hover:bg-card/70"
-            >
-              <MoreVert />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={removeContent}>Delete</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <p>{getContentTitle(contentType)}</p>
+        <Button
+          variant={"destructive"}
+          className="h-9 w-9 rounded-full grid place-content-center"
+          onClick={removeContent}
+        >
+          <Delete fontSize="small" />
+        </Button>
       </div>
       {contentType === "text" && (
         <FormField

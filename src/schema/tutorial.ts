@@ -29,7 +29,7 @@ const lessonsSchema = z.array(
   })
 );
 
-const tutorilaSchema = z.object({
+const tutorialSchema = z.object({
   tutorial_id: z.string(),
   title: z.string({ required_error: "Title is required" }),
   saved: z.boolean(),
@@ -55,9 +55,8 @@ export const courseSchema = z
     tags: z.array(z.string()).min(1, "Tags are required"),
     isCouse: z.boolean(),
     chapters: chaptersSchema,
-    lessonsSchema,
     lessons: lessonsSchema,
-    tutorial: tutorilaSchema
+    tutorial: tutorialSchema
   })
   .refine((data) => {
     if (data.isCouse) {

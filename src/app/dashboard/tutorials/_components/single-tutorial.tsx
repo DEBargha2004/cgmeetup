@@ -9,14 +9,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { MoreVert } from "@mui/icons-material";
 import { Input } from "@/components/ui/input";
-import { RichTextEditor } from "@/components/custom/editor";
-import LessonCreateButton from "./lesson-create-button";
-import { FormControl, FormField, FormItem } from "@/components/ui/form";
-import Image from "next/image";
-import { generateVideoEmbedUrl } from "@/functions/url-format";
-import { Dialog } from "@/components/ui/dialog";
-import { ContentType, LessonContentSchemaType } from "@/schema/tutorial";
-import { useFieldArray } from "react-hook-form";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { ContentType } from "@/schema/tutorial";
 import { v4 } from "uuid";
 import ContentCreateButtonsGroup from "./content-create-buttons-group";
 import Content from "./content";
@@ -24,29 +18,20 @@ import Content from "./content";
 export default function SingleTutorial() {
   const { form } = useSingleTutorialContext();
   const tutorial = form.watch("tutorial");
-  const { fields, append, remove } = useFieldArray({
-    control: form.control,
-    name: "tutorial.contents"
-  });
-
-  const generateNewLessonContentInstance = (
-    contentType: ContentType,
-    data: string
-  ): LessonContentSchemaType => {
-    const id = v4();
-    return {
-      type: contentType,
-      content_id: id,
-      content: data
-    };
-  };
 
   const handleContentCreate = (contentType: ContentType, data: string) => {
-    append(generateNewLessonContentInstance(contentType, data));
+    const id = v4();
+    form.setValue("tutorial.contents", [
+      ...form.getValues("tutorial.contents"),
+      { content_id: id, type: contentType, content: data }
+    ]);
   };
 
   const removeContent = (index: number) => () => {
-    remove(index);
+    form.setValue(
+      "tutorial.contents",
+      form.getValues("tutorial.contents").filter((_, i) => i !== index)
+    );
   };
 
   const saveTutorial = () => {
@@ -60,6 +45,7 @@ export default function SingleTutorial() {
     //@ts-ignore
     form.setValue("tutorial", null);
   };
+
   return (
     <div className="space-y-4 col-span-2">
       <section
@@ -68,69 +54,81 @@ export default function SingleTutorial() {
           "flex justify-start items-start"
         )}
       >
-        <div className="w-full divide-y-2">
-          <div className="p-2 pl-3">
-            {tutorial?.saved ? (
-              <div className="flex justify-between items-center">
-                <h1 className="text-lg">{tutorial?.title}</h1>
-                <DropdownMenu>
-                  <DropdownMenuTrigger>
-                    <Button
-                      type="button"
-                      variant={"ghost"}
-                      className="h-9 w-9 rounded-full hover:bg-card/70"
-                    >
-                      <MoreVert />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuItem onClick={editTutorial}>
-                      Edit
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={deleteTutorial}>
-                      Delete
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-            ) : (
-              <div className="flex justify-between items-center w-full">
-                <Input
-                  className="max-w-[350px]"
-                  onClick={(e) => e.stopPropagation()}
-                  {...form.register(`tutorial.title`)}
-                />
-
-                <div className="flex items-center gap-4">
-                  <Button className="h-8" type="button" onClick={saveTutorial}>
-                    Save
-                  </Button>
-                  <Button
-                    variant={"destructive"}
-                    className="h-8"
-                    type="button"
-                    onClick={deleteTutorial}
-                  >
-                    Cancel
-                  </Button>
+        <div className="w-full">
+          <Dialog>
+            <div className="p-2 pl-3">
+              {tutorial?.saved ? (
+                <div className="flex justify-between items-center">
+                  <DialogTrigger>
+                    <h1 className="text-lg cursor-pointer hover:underline">
+                      {tutorial?.title}
+                    </h1>
+                  </DialogTrigger>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger>
+                      <Button
+                        type="button"
+                        variant={"ghost"}
+                        className="h-9 w-9 rounded-full hover:bg-card/70"
+                      >
+                        <MoreVert />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuItem onClick={editTutorial}>
+                        Edit
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={deleteTutorial}>
+                        Delete
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </div>
-              </div>
-            )}
-          </div>
+              ) : (
+                <div className="flex justify-between items-center w-full">
+                  <Input
+                    className="max-w-[350px]"
+                    onClick={(e) => e.stopPropagation()}
+                    {...form.register(`tutorial.title`)}
+                  />
 
-          <div className="border-b">
-            {tutorial?.contents.map((content, index) => (
-              <Content
-                key={content.content_id}
-                contentType={content.type}
-                form={form}
-                removeContent={removeContent(index)}
-              />
-            ))}
-            <div className="p-2">
-              <ContentCreateButtonsGroup actions={handleContentCreate} />
+                  <div className="flex items-center gap-4">
+                    <Button
+                      className="h-8"
+                      type="button"
+                      onClick={saveTutorial}
+                    >
+                      Save
+                    </Button>
+                    <Button
+                      variant={"destructive"}
+                      className="h-8"
+                      type="button"
+                      onClick={deleteTutorial}
+                    >
+                      Cancel
+                    </Button>
+                  </div>
+                </div>
+              )}
             </div>
-          </div>
+
+            <DialogContent className="bg-card max-w-[1000px] max-h-[calc(100lvh-40px)] overflow-y-auto scroller">
+              {tutorial?.contents.map((content, index) => (
+                <Content
+                  key={content.content_id}
+                  contentType={content.type}
+                  form={form}
+                  className="p-3"
+                  removeContent={removeContent(index)}
+                  contentPath={`tutorial.contents.${index}.content`}
+                />
+              ))}
+              <div className="p-3">
+                <ContentCreateButtonsGroup actions={handleContentCreate} />
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
       </section>
     </div>

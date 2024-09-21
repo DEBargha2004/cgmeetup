@@ -43,27 +43,14 @@ export default function Lesson({
     <div className="flex justify-between items-center p-3">
       {lesson.saved ? (
         <>
-          <p className="text-base flex justify-start items-center gap-2">
+          <div className="text-base flex justify-start items-center gap-2">
             {dragHandler}
             <DialogTrigger asChild>
-              <span>{lesson.title}</span>
+              <span className="cursor-pointer hover:underline">
+                {lesson.title}
+              </span>
             </DialogTrigger>
-          </p>
-          {/* <FormField
-              control={form.control}
-              name={`lessons.${lessonIndex}.is_free`}
-              render={({ field }) => (
-                <FormItem className="flex justify-start items-center gap-4">
-                  <FormLabel>Free Lesson</FormLabel>
-                  <FormControl>
-                    <Switch
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
-                  </FormControl>
-                </FormItem>
-              )}
-            /> */}
+          </div>
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Button
