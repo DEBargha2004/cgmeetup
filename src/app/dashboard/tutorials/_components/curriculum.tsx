@@ -14,7 +14,11 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { useFieldArray, useForm } from "react-hook-form";
-import { CourseSchemaType } from "@/schema/tutorial";
+import {
+  ContentType,
+  CourseSchemaType,
+  LessonContentSchemaType
+} from "@/schema/tutorial";
 import { Input } from "@/components/ui/input";
 import React from "react";
 import LessonCreateButtonsGroup from "./content-create-buttons-group";
@@ -29,6 +33,8 @@ import LessonCreateButton from "./lesson-create-button";
 import ContentCreateButtonsGroup from "./content-create-buttons-group";
 import { v4 } from "uuid";
 import { useCurriculum } from "./curriculum-context";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import Content from "./content";
 
 export default function Curriculum() {
   const currentDraggingChapterId = React.useRef<string | null>(null);
@@ -109,6 +115,31 @@ export default function Curriculum() {
     return lessons.fields.filter((lesson) => lesson.chapter_id === chapterId);
   };
 
+  const handleContentCreate =
+    (lessonId: string) => (contentType: ContentType, data: string) => {
+      const lessonIndex = lessons.fields.findIndex(
+        (l) => l.lesson_id === lessonId
+      );
+      lessons.update(lessonIndex, {
+        ...lessons.fields[lessonIndex],
+        contents: [
+          ...lessons.fields[lessonIndex].contents,
+          generateNewLessonContentInstance(contentType, data)
+        ]
+      });
+    };
+
+  const generateNewLessonContentInstance = (
+    type: ContentType,
+    content?: string
+  ): LessonContentSchemaType => {
+    return {
+      type,
+      content_id: v4(),
+      content: content || ""
+    };
+  };
+
   const addChapter = (index: number) => {
     chapters.insert(index, {
       chapter_id: v4(),
@@ -144,6 +175,15 @@ export default function Curriculum() {
       );
       currentDraggingChapterId.current = null;
     };
+
+  const removeContent = (lessonIndex: number, contentIndex: number) => () => {
+    lessons.update(lessonIndex, {
+      ...lessons.fields[lessonIndex],
+      contents: lessons.fields[lessonIndex].contents.filter(
+        (c, cidx) => cidx !== contentIndex
+      )
+    });
+  };
 
   return (
     <div className="space-y-4 col-span-2">
@@ -214,31 +254,47 @@ export default function Curriculum() {
                   </div>
                 )}
               </div>
+
               {getLessonsByChapterId(chapter.chapter_id).map(
-                (lesson, index) => (
-                  <div
-                    className="border-b"
-                    key={lesson.lesson_id}
-                    draggable
-                    onDragStart={handleLessonDragStart(lesson.lesson_id)}
-                    onDrop={handleLessonDrop(
-                      lesson.lesson_id,
-                      lesson.chapter_id
-                    )}
-                  >
-                    <Lesson
-                      lessonId={lesson.lesson_id}
-                      chapterIndex={ch_index}
-                      dragHandler={
-                        <div className="relative bottom-0.5 cursor-grab active:cursor-grabbing">
-                          <DragIndicator />
+                (lesson, lessonIndex) => (
+                  <Dialog key={lesson.lesson_id}>
+                    <div
+                      className="border-b"
+                      draggable
+                      onDragStart={handleLessonDragStart(lesson.lesson_id)}
+                      onDrop={handleLessonDrop(
+                        lesson.lesson_id,
+                        lesson.chapter_id
+                      )}
+                    >
+                      <Lesson
+                        lessonId={lesson.lesson_id}
+                        chapterIndex={ch_index}
+                        dragHandler={
+                          <div className="relative bottom-0.5 cursor-grab active:cursor-grabbing">
+                            <DragIndicator />
+                          </div>
+                        }
+                      />
+                      <DialogContent className="bg-card max-w-[700px] max-h-[calc(100lvh-40px)] overflow-y-auto scroller">
+                        {lesson.contents.map((content, index) => (
+                          <Content
+                            key={content.content_id}
+                            form={form}
+                            contentType={content.type}
+                            className="p-3"
+                            removeContent={removeContent(lessonIndex, index)}
+                            contentPath={`lessons.${lessonIndex}.contents.${index}.content`}
+                          />
+                        ))}
+                        <div className="p-2">
+                          <ContentCreateButtonsGroup
+                            actions={handleContentCreate(lesson.lesson_id)}
+                          />
                         </div>
-                      }
-                    />
-                    <div className="p-2">
-                      <ContentCreateButtonsGroup lessonId={lesson.lesson_id} />
+                      </DialogContent>
                     </div>
-                  </div>
+                  </Dialog>
                 )
               )}
               <div className="p-2">

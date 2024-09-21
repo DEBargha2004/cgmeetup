@@ -1,5 +1,5 @@
 import { useState } from "react";
-import LessionCreateButton from "./content-create-button";
+import LessonCreateButton from "./content-create-button";
 import {
   AddLinkOutlined,
   ImageOutlined,
@@ -16,52 +16,20 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import {
-  ContentType,
-  CourseSchemaType,
-  LessonContentSchemaType,
-  LessonsSchemaType
-} from "@/schema/tutorial";
-import { v4 } from "uuid";
+import { ContentType } from "@/schema/tutorial";
 import { cn } from "@/lib/utils";
-import { useFieldArray } from "react-hook-form";
 import { useDropzone } from "react-dropzone";
 import { useCurriculum } from "./curriculum-context";
 
 export default function ContentCreateButtonsGroup({
-  lessonId
+  actions
 }: {
-  lessonId: string;
+  actions: (contentType: ContentType, data: string) => void;
 }) {
   const [tempInput, setTempInput] = useState("");
   const [dialogState, setDialogState] = useState({
     videoUrl: false
   });
-  const { lessons } = useCurriculum();
-
-  const generateNewLessonContentInstance = (
-    type: ContentType,
-    content?: string
-  ): LessonContentSchemaType => {
-    return {
-      type,
-      content_id: v4(),
-      content: content || ""
-    };
-  };
-
-  const addContent = (type: ContentType, content?: string) => {
-    const lessonIndex = lessons.fields.findIndex(
-      (l) => l.lesson_id === lessonId
-    );
-    lessons.update(lessonIndex, {
-      ...lessons.fields[lessonIndex],
-      contents: [
-        ...lessons.fields[lessonIndex].contents,
-        generateNewLessonContentInstance(type, content)
-      ]
-    });
-  };
 
   const imageDropzone = useDropzone({
     accept: {
@@ -73,7 +41,7 @@ export default function ContentCreateButtonsGroup({
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = () => {
-          addContent("image", reader.result as string);
+          actions("image", reader.result as string);
         };
       });
     }
@@ -89,7 +57,7 @@ export default function ContentCreateButtonsGroup({
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = () => {
-          addContent("video", reader.result as string);
+          actions("video", reader.result as string);
         };
       });
     }
@@ -101,16 +69,16 @@ export default function ContentCreateButtonsGroup({
         "flex justify-center items-center gap-2"
       )}
     >
-      <LessionCreateButton
+      <LessonCreateButton
         Icon={Title}
         label="Text"
         onClick={(e) => {
           e.stopPropagation();
-          addContent("text");
+          actions("text", "");
         }}
       />
       <input type="file" {...imageDropzone.getInputProps()} />
-      <LessionCreateButton
+      <LessonCreateButton
         {...imageDropzone.getRootProps({
           Icon: ImageOutlined,
           label: "Image"
@@ -118,7 +86,7 @@ export default function ContentCreateButtonsGroup({
       />
 
       <input type="file" {...videDropzone.getInputProps()} />
-      <LessionCreateButton
+      <LessonCreateButton
         {...videDropzone.getRootProps({
           Icon: PlayCircleOutline,
           label: "Video"
@@ -131,7 +99,7 @@ export default function ContentCreateButtonsGroup({
         }
       >
         <DialogTrigger>
-          <LessionCreateButton Icon={AddLinkOutlined} label="Video Url" />
+          <LessonCreateButton Icon={AddLinkOutlined} label="Video Url" />
         </DialogTrigger>
         <DialogContent className="p-0 space-y-0 bg-darkAccent max-w-[600px]">
           <DialogHeader className="p-2 px-4 md:text-lg text-base bg-lightAccent">
@@ -154,7 +122,7 @@ export default function ContentCreateButtonsGroup({
                 className="h-8"
                 onClick={(e) => {
                   e.stopPropagation();
-                  addContent("iframe", tempInput);
+                  actions("iframe", tempInput);
                   setTempInput("");
                   setDialogState((prev) => ({
                     ...prev,

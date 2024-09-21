@@ -8,7 +8,10 @@ const ContentCreateButton = forwardRef<
   ButtonProps & { Icon: IconType; label: string }
 >(({ className, Icon, label, ...props }, ref) => (
   <Button
-    className={cn("flex flex-col h-20 aspect-square border w-fit", className)}
+    className={cn(
+      "flex flex-col h-20 aspect-square border w-fit shrink-0",
+      className
+    )}
     ref={ref}
     variant={"light_ghost"}
     type="button"

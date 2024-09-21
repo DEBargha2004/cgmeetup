@@ -74,6 +74,8 @@ import LessionCreateButton from "../_components/content-create-button";
 import Lesson from "../_components/lesson";
 import Curriculum from "../_components/curriculum";
 import { CurriculumContext } from "../_components/curriculum-context";
+import { SingleTutorialContext } from "../_components/single-tutorial-context";
+import SingleTutorial from "../_components/single-tutorial";
 
 const visibilityOptions: string[] = ["Public", "Private"];
 const languages: string[] = [
@@ -175,6 +177,17 @@ export default function TutorialPage() {
     });
   };
 
+  const addTutorial = () => {
+    const tutorial_id = v4();
+    form.setValue("tutorial", {
+      tutorial_id,
+      title: "",
+      contents: [],
+      is_free: false,
+      saved: false
+    });
+  };
+
   const onSubmit = (data: CourseSchemaType) => {};
 
   return (
@@ -224,37 +237,72 @@ export default function TutorialPage() {
               <div className="grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8 ">
                 <Card className="grid lg:col-span-2 bg-card">
                   <CardContent className="grid grid-cols-2 sm:p-4 p-2 items-start gap-4 lg:gap-8">
-                    <FormField
-                      control={form.control}
-                      name="title"
-                      render={({ field }) => (
-                        <FormItem className="col-span-2">
-                          <FormLabel>Title</FormLabel>
-                          <FormControl>
-                            <Input {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                    <div className="flex col-span-2 gap-4">
+                      <FormField
+                        control={form.control}
+                        name="title"
+                        render={({ field }) => (
+                          <FormItem className="w-full">
+                            <FormLabel>Title</FormLabel>
+                            <FormControl>
+                              <Input {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="isCouse"
+                        render={({ field }) => (
+                          <FormItem className="flex pt-4 justify-center items-center gap-2">
+                            <FormLabel>Course</FormLabel>
+                            <FormControl>
+                              <Switch
+                                checked={field.value}
+                                onCheckedChange={field.onChange}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    {form.watch("isCouse") ? (
+                      <CurriculumContext.Provider
+                        value={{ form, chapters, lessons }}
+                      >
+                        <Curriculum />
 
-                    <CurriculumContext.Provider
-                      value={{ form, chapters, lessons }}
-                    >
-                      <Curriculum />
-
-                      <div className="grid place-content-center col-span-2">
-                        <Button
-                          variant={"success"}
-                          className="min-w-24 space-x-3"
-                          type="button"
-                          onClick={addChapter}
-                        >
-                          <Add />
-                          <span>Add Section</span>
-                        </Button>
-                      </div>
-                    </CurriculumContext.Provider>
+                        <div className="grid place-content-center col-span-2">
+                          <Button
+                            variant={"success"}
+                            className="min-w-24 space-x-3"
+                            type="button"
+                            onClick={addChapter}
+                          >
+                            <Add />
+                            <span>Add Section</span>
+                          </Button>
+                        </div>
+                      </CurriculumContext.Provider>
+                    ) : (
+                      <SingleTutorialContext.Provider value={{ form }}>
+                        {form.watch("tutorial") && <SingleTutorial />}
+                        {!form.watch("isCouse") && !form.watch("tutorial") ? (
+                          <div className="grid place-content-center col-span-2">
+                            <Button
+                              variant={"success"}
+                              className="min-w-24 space-x-3"
+                              type="button"
+                              onClick={addTutorial}
+                            >
+                              <Add />
+                              <span>Add Tutorial</span>
+                            </Button>
+                          </div>
+                        ) : null}
+                      </SingleTutorialContext.Provider>
+                    )}
 
                     <FormField
                       control={form.control}

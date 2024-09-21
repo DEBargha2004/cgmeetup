@@ -19,30 +19,21 @@ import { MoreVert } from "@mui/icons-material";
 import Image from "next/image";
 import { HTMLProps } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
+import { z } from "zod";
 
 export default function Content({
-  content,
+  contentType,
   form,
-  index,
-  lessonIndex,
-  lessons,
   className,
+  removeContent,
+  contentPath,
   ...props
 }: Omit<HTMLProps<HTMLDivElement>, "content" | "form"> & {
   form: ReturnType<typeof useForm<CourseSchemaType>>;
-  content: LessonContentSchemaType;
-  index: number;
-  lessonIndex: number;
-  lessons: ReturnType<typeof useFieldArray<CourseSchemaType, "lessons", "id">>;
+  contentType: LessonContentSchemaType["type"];
+  removeContent: () => void;
+  contentPath?: string;
 }) {
-  const removeContent = () => {
-    lessons.update(lessonIndex, {
-      ...lessons.fields[lessonIndex],
-      contents: lessons.fields[lessonIndex].contents.filter(
-        (c) => c.content_id !== content.content_id
-      )
-    });
-  };
   return (
     <div className={cn("space-y-2", className)} {...props}>
       <div className="flex justify-between items-center">
@@ -62,14 +53,16 @@ export default function Content({
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      {content.type === "text" && (
+      {contentType === "text" && (
         <FormField
           control={form.control}
-          name={`lessons.${lessonIndex}.contents.${index}.content`}
+          // @ts-ignore
+          name={contentPath}
           render={({ field }) => (
             <FormItem>
               <FormControl>
                 <RichTextEditor
+                  // @ts-ignore
                   content={field.value}
                   onUpdate={field.onChange}
                   editorWrapperClassName="border"
@@ -79,25 +72,28 @@ export default function Content({
           )}
         />
       )}
-      {content.type === "video" && (
+      {contentType === "video" && (
         <video
           controls
-          src={form.watch(`lessons.${lessonIndex}.contents.${index}.content`)}
+          //@ts-ignore
+          src={form.watch(contentPath)}
         />
       )}
-      {content.type === "image" && (
+      {contentType === "image" && (
         <Image
-          src={form.watch(`lessons.${lessonIndex}.contents.${index}.content`)}
+          //@ts-ignore
+          src={form.watch(contentPath)}
           height={300}
           width={300}
           className="w-full aspect-video object-contain "
           alt="course-image"
         />
       )}
-      {content.type === "iframe" && (
+      {contentType === "iframe" && (
         <iframe
           src={generateVideoEmbedUrl(
-            form.watch(`lessons.${lessonIndex}.contents.${index}.content`)
+            //@ts-ignore
+            form.watch(contentPath)
           )}
           className="w-full aspect-video "
         />
