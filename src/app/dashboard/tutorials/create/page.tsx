@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/select";
 import { Cropper } from "@/components/custom";
 import { Switch } from "@/components/ui/switch";
-import { HTMLProps, useMemo, useRef, useState } from "react";
+import { HTMLProps, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { useDropzone } from "react-dropzone";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
@@ -76,6 +76,7 @@ import Curriculum from "../_components/curriculum";
 import { CurriculumContext } from "../_components/curriculum-context";
 import { SingleTutorialContext } from "../_components/single-tutorial-context";
 import SingleTutorial from "../_components/single-tutorial";
+import { usePathname, useSearchParams } from "next/navigation";
 
 const visibilityOptions: string[] = ["Public", "Private"];
 const languages: string[] = [
@@ -87,9 +88,22 @@ const languages: string[] = [
   "Portuguese"
 ];
 
-const sample = [1, 2, 4, 5, 6];
+const parseCourseType = (type: string | null | undefined) => {
+  try {
+    if (type === null || type === undefined) return false;
+    return JSON.parse(type) as boolean;
+  } catch (error) {
+    return false;
+  }
+};
 
-export default function TutorialPage() {
+export default function TutorialPage({
+  searchParams,
+  params
+}: {
+  params: {};
+  searchParams: Record<string, string>;
+}) {
   const form = useForm<CourseSchemaType>({
     resolver: zodResolver(courseSchema),
     defaultValues: {
@@ -101,7 +115,8 @@ export default function TutorialPage() {
       skills: [],
       software_used: [],
       tags: [],
-      tutorial: { is_free: false, contents: [] }
+      tutorial: { is_free: false, contents: [] },
+      isCouse: parseCourseType(searchParams.isCourse)
     }
   });
 
@@ -144,6 +159,7 @@ export default function TutorialPage() {
     }
   });
 
+  const searchParamsHooked = useSearchParams();
   const windowDimension = useWindowSize();
   const subCategories = useMemo(() => {
     return categories.find((c) => c.value === form.watch("category"))
@@ -179,6 +195,12 @@ export default function TutorialPage() {
   };
 
   const onSubmit = (data: CourseSchemaType) => {};
+
+  useEffect(() => {
+    const isCourse = parseCourseType(searchParamsHooked.get("isCourse"));
+
+    form.setValue("isCouse", isCourse);
+  }, [searchParamsHooked.get("isCourse")]);
 
   return (
     <>
