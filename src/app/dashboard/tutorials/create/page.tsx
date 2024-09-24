@@ -100,7 +100,8 @@ export default function TutorialPage() {
       hasAdultContent: false,
       skills: [],
       software_used: [],
-      tags: []
+      tags: [],
+      tutorial: { is_free: false, contents: [] }
     }
   });
 
@@ -174,17 +175,6 @@ export default function TutorialPage() {
       img: "",
       title: "",
       saved: false
-    });
-  };
-
-  const addTutorial = () => {
-    const tutorial_id = v4();
-    form.setValue("tutorial", {
-      tutorial_id,
-      title: "",
-      is_free: false,
-      saved: false,
-      contents: []
     });
   };
 
@@ -287,20 +277,7 @@ export default function TutorialPage() {
                       </CurriculumContext.Provider>
                     ) : (
                       <SingleTutorialContext.Provider value={{ form }}>
-                        {form.watch("tutorial") && <SingleTutorial />}
-                        {!form.watch("tutorial") ? (
-                          <div className="grid place-content-center col-span-2">
-                            <Button
-                              variant={"success"}
-                              className="min-w-24 space-x-3"
-                              type="button"
-                              onClick={addTutorial}
-                            >
-                              <Add />
-                              <span>Add Tutorial</span>
-                            </Button>
-                          </div>
-                        ) : null}
+                        <SingleTutorial />
                       </SingleTutorialContext.Provider>
                     )}
 

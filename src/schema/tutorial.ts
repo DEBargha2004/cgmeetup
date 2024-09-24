@@ -30,9 +30,6 @@ const lessonsSchema = z.array(
 );
 
 const tutorialSchema = z.object({
-  tutorial_id: z.string(),
-  title: z.string({ required_error: "Title is required" }),
-  saved: z.boolean(),
   is_free: z.boolean(),
   contents: z.array(lessonContentSchema)
 });

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { HTMLProps, useState } from "react";
 import LessonCreateButton from "./content-create-button";
 import {
   AddLinkOutlined,
@@ -22,8 +22,10 @@ import { useDropzone } from "react-dropzone";
 import { useCurriculum } from "./curriculum-context";
 
 export default function ContentCreateButtonsGroup({
-  actions
-}: {
+  actions,
+  className,
+  ...props
+}: HTMLProps<HTMLDivElement> & {
   actions: (contentType: ContentType, data: string) => void;
 }) {
   const [tempInput, setTempInput] = useState("");
@@ -65,9 +67,11 @@ export default function ContentCreateButtonsGroup({
   return (
     <div
       className={cn(
-        "py-10 bg-darkAccent overflow-hidden rounded",
-        "flex justify-center items-center gap-2"
+        "py-10 overflow-hidden rounded",
+        "flex justify-center items-center gap-2",
+        className
       )}
+      {...props}
     >
       <LessonCreateButton
         Icon={Title}

@@ -268,6 +268,7 @@ export default function Curriculum() {
                         <div className="p-2">
                           <ContentCreateButtonsGroup
                             actions={handleContentCreate(lesson.lesson_id)}
+                            className="grid grid-cols-4 gap-2 p-2"
                           />
                         </div>
                       </DialogContent>
