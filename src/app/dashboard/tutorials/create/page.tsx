@@ -619,7 +619,7 @@ export default function TutorialPage({
                         {...thumbnailDropzone.getInputProps()}
                       />
                       <div
-                        className="w-full aspect-square border-2 border-dashed bg-darkAccent"
+                        className="w-full aspect-video border-2 border-dashed bg-darkAccent"
                         {...(!thumbnail?.crop &&
                           thumbnailDropzone.getRootProps())}
                       >
@@ -705,8 +705,7 @@ export default function TutorialPage({
       >
         <DialogContent className="max-w-[800px] bg-card pb-0">
           <div
-            className="h-[400px]  border 
-              bg-darkAccent"
+            className="h-[400px] border flex justify-center  bg-darkAccent"
             style={{
               width: Math.min(800, windowDimension.width!) - 48 - 2
             }}
@@ -715,13 +714,13 @@ export default function TutorialPage({
               ref={cropperRef}
               style={{
                 height: "100%",
-                aspectRatio: "100%"
+                aspectRatio: "16/9"
               }}
               className="object-contain cropper overflow-hidden"
-              aspectRatio={1}
+              aspectRatio={16 / 9}
               src={thumbnail?.url}
               // zoomTo={0.5}
-              initialAspectRatio={1}
+              initialAspectRatio={16 / 9}
               preview=".img-preview"
               viewMode={1}
               minCropBoxHeight={10}

@@ -645,8 +645,7 @@ export default function Dashboard() {
       >
         <DialogContent className="max-w-[800px] bg-card pb-0">
           <div
-            className="h-[400px]  border 
-              bg-darkAccent"
+            className="h-[400px] flex justify-center border bg-darkAccent"
             style={{
               width: Math.min(800, windowDimension.width!) - 48 - 2
             }}

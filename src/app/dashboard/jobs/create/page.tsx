@@ -935,8 +935,8 @@ export default function Dashboard() {
                   <Dialog
                     open={logo?.crop}
                     onOpenChange={(e) => {
-                      //@ts-ignore
-                      setThumbnail((prev) => ({ ...prev, crop: e }));
+                      // @ts-ignore
+                      setLogo((prev) => ({ ...prev, crop: e }));
                     }}
                   >
                     <DialogContent className="max-w-[800px] bg-card pb-0">

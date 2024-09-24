@@ -121,7 +121,7 @@ export function FancyMultiSelect({
   return (
     <Command
       onKeyDown={handleKeyDown}
-      className={cn("overflow-visible bg-transparent relative")}
+      className={cn("overflow-visible bg-transparent relative z-10")}
     >
       <div
         className={cn(
@@ -184,7 +184,7 @@ export function FancyMultiSelect({
         <CommandList className="">
           {open && selectables.length > 0 ? (
             <div
-              className="top-0 z-10 w-full rounded-md border bg-darkAccent 
+              className="top-0 w-full rounded-md border bg-darkAccent 
             text-popover-foreground shadow-md outline-none animate-in max-h-[300px] overflow-y-auto overflow-x-hidden scroller"
             >
               <CommandGroup className="h-full overflow-auto">
