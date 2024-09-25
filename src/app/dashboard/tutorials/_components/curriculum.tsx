@@ -122,7 +122,14 @@ export default function Curriculum() {
       currentDraggingChapterId.current = null;
     };
 
-  const removeContent = (contentId: string) => () => {};
+  const removeContent = (contentIndex: number, lessonIndex: number) => () => {
+    lessons.update(lessonIndex, {
+      ...lessons.fields[lessonIndex],
+      contents: lessons.fields[lessonIndex].contents.filter(
+        (content, index) => index !== contentIndex
+      )
+    });
+  };
 
   const handleLessonDragStart =
     (lessonId: string) => (e: React.DragEvent<HTMLDivElement>) => {
@@ -261,7 +268,7 @@ export default function Curriculum() {
                             form={form}
                             contentType={content.type}
                             className="p-3"
-                            removeContent={removeContent(content.content_id)}
+                            removeContent={removeContent(index, lessonIndex)}
                             contentPath={`lessons.${getOriginalLessonIndex(lesson.lesson_id)}.contents.${index}.content`}
                           />
                         ))}
