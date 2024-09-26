@@ -40,6 +40,20 @@ export function FancyMultiSelect({
   const selectablesGroupRef = React.useRef<HTMLDivElement>(null);
   const selectedTagsContainerRef = React.useRef<HTMLDivElement>(null);
 
+  const selectables = options.filter(
+    (option) => !selected.some((value) => value.value === option.value)
+  );
+
+  const isSelectable = (val: string) => {
+    return selectables.some((option) => option.value === val);
+  };
+
+  const maxCount = max
+    ? selected.length > max
+      ? selected.length - max
+      : 0
+    : 0;
+
   const handleUnselect = React.useCallback(
     (value: Option) => {
       setSelected((prev) => {
@@ -51,38 +65,34 @@ export function FancyMultiSelect({
     [setSelected, onChange]
   );
 
-  const handleKeyDown = React.useCallback(
-    (e: React.KeyboardEvent<HTMLDivElement>) => {
-      const input = inputRef.current;
-      if (input) {
-        if (e.key === "Delete" || e.key === "Backspace") {
-          if (input.value === "") {
-            setSelected((prev) => {
-              const newSelected = [...prev];
-              newSelected.pop();
-              onChange?.(newSelected);
-              return newSelected;
-            });
-          }
-        }
-        // This is not a default behaviour of the <input /> field
-        if (e.key === "Escape") {
-          input.blur();
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    const input = inputRef.current;
+    if (input) {
+      if (e.key === "Delete" || e.key === "Backspace") {
+        if (input.value === "") {
+          setSelected((prev) => {
+            const newSelected = [...prev];
+            newSelected.pop();
+            onChange?.(newSelected);
+            return newSelected;
+          });
         }
       }
-    },
-    [setSelected, onChange]
-  );
 
-  const selectables = options.filter(
-    (option) => !selected.some((value) => value.value === option.value)
-  );
-
-  const maxCount = max
-    ? selected.length > max
-      ? selected.length - max
-      : 0
-    : 0;
+      if (e.key === "Enter") {
+        if (!isSelectable(input.value)) {
+          setInputValue("");
+          const option: Option = { value: input.value, label: input.value };
+          setSelected((prev) => [...prev, option]);
+          onChange?.([...selected, option]);
+        }
+      }
+      // This is not a default behaviour of the <input /> field
+      if (e.key === "Escape") {
+        input.blur();
+      }
+    }
+  };
 
   React.useEffect(() => {
     const selectablesGroup = selectablesGroupRef.current;

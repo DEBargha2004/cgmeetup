@@ -52,6 +52,7 @@ export default function Content({
       <div className="flex justify-between items-center">
         <p>{getContentTitle(contentType)}</p>
         <Button
+          type="button"
           variant={"destructive"}
           className="h-9 w-9 rounded-full grid place-content-center"
           onClick={removeContent}

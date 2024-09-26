@@ -9,13 +9,13 @@ const ContentCreateButton = forwardRef<
   <div
     className={cn(
       "flex flex-col justify-center items-center border w-full aspect-video rounded cursor-pointer",
-      "bg-darkAccent hover:bg-lightAccent transition-all",
+      " hover:bg-lightAccent transition-all",
       className
     )}
     ref={ref}
     {...props}
   >
-    <Icon />
+    <Icon className="text-primary sm:h-8 h-6" />
     <span className="opacity-70">{label}</span>
   </div>
 ));

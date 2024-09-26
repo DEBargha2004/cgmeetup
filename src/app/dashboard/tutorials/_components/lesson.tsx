@@ -8,22 +8,24 @@ import {
 import { Input } from "@/components/ui/input";
 import { MoreVert } from "@mui/icons-material";
 import Content from "./content";
-import React, { HTMLProps, useState } from "react";
+import React, { forwardRef, HTMLProps, useState } from "react";
 import { useCurriculum } from "./curriculum-context";
 import { DialogTrigger } from "@/components/ui/dialog";
+import { cn } from "@/lib/utils";
 
-export default function Lesson({
-  lessonId,
-  dragHandler
-}: HTMLProps<HTMLDivElement> & {
-  lessonId: string;
-  dragHandler?: React.ReactNode;
-}) {
+const Lesson = forwardRef<
+  HTMLDivElement,
+  HTMLProps<HTMLDivElement> & {
+    lessonId: string;
+    dragHandler?: React.ReactNode;
+  }
+>(({ lessonId, dragHandler, className, ...props }, ref) => {
   const { form, lessons } = useCurriculum();
   const lessonIndex = lessons.fields.findIndex((l) => l.lesson_id === lessonId);
   const lesson = lessons.fields[lessonIndex];
 
   const saveLesson = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.stopPropagation();
     const lessonData = form.getValues(`lessons.${lessonIndex}`);
     lessons.update(lessonIndex, { ...lessonData, saved: true });
   };
@@ -40,16 +42,15 @@ export default function Lesson({
   };
 
   return (
-    <div className="flex justify-between items-center p-3">
+    <div className={cn("flex justify-between items-center p-3", className)}>
       {lesson.saved ? (
         <>
           <div className="text-base flex justify-start items-center gap-2">
             {dragHandler}
-            <DialogTrigger asChild>
-              <span className="cursor-pointer hover:underline">
-                {lesson.title}
-              </span>
-            </DialogTrigger>
+
+            <span className="cursor-pointer hover:underline">
+              {lesson.title}
+            </span>
           </div>
           <DropdownMenu>
             <DropdownMenuTrigger>
@@ -72,6 +73,7 @@ export default function Lesson({
             className="max-w-[350px]"
             onClick={(e) => e.stopPropagation()}
             {...form.register(`lessons.${lessonIndex}.title`)}
+            placeholder="Lesson Name"
           />
 
           <div className="flex items-center gap-4">
@@ -91,4 +93,8 @@ export default function Lesson({
       )}
     </div>
   );
-}
+});
+
+Lesson.displayName = "Lesson";
+
+export default Lesson;

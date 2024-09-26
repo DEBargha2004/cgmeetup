@@ -2,9 +2,12 @@ import { HTMLProps, useState } from "react";
 import LessonCreateButton from "./content-create-button";
 import {
   AddLinkOutlined,
+  Description,
   ImageOutlined,
+  Photo,
   PlayCircleOutline,
-  Title
+  Title,
+  YouTube
 } from "@mui/icons-material";
 import {
   Dialog,
@@ -73,29 +76,6 @@ export default function ContentCreateButtonsGroup({
       )}
       {...props}
     >
-      <LessonCreateButton
-        Icon={Title}
-        label="Text"
-        onClick={(e) => {
-          e.stopPropagation();
-          actions("text", "");
-        }}
-      />
-      <input type="file" {...imageDropzone.getInputProps()} />
-      <LessonCreateButton
-        {...imageDropzone.getRootProps({
-          Icon: ImageOutlined,
-          label: "Image"
-        })}
-      />
-
-      <input type="file" {...videDropzone.getInputProps()} />
-      <LessonCreateButton
-        {...videDropzone.getRootProps({
-          Icon: PlayCircleOutline,
-          label: "Video"
-        })}
-      />
       <Dialog
         open={dialogState.videoUrl}
         onOpenChange={(e) =>
@@ -140,6 +120,28 @@ export default function ContentCreateButtonsGroup({
           </DialogFooter>
         </DialogContent>
       </Dialog>
+      <input type="file" {...videDropzone.getInputProps()} />
+      <LessonCreateButton
+        {...videDropzone.getRootProps({
+          Icon: YouTube,
+          label: "Video"
+        })}
+      />
+      <input type="file" {...imageDropzone.getInputProps()} />
+      <LessonCreateButton
+        {...imageDropzone.getRootProps({
+          Icon: Photo,
+          label: "Image"
+        })}
+      />
+      <LessonCreateButton
+        Icon={Description}
+        label="Text"
+        onClick={(e) => {
+          e.stopPropagation();
+          actions("text", "");
+        }}
+      />
     </div>
   );
 }

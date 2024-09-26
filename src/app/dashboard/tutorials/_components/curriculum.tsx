@@ -189,7 +189,7 @@ export default function Curriculum() {
             <div className="px-2 py-5 border-r self-stretch cursor-grab active:cursor-grabbing bg-card/60">
               <DragIndicator />
             </div>
-            <div className="w-full divide-y-2">
+            <div className="w-full divide-y">
               <div className="p-2 pl-3">
                 {chapter.saved ? (
                   <div className="flex justify-between items-center">
@@ -220,6 +220,7 @@ export default function Curriculum() {
                       className="max-w-[350px]"
                       onClick={(e) => e.stopPropagation()}
                       {...form.register(`chapters.${ch_index}.title`)}
+                      placeholder="Section 1"
                     />
 
                     <div className="flex items-center gap-4">
@@ -243,46 +244,60 @@ export default function Curriculum() {
                 )}
               </div>
 
-              {getLessonsByChapterId(chapter.chapter_id).map(
-                (lesson, lessonIndex) => (
-                  <Dialog key={lesson.lesson_id}>
+              <Accordion type="multiple">
+                {getLessonsByChapterId(chapter.chapter_id).map(
+                  (lesson, lessonIndex) => (
                     <div
-                      className="border-b"
+                      key={lesson.lesson_id}
+                      className=""
                       draggable
                       onDrag={handleLessonDragStart(lesson.lesson_id)}
                       onDrop={handleLessonDrop(lesson.lesson_id)}
                       onDragOver={(e) => e.preventDefault()}
                     >
-                      <Lesson
-                        lessonId={lesson.lesson_id}
-                        dragHandler={
-                          <div className="relative bottom-0.5 cursor-grab active:cursor-grabbing">
-                            <DragIndicator />
+                      <AccordionItem
+                        value={lesson.lesson_id}
+                        className="hover:bg-card/70 "
+                      >
+                        <AccordionTrigger
+                          className={cn(
+                            "pr-3",
+                            !lesson.saved && "hover:no-underline"
+                          )}
+                        >
+                          <Lesson
+                            lessonId={lesson.lesson_id}
+                            className="w-full"
+                            dragHandler={
+                              <div className="relative bottom-0.5 cursor-grab active:cursor-grabbing">
+                                <DragIndicator />
+                              </div>
+                            }
+                          />
+                        </AccordionTrigger>
+                        <AccordionContent>
+                          {lesson.contents.map((content, index) => (
+                            <Content
+                              key={content.content_id}
+                              form={form}
+                              contentType={content.type}
+                              className="p-3"
+                              removeContent={removeContent(index, lessonIndex)}
+                              contentPath={`lessons.${getOriginalLessonIndex(lesson.lesson_id)}.contents.${index}.content`}
+                            />
+                          ))}
+                          <div className="p-2">
+                            <ContentCreateButtonsGroup
+                              actions={handleContentCreate(lesson.lesson_id)}
+                              className="grid grid-cols-4 gap-2 p-2"
+                            />
                           </div>
-                        }
-                      />
-                      <DialogContent className="bg-card max-w-[1000px] max-h-[calc(100lvh-40px)] overflow-y-auto scroller">
-                        {lesson.contents.map((content, index) => (
-                          <Content
-                            key={content.content_id}
-                            form={form}
-                            contentType={content.type}
-                            className="p-3"
-                            removeContent={removeContent(index, lessonIndex)}
-                            contentPath={`lessons.${getOriginalLessonIndex(lesson.lesson_id)}.contents.${index}.content`}
-                          />
-                        ))}
-                        <div className="p-2">
-                          <ContentCreateButtonsGroup
-                            actions={handleContentCreate(lesson.lesson_id)}
-                            className="grid grid-cols-4 gap-2 p-2"
-                          />
-                        </div>
-                      </DialogContent>
+                        </AccordionContent>
+                      </AccordionItem>
                     </div>
-                  </Dialog>
-                )
-              )}
+                  )
+                )}
+              </Accordion>
               <div className="p-2">
                 <LessonCreateButton chapterId={chapter.chapter_id}>
                   <Button
