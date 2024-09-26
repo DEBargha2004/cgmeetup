@@ -10,7 +10,7 @@ import {
   CommandItem,
   CommandList
 } from "@/components/ui/command";
-import { Command as CommandPrimitive } from "cmdk";
+import { Command as CommandPrimitive, useCommandState } from "cmdk";
 import { cn } from "@/lib/utils";
 
 type Option = {
@@ -45,7 +45,9 @@ export function FancyMultiSelect({
   );
 
   const isSelectable = (val: string) => {
-    return selectables.some((option) => option.value === val);
+    return selectables.some(
+      (option) => option.value.includes(val) || option.label.includes(val)
+    );
   };
 
   const maxCount = max
