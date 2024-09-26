@@ -5,18 +5,21 @@ import { useCurriculum } from "./curriculum-context";
 
 export default function LessonCreateButton({
   chapterId,
-  children
+  children,
+  openAccordion
 }: {
   chapterId: string;
   children?: React.ReactNode;
+  openAccordion?: (lessonIds: string[]) => void;
 }) {
   const { lessons } = useCurriculum();
   const generateNewLessonInstance = (
-    chapterId: string
+    chapterId: string,
+    lessonId?: string
   ): LessonsSchemaType[number] => {
     return {
       chapter_id: chapterId,
-      lesson_id: v4(),
+      lesson_id: lessonId || v4(),
       title: "",
       contents: [],
       saved: false,
@@ -25,7 +28,9 @@ export default function LessonCreateButton({
   };
 
   const createLesson = (chapterId: string) => {
-    lessons.append(generateNewLessonInstance(chapterId));
+    const lessonId = v4();
+    lessons.append(generateNewLessonInstance(chapterId, lessonId));
+    openAccordion?.([lessonId]);
   };
 
   return <div onClick={() => createLesson(chapterId)}>{children}</div>;

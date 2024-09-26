@@ -6,7 +6,7 @@ import {
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
-import { MoreVert } from "@mui/icons-material";
+import { Delete, Done, MoreVert } from "@mui/icons-material";
 import Content from "./content";
 import React, { forwardRef, HTMLProps, useState } from "react";
 import { useCurriculum } from "./curriculum-context";
@@ -77,16 +77,20 @@ const Lesson = forwardRef<
           />
 
           <div className="flex items-center gap-4">
-            <Button className="h-8" type="button" onClick={saveLesson}>
-              Save
+            <Button
+              className="h-7 w-7 p-0 rounded-full"
+              type="button"
+              onClick={saveLesson}
+            >
+              <Done fontSize="small" className="scale-75" />
             </Button>
             <Button
               variant={"destructive"}
-              className="h-8"
+              className="h-7 w-7 p-0 rounded-full"
               type="button"
               onClick={deleteLesson}
             >
-              Delete
+              <Delete fontSize="small" className="scale-75" />
             </Button>
           </div>
         </div>

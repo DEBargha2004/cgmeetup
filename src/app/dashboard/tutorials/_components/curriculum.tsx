@@ -1,6 +1,8 @@
 import {
   Add,
   AddCircleOutline,
+  Delete,
+  Done,
   DragIndicator,
   MoreVert
 } from "@mui/icons-material";
@@ -20,7 +22,7 @@ import {
   LessonContentSchemaType
 } from "@/schema/tutorial";
 import { Input } from "@/components/ui/input";
-import React from "react";
+import React, { useState } from "react";
 import LessonCreateButtonsGroup from "./content-create-buttons-group";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -39,6 +41,7 @@ import Content from "./content";
 export default function Curriculum() {
   const currentDraggingChapterId = React.useRef<string | null>(null);
   const currentDraggingLessonId = React.useRef<string | null>(null);
+  const [accordionState, setAccordionState] = useState<string[]>([]);
   const { chapters, form, lessons } = useCurriculum();
 
   const saveChapter =
@@ -85,6 +88,16 @@ export default function Curriculum() {
         ]
       });
     };
+
+  const openAccordion = (lessonIds: string[]) => {
+    setAccordionState((prev) => [...prev, ...lessonIds]);
+  };
+
+  const closeAccordion = (lessonIds: string[]) => {
+    setAccordionState((prev) => {
+      return prev.filter((ac) => !lessonIds.includes(ac));
+    });
+  };
 
   const addChapter = (index: number) => {
     chapters.insert(index, {
@@ -225,26 +238,30 @@ export default function Curriculum() {
 
                     <div className="flex items-center gap-4">
                       <Button
-                        className="h-8"
+                        className="h-7 w-7 p-0 rounded-full"
                         type="button"
                         onClick={saveChapter(ch_index)}
                       >
-                        Save
+                        <Done fontSize="small" className="scale-75" />
                       </Button>
                       <Button
                         variant={"destructive"}
-                        className="h-8"
+                        className="h-7 w-7 p-0 rounded-full"
                         type="button"
                         onClick={removeChapter(ch_index)}
                       >
-                        Cancel
+                        <Delete fontSize="small" className="scale-75" />
                       </Button>
                     </div>
                   </div>
                 )}
               </div>
 
-              <Accordion type="multiple">
+              <Accordion
+                type="multiple"
+                value={accordionState}
+                onValueChange={setAccordionState}
+              >
                 {getLessonsByChapterId(chapter.chapter_id).map(
                   (lesson, lessonIndex) => (
                     <div
@@ -299,7 +316,10 @@ export default function Curriculum() {
                 )}
               </Accordion>
               <div className="p-2">
-                <LessonCreateButton chapterId={chapter.chapter_id}>
+                <LessonCreateButton
+                  chapterId={chapter.chapter_id}
+                  openAccordion={openAccordion}
+                >
                   <Button
                     type="button"
                     variant={"light_ghost"}

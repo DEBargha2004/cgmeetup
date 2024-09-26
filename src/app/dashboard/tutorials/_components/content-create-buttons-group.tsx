@@ -6,6 +6,7 @@ import {
   ImageOutlined,
   Photo,
   PlayCircleOutline,
+  SlowMotionVideo,
   Title,
   YouTube
 } from "@mui/icons-material";
@@ -83,7 +84,7 @@ export default function ContentCreateButtonsGroup({
         }
       >
         <DialogTrigger>
-          <LessonCreateButton Icon={AddLinkOutlined} label="Video Url" />
+          <LessonCreateButton Icon={YouTube} label="Video Url" />
         </DialogTrigger>
         <DialogContent className="p-0 space-y-0 bg-darkAccent max-w-[600px]">
           <DialogHeader className="p-2 px-4 md:text-lg text-base bg-lightAccent">
@@ -123,7 +124,7 @@ export default function ContentCreateButtonsGroup({
       <input type="file" {...videDropzone.getInputProps()} />
       <LessonCreateButton
         {...videDropzone.getRootProps({
-          Icon: YouTube,
+          Icon: SlowMotionVideo,
           label: "Video"
         })}
       />
