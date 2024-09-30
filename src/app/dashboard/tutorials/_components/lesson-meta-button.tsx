@@ -12,8 +12,15 @@ import React, { forwardRef, HTMLProps, useState } from "react";
 import { useCurriculum } from "./curriculum-context";
 import { DialogTrigger } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
+import { Switch } from "@/components/ui/switch";
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel
+} from "@/components/ui/form";
 
-const Lesson = forwardRef<
+const LessonMetaButton = forwardRef<
   HTMLDivElement,
   HTMLProps<HTMLDivElement> & {
     lessonId: string;
@@ -77,8 +84,26 @@ const Lesson = forwardRef<
           />
 
           <div className="flex items-center gap-4">
+            <FormField
+              control={form.control}
+              name={`lessons.${lessonIndex}.is_free`}
+              render={({ field }) => (
+                <FormItem
+                  className="flex items-center justify-start gap-2"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <FormLabel>Public Preview</FormLabel>
+                  <FormControl>
+                    <Switch
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
             <Button
-              className="h-7 w-7 p-0 rounded-full"
+              className="h-7 w-7 p-0 rounded-full shrink-0"
               type="button"
               onClick={saveLesson}
             >
@@ -86,7 +111,7 @@ const Lesson = forwardRef<
             </Button>
             <Button
               variant={"destructive"}
-              className="h-7 w-7 p-0 rounded-full"
+              className="h-7 w-7 p-0 rounded-full shrink-0"
               type="button"
               onClick={deleteLesson}
             >
@@ -99,6 +124,6 @@ const Lesson = forwardRef<
   );
 });
 
-Lesson.displayName = "Lesson";
+LessonMetaButton.displayName = "LessonMetaButton";
 
-export default Lesson;
+export default LessonMetaButton;

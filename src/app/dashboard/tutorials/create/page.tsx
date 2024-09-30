@@ -71,7 +71,7 @@ import { job_skills } from "@/constants/job-skills";
 import PrefixInput from "@/components/custom/prefix-input";
 import _ from "lodash";
 import LessionCreateButton from "../_components/content-create-button";
-import Lesson from "../_components/lesson";
+import Lesson from "../_components/lesson-meta-button";
 import Curriculum from "../_components/curriculum";
 import { CurriculumContext } from "../_components/curriculum-context";
 import { SingleTutorialContext } from "../_components/single-tutorial-context";

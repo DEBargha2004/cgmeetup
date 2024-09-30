@@ -18,16 +18,16 @@ const lessonContentSchema = z.object({
   content: z.string()
 });
 
-const lessonsSchema = z.array(
-  z.object({
-    chapter_id: z.string(),
-    lesson_id: z.string(),
-    title: z.string({ required_error: "Title is required" }),
-    saved: z.boolean(),
-    is_free: z.boolean(),
-    contents: z.array(lessonContentSchema)
-  })
-);
+const lessonsSchema = z.object({
+  chapter_id: z.string(),
+  lesson_id: z.string(),
+  title: z.string({ required_error: "Title is required" }),
+  saved: z.boolean(),
+  is_free: z.boolean(),
+  contents: z.array(lessonContentSchema),
+  thumbnail: z.string().optional(),
+  description: z.string().optional()
+});
 
 const tutorialSchema = z.object({
   is_free: z.boolean(),
@@ -52,7 +52,7 @@ export const courseSchema = z
     tags: z.array(z.string()).min(1, "Tags are required"),
     isCouse: z.boolean(),
     chapters: chaptersSchema,
-    lessons: lessonsSchema,
+    lessons: z.array(lessonsSchema),
     tutorial: tutorialSchema
   })
   .refine((data) => {

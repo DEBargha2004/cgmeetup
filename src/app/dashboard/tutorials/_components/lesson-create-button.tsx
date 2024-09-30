@@ -1,5 +1,4 @@
-import { CourseSchemaType, LessonsSchemaType } from "@/schema/tutorial";
-import { useFieldArray } from "react-hook-form";
+import { LessonsSchemaType } from "@/schema/tutorial";
 import { v4 } from "uuid";
 import { useCurriculum } from "./curriculum-context";
 
@@ -16,7 +15,7 @@ export default function LessonCreateButton({
   const generateNewLessonInstance = (
     chapterId: string,
     lessonId?: string
-  ): LessonsSchemaType[number] => {
+  ): LessonsSchemaType => {
     return {
       chapter_id: chapterId,
       lesson_id: lessonId || v4(),

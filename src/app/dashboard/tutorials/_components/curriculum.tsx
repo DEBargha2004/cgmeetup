@@ -7,7 +7,7 @@ import {
   MoreVert
 } from "@mui/icons-material";
 import { cn } from "@/lib/utils";
-import Lesson from "./lesson";
+import LessonMetaButton from "./lesson-meta-button";
 import {
   Accordion,
   AccordionContent,
@@ -15,15 +15,9 @@ import {
   AccordionTrigger
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { useFieldArray, useForm } from "react-hook-form";
-import {
-  ContentType,
-  CourseSchemaType,
-  LessonContentSchemaType
-} from "@/schema/tutorial";
+import { ContentType } from "@/schema/tutorial";
 import { Input } from "@/components/ui/input";
 import React, { useState } from "react";
-import LessonCreateButtonsGroup from "./content-create-buttons-group";
 import { Separator } from "@/components/ui/separator";
 import {
   DropdownMenu,
@@ -35,8 +29,8 @@ import LessonCreateButton from "./lesson-create-button";
 import ContentCreateButtonsGroup from "./content-create-buttons-group";
 import { v4 } from "uuid";
 import { useCurriculum } from "./curriculum-context";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
 import Content from "./content";
+import LessonContents from "./lesson-contents";
 
 export default function Curriculum() {
   const currentDraggingChapterId = React.useRef<string | null>(null);
@@ -69,25 +63,6 @@ export default function Curriculum() {
   const getLessonsByChapterId = (chapterId: string) => {
     return lessons.fields.filter((lesson) => lesson.chapter_id === chapterId);
   };
-
-  const getOriginalLessonIndex = (lessonId: string) => {
-    return lessons.fields.findIndex((lesson) => lesson.lesson_id === lessonId);
-  };
-
-  const handleContentCreate =
-    (lessonId: string) => (contentType: ContentType, data: string) => {
-      const id = v4();
-      const lessonIndex = getOriginalLessonIndex(lessonId);
-      const lessonInfo = form.getValues("lessons")[lessonIndex];
-
-      lessons.update(lessonIndex, {
-        ...lessonInfo,
-        contents: [
-          ...lessonInfo.contents,
-          { content_id: id, type: contentType, content: data }
-        ]
-      });
-    };
 
   const openAccordion = (lessonIds: string[]) => {
     setAccordionState((prev) => [...prev, ...lessonIds]);
@@ -134,15 +109,6 @@ export default function Curriculum() {
       );
       currentDraggingChapterId.current = null;
     };
-
-  const removeContent = (contentIndex: number, lessonIndex: number) => () => {
-    lessons.update(lessonIndex, {
-      ...lessons.fields[lessonIndex],
-      contents: lessons.fields[lessonIndex].contents.filter(
-        (content, index) => index !== contentIndex
-      )
-    });
-  };
 
   const handleLessonDragStart =
     (lessonId: string) => (e: React.DragEvent<HTMLDivElement>) => {
@@ -282,7 +248,7 @@ export default function Curriculum() {
                             !lesson.saved && "hover:no-underline"
                           )}
                         >
-                          <Lesson
+                          <LessonMetaButton
                             lessonId={lesson.lesson_id}
                             className="w-full"
                             dragHandler={
@@ -293,22 +259,10 @@ export default function Curriculum() {
                           />
                         </AccordionTrigger>
                         <AccordionContent>
-                          {lesson.contents.map((content, index) => (
-                            <Content
-                              key={content.content_id}
-                              form={form}
-                              contentType={content.type}
-                              className="p-3"
-                              removeContent={removeContent(index, lessonIndex)}
-                              contentPath={`lessons.${getOriginalLessonIndex(lesson.lesson_id)}.contents.${index}.content`}
-                            />
-                          ))}
-                          <div className="p-2">
-                            <ContentCreateButtonsGroup
-                              actions={handleContentCreate(lesson.lesson_id)}
-                              className="grid grid-cols-4 gap-2 p-2"
-                            />
-                          </div>
+                          <LessonContents
+                            lesson={lesson}
+                            lessonIndex={lessonIndex}
+                          />
                         </AccordionContent>
                       </AccordionItem>
                     </div>
