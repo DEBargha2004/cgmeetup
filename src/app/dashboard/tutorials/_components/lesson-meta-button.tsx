@@ -75,7 +75,7 @@ const LessonMetaButton = forwardRef<
           </DropdownMenu>
         </>
       ) : (
-        <div className="flex justify-between items-center w-full">
+        <div className="flex justify-between items-center w-full gap-4">
           <Input
             className="max-w-[350px]"
             onClick={(e) => e.stopPropagation()}

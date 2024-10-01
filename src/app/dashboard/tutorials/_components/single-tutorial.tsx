@@ -35,7 +35,7 @@ export default function SingleTutorial() {
   };
 
   return (
-    <div className="space-y-4 col-span-2">
+    <div className="space-y-4 col-span-2 @container">
       {tutorial?.contents.map((content, index) => (
         <Content
           key={content.content_id}
@@ -49,7 +49,7 @@ export default function SingleTutorial() {
 
       <ContentCreateButtonsGroup
         actions={handleContentCreate}
-        className="grid grid-cols-4 gap-2 py-0"
+        className="grid grid-cols-2 @xl:grid-cols-3 @4xl:grid-cols-4 gap-2 py-0"
       />
     </div>
   );

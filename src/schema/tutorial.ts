@@ -26,7 +26,8 @@ const lessonsSchema = z.object({
   is_free: z.boolean(),
   contents: z.array(lessonContentSchema),
   thumbnail: z.string().optional(),
-  description: z.string().optional()
+  description: z.string().optional(),
+  duration: z.string().optional()
 });
 
 const tutorialSchema = z.object({

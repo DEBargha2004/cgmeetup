@@ -9,7 +9,7 @@ const ContentCreateButton = forwardRef<
   <div
     className={cn(
       "flex flex-col justify-center items-center border w-full aspect-video rounded cursor-pointer",
-      " hover:bg-lightAccent transition-all",
+      "hover:bg-lightAccent transition-all",
       className
     )}
     ref={ref}
