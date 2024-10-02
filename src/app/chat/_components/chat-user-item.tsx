@@ -13,7 +13,8 @@ export default function ChatUserItem({ userId }: { userId: string }) {
   return (
     <div
       className={cn(
-        " w-full flex justify-start items-center gap-2 p-2 hover:bg-[#0000009d] cursor-pointer",
+        "w-full flex justify-start items-center gap-2 p-2 hover:bg-[#0000009d] cursor-pointer",
+        "shrink-0",
         isSelected ? " bg-black" : "bg-darkAccent"
       )}
     >

@@ -4,13 +4,12 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { Search } from "@mui/icons-material";
-import Image from "next/image";
 import Link from "next/link";
 import ChatUserItem from "./_components/chat-user-item";
 import { v4 } from "uuid";
 import { usePathname } from "next/navigation";
 import { useMemo, useState } from "react";
-import { ChatProvider } from "./_components/chat-provider";
+import { ChatProvider, TChatContext } from "./_components/chat-provider";
 
 const badges = ["All", "Unread", "Groups"];
 const users = Array.from({ length: 81 }, (_, i) => v4());
@@ -27,9 +26,23 @@ export default function ChatLayout({
   }, [pathname]);
 
   const [chatInput, setChatInput] = useState("");
+  const [images, setImages] = useState<TChatContext["images"]>({});
+  const currentChatId = useMemo(() => {
+    const chatId = pathname.split("/")[2];
+    return chatId;
+  }, [pathname]);
 
   return (
-    <ChatProvider values={{ isLeftSidebarMandatory, chatInput, setChatInput }}>
+    <ChatProvider
+      values={{
+        isLeftSidebarMandatory,
+        chatInput,
+        setChatInput,
+        images,
+        setImages,
+        currentChatId
+      }}
+    >
       <div className="flex justify-start items-start h-full relative overflow-hidden">
         <div
           id="list"

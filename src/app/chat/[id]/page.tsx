@@ -2,27 +2,15 @@
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { FieldType } from "@/types/field-type";
-import { IconType } from "@/types/icon";
-import {
-  Bookmark,
-  Close,
-  EmojiEmotions,
-  InsertDriveFile,
-  MoreVert,
-  PersonAdd,
-  Phone,
-  PhotoLibrary,
-  SlowMotionVideo
-} from "@mui/icons-material";
-import { format } from "date-fns";
+import { Bookmark, Close, MoreVert, PersonAdd } from "@mui/icons-material";
 import _ from "lodash";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import ChatInput from "../_components/chat-input";
 import { useRouter } from "next/navigation";
 import { useChatContext } from "../_components/chat-provider";
 import Message, { TMessage } from "../_components/message";
+import ImagePreview from "../_components/image-preview";
 
 const defaultmessages: TMessage[] = [
   {
@@ -107,20 +95,28 @@ export default function ChatPage() {
   const [messages, setMessages] = useState(defaultmessages);
 
   const messagesContainerRef = useRef<HTMLDivElement>(null);
+  const { currentChatId, images } = useChatContext();
+
+  const isImagePreviewAvailable = useMemo(() => {
+    return images[currentChatId]?.length > 0;
+  }, [currentChatId, images]);
 
   const router = useRouter();
   const { setChatInput } = useChatContext();
+  const currentShareImagesLength = images[currentChatId]?.length;
 
   useEffect(() => {
     messagesContainerRef.current?.scrollTo({
       top: messagesContainerRef.current.scrollHeight,
       behavior: "instant"
     });
-  }, [messages.length]);
+  }, [messages.length, currentShareImagesLength]);
 
   useEffect(() => {
     setChatInput("");
   }, []);
+
+  console.log({ images, currentChatId });
   return (
     <div
       id="chat"
@@ -174,16 +170,23 @@ export default function ChatPage() {
         </div>
         <div
           id="messages"
-          className="h-[82%] w-full overflow-y-auto scroller space-y-2 p-2"
+          className={cn(
+            "h-[82%] w-full overflow-y-auto scroller space-y-2",
+            !isImagePreviewAvailable && "p-2"
+          )}
           ref={messagesContainerRef}
         >
-          {messages.map((message) => (
-            <Message
-              key={message.id}
-              message={message}
-              isUserMessage={message.user_id === 1}
-            />
-          ))}
+          {!isImagePreviewAvailable ? (
+            messages.map((message) => (
+              <Message
+                key={message.id}
+                message={message}
+                isUserMessage={message.user_id === 1}
+              />
+            ))
+          ) : (
+            <ImagePreview images={images[currentChatId]} />
+          )}
         </div>
         <ChatInput className="h-[10%] " />
       </div>

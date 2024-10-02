@@ -6,6 +6,9 @@ type TChatContext = {
   isLeftSidebarMandatory: boolean;
   chatInput: string;
   setChatInput: React.Dispatch<React.SetStateAction<TChatContext["chatInput"]>>;
+  images: Record<string, { id: string; data: string }[]>;
+  setImages: React.Dispatch<React.SetStateAction<TChatContext["images"]>>;
+  currentChatId: string;
 };
 
 const ChatContext = createContext<TChatContext | null>(null);
